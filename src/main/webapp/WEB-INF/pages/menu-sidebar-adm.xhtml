@@ -1,0 +1,59 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+	<h:panelGroup layout="block" id="sidebar-nav">
+        <ul id="dashboard-menu">
+<!--             <li class="active"> --><!-- Verificar class -->
+            <li>
+<!--                 <h:panelGroup layout="block" class="pointer"> -->
+<!--                     <h:panelGroup layout="block" class="arrow"/> -->
+<!--                     <h:panelGroup layout="block" class="arrow_border"/> -->
+<!--                 </h:panelGroup> -->
+                <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/index">
+                    <i class="icon-home"></i>
+                    <span>#{msg['sidebar.principal']}</span>
+                </a>
+            </li>            
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-user"></i>
+                    <span>#{msg['sidebar.usuarios']}</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/usuario/lista">#{msg['sidebar.usuarios.listar']}</a></li>
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/usuario/novo">#{msg['sidebar.usuarios.novo']}</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade">
+                    <i class="icon-eye-close"></i>
+                    <span>#{msg['sidebar.motivoinviabilidade']}</span>
+                </a>
+            </li>
+            <li>
+            	<a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor">
+                    <i class="icon-map-marker"></i>
+                    <span>#{msg['sidebar.setor']}</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-sitemap"></i>
+                    <span>#{msg['sidebar.instituicao']}</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/banco">#{msg['sidebar.instituicao.banco']}</a></li>
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital">#{msg['sidebar.instituicao.hospital']}</a></li>
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/outro">#{msg['sidebar.instituicao.outro']}</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </h:panelGroup>
+	
+</ui:composition>

@@ -1,0 +1,91 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- bootstrap -->
+    <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
+    <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
+    <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+
+    <!-- libraries -->
+    <h:outputStylesheet library="css/lib" name="bootstrap-wysihtml5.css" />
+    <h:outputStylesheet library="css/lib" name="uniform.default.css" />
+    <h:outputStylesheet library="css/lib" name="select2.css"/>
+    <h:outputStylesheet library="css/lib" name="bootstrap.datepicker.css" />
+    <h:outputStylesheet library="css/lib" name="font-awesome.css" />
+
+    <!-- global styles -->
+    <h:outputStylesheet library="css" name="layout.css" />
+    <h:outputStylesheet library="css" name="elements.css" />
+    <h:outputStylesheet library="css" name="icons.css"  />
+    
+    <!-- this page specific styles -->
+    <h:outputStylesheet library="css/compiled" name="form-showcase.css"/>
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+
+	<h:panelGrid columns="2">
+		
+		
+		<h:outputLabel value="#{msg['notificacao.nome']}"/>
+		<h:inputText id="nomeRespEntrevista" value="#{pacienteForm.nomeRespEntrevista}"/>
+		
+		<h:outputLabel value="#{msg['notificacao.rg']}"/>
+		<h:inputText id="rgResponsavelRespDoacao" value="#{pacienteForm.rgResponsavelRespDoacao}"/>
+
+		<h:outputLabel value="#{msg['responsavel.dropdown.grauParentesco']}" />
+		<h:selectOneMenu id="grauParentescoDoacao" value="#{pacienteForm.grauParentescoDoacao}"
+			class="ui-select">
+			<f:selectItems value="#{pacienteForm.grauParentescoBanco}" />
+		</h:selectOneMenu>
+		
+		<h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
+                <h:selectOneMenu id="estadosCivisItem" value="#(pacienteForm.estadosCivisItem)"
+                                 class="ui-select">
+			<f:selectItems value="#{pacienteForm.estadosCivisBanco}" />
+		</h:selectOneMenu>
+		
+		<h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
+		<h:inputText id="telefone1Resp" value="#{pacienteForm.telefone1Resp}"/>
+		
+		<h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
+		<h:inputText id="telefone2Resp" value="#{pacienteForm.telefone2Resp}"/>
+		
+		<h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
+		<h:inputText id="profissaoRespDoacao" value="#{pacienteForm.profissaoRespDoacao}"/>
+		
+		<h:outputLabel value="#{msg['responsavel.text.cep']}"/>
+		<h:inputText id="cepRespDoacao" value="#{pacienteForm.cepRespDoacao}"/>
+		
+		<h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
+		<h:inputText id="nacionalidadeRespDoacao" value="#{pacienteForm.nacionalidadeRespDoacao}"/>
+
+		<h:outputLabel value="#{msg['paciente.dropDown.uf']}" />
+		<h:selectOneMenu id="estadoRespDoacao" value="#{pacienteForm.estadoRespDoacao}"
+			styleClass="select2" onchange="ajaxGetMunicipios(estadoRespDoacao, cidadeRespDoacao)">
+			<f:selectItem itemValue=""
+				itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
+			<f:selectItems value="#{pacienteForm.estadosBanco}" />
+		</h:selectOneMenu>
+
+		<h:outputLabel  value="#{msg['responsavel.dropdown.cidade']}"/>
+		<h:selectOneMenu id="cidadeRespDoacao" value="#{pacienteForm.cidadeRespDoacao}"
+                                 class="ui-select" onblur="" onchange="ajaxGetBairros(cidadeRespDoacao, bairroRespDoacao)">
+		</h:selectOneMenu>
+		
+		<h:outputLabel value="#{msg['paciente.dropDown.bairro']}"/>
+		<h:selectOneMenu id="bairroRespDoacao" value="#{pacienteForm.bairroRespDoacao}"
+			class="ui-select">
+		</h:selectOneMenu>
+		
+		<h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
+		<h:inputText id="logradouroRespDoacao" value="#{pacienteForm.logradouroRespDoacao}"/>
+		
+		<h:outputLabel value="#{msg['responsavel.text.numero']}"/>
+		<h:inputText id="numeroRespDoacao" value="#{pacienteForm.numeroRespDoacao}"/>
+		
+	</h:panelGrid>
+</ui:composition>

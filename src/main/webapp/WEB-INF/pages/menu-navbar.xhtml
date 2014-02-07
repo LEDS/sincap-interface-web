@@ -1,0 +1,89 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+	<h:panelGroup layout="block" styleClass="navbar navbar-inverse">
+		<h:panelGroup layout="block" styleClass="navbar-inner">
+        
+            <h:commandButton type="button" styleClass="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </h:commandButton>
+            
+            <a class="brand" href="#"><h:graphicImage library="img" name="logo.png" class="logo" /></a>
+            
+            <ul class="nav pull-right">                
+                <li class="hidden-phone">
+                    <input class="search" type="text" />
+                </li>
+                <li class="notification-dropdown hidden-phone">
+                    <a href="#" class="trigger">
+                        <i class="icon-warning-sign"></i>
+                        <span class="count">8</span>
+                    </a>
+                    <h:panelGroup layout="block" styleClass="pop-dialog">
+                        <h:panelGroup layout="block" styleClass="pointer right">
+                            <h:panelGroup layout="block" styleClass="arrow"/>
+                            <h:panelGroup layout="block" styleClass="arrow_border"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="body">
+                            <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
+                            <h:panelGroup layout="block" styleClass="notifications">
+                                <h3>You have 6 new notifications</h3>
+                                <a href="#" class="item">
+                                    <i class="icon-signin"></i> New user registration
+                                    <span class="time"><i class="icon-time"></i> 13 min.</span>
+                                </a>
+                                <a href="#" class="item">
+                                    <i class="icon-signin"></i> New user registration
+                                    <span class="time"><i class="icon-time"></i> 18 min.</span>
+                                </a>
+                                <a href="#" class="item">
+                                    <i class="icon-envelope-alt"></i> New message from Alejandra
+                                    <span class="time"><i class="icon-time"></i> 28 min.</span>
+                                </a>
+                                <a href="#" class="item">
+                                    <i class="icon-signin"></i> New user registration
+                                    <span class="time"><i class="icon-time"></i> 49 min.</span>
+                                </a>
+                                <a href="#" class="item">
+                                    <i class="icon-download-alt"></i> New order placed
+                                    <span class="time"><i class="icon-time"></i> 1 day.</span>
+                                </a>
+                                <h:panelGroup layout="block" styleClass="footer">
+                                    <a href="#" class="logout">View all notifications</a>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </li>
+               
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle hidden-phone" data-toggle="dropdown">
+                        #{msg['index.minhaConta']}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Informações pessoais</a></li>
+                    </ul>
+                </li>
+              
+              	<li class="settings hidden-phone">
+                    <a href="/sincap/adm" role="button">
+                        <i class="icon-cog"></i>
+                    </a>
+                </li>
+              
+                <li class="settings hidden-phone">
+                    <a href="/sincap" role="button">
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
+            </ul>            
+        </h:panelGroup>
+    </h:panelGroup>
+	
+</ui:composition>
