@@ -51,105 +51,105 @@
     <!-- end sidebar -->
 
     <!-- main container -->
-<h:panelGroup layout="block" class="content">
-	<h:panelGroup layout="block" styleClass="container-fluid">
-		<h:panelGroup layout="block" id="pad-wrapper">
-			<a class="dropdown-toggle" href="/sincap/admin/hospital/novo"> <i
-				class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
-			</a>
-			<h:panelGroup layout="block" styleClass="row-fluid">
-				<h:panelGroup layout="block" styleClass="span12">
-					<h:panelGroup styleClass="row-fluid form-wrapper">
+    <h:panelGroup layout="block" class="content">
+        <h:panelGroup layout="block" styleClass="container-fluid">
+            <h:panelGroup layout="block" id="pad-wrapper">
+                <a class="dropdown-toggle" href="/sincap/admin/hospital/novo"> <i
+                        class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
+                </a>
+                <h:panelGroup layout="block" styleClass="row-fluid">
+                    <h:panelGroup layout="block" styleClass="span12">
+                        <h:panelGroup styleClass="row-fluid form-wrapper">
 
-						<h:outputLabel>Hospitais</h:outputLabel>
-						<h:dataTable id="table1" value="#{listaHospitaisForm}" var="h"
-							rows="#{quantidade}" styleClass="table table-hover table-striped">
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Nome" />
-								</f:facet>
+                            <h:outputLabel>Hospitais</h:outputLabel>
+                            <h:dataTable id="table1" value="#{listaHospitaisForm}" var="h"
+                                         rows="#{quantidade}" styleClass="table table-hover table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nome" />
+                                    </f:facet>
                                     #{h.nome}
                                 </h:column>
-							<h:column>
-								<f:facet name="header">
-									<center>
-										<h:outputText value="Editar" />
-									</center>
-								</f:facet>
-								<a
-									href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital/get/${h.id}">
-									<center>
-										<i class="icon-repeat"></i>
-									</center>
-								</a>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<center>
-										<h:outputText value="Apagar" />
-									</center>
-								</f:facet>
-								<a
-									href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital/apagar/${h.id}">
-									<center>
-										<i class="icon-remove"></i>
-									</center>
-								</a>
-							</h:column>
-						</h:dataTable>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <center>
+                                            <h:outputText value="Editar" />
+                                        </center>
+                                    </f:facet>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/novo/editar/${h.id}">
+                                        <center>
+                                            <i class="icon-edit"></i>
+                                        </center>
+                                    </a>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <center>
+                                            <h:outputText value="Apagar" />
+                                        </center>
+                                    </f:facet>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital/apagar/${h.id}">
+                                        <center>
+                                            <i class="icon-remove"></i>
+                                        </center>
+                                    </a>
+                                </h:column>
+                            </h:dataTable>
 
-					</h:panelGroup>
-				</h:panelGroup>
-			</h:panelGroup>
-		</h:panelGroup>
-	</h:panelGroup>
-</h:panelGroup>
-<!-- end main container -->
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+    <!-- end main container -->
 
-<h:body>
-	<!-- scripts -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<h:outputScript library="js" name="bootstrap.min.js" />
-	<h:outputScript library="js" name="theme.js" />
-	<h:outputScript library="js" name="jquery-2.0.3.js" />
-	<h:outputScript library="js" name="jquery.validate.min.js" />
-	<!-- end scripts -->
+    <h:body>
+        <!-- scripts -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="theme.js" />
+        <h:outputScript library="js" name="jquery-2.0.3.js" />
+        <h:outputScript library="js" name="jquery.validate.min.js" />
+        <!-- end scripts -->
 
-	<script type="text/javascript">
-		//Validando os dados do formulario
-		$("#hospitalForm")
-				.validate(
-						{
-							rules : {
-								cnes : {
-									required : true
+        <script type="text/javascript">
+            //Validando os dados do formulario
+            $("#hospitalForm")
+                    .validate(
+                            {
+                                rules: {
+                                    cnes: {
+                                        required: true
 
-								},
-								nome : {
-									required : true
+                                    },
+                                    nome: {
+                                        required: true
 
-								},
-								sigla : {
-									required : true
-								}
-							},
-							messages : {
-								cnes : {
-									required : "Por favor, digite o cnes"
+                                    },
+                                    sigla: {
+                                        required: true
+                                    }
+                                },
+                                messages: {
+                                    cnes: {
+                                        required: "Por favor, digite o cnes"
 
-								},
-								nome : {
-									required : "Por favor, digite o nome."
-								},
-								sigla : {
-									required : "Por favor, digite a sigla."
-								}
-							},
-							submitHandler : function(
-									form) {
-								form.submit();
-							}
-						});
-	</script>
-</h:body>
+                                    },
+                                    nome: {
+                                        required: "Por favor, digite o nome."
+                                    },
+                                    sigla: {
+                                        required: "Por favor, digite a sigla."
+                                    }
+                                },
+                                submitHandler: function(
+                                        form) {
+                                    form.submit();
+                                }
+                            });
+        </script>
+    </h:body>
 </html>

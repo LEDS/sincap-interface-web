@@ -1,3 +1,40 @@
+function ajaxHideElement() {
+
+    var val = $("#username").val();
+
+    $.ajax({
+        type: "post",
+//		url: "http://localhost:8080/sincap/getHospitais",
+        url: "http://" + location.host + "/sincap/getHospitais",
+        cache: false,
+        data: val,
+        Accept: "application/json",
+        contentType: "application/json",
+        success: function(response) {
+
+            $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
+            var id;
+            var valor;
+
+            /*'response' eh o retorno da funcao do controller*/
+            $.each(response, function(idx, obj) {
+                $.each(obj, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+                    if (key == "id")
+                        id = value;
+                    else
+                        valor = value;
+                });
+                $("#hospital").append("<option value='" + id + "'>" + valor /*aparece para o usuario*/ + "</option>");
+            });
+
+        },
+        error: function(response, status, error) {
+            $('#result').html("");
+            $('#result').html('Status' + status + "Error: " + error);
+        }
+    });
+}
+
 function ajaxGetHospitais() {
 
     var val = $("#username").val();

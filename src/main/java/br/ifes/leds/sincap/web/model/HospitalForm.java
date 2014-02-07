@@ -9,9 +9,9 @@ public class HospitalForm {
     private String sigla;
     private String fax;
     private String email;
-    private String cidade;
-    private String estado;
-    private String bairro;
+    private Long cidade;
+    private Long estado;
+    private Long bairro;
     private String cep;
     private String logradouro;
     private String numero;
@@ -35,117 +35,116 @@ public class HospitalForm {
         this.cnes = cnes;
     }
 
-	public String getFantasia() {
-		return fantasia;
-	}
+    public String getFantasia() {
+        return fantasia;
+    }
 
-	public void setFantasia(String fantasia) {
-		this.fantasia = fantasia;
-	}
+    public void setFantasia(String fantasia) {
+        this.fantasia = fantasia;
+    }
 
-	public String getLogradouro() {
-		return logradouro;
-	}
+    public String getLogradouro() {
+        return logradouro;
+    }
 
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
 
-	public String getNumero() {
-		return numero;
-	}
+    public String getNumero() {
+        return numero;
+    }
 
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
 
-	public String getComplemento() {
-		return complemento;
-	}
+    public String getComplemento() {
+        return complemento;
+    }
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
-	public String getFax() {
-		return fax;
-	}
+    public String getFax() {
+        return fax;
+    }
 
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getCidade() {
-		return cidade;
-	}
+    public Long getCidade() {
+        return cidade;
+    }
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
+    public void setCidade(Long cidade) {
+        this.cidade = cidade;
+    }
 
-	public String getEstado() {
-		return estado;
-	}
+    public Long getEstado() {
+        return estado;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public void setEstado(Long estado) {
+        this.estado = estado;
+    }
 
-	public String getBairro() {
-		return bairro;
-	}
+    public Long getBairro() {
+        return bairro;
+    }
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    public void setBairro(Long bairro) {
+        this.bairro = bairro;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getSigla() {
-		return sigla;
-	}
+    public String getSigla() {
+        return sigla;
+    }
 
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
 
-	public Long[] getSetores() {
-		return setores;
-	}
+    public Long[] getSetores() {
+        return setores;
+    }
 
-	public void setSetores(Long[] setores) {
-		this.setores = setores;
-	}
+    public void setSetores(Long[] setores) {
+        this.setores = setores;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public String getCep() {
+        return cep;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-    
-    
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
 }
