@@ -1,0 +1,64 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:panelGrid>
+
+        <h:panelGrid columns="2">
+			<h:outputLabel value="#{msg['notificacao.nome']}" />
+			<h:inputText id="nomePaciente" value="#{pacienteForm.nomePaciente}"
+				required="true" />
+
+			<h:outputLabel value="#{msg['notificacao.rg']}" />
+			<h:inputText class="cpf" id="rgPaciente"
+				value="#{pacienteForm.rgPaciente}" />
+
+			<h:outputLabel value="#{msg['paciente.text.registroMedico']}" />
+			<h:inputText id="numeroProntuario"
+				value="#{pacienteForm.numeroProntuario}" />
+
+			<h:outputLabel value="#{msg['paciente.text.dataNasc']}" />
+			<h:inputText class="data" styleClass="input-large datepicker"
+				id="dataNascimentoPaciente" value="#{pacienteForm.dataNascimentoPaciente}" />
+
+			<h:outputLabel value="#{msg['paciente.radioButton.sexo']}" />
+                        <h:selectOneRadio style="width: 100%" id="sexoPaciente" value="#{pacienteForm.sexoPaciente}"
+				styleClass="radio" required="true" requiredMessage="sexo">
+				<f:selectItem itemValue="MASCULINO"
+					itemLabel="#{msg['paciente.radioButton.sexo.masc']}" />
+				<f:selectItem itemValue="FEMININO"
+					itemLabel="#{msg['paciente.radioButton.sexo.fem']}" />
+			</h:selectOneRadio>
+                        
+                        <h:outputLabel value="#{msg['paciente.text.mae']}" />
+			<h:inputText id="nomeMaePaciente" value="#{pacienteForm.nomeMaePaciente}" />
+
+			<h:outputLabel value="#{msg['paciente.dropDown.uf']}" />
+			<h:selectOneMenu id="estadoPaciente" value="#{pacienteForm.estadoPaciente}"
+				styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente,cidadePaciente)">
+				<f:selectItem itemValue=""
+					itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
+				<f:selectItems value="#{pacienteForm.estadosBanco}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="#{msg['paciente.dropDown.cidade']}" />
+			<h:selectOneMenu id="cidadePaciente" value="#{pacienteForm.cidadePaciente}"
+                                         class="ui-select"  onchange="ajaxGetBairros(cidadePaciente, bairroPaciente)">
+			</h:selectOneMenu>
+                        
+                        <h:outputLabel value="#{msg['paciente.dropDown.bairro']}" />
+			<h:selectOneMenu id="bairroPaciente" value="#{pacienteForm.bairroPaciente}"
+				class="ui-select" >
+			</h:selectOneMenu>
+                        
+                        <h:outputLabel value="#{msg['paciente.text.cep']}" />
+			<h:inputText id="nomeMaePaciente" value="#{pacienteForm.cepPaciente}" />
+                        
+                        <h:outputLabel value="#{msg['paciente.text.logradouro']}" />
+			<h:inputText id="nomeMaePaciente" value="#{pacienteForm.logradouroPaciente}" />
+		</h:panelGrid>
+
+	</h:panelGrid>
+</ui:composition>

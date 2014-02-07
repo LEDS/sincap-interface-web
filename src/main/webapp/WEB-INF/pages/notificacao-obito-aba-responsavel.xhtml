@@ -1,0 +1,26 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+	<h:panelGrid>
+
+		<h:panelGrid id="responsavel" columns="2">
+
+			<h:outputLabel value="#{msg['notificacao.nome']}" />
+			<h:inputText id="nomeResponsavel"
+				value="#{pacienteForm.nomeResp}" />
+
+			<h:outputLabel value="#{msg['notificacao.rg']}" />
+			<h:inputText class="cpf" id="cpfResponsavel"
+				value="#{pacienteForm.rgResp}" />
+
+			<h:outputLabel value="#{msg['responsavel.text.telefone']}" />
+			<h:inputText class="tel" id="telefone"
+				value="#{pacienteForm.telResp}"
+				onkeypress="mascaraTelefone('telefone')" maxlength="13" />
+		</h:panelGrid>
+
+	</h:panelGrid>
+</ui:composition>
