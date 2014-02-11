@@ -75,7 +75,7 @@ public class VisualizarHospitalController {
             VisualizarHospitalForm hospitalForm = new VisualizarHospitalForm(
                     hospital.getNome(), hospital.getId());
             listaHospitaisForm.add(hospitalForm);
-
+            
         }
 
         model.addAttribute("listaHospitaisForm", listaHospitaisForm);
