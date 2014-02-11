@@ -1,0 +1,7 @@
+# Binários gerados pelo maven.
+/target
+
+# Arquivos de configuração do eclipse.
+.classpath
+.project
+.settings/
