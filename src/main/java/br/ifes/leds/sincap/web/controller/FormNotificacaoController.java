@@ -184,7 +184,7 @@ public class FormNotificacaoController {
         //notificacao = preencherNotificacaoCaptacao(pacienteForm, notificacao);
 
         notificacao.setNotificador(notificador);
-        notificacao.setDataNotificacao(dataNotificacao);
+        notificacao.setDataAbertura(dataNotificacao);
 
         return notificacao;
     }
@@ -293,25 +293,25 @@ public class FormNotificacaoController {
         return notificacao;
     }
 
-//    private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao){
-//
-//            Set<ContraIndicacaoMedica> contraIndicacoes = new HashSet<ContraIndicacaoMedica>();
-//
-//            for(int i = 0; i < pacienteForm.getContraIndicacoes().length; i++){
-//                    ContraIndicacaoMedica contraIndicacao = this.aplCadastroInterno.obterContraindicaoMedicaPorId(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
-//                    contraIndicacoes.add(contraIndicacao);
-//            }
-//
-//            notificacao.getObito().getPaciente().getDoacao().get setContraIndicacoesMedicas(contraIndicacoes);
-//
-//            return notificacao;
-//    }
+    private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao){
+
+            Set<MotivoRecusa> contraIndicacoes = new HashSet<MotivoRecusa>();
+
+            for(int i = 0; i < pacienteForm.getContraIndicacoes().length; i++){
+                    MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
+                    contraIndicacoes.add(contraIndicacao);
+            }
+
+            notificacao.getObito().getPaciente().getDoacao().setContraIndicacaoMedica(contraIndicacoes);
+
+            return notificacao;
+    }
     
     private Notificacao preencherNotificacaoEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
 
-        //notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao); 
+        notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao); 
         //notificacao = preencherNotificacaoEntrevistaAbaEntrevista(pacienteForm, notificacao);
-        notificacao = preencherNotificacaoEntrevistaAbaResponsavelLegal(pacienteForm, notificacao);
+        //notificacao = preencherNotificacaoEntrevistaAbaResponsavelLegal(pacienteForm, notificacao);
         //notificacao = preencherNotificacaoEntrevistaAbaTestemunhas(pacienteForm, notificacao);
 
         return notificacao;
