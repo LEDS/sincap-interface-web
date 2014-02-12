@@ -41,7 +41,7 @@ public class ListaNotificacoes {
 
     private void preencherForm(ModelMap model) {
         List<Notificacao> notificacoes;
-        List<IndexForm> listaNotificacoesForm = new ArrayList<IndexForm>();
+        List<IndexForm> listaNotificacoesForm = new ArrayList<>();
 
         notificacoes = aplNotificacao.obter();
 
