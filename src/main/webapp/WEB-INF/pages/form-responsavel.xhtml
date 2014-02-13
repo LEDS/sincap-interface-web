@@ -35,15 +35,15 @@
 		
 		<h:outputLabel value="#{msg['notificacao.rg']}"/>
 		<h:inputText id="rgResponsavelRespDoacao" value="#{pacienteForm.rgResponsavelRespDoacao}"/>
-
-		<h:outputLabel value="#{msg['responsavel.dropdown.grauParentesco']}" />
-		<h:selectOneMenu id="grauParentescoDoacao" value="#{pacienteForm.grauParentescoDoacao}"
-			class="ui-select">
-			<f:selectItems value="#{pacienteForm.grauParentescoBanco}" />
+                
+                <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
+                <h:selectOneMenu id="parentesco" value="#(pacienteForm.parentesco)"
+                                 class="ui-select">
+			<f:selectItems value="#{pacienteForm.parentescoBanco}" />
 		</h:selectOneMenu>
 		
 		<h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
-                <h:selectOneMenu id="estadosCivisItem" value="#(pacienteForm.estadosCivisItem)"
+                <h:selectOneMenu id="estavoCivilRespDoacao" value="#(pacienteForm.estavoCivilRespDoacao)"
                                  class="ui-select">
 			<f:selectItems value="#{pacienteForm.estadosCivisBanco}" />
 		</h:selectOneMenu>

@@ -9,15 +9,15 @@
 		<h:panelGrid id="responsavel" columns="2">
 
 			<h:outputLabel value="#{msg['notificacao.nome']}" />
-			<h:inputText id="nomeResponsavel"
+			<h:inputText id="nomeResp"
 				value="#{pacienteForm.nomeResp}" />
 
 			<h:outputLabel value="#{msg['notificacao.rg']}" />
-			<h:inputText class="cpf" id="cpfResponsavel"
+			<h:inputText class="cpf" id="rgResp"
 				value="#{pacienteForm.rgResp}" />
 
 			<h:outputLabel value="#{msg['responsavel.text.telefone']}" />
-			<h:inputText class="tel" id="telefone"
+			<h:inputText class="tel" id="telResp"
 				value="#{pacienteForm.telResp}"
 				onkeypress="mascaraTelefone('telefone')" maxlength="13" />
 		</h:panelGrid>

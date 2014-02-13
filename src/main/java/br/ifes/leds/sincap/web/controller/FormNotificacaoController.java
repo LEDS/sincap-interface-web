@@ -31,6 +31,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Notificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Obito;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Paciente;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Responsavel;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Testemunha;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
@@ -38,9 +39,11 @@ import br.ifes.leds.sincap.web.model.Mensagem;
 import br.ifes.leds.sincap.web.model.PacienteForm;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
+import org.hibernate.annotations.Parent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -232,8 +235,10 @@ public class FormNotificacaoController {
         endereco.setCidade(cidade);
         endereco.setEstado(estado);
         endereco.setCEP(pacienteForm.getCepPaciente());
+        endereco.setComplemento("Complemento");
         endereco.setLogradouro(pacienteForm.getLogradouroPaciente());
-
+        paciente.setEndereco(endereco);
+        
         obito.setPaciente(paciente);
 
         notificacao.setObito(obito);
@@ -245,7 +250,7 @@ public class FormNotificacaoController {
 
         Responsavel responsavel = new Responsavel();
         Telefone telefone = new Telefone();
-        Set<Telefone> telefones = new HashSet<Telefone>();
+        List<Telefone> telefones = new ArrayList<Telefone>();
 
         /*atribuicao dos campos*/
         responsavel.setNome(pacienteForm.getNomeResp());
@@ -255,8 +260,8 @@ public class FormNotificacaoController {
         /*teste*/
         telefone.setTipo(TipoTelefone.RESIDENCIAL);
         telefones.add(telefone);
-        //responsavel.setTelef(telefones); ------------------------------------------------------
-        // TODO atribuição de entedeço em responsavel
+        responsavel.setTelefones(telefones);
+        
         /*atribuicoes dos campos a notificacao*/
         notificacao.getObito().getPaciente().setResponsavel(responsavel);
 
@@ -289,6 +294,11 @@ public class FormNotificacaoController {
         notificacao.getObito().setSegundaCausaMortis(causaMortis2);
         notificacao.getObito().setTerceiraCausaMortis(causaMortis3);
         notificacao.getObito().setQuartaCausaMortis(causaMortis4);
+        
+        if (setor != null){
+            notificacao.setSetor(setor);
+        }
+        
 
         return notificacao;
     }
@@ -301,8 +311,11 @@ public class FormNotificacaoController {
                     MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
                     contraIndicacoes.add(contraIndicacao);
             }
+            
+            Doacao doacao = new Doacao();
+            doacao.setContraIndicacaoMedica(contraIndicacoes);
 
-            notificacao.getObito().getPaciente().getDoacao().setContraIndicacaoMedica(contraIndicacoes);
+            notificacao.getObito().getPaciente().setDoacao(doacao);
 
             return notificacao;
     }
@@ -310,78 +323,92 @@ public class FormNotificacaoController {
     private Notificacao preencherNotificacaoEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
 
         notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao); 
-        //notificacao = preencherNotificacaoEntrevistaAbaEntrevista(pacienteForm, notificacao);
-        //notificacao = preencherNotificacaoEntrevistaAbaResponsavelLegal(pacienteForm, notificacao);
-        //notificacao = preencherNotificacaoEntrevistaAbaTestemunhas(pacienteForm, notificacao);
+        notificacao = preencherNotificacaoEntrevistaAbaEntrevista(pacienteForm, notificacao);
+        notificacao = preencherNotificacaoEntrevistaAbaResponsavelLegal(pacienteForm, notificacao);
+        notificacao = preencherNotificacaoEntrevistaAbaTestemunhas(pacienteForm, notificacao);
 
         return notificacao;
     }
 
     private Notificacao preencherNotificacaoEntrevistaAbaEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
 
-            //falta salvar o campo: entrevista realizada
-        Doacao doacao = new Doacao();
-//		Set<RecusaFamiliar> recusasFamiliares = new HashSet<RecusaFamiliar>();
-//		
-//		if(pacienteForm.getEntrevistaRealizada().equals("SIM"))
-//			doacao.setAutorizada(true);
-//		else
-//			doacao.setAutorizada(false);
-//		
-//		for(String recusaFamiliarStr : pacienteForm.getRecusaFamiliar()){
-//			MotivoRecusa recusaFamiliar = this.aplCadastroInterno.obterRecusaFamiliarPorId(Long.parseLong(recusaFamiliarStr));
-//			recusasFamiliares.add(recusaFamiliar);
-//		}
-//		
-//		notificacao.setRecusaFamiliar(recusasFamiliares);
-//		notificacao.getObito().getPaciente().setDoacao(doacao);
+        //falta salvar o campo: entrevista realizada
+        Doacao doacao = notificacao.getObito().getPaciente().getDoacao();
+        
+        if(pacienteForm.getEntrevistaRealizada().equals("SIM"))
+            doacao.setAutorizada(true);
+        else
+            doacao.setAutorizada(false);
+        
+        Calendar dtEntrevista = this.stringToDate(pacienteForm.getDtEntrevista());
+        Calendar hrEntrevista = this.stringToDateAndTime(pacienteForm.getDtEntrevista(), pacienteForm.getHrEntrevista());
+        
+        Set<MotivoRecusa> recusasFamiliares = new HashSet<MotivoRecusa>();
 
+//        for(int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++)
+//        {
+//        
+//                System.out.println("xxxx");
+//                MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
+//                recusasFamiliares.add(recusaF);
+//        }
+        
+        MotivoRecusa recusaF = this.aplMotivoRecusa.obter(1);
+        recusasFamiliares.add(recusaF);
+        
+        doacao.setRecusaFamiliar(recusasFamiliares);
+        doacao.setDataEntrevista(dtEntrevista);
+        doacao.setHrEntrevista(hrEntrevista);
+        notificacao.getObito().getPaciente().setDoacao(doacao);
+        
         return notificacao;
 
     }
 
     private Notificacao preencherNotificacaoEntrevistaAbaResponsavelLegal(PacienteForm pacienteForm, Notificacao notificacao){
 
-//            Responsavel responsavel = new Responsavel();
-//            Set <Responsavel> responsaveis = new HashSet<Responsavel>();
-//            Telefone telefone1 = new Telefone();
-//            Telefone telefone2 = new Telefone();
-//            Set <Telefone> telefones = new HashSet<Telefone>();
-//
-//            Endereco endereco = new Endereco();
-//            Bairro bairro;
-//            Cidade cidade;
-//            Estado estado;
-//
-//            responsavel.setNome(pacienteForm.getNomeRespEntrevista());
-//            responsavel.setRg(pacienteForm.getRgResponsavelRespDoacao());
-//            responsavel.setEstadoCivil(pacienteForm.);//pegar parentesco - salvar no banco?
-//            //pegar estado civil - salvar no banco? estadoCivilStringEnum(string)
-//            telefone1.setNumero(pacienteForm.getTelefone1Responsavel());
-//            telefone1.setTipo(TipoTelefone.RESIDENCIAL);
-//            telefone2.setNumero(pacienteForm.getTelefone2Responsavel());
-//            telefone2.setTipo(TipoTelefone.RESIDENCIAL);
-//            telefones.add(telefone1);
-//            telefones.add(telefone2);
-//            responsavel.setTelefones(telefones);
-//            responsavel.setProfissao(pacienteForm.getProfissao());
-//
-//            //salvar nacionalidade
-//            bairro = this.aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroResponsavel()));
-//            estado = this.aplEndereco.obterEstadoPorID(Long.parseLong(pacienteForm.getEstadoResponsavel()));
-//            municipio = this.aplEndereco.obterMunicipioPorID(Long.parseLong(pacienteForm.getCidade()));
-//            municipio.setEstado(estado);
-//            bairro.setMunicipio(municipio);
-//            endereco.setBairro(bairro);
-//            endereco.setCep(Long.parseLong(pacienteForm.getCep()));
-//            endereco.setLogradouro(pacienteForm.getLogradouro());
-//            endereco.setNumero(Integer.parseInt(pacienteForm.getNumero()));
-//            responsavel.setEndereco(endereco);
-//            responsaveis.add(responsavel);
-//
-//            notificacao.getObito().getPaciente().getDoacao().setResponsaveis(responsaveis);
+        Responsavel responsavel = new Responsavel();
+        Set <Responsavel> responsaveis = new HashSet<Responsavel>();
+        Telefone telefone1 = new Telefone();
+        Telefone telefone2 = new Telefone();
+        List <Telefone> telefones = new ArrayList<Telefone>();
 
-            return notificacao;
+        Endereco endereco = new Endereco();
+        Bairro bairro;
+        Cidade cidade;
+        Estado estado;
+
+        responsavel.setNome(pacienteForm.getNomeRespEntrevista());
+        responsavel.setRg(pacienteForm.getRgResponsavelRespDoacao());
+        
+        responsavel.setEstadoCivil(EstadoCivil.valueOf(pacienteForm.getEstavoCivilRespDoacao()));        
+        responsavel.setParentesco(Parentesco.valueOf(pacienteForm.getParentesco()));
+        telefone1.setNumero(pacienteForm.getTelefone1Resp());
+        telefone1.setTipo(TipoTelefone.RESIDENCIAL);
+        telefone2.setNumero(pacienteForm.getTelefone2Resp());
+        telefone2.setTipo(TipoTelefone.RESIDENCIAL);
+        telefones.add(telefone1);
+        telefones.add(telefone2);
+        responsavel.setTelefones(telefones);
+        responsavel.setProfissao(pacienteForm.getProfissaoRespDoacao());
+        
+        responsavel.setNacionalidade(pacienteForm.getNacionalidadeRespDoacao());
+        
+        bairro = this.aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroRespDoacao()));
+        estado = this.aplEndereco.obterEstadosPorID(Long.parseLong(pacienteForm.getEstadoRespDoacao()));
+        cidade = this.aplEndereco.obterCidadePorID(Long.parseLong(pacienteForm.getCidadeRespDoacao()));
+        endereco.setBairro(bairro);
+        endereco.setCidade(cidade);
+        endereco.setEstado(estado);
+        endereco.setCEP(pacienteForm.getCepRespDoacao());
+        endereco.setLogradouro(pacienteForm.getLogradouroRespDoacao());
+        endereco.setNumero(pacienteForm.getNumeroRespDoacao());
+        responsavel.setEndereco(endereco);
+        responsaveis.add(responsavel);
+
+        notificacao.getObito().getPaciente().getDoacao().setResponsaveis(responsaveis);
+
+        return notificacao;
     }
     
     private Notificacao preencherNotificacaoEntrevistaAbaTestemunhas(PacienteForm pacienteForm, Notificacao notificacao) {
@@ -444,7 +471,7 @@ public class FormNotificacaoController {
     private GregorianCalendar stringToDate(String data) {
 
         int ano, mes, dia;
-
+        //     dd/MM/aaaa
         dia = Integer.parseInt(data.substring(0, 2));
         mes = Integer.parseInt(data.substring(3, 5));
         ano = Integer.parseInt(data.substring(6, 10));
@@ -452,30 +479,5 @@ public class FormNotificacaoController {
         GregorianCalendar novaData = new GregorianCalendar(ano, mes - 1, dia);
 
         return novaData;
-    }
-    
-    private Enum<EstadoCivil> estadoCivilStringEnum(String str){
-        Enum ret;
-        switch(str.charAt(0)){
-            case '1':
-                ret = EstadoCivil.CASADO;
-                //break;
-                
-            case '2':
-                ret = EstadoCivil.DIVORCIADO;
-                break;
-                
-            case '3':
-                ret = EstadoCivil.SOLTEIRO;
-                break;
-                
-            case '4':
-                ret = EstadoCivil.VIUVO;
-                break;
-            default:
-                ret = EstadoCivil.SOLTEIRO;
-                break;               
-        }        
-        return ret;
     }
 }

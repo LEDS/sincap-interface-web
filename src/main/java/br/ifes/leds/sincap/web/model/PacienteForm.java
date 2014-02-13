@@ -13,6 +13,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaMortis;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Encaminhamento;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 
 
 public class PacienteForm {   
@@ -71,16 +72,19 @@ public class PacienteForm {
 
     /* -- Aba Entrevista -- */
     private String entrevistaRealizada;
+    private String dtEntrevista;
+    private String hrEntrevista;
     private String doacaoAutorizada;
     private String[] recusaFamiliar;
 
     /* -- Aba Responsavel Doacao  -- */
     private String grauParentescoDoacao;
+    private String parentesco;
     private String nomeRespEntrevista;
     private String estavoCivilRespDoacao;
-    private String logradouroRespDoacao; //???
+    private String logradouroRespDoacao;
     private String telefone1Resp;
-    private String telefone2Resp;
+    private String telefone2Resp;    
     private String nacionalidadeRespDoacao;
     private String profissaoRespDoacao;
     
@@ -170,9 +174,9 @@ public class PacienteForm {
     public List<SelectItem> getGrauParentescoBanco() {
         
         List<SelectItem> grauParentesco = new ArrayList<SelectItem>();
-        grauParentesco.add(new SelectItem("1", "Grau 1"));
-        grauParentesco.add(new SelectItem("2", "Grau 2"));
-        grauParentesco.add(new SelectItem("3", "Grau 3"));
+        grauParentesco.add(new SelectItem("Grau 1", "Grau 1"));
+        grauParentesco.add(new SelectItem("Grau 1", "Grau 2"));
+        grauParentesco.add(new SelectItem("Grau 1", "Grau 3"));
 
         return grauParentesco;
         
@@ -201,12 +205,24 @@ public class PacienteForm {
     public List<SelectItem> getEstadosCivisBanco(){
         List<SelectItem> estadosCivisItem = new ArrayList<SelectItem>();
         
-        estadosCivisItem.add(new SelectItem("1", EstadoCivil.CASADO.toString()));
-        estadosCivisItem.add(new SelectItem("2", EstadoCivil.DIVORCIADO.toString()));
-        estadosCivisItem.add(new SelectItem("3", EstadoCivil.SOLTEIRO.toString()));
-        estadosCivisItem.add(new SelectItem("4", EstadoCivil.VIUVO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.CASADO.toString(), EstadoCivil.CASADO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.DIVORCIADO.toString(), EstadoCivil.DIVORCIADO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.SOLTEIRO.toString(), EstadoCivil.SOLTEIRO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.VIUVO.toString(), EstadoCivil.VIUVO.toString()));
                 
         return estadosCivisItem;
+    }
+    
+    public List<SelectItem> getParentescoBanco(){
+        List<SelectItem> parentescoItem = new ArrayList<SelectItem>();
+        
+        parentescoItem.add(new SelectItem(Parentesco.AVOS, Parentesco.AVOS.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.CONJUGE, Parentesco.CONJUGE.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.IRMAOS, Parentesco.IRMAOS.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.PAIS, Parentesco.PAIS.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.PAIS, Parentesco.PAIS.toString()));
+        //new SelectItem()
+        return parentescoItem;
     }
     
     public List<SelectItem> getEncaminhado(){
@@ -220,6 +236,24 @@ public class PacienteForm {
     }
 
     /** -- Getters e Setters -- **/
+    public String getHrEntrevista() {
+        return hrEntrevista;
+    }
+    public void setHrEntrevista(String hrEntrevista) {
+        this.hrEntrevista = hrEntrevista;
+    }
+    public String getDtEntrevista() {
+        return dtEntrevista;
+    }
+    public void setDtEntrevista(String dtEntrevista) {
+        this.dtEntrevista = dtEntrevista;
+    }
+    public String getParentesco() {
+        return parentesco;
+    }
+    public void setParentesco(String parentesco) {
+        this.parentesco = parentesco;
+    }
     public List<Estado> getEstados() {
         return estados;
     }
