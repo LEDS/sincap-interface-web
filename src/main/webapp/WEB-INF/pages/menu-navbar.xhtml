@@ -22,7 +22,7 @@
                 <li class="notification-dropdown hidden-phone">
                     <a href="#" class="trigger">
                         <i class="icon-warning-sign"></i>
-                        <span class="count">8</span>
+                        <span id="contador" class="count">0</span>
                     </a>
                     <h:panelGroup layout="block" styleClass="pop-dialog">
                         <h:panelGroup layout="block" styleClass="pointer right">
@@ -31,31 +31,13 @@
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="body">
                             <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
-                            <h:panelGroup layout="block" styleClass="notifications">
-                                <h3>You have 6 new notifications</h3>
-                                <a href="#" class="item">
-                                    <i class="icon-signin"></i> New user registration
-                                    <span class="time"><i class="icon-time"></i> 13 min.</span>
-                                </a>
-                                <a href="#" class="item">
-                                    <i class="icon-signin"></i> New user registration
-                                    <span class="time"><i class="icon-time"></i> 18 min.</span>
-                                </a>
-                                <a href="#" class="item">
-                                    <i class="icon-envelope-alt"></i> New message from Alejandra
-                                    <span class="time"><i class="icon-time"></i> 28 min.</span>
-                                </a>
-                                <a href="#" class="item">
-                                    <i class="icon-signin"></i> New user registration
-                                    <span class="time"><i class="icon-time"></i> 49 min.</span>
-                                </a>
-                                <a href="#" class="item">
-                                    <i class="icon-download-alt"></i> New order placed
-                                    <span class="time"><i class="icon-time"></i> 1 day.</span>
-                                </a>
-                                <h:panelGroup layout="block" styleClass="footer">
-                                    <a href="#" class="logout">View all notifications</a>
-                                </h:panelGroup>
+                            <h:panelGroup id="painelNovasNotificacoes" layout="block" styleClass="notifications">
+<!--                                <h3>You have 6 new notifications</h3>-->
+                                
+                                
+<!--                                <h:panelGroup id="visualizarTodasNotificacoes" layout="block" styleClass="footer">
+                                    <a href="#" class="logout">Ver todas as notificações</a>
+                                </h:panelGroup>-->
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
@@ -85,5 +67,15 @@
             </ul>            
         </h:panelGroup>
     </h:panelGroup>
-	
+    <h:outputScript library="js" name="sincaplib.js" />
+    <h:outputScript library="js" name="jquery-2.0.3.js" />
+    <script type="text/javascript">
+       
+        $(document).ready(function()
+        {
+            ajaxGetNovasNotificacoes();
+            setInterval(ajaxGetNovasNotificacoes, 5000);
+        });
+    </script>      
+     
 </ui:composition>

@@ -14,10 +14,12 @@
         <jackson.version>1.9.10</jackson.version>
         <hibernate.version>4.1.9.Final</hibernate.version>
         <aspectj.version>1.6.9</aspectj.version>
+        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
     <dependencies>
 
+        <!-- Sincap Entities -->
         <dependency>
             <groupId>br.ifes.leds.sincap</groupId>
             <artifactId>SincapEntities</artifactId>
@@ -268,6 +270,12 @@
             <artifactId>javassist</artifactId>
             <version>3.11.0.GA</version>
             <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.3</version>
         </dependency>
 
     </dependencies>

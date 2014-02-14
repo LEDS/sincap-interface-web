@@ -1,47 +1,58 @@
 package br.ifes.leds.sincap.web.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class IndexForm {
 
     private List<IndexForm> listaNotificacoes;
 
+    private String idNotificacao;
     private String protocolo;
-    private String dataNotificacao;
-    private String dataObito;
+    private Date dataNotificacao;
+    private Date dataObito;
     private String paciente;
+    private String instituicao;
 
     public IndexForm() {
         // TODO Auto-generated constructor stub
     }
 
-    public IndexForm(String protocolo, String dataNotificacao, String dataObito, String paciente,
+    public IndexForm(String idNotificacao, String protocolo, Date dataNotificacao, Date dataObito, String paciente,
             String instituicao) {
-
+        this.idNotificacao = idNotificacao;
         this.protocolo = protocolo;
         this.dataNotificacao = dataNotificacao;
         this.dataObito = dataObito;
         this.paciente = paciente;
         this.instituicao = instituicao;
     }
+    
+    public String getIdNotificacao() {
+        return idNotificacao;
+    }
 
-    public String getDataNotificacao() {
+    public void setIdNotificacao(String idNotificacao) {
+        this.idNotificacao = idNotificacao;
+    }
+
+    public Date getDataNotificacao() {
         return dataNotificacao;
     }
 
-    public void setDataNotificacao(String dataNotificacao) {
+    public void setDataNotificacao(Date dataNotificacao) {
         this.dataNotificacao = dataNotificacao;
     }
 
-    public String getDataObito() {
+    public Date getDataObito() {
         return dataObito;
     }
 
-    public void setDataObito(String dataObito) {
+    public void setDataObito(Date dataObito) {
         this.dataObito = dataObito;
     }
-    private String instituicao;
 
+    
     public String getProtocolo() {
         return protocolo;
     }

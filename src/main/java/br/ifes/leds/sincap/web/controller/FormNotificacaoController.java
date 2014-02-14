@@ -4,9 +4,7 @@ import br.ifes.leds.reuse.endereco.cdp.Bairro;
 import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Endereco;
 import java.util.List;
-
 import javax.faces.bean.SessionScoped;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,6 +35,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Testemunha;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
 import br.ifes.leds.sincap.web.model.Mensagem;
 import br.ifes.leds.sincap.web.model.PacienteForm;
+import br.ifes.leds.sincap.web.model.ResumoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -340,8 +339,6 @@ public class FormNotificacaoController {
         Calendar dtEntrevista = this.stringToDate(pacienteForm.getDtEntrevista());
         Calendar hrEntrevista = this.stringToDateAndTime(pacienteForm.getDtEntrevista(), pacienteForm.getHrEntrevista());
 
-       
-
         for (int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++) {
 
             MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
@@ -360,10 +357,10 @@ public class FormNotificacaoController {
     private Notificacao preencherNotificacaoEntrevistaAbaResponsavelLegal(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Responsavel responsavel = new Responsavel();
-        Set<Responsavel> responsaveis = new HashSet<Responsavel>();
+        Set<Responsavel> responsaveis = new HashSet<>();
         Telefone telefone1 = new Telefone();
         Telefone telefone2 = new Telefone();
-        List<Telefone> telefones = new ArrayList<Telefone>();
+        List<Telefone> telefones = new ArrayList<>();
 
         Endereco endereco = new Endereco();
         Bairro bairro;
@@ -471,5 +468,64 @@ public class FormNotificacaoController {
         GregorianCalendar novaData = new GregorianCalendar(ano, mes - 1, dia);
 
         return novaData;
+    }
+
+    private Enum<EstadoCivil> estadoCivilStringEnum(String str) {
+        Enum ret;
+        switch (str.charAt(0)) {
+            case '1':
+                ret = EstadoCivil.CASADO;
+                //break;
+
+            case '2':
+                ret = EstadoCivil.DIVORCIADO;
+                break;
+
+            case '3':
+                ret = EstadoCivil.SOLTEIRO;
+                break;
+
+            case '4':
+                ret = EstadoCivil.VIUVO;
+                break;
+            default:
+                ret = EstadoCivil.SOLTEIRO;
+                break;
+        }
+        return ret;
+    }
+
+    /**
+     * Pega todas as notificações novas (não arquivadas).
+     *
+     * @return Resumo das notificações
+     */
+    @RequestMapping(value = "/getNovasNotificacoes", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<ResumoNotificacao>> getNovasNotificacoes() {
+
+        List<ResumoNotificacao> resumos = null;
+        try {
+            // Pega as notificações não arquivadas.
+            List<Notificacao> novasNotificacoes = aplNotificacao.retornarNotificacaoNaoArquivada();
+
+            // Monta os resumos das notificações, para que as notificações sejam facilmente
+            // interpretadas pelo AJAX.
+            resumos = new ArrayList<>();
+            for (Notificacao notificacao : novasNotificacoes) {
+                long id = notificacao.getId();
+                String codigo = notificacao.getCodigo();
+                String paciente = notificacao.getObito().getPaciente().getNome();
+                Calendar dataAbertura = notificacao.getDataAbertura();
+                resumos.add(new ResumoNotificacao(id, codigo, paciente, dataAbertura));
+            }
+
+            // Retorna a resposta.
+            return new ResponseEntity<>(resumos, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(resumos, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }
