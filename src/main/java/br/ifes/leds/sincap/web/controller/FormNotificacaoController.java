@@ -238,7 +238,7 @@ public class FormNotificacaoController {
         endereco.setComplemento("Complemento");
         endereco.setLogradouro(pacienteForm.getLogradouroPaciente());
         paciente.setEndereco(endereco);
-        
+
         obito.setPaciente(paciente);
 
         notificacao.setObito(obito);
@@ -261,7 +261,7 @@ public class FormNotificacaoController {
         telefone.setTipo(TipoTelefone.RESIDENCIAL);
         telefones.add(telefone);
         responsavel.setTelefones(telefones);
-        
+
         /*atribuicoes dos campos a notificacao*/
         notificacao.getObito().getPaciente().setResponsavel(responsavel);
 
@@ -275,54 +275,50 @@ public class FormNotificacaoController {
 
         dataHorarioObito.clear();
         dataHorarioObito = stringToDateAndTime(pacienteForm.getDataObito(), pacienteForm.getHorarioObito());
-        
+
         CausaMortis causaMortis1 = new CausaMortis();
         causaMortis1.setDescricao(pacienteForm.getMotivosObito1());
-        
+
         CausaMortis causaMortis2 = new CausaMortis();
         causaMortis2.setDescricao(pacienteForm.getMotivosObito2());
-        
+
         CausaMortis causaMortis3 = new CausaMortis();
         causaMortis3.setDescricao(pacienteForm.getMotivosObito3());
-        
+
         CausaMortis causaMortis4 = new CausaMortis();
         causaMortis4.setDescricao(pacienteForm.getMotivosObito4());
-        
+
         /*atribuicoes dos campos a notificacao*/
         notificacao.getObito().setDataObito(dataHorarioObito);
         notificacao.getObito().setPrimeiraCausaMortis(causaMortis1);
         notificacao.getObito().setSegundaCausaMortis(causaMortis2);
         notificacao.getObito().setTerceiraCausaMortis(causaMortis3);
         notificacao.getObito().setQuartaCausaMortis(causaMortis4);
-        
-        if (setor != null){
+
+        if (setor != null) {
             notificacao.setSetor(setor);
         }
-        
 
         return notificacao;
     }
 
-    private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao){
+    private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao) {
 
-            Set<MotivoRecusa> contraIndicacoes = new HashSet<MotivoRecusa>();
+        Doacao doacao = new Doacao();
 
-            for(int i = 0; i < pacienteForm.getContraIndicacoes().length; i++){
-                    MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
-                    contraIndicacoes.add(contraIndicacao);
-            }
-            
-            Doacao doacao = new Doacao();
-            doacao.setContraIndicacaoMedica(contraIndicacoes);
+        for (int i = 0; i < pacienteForm.getContraIndicacoes().length; i++) {
+            MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
+            doacao.addMotivoRecusa(contraIndicacao);
+        }
 
-            notificacao.getObito().getPaciente().setDoacao(doacao);
+        notificacao.getObito().getPaciente().setDoacao(doacao);
 
-            return notificacao;
+        return notificacao;
     }
-    
+
     private Notificacao preencherNotificacaoEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
 
-        notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao); 
+        notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao);
         notificacao = preencherNotificacaoEntrevistaAbaEntrevista(pacienteForm, notificacao);
         notificacao = preencherNotificacaoEntrevistaAbaResponsavelLegal(pacienteForm, notificacao);
         notificacao = preencherNotificacaoEntrevistaAbaTestemunhas(pacienteForm, notificacao);
@@ -334,44 +330,40 @@ public class FormNotificacaoController {
 
         //falta salvar o campo: entrevista realizada
         Doacao doacao = notificacao.getObito().getPaciente().getDoacao();
-        
-        if(pacienteForm.getEntrevistaRealizada().equals("SIM"))
+
+        if (pacienteForm.getEntrevistaRealizada().equals("SIM")) {
             doacao.setAutorizada(true);
-        else
+        } else {
             doacao.setAutorizada(false);
-        
+        }
+
         Calendar dtEntrevista = this.stringToDate(pacienteForm.getDtEntrevista());
         Calendar hrEntrevista = this.stringToDateAndTime(pacienteForm.getDtEntrevista(), pacienteForm.getHrEntrevista());
-        
-        Set<MotivoRecusa> recusasFamiliares = new HashSet<MotivoRecusa>();
 
-//        for(int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++)
-//        {
-//        
-//                System.out.println("xxxx");
-//                MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
-//                recusasFamiliares.add(recusaF);
-//        }
-        
-        MotivoRecusa recusaF = this.aplMotivoRecusa.obter(1);
-        recusasFamiliares.add(recusaF);
-        
-        doacao.setRecusaFamiliar(recusasFamiliares);
+       
+
+        for (int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++) {
+
+            MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
+            doacao.addMotivoRecusa(recusaF);
+
+        }
+
         doacao.setDataEntrevista(dtEntrevista);
         doacao.setHrEntrevista(hrEntrevista);
         notificacao.getObito().getPaciente().setDoacao(doacao);
-        
+
         return notificacao;
 
     }
 
-    private Notificacao preencherNotificacaoEntrevistaAbaResponsavelLegal(PacienteForm pacienteForm, Notificacao notificacao){
+    private Notificacao preencherNotificacaoEntrevistaAbaResponsavelLegal(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Responsavel responsavel = new Responsavel();
-        Set <Responsavel> responsaveis = new HashSet<Responsavel>();
+        Set<Responsavel> responsaveis = new HashSet<Responsavel>();
         Telefone telefone1 = new Telefone();
         Telefone telefone2 = new Telefone();
-        List <Telefone> telefones = new ArrayList<Telefone>();
+        List<Telefone> telefones = new ArrayList<Telefone>();
 
         Endereco endereco = new Endereco();
         Bairro bairro;
@@ -380,8 +372,8 @@ public class FormNotificacaoController {
 
         responsavel.setNome(pacienteForm.getNomeRespEntrevista());
         responsavel.setRg(pacienteForm.getRgResponsavelRespDoacao());
-        
-        responsavel.setEstadoCivil(EstadoCivil.valueOf(pacienteForm.getEstavoCivilRespDoacao()));        
+
+        responsavel.setEstadoCivil(EstadoCivil.valueOf(pacienteForm.getEstavoCivilRespDoacao()));
         responsavel.setParentesco(Parentesco.valueOf(pacienteForm.getParentesco()));
         telefone1.setNumero(pacienteForm.getTelefone1Resp());
         telefone1.setTipo(TipoTelefone.RESIDENCIAL);
@@ -391,9 +383,9 @@ public class FormNotificacaoController {
         telefones.add(telefone2);
         responsavel.setTelefones(telefones);
         responsavel.setProfissao(pacienteForm.getProfissaoRespDoacao());
-        
+
         responsavel.setNacionalidade(pacienteForm.getNacionalidadeRespDoacao());
-        
+
         bairro = this.aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroRespDoacao()));
         estado = this.aplEndereco.obterEstadosPorID(Long.parseLong(pacienteForm.getEstadoRespDoacao()));
         cidade = this.aplEndereco.obterCidadePorID(Long.parseLong(pacienteForm.getCidadeRespDoacao()));
@@ -410,7 +402,7 @@ public class FormNotificacaoController {
 
         return notificacao;
     }
-    
+
     private Notificacao preencherNotificacaoEntrevistaAbaTestemunhas(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Testemunha testemunha1 = new Testemunha();
@@ -445,7 +437,7 @@ public class FormNotificacaoController {
             notificacao.getObito().setEncaminhamento(Encaminhamento.SVO);
         }
 
-            //pegar equipe de captacao - onde salvar?
+        //pegar equipe de captacao - onde salvar?
         //pegar problemas logistico e estruturais - juntar os dois em uma unica classe?
         //pegar o comentario - onde salvar
         notificacao.getObito().getPaciente().getDoacao().setCaptacao(captacao);
