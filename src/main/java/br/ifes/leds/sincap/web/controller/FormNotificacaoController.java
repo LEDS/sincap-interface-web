@@ -19,6 +19,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplMotivoRecusa;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplPrincipal;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Captacao;
@@ -42,7 +43,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
-import org.hibernate.annotations.Parent;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -66,6 +66,8 @@ public class FormNotificacaoController {
     UsuarioSessao usuarioSessao;
     @Autowired
     AplMotivoRecusa aplMotivoRecusa;
+    @Autowired
+    AplHospital aplHospital;
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String loadFormNovaNotificacao(ModelMap model) {
@@ -176,7 +178,8 @@ public class FormNotificacaoController {
         Notificacao notificacao = new Notificacao();
         GregorianCalendar dataNotificacao = new GregorianCalendar();
         Notificador notificador;
-
+        
+        notificacao.setInstituicao(aplHospital.obter(usuarioSessao.getIdHospital()));
         notificador = aplPrincipal.obterNotificadorPorUsuarioUsername(usuarioSessao.getCpfUsuario());
 
         //TODO

@@ -36,7 +36,7 @@ function ajaxHideElement() {
 }
 
 function ajaxGetHospitais() {
-
+    
     var val = $("#username").val();
     $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
 
@@ -45,7 +45,7 @@ function ajaxGetHospitais() {
 //		url: "http://localhost:8080/sincap/getHospitais",
         url: "http://" + location.host + "/sincap/getHospitais",
         cache: false,
-        data: cpf,
+        data: val,
         Accept: "application/json",
         contentType: "application/json",
         success: function(response) {
