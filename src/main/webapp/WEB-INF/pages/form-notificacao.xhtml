@@ -93,8 +93,8 @@
 
                             <!-- PASSO 1 -->
                             <div class="step-content">
-                                
-                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacaoObito" method="post"> 
+
+                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacaoObito" method="post">
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
                                             <ul class="nav nav-tabs">
@@ -143,7 +143,7 @@
                                                             <ui:include src="notificacao-contraindicacoes.xhtml" />
                                                         </ui:insert>
                                                     </div>
-                                                    
+
                                                     <div id="paneEntrevista1" class="tab-pane">
                                                         <ui:insert name="form-entrevista">
                                                             <ui:include src="form-entrevista.xhtml" />
@@ -161,43 +161,40 @@
                                                             <ui:include src="form-testemunhas.xhtml" />
                                                         </ui:insert>                                      
                                                     </div>                                   
-                                                    
-                                                    <button type="submit" class="btn-glow success btn-finish">
-                                                        ${msg['notificacao.button.finalizar']}
-                                                    </button>
+
                                                 </div> 
 
                                             </div>
                                         </div>
                                     </div>
-                                </form>
-                                <!-- FIM PASSO 2 -->
-                                <!-- PASSO 3 -->
-                                <div class="step-pane" id="step3">
-                                    <div class="row-fluid form-wrapper">
-                                        <div class="span8">
-                                            <div class="tab-content">
-                                                <ui:insert name="form-captacao">
-                                                    <ui:include src="form-captacao.xhtml" />
-                                                </ui:insert>
-                                            </div>      
+                                    <!-- FIM PASSO 2 -->
+                                    <!-- PASSO 3 -->
+                                    <div class="step-pane" id="step3">
+                                        <div class="row-fluid form-wrapper">
+                                            <div class="span8">
+                                                <div class="tab-content">
+                                                    <ui:insert name="form-captacao">
+                                                        <ui:include src="form-captacao.xhtml" />
+                                                    </ui:insert>
+                                                </div>      
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div class="wizard-actions">
+                                        <button type="button" class="btn-glow primary btn-prev"> 
+                                            <i class="icon-chevron-left"></i> ${msg['notificacao.button.anterior']}
+                                        </button>
+                                        <button type="button" class="btn-glow primary btn-next" data-last="Finish">
+                                            ${msg['notificacao.button.proximo']} <i class="icon-chevron-right"></i>
+                                        </button>
+                                        <button type="submit" class="btn-glow success btn-finish">
+                                            ${msg['notificacao.button.finalizar']}
+                                        </button>
+                                    </div>
+                                    <!-- FIM PASSO 3 -->
+                                </form>
+                            </div>
 
-                            </div>
-                            <div class="wizard-actions">
-                                <button type="button" class="btn-glow primary btn-prev"> 
-                                    <i class="icon-chevron-left"></i> ${msg['notificacao.button.anterior']}
-                                </button>
-                                <button type="button" class="btn-glow primary btn-next" data-last="Finish">
-                                    ${msg['notificacao.button.proximo']} <i class="icon-chevron-right"></i>
-                                </button>
-                                <button type="button" class="btn-glow success btn-finish">
-                                    ${msg['notificacao.button.finalizar']}
-                                </button>
-                            </div>
-                            <!-- FIM PASSO 3 -->
                         </div>
                     </div>
                 </div>

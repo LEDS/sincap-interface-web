@@ -105,7 +105,8 @@ public class PacienteForm {
     private String corneasCaptadas;
     private String corpoEncaminhado;
     private String equipeCaptacao;
-    private String[] problemasLogisticosEstruturais;
+    private Long[] problemasLogisticos;
+    private Long[] problemasEstruturais;
     private String comentarios;
 
     /** -- Preenche os dropdowns --**/
@@ -725,14 +726,22 @@ public class PacienteForm {
         this.equipeCaptacao = equipeCaptacao;
     }
 
-    public String[] getProblemasLogisticosEstruturais() {
-        return problemasLogisticosEstruturais;
+    public Long[] getProblemasLogisticos() {
+        return problemasLogisticos;
     }
 
-    public void setProblemasLogisticosEstruturais(String[] problemasLogisticosEstruturais) {
-        this.problemasLogisticosEstruturais = problemasLogisticosEstruturais;
+    public void setProblemasLogisticos(Long[] problemasLogisticos) {
+        this.problemasLogisticos = problemasLogisticos;
     }
 
+    public Long[] getProblemasEstruturais() {
+        return problemasEstruturais;
+    }
+
+    public void setProblemasEstruturais(Long[] problemasEstruturais) {
+        this.problemasEstruturais = problemasEstruturais;
+    }
+    
     public String getComentarios() {
         return comentarios;
     }

@@ -4,32 +4,37 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
-	<h:panelGrid id="captacao" columns="2">
-		<h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}"/>
-		<h:selectOneRadio id="corneasCaptadas" value="#{pacienteForm.corneasCaptadas}" class="radio">
-			<f:selectItem itemLabel="#{msg['notificacao.sim']}" />
-			<f:selectItem itemLabel="#{msg['notificacao.nao']}" />
-		</h:selectOneRadio>
-		
-		<h:outputLabel value="#{msg['captacao.text.corpoEncaminhado']}"/>
-		<h:selectOneRadio id="corpoEncaminhado" value="#{pacienteForm.corpoEncaminhado}" class="radio">
-			<f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.iml']}" />
-			<f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.svo']}" />
-		</h:selectOneRadio>
-		
-		<h:outputLabel value="#{msg['captacao.text.equipeCaptacao']}"/>
-		<h:selectOneRadio id="equipeCaptacao" value="#{pacienteForm.equipeCaptacao}" class="radio">
-			<f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.disponivel']}" />
-			<f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.indisponivel']}" />
-		</h:selectOneRadio>
-		
-		<h:outputLabel value="#{msg['captacao.text.problemasLogisticosEstruturais.titulo']}"/>
-		<h:selectManyCheckbox id="problemasLogisticosEstruturais" value="#{pacienteForm.problemasLogisticosEstruturais}" layout="pageDirection">
-			<f:selectItems value="#{pacienteForm.problemasLogisticosEstruturaisBanco}" />
-		</h:selectManyCheckbox>
-		
+    <h:panelGrid id="captacao" columns="2">
+        <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}"/>
+        <h:selectOneRadio style="width: 100%" id="corneasCaptadas" value="#{pacienteForm.corneasCaptadas}" class="radio">
+            <f:selectItem itemLabel="#{msg['notificacao.sim']}" />
+            <f:selectItem itemLabel="#{msg['notificacao.nao']}" />
+        </h:selectOneRadio>
+
+        <h:outputLabel value="#{msg['captacao.text.corpoEncaminhado']}"/>
+        <h:selectOneRadio style="width: 100%" id="corpoEncaminhado" value="#{pacienteForm.corpoEncaminhado}" class="radio">
+            <f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.iml']}" />
+            <f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.svo']}" />
+        </h:selectOneRadio>
+
+        <h:outputLabel value="#{msg['captacao.text.equipeCaptacao']}"/>
+        <h:selectOneRadio style="width: 100%" id="equipeCaptacao" value="#{pacienteForm.equipeCaptacao}" class="radio">
+            <f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.disponivel']}" />
+            <f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.indisponivel']}" />
+        </h:selectOneRadio>
+
+        <h:outputLabel value="#{msg['captacao.text.problemasLogisticos.titulo']}"/>
+        <h:selectManyCheckbox style="width: 100%" id="problemasLogisticos" value="#{pacienteForm.problemasLogisticos}" layout="pageDirection">
+            <f:selectItems value="#{ProblemaLogisticoItem}" />
+        </h:selectManyCheckbox>
+
+        <h:outputLabel value="#{msg['captacao.text.problemasEstruturais.titulo']}"/>
+        <h:selectManyCheckbox id="problemasEstruturais" value="#{pacienteForm.problemasEstruturais}" layout="pageDirection">
+            <f:selectItems value="#{ProblemaEstruturalItem}" />
+        </h:selectManyCheckbox>
+
         <h:outputLabel value="#{msg['captacao.text.comentarios.titulo']}"/>
-        <h:inputTextarea class="span8" rows="4"/>
-	</h:panelGrid>
-			                            
+        <h:inputTextarea id="comentarios" value="#{pacienteForm.comentarios}" class="span8" rows="4"/>
+    </h:panelGrid>
+
 </ui:composition>

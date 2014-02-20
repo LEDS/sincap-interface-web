@@ -217,7 +217,7 @@ function ajaxGetNovasNotificacoes() {
                 + "</div>");
         },
         error: function(response, status, error) {
-            alert("Erro no javascript do painel de novas notificações");
+            //alert("Erro no javascript do painel de novas notificações");
         }
     });
     
