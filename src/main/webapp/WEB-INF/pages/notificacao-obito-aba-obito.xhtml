@@ -10,15 +10,11 @@
 
             <h:outputLabel value="#{msg['obito.text.data']}" />
             <h:inputText class="data" id="dataObito"
-                         value="#{pacienteForm.dataObito}"
-                         onkeypress="mascaraData('dataObito')"
-                         onblur="validarData('dataObito')" maxlength="10" />
+                         value="#{pacienteForm.dataObito}" />
 
             <h:outputLabel value="#{msg['obito.text.horario']}" />
             <h:inputText class="hora" id="horarioObito"
-                         value="#{pacienteForm.horarioObito}"
-                         onkeypress="mascaraHora('horarioObito')"
-                         onblur="validarHora('horarioObito')" maxlength="5" />
+                         value="#{pacienteForm.horarioObito}" />
 
             <h:outputLabel value="#{msg['obito.dropDown.setor']}" />
             <h:selectOneMenu id="setorObito" value="#{pacienteForm.setorObito}"

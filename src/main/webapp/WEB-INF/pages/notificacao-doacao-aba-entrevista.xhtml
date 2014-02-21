@@ -5,37 +5,31 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:panelGrid>
-
+        <!--TODO: esse layout ainda esta muito esquisito-->
         <h:panelGrid columns="2">
             <h:outputLabel value="#{msg['entrevista.text.realizada']}" />
-            <h:selectOneRadio style="width: 100%" id="entrevistaRealizada" value="#{pacienteForm.entrevistaRealizada}" styleClass="radio">
+            <h:selectOneRadio style="width: 100%" id="entrevistaRealizada" value="#{pacienteForm.entrevistaRealizada}" layout="lineDirection"> <br/>
                 <f:selectItem itemValue="SIM" itemLabel="#{msg['notificacao.sim']}" />
                 <f:selectItem itemValue="NAO" itemLabel="#{msg['notificacao.nao']}" />
             </h:selectOneRadio>
 
             <h:outputLabel value="#{msg['entrevista.text.doacaoAutorizada']}" />
-            <h:selectOneRadio style="width: 100%" id="doacaoAutorizada" value="#{pacienteForm.doacaoAutorizada}" styleClass="radio">
+            <h:selectOneRadio style="width: 100%" id="doacaoAutorizada" value="#{pacienteForm.doacaoAutorizada}" layout="lineDirection"> <br/>
                 <f:selectItem itemValue="SIM" itemLabel="#{msg['notificacao.sim']}" />
                 <f:selectItem itemValue="NAO" itemLabel="#{msg['notificacao.nao']}" />
             </h:selectOneRadio>
-        
+
             <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}" />
             <h:inputText class="data" id="dtEntrevista"
-                         value="#{pacienteForm.dtEntrevista}"
-                         onkeypress="mascaraData('dataObito')"
-                         onblur="validarData('dataObito')" maxlength="10" />
+                         value="#{pacienteForm.dtEntrevista}"/>
 
             <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}" />
             <h:inputText class="hora" id="hrEntrevista"
-                         value="#{pacienteForm.hrEntrevista}"
-                         onkeypress="mascaraHora('horarioObito')"
-                         onblur="validarHora('horarioObito')" maxlength="5" />
+                         value="#{pacienteForm.hrEntrevista}"/>
         </h:panelGrid>
-        <h:panelGrid columns="2">
-            <h:outputLabel value="#{msg['entrevista.text.recusaFamiliar.titulo']}" />
-            <h:selectManyCheckbox id="recusaFamiliar" value="#{pacienteForm.recusaFamiliar}" layout="pageDirection">
-                <f:selectItems value="#{pacienteForm.recusaFamiliarBanco}" />
-            </h:selectManyCheckbox>
-        </h:panelGrid>
+        <h:outputLabel style="font-weight: bold" value="#{msg['entrevista.text.recusaFamiliar.titulo']}" />
+        <h:selectManyCheckbox id="recusaFamiliar" value="#{pacienteForm.recusaFamiliar}" layout="pageDirection">
+            <f:selectItems value="#{pacienteForm.recusaFamiliarBanco}" />
+        </h:selectManyCheckbox>
     </h:panelGrid>
 </ui:composition>

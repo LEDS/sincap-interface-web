@@ -1,0 +1,13 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGrid>
+        <h:outputLabel style="font-weight: bold" value="#{msg['contraIndicacoes.text.titulo']}" />
+        <h:selectManyCheckbox id="contraIndicacoes" value="#{paciente-Form.contraIndicacoes}" layout="pageDirection" styleClass="radio">
+            <f:selectItems value="#{pacienteForm.contraIndicacoesBanco}" />
+        </h:selectManyCheckbox>
+    </h:panelGrid>
+</ui:composition>

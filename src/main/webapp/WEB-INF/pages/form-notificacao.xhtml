@@ -128,57 +128,50 @@
                                     </div>
                                     <div class="step-pane" id="step2">
                                         <div class="row-fluid form-wrapper">
-                                            <div class="span8">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#abaContraIndicacoes" 
-                                                                          data-toggle="tab">#{msg['contraIndicacoes.text.titulo']}</a></li>
-                                                    <li><a href="#paneEntrevista1" data-toggle="tab">#{msg['notificacao.step2.tab1.title']}</a></li>                                                    
-                                                    <li><a href="#paneEntrevista2" data-toggle="tab">#{msg['notificacao.step2.tab2.title']}</a></li>
-                                                    <li><a href="#paneEntrevista3" data-toggle="tab">#{msg['notificacao.step2.tab3.title']}</a></li>
-                                                </ul>                                   
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#abaContraIndicacoes" 
+                                                                      data-toggle="tab">#{msg['contraIndicacoes.text.titulo']}</a></li>
+                                                <li><a href="#paneEntrevista1" data-toggle="tab">#{msg['notificacao.step2.tab1.title']}</a></li>                                                    
+                                                <li><a href="#paneEntrevista2" data-toggle="tab">#{msg['notificacao.step2.tab2.title']}</a></li>
+                                                <li><a href="#paneEntrevista3" data-toggle="tab">#{msg['notificacao.step2.tab3.title']}</a></li>
+                                            </ul>  
+                                        </div>
 
-                                                <div class="tab-content">
-                                                    <div id="abaContraIndicacoes" class="tab-pane active">                                        
-                                                        <ui:insert name="notificacao-contraindicacoes">
-                                                            <ui:include src="notificacao-contraindicacoes.xhtml" />
-                                                        </ui:insert>
-                                                    </div>
-
-                                                    <div id="paneEntrevista1" class="tab-pane">
-                                                        <ui:insert name="form-entrevista">
-                                                            <ui:include src="form-entrevista.xhtml" />
-                                                        </ui:insert>
-                                                    </div>                                                    
-
-                                                    <div id="paneEntrevista2" class="tab-pane ">                                        
-                                                        <ui:insert name="form-responsavel">
-                                                            <ui:include src="form-responsavel.xhtml" />
-                                                        </ui:insert>                                  
-                                                    </div>
-
-                                                    <div id="paneEntrevista3" class="tab-pane ">                                        
-                                                        <ui:insert name="form-testemunhas">
-                                                            <ui:include src="form-testemunhas.xhtml" />
-                                                        </ui:insert>                                      
-                                                    </div>                                   
-
-                                                </div> 
-
+                                        <div class="tab-content">
+                                            <div id="abaContraIndicacoes" class="tab-pane active">                                        
+                                                <ui:insert name="notificacao-contraindicacoes">
+                                                    <ui:include src="notificacao-doacao-aba-contraindicacoes.xhtml" />
+                                                </ui:insert>
                                             </div>
+
+                                            <div id="paneEntrevista1" class="tab-pane">
+                                                <ui:insert name="form-entrevista">
+                                                    <ui:include src="notificacao-doacao-aba-entrevista.xhtml" />
+                                                </ui:insert>
+                                            </div>                                                    
+
+                                            <div id="paneEntrevista2" class="tab-pane ">                                        
+                                                <ui:insert name="form-responsavel">
+                                                    <ui:include src="notificacao-doacao-aba-responsavel.xhtml" />
+                                                </ui:insert>                                  
+                                            </div>
+
+                                            <div id="paneEntrevista3" class="tab-pane ">                                        
+                                                <ui:insert name="form-testemunhas">
+                                                    <ui:include src="notificacao-doacao-aba-testemunhas.xhtml" />
+                                                </ui:insert>                                      
+                                            </div>                                   
+
                                         </div>
                                     </div>
                                     <!-- FIM PASSO 2 -->
                                     <!-- PASSO 3 -->
                                     <div class="step-pane" id="step3">
-                                        <div class="row-fluid form-wrapper">
-                                            <div class="span8">
-                                                <div class="tab-content">
-                                                    <ui:insert name="form-captacao">
-                                                        <ui:include src="form-captacao.xhtml" />
-                                                    </ui:insert>
-                                                </div>      
-                                            </div>
-                                        </div>
+                                        <div class="tab-content">
+                                            <ui:insert name="form-captacao">
+                                                <ui:include src="notificacao-captacao.xhtml" />
+                                            </ui:insert>
+                                        </div>      
                                     </div>
                                     <div class="wizard-actions">
                                         <button type="button" class="btn-glow primary btn-prev"> 
@@ -204,11 +197,13 @@
         <!-- end main container -->
         <!-- scripts for this page -->
 
-        <h:outputScript library="js" name="jquery-2.0.3.js" />
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
         <h:outputScript library="js" name="bootstrap.min.js" />
         <h:outputScript library="js" name="theme.js" />
         <h:outputScript library="js" name="fuelux.wizard.js" />	
         <h:outputScript library="js" name="sincaplib.js" />
+        <h:outputScript library="js" name="jquery.mask.min.js" />
+        <h:outputScript library="js" name="jquery.validate.min.js" />
 
 
         <script type="text/javascript">
@@ -243,6 +238,101 @@
                     $wizard.wizard('next');
                 });
             });
+            
+            $(document).ready(function() {
+                $('.data').mask('00/00/0000', {
+                    reverse: true
+                });
+                $('.hora').mask('00:00', {
+                    reverse: true
+                });
+                $('.rg').mask('0.000.000', {
+                    reverse: true
+                });
+                $('.cpf').mask('000.000.000-00', {
+                    reverse: true
+                });
+                $('.cep').mask('00000-000', {
+                    reverse: true
+                });
+                $('.tel').mask('(00)0000-0000', {
+                    reverse: true
+                });
+            });
+
+            //Validando os dados do formulario
+            $("#notifObito").validate({
+                rules: {
+                    nomePaciente: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    nomePaciente: {
+                        required: "Por favor, entre com o nome do paciente.",
+                    },
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
         </script>
     </h:body>
 </html>
+
+<!--$(document).ready(function() {
+                $('data').mask('00/00/0000', {
+                    reverse: true
+                });
+            });
+
+            //Validando os dados do formulario
+            $("#notifObito").validate({
+                rules: {
+                    nomePaciente: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    nomePaciente: {
+                        required: "Por favor, entre com o nome do paciente.",
+                    },
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });-->
+
+
+
+<!-- $(function() {
+                var $wizard = $('#fuelux-wizard'),
+                        $btnPrev = $('.wizard-actions .btn-prev'),
+                        $btnNext = $('.wizard-actions .btn-next'),
+                        $btnFinish = $(".wizard-actions .btn-finish");
+
+                $wizard.wizard().on('finished', function(e) {
+                    // wizard complete code
+                }).on("changed", function(e) {
+                    var step = $wizard.wizard("selectedItem");
+                    // reset states
+                    $btnNext.removeAttr("disabled");
+                    $btnPrev.removeAttr("disabled");
+                    $btnNext.show();
+                    $btnFinish.hide();
+
+                    if (step.step === 1) {
+                        $btnPrev.attr("disabled", "disabled");
+                    } else if (step.step === 3) {
+                        $btnNext.hide();
+                        $btnFinish.show();
+                    }
+                });
+
+                $btnPrev.on('click', function() {
+                    $wizard.wizard('previous');
+                });
+                $btnNext.on('click', function() {
+                    $wizard.wizard('next');
+                });
+            });-->
