@@ -121,7 +121,10 @@
                                                 <ui:insert name="notificacao-obito-aba-obito">
                                                     <ui:include src="notificacao-obito-aba-obito.xhtml" />
                                                 </ui:insert>                                         
-                                            </div>                                            
+                                            </div>
+                                            <button  type="submit" class="btn-glow success btn-finish">
+                                                ${msg['notificacao.button.finalizar']}
+                                            </button>
                                         </div>
                                         <!-- FIM PASSO 1 -->
                                         <!-- PASSO 2 -->
@@ -137,7 +140,7 @@
                                             </ul>  
                                         </div>
 
-                                        <div class="tab-content">
+                                        <div class="tab-content" >
                                             <div id="abaContraIndicacoes" class="tab-pane active">                                        
                                                 <ui:insert name="notificacao-contraindicacoes">
                                                     <ui:include src="notificacao-doacao-aba-contraindicacoes.xhtml" />
@@ -238,7 +241,7 @@
                     $wizard.wizard('next');
                 });
             });
-            
+
             $(document).ready(function() {
                 $('.data').mask('00/00/0000', {
                     reverse: true
@@ -264,13 +267,73 @@
             $("#notifObito").validate({
                 rules: {
                     nomePaciente: {
-                        required: true,
+                        required: true
                     },
+                    rgPaciente: {
+                        required: true
+                    },
+                    numeroProntuario: {
+                        required: true
+                    },
+                    dataNascimentoPaciente: {
+                        required: true
+                    },
+                    sexoPaciente: {
+                        required: true
+                    },
+                    nomeMaePaciente: {
+                        required: true
+                    },
+                    estadoPaciente: {
+                        required: true
+                    },
+                    cidadePaciente: {
+                        required: true
+                    },
+                    bairroPaciente: {
+                        required: true
+                    },
+                    cepPaciente: {
+                        required: true
+                    },
+                    logradouroPaciente: {
+                        required: true
+                    }
                 },
                 messages: {
                     nomePaciente: {
-                        required: "Por favor, entre com o nome do paciente.",
+                        required: "Por favor, insira o nome do paciente"
                     },
+                    rgPaciente: {
+                        required: "Por favor, insira o RG do paciente"
+                    },
+                    numeroProntuario: {
+                        required: "Por favor, insira o prontuário do paciente"
+                    },
+                    dataNascimentoPaciente: {
+                        required: "Por favor, insira o nascimento do paciente"
+                    },
+                    sexoPaciente: {
+                        required: "Por favor, insira o sexo do paciente"
+                    },
+                    nomeMaePaciente: {
+                        required: "Por favor, insira o nome da mãe do paciente"
+                    },
+                    estadoPaciente: {
+                        required: "Por favor, insira o estado do paciente"
+                    },
+                    cidadePaciente: {
+                        required: "Por favor, insira a cidade do paciente"
+                    },
+                    bairroPaciente: {
+                        required: "Por favor, insira o bairro do paciente"
+                    },
+                    cepPaciente: {
+                        required: "Por favor, insira o CEP do paciente"
+                    },
+                    logradouroPaciente: {
+                        required: "Por favor, insira o logradouro do paciente"
+                    }
                 },
                 submitHandler: function(form) {
                     form.submit();
