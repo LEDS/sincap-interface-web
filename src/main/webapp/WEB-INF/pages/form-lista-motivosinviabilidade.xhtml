@@ -51,65 +51,65 @@
     <!-- end sidebar -->
 
     <!-- main container -->
-<h:panelGroup layout="block" class="content">
-	<h:panelGroup layout="block" styleClass="container-fluid">
-		<h:panelGroup layout="block" id="pad-wrapper">
-			<h:panelGroup layout="block" styleClass="row-fluid">
-				<a class="dropdown-toggle" href="/sincap/admin/motivoInviabilidade/novo"> <i
-					class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
-				</a>
-				<h:panelGroup layout="block" styleClass="span12">
-					<h:panelGroup styleClass="row-fluid form-wrapper">
+    <h:panelGroup layout="block" class="content">
+        <h:panelGroup layout="block" styleClass="container-fluid">
+            <h:panelGroup layout="block" id="pad-wrapper">
+                <h:panelGroup layout="block" styleClass="row-fluid">
+                    <a class="dropdown-toggle" href="/sincap/admin/motivoInviabilidade/novo"> <i
+                            class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
+                    </a>
+                    <h:panelGroup layout="block" styleClass="span12">
+                        <h:panelGroup styleClass="row-fluid form-wrapper">
 
-						<h:dataTable id="table1" value="#{listaMotivosForm}" var="l"
-							styleClass="table table-hover table-striped">
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Motivo de Inviabilidade" />
-								</f:facet>
+                            <h:dataTable id="table1" value="#{listaMotivosForm}" var="l"
+                                         styleClass="table table-hover table-striped">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Motivo de Inviabilidade" />
+                                    </f:facet>
                                     #{l.nomeMotivoInviabilidade}				
                                 </h:column>
-							<h:column>
-								<f:facet name="header">
-									<h:outputText value="Tipo do Motivo de Inviabilidade" />
-								</f:facet>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Tipo do Motivo de Inviabilidade" />
+                                    </f:facet>
                                     #{l.nomeTipoMotivoInviabilidade}
                                 </h:column>
-							<h:column>
-								<f:facet name="header">
-									<center>
-										<h:outputText value="Apagar" />
-									</center>
-								</f:facet>
-								<a
-									href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/novo/apagar/${l.id}">
-									<center>
-										<i class="icon-remove"></i>
-									</center>
-								</a>
-							</h:column>
-							<h:column>
-								<f:facet name="header">
-									<center>
-										<h:outputText value="Editar" />
-									</center>
-								</f:facet>
-								<a
-									href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/novo/atualizar/${l.id}">
-									<center>
-										<i class="icon-edit"></i>
-									</center>
-								</a>
-							</h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <center>
+                                            <h:outputText value="Apagar" />
+                                        </center>
+                                    </f:facet>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/apagar/${l.id}">
+                                        <center>
+                                            <i class="icon-remove"></i>
+                                        </center>
+                                    </a>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <center>
+                                            <h:outputText value="Editar" />
+                                        </center>
+                                    </f:facet>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/novo/atualizar/${l.id}">
+                                        <center>
+                                            <i class="icon-edit"></i>
+                                        </center>
+                                    </a>
+                                </h:column>
 
-						</h:dataTable>
-					</h:panelGroup>
-				</h:panelGroup>
-			</h:panelGroup>
-		</h:panelGroup>
-	</h:panelGroup>
-</h:panelGroup>
-<!-- end main container -->
+                            </h:dataTable>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+    <!-- end main container -->
 
     <h:body>
         <!-- scripts -->
@@ -121,25 +121,25 @@
         <!-- end scripts -->
 
         <script type="text/javascript">
-									//Validando os dados do formulario
-									$("#hospitalForm")
-											.validate(
-													{
-														rules : {
-															nome : {
-																required : true
-															}
-														},
-														messages : {
-															nome : {
-																required : "Por favor, digite o nome."
-															}
-														},
-														submitHandler : function(
-																form) {
-															form.submit();
-														}
-													});
-								</script>
+            //Validando os dados do formulario
+            $("#hospitalForm")
+                    .validate(
+                            {
+                                rules: {
+                                    nome: {
+                                        required: true
+                                    }
+                                },
+                                messages: {
+                                    nome: {
+                                        required: "Por favor, digite o nome."
+                                    }
+                                },
+                                submitHandler: function(
+                                        form) {
+                                    form.submit();
+                                }
+                            });
+        </script>
     </h:body>
 </html>

@@ -85,6 +85,6 @@ public class SetorController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/admin/setor/novo";
+		return "redirect:/admin/setor/";
 	}
 }

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.SetorEmUsoException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,64 +25,50 @@ import br.ifes.leds.sincap.web.model.VisualizarSetorForm;
 /**
  *
  * @author 20121BSI0252
- */ 
+ */
 @Controller
 @RequestMapping("/admin/setor")
 @SessionScoped
 public class VisualizarSetorController {
-	
-	@Autowired
+
+    @Autowired
     AplSetor aplSetor;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
-    	
-    	preecherLista(model);
-    	
+
+        preecherLista(model);
+
         return "visualizar-setor-form";
     }
-    
-//    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-//    public String getMotivoInviabilidade(@PathVariable long id, ModelMap model)
-//            throws Exception {
-//        //pegando do banco
-//        MotivoInviabilidade motivoInviabilidade = aplMotivoInviabilidade.buscar(id);
-//        boolean motivoCadastrado = true;
-//        //jogando para a tela
-//        MotivoInviabilidadeForm motivoInviabilidadeForm = new MotivoInviabilidadeForm(); 
-//        motivoInviabilidadeForm.setNome(motivoInviabilidade.getNome());
-//        motivoInviabilidadeForm.setTipoMotivoInviabilidadeId(motivoInviabilidade.getTipoMotivo().getId());
-//        
-//        model.addAttribute("motivoInviabilidadeForm", motivoInviabilidadeForm);
-//        model.addAttribute("motivoCadastrado", motivoCadastrado);
-//        
-//        return "form-motivosinviabilidade/{motivoInviabilidadeForm.getId()}";
-//    }
-    
+
     @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
-    public String apagarMotivo(@PathVariable long id, ModelMap model){
-            	
-		aplSetor.excluir(id);
+    public String apagarMotivo(@PathVariable long id, ModelMap model) {
         
+        try{
+            aplSetor.excluir(id);
+        }catch(SetorEmUsoException e){
+            e.printStackTrace();
+        }
+        
+
         return "redirect:/admin/setor";
     }
-    
-    private void preecherLista(ModelMap model){
-                        
-        
+
+    private void preecherLista(ModelMap model) {
+
         List<Setor> listaSetor = aplSetor.obter();
-        List<VisualizarSetorForm> listaSetoresForm = new ArrayList<VisualizarSetorForm>(); 
-        
-        for(Setor setor : listaSetor){
-			VisualizarSetorForm setorForm = new VisualizarSetorForm(
-					setor.getNome(), setor.getId());
-			listaSetoresForm.add(setorForm);
-			
+        List<VisualizarSetorForm> listaSetoresForm = new ArrayList<VisualizarSetorForm>();
+
+        for (Setor setor : listaSetor) {
+            VisualizarSetorForm setorForm = new VisualizarSetorForm(
+                    setor.getNome(), setor.getId());
+            listaSetoresForm.add(setorForm);
+
         }
-        	
-        model.addAttribute("listaSetoresForm", listaSetoresForm);        
-        
+
+        model.addAttribute("listaSetoresForm", listaSetoresForm);
+
     }
 
 }
-

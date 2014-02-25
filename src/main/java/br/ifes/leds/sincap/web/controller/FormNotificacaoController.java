@@ -209,15 +209,15 @@ public class FormNotificacaoController {
     private void preencherNotificacaoObito(PacienteForm pacienteForm, Notificacao notificacao) {
 
         try {
-            notificacao = preencherNotificacaoObitoAbaPaciente(pacienteForm, notificacao);
+            preencherNotificacaoObitoAbaPaciente(pacienteForm, notificacao);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        notificacao = preencherNotificacaoObitoAbaResponsavel(pacienteForm, notificacao);
-        notificacao = preencherNotificacaoObitoAbaObito(pacienteForm, notificacao);
+        preencherNotificacaoObitoAbaResponsavel(pacienteForm, notificacao);
+        preencherNotificacaoObitoAbaObito(pacienteForm, notificacao);
     }
 
-    private Notificacao preencherNotificacaoObitoAbaPaciente(PacienteForm pacienteForm, Notificacao notificacao) throws ClassNotFoundException {
+    private void preencherNotificacaoObitoAbaPaciente(PacienteForm pacienteForm, Notificacao notificacao) throws ClassNotFoundException {
 
         Paciente paciente = new Paciente();
         Endereco endereco = new Endereco();
@@ -253,12 +253,10 @@ public class FormNotificacaoController {
 
         obito.setPaciente(paciente);
 
-        notificacao.setObito(obito);
-
-        return notificacao;
+        notificacao.setObito(obito);        
     }
 
-    private Notificacao preencherNotificacaoObitoAbaResponsavel(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoObitoAbaResponsavel(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Responsavel responsavel = new Responsavel();
         Telefone telefone = new Telefone();
@@ -276,11 +274,10 @@ public class FormNotificacaoController {
 
         /*atribuicoes dos campos a notificacao*/
         notificacao.getObito().getPaciente().setResponsavel(responsavel);
-
-        return notificacao;
+        
     }
 
-    private Notificacao preencherNotificacaoObitoAbaObito(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoObitoAbaObito(PacienteForm pacienteForm, Notificacao notificacao) {
 
         GregorianCalendar dataHorarioObito = new GregorianCalendar();
         Setor setor = this.aplCadastroInterno.obterSetorPorId(Long.parseLong(pacienteForm.getSetorObito()));
@@ -309,9 +306,7 @@ public class FormNotificacaoController {
 
         if (setor != null) {
             notificacao.setSetor(setor);
-        }
-
-        return notificacao;
+        }       
     }
 
     private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao) {

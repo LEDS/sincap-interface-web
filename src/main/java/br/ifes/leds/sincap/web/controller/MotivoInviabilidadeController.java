@@ -116,6 +116,6 @@ public class MotivoInviabilidadeController {
             e.printStackTrace();
         }
 
-        return "redirect:/admin/motivoInviabilidade/novo";
+        return "redirect:/admin/motivoInviabilidade";
     }
 }

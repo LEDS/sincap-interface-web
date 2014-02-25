@@ -57,19 +57,19 @@
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
                         <h:panelGroup styleClass="row-fluid form-wrapper">
-                        
-						<h:outputLabel>Cadastro de Motivos de Inviabilidade:</h:outputLabel>
-                            <form id="motivoInviabilidadeForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/salvar" method="post">
+
+                            <h:outputLabel>Cadastro de Motivos de Inviabilidade:</h:outputLabel>
+                            <form id="motivoInviabilidadeForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/novo/salvar" method="post">
                                 <h:panelGrid columns="2">
                                     <h:outputLabel value="#{msg['motivosinviabilidade.dropdown.tiposmotivoinviabilidade']}" />
                                     <h:selectOneMenu id="tipoMotivoInviabilidadeId" value="#{motivoInviabilidadeForm.tipoMotivoInviabilidadeId}" class="ui-select" disabled="#{motivoCadastrado}">
-                                    	<f:selectItem itemValue="" itemLabel="#{msg['motivosinviabilidade.dropdown.tiposmotivoinviabilidade.escolha']}" />
+                                        <f:selectItem itemValue="" itemLabel="#{msg['motivosinviabilidade.dropdown.tiposmotivoinviabilidade.escolha']}" />
                                         <f:selectItems value="#{listaTipoMotivosSelectItem}" />
                                     </h:selectOneMenu>
-                                    
+
                                     <h:outputLabel value="#{msg['motivosinviabilidade.text.nome']}" />
                                     <h:inputText id="nome" value="#{motivoInviabilidadeForm.nome}" />
-                                    
+
                                     <h:inputHidden id="id" value="#{motivoInviabilidadeForm.id}"/>
 
                                     <button type="submit" class="btn-glow success btn-finish"> #{msg['geral.button.salvar']}</button>
@@ -98,15 +98,15 @@
             //Validando os dados do formulario
             $("#motivoInviabilidadeForm").validate({
                 rules: {
-                	tipoMotivoInviabilidadeId: {
+                    tipoMotivoInviabilidadeId: {
                         required: true
-                        },
+                    },
                     nome: {
                         required: true
-                        }                        
+                    }
                 },
                 messages: {
-                	tipoMotivoInviabilidadeId: {
+                    tipoMotivoInviabilidadeId: {
                         required: "Por favor, escolha um tipo."
                     },
                     nome: {

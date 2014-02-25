@@ -5,6 +5,7 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.HospitalEmUsoException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Instituicao;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.web.model.VisualizarHospitalForm;
 
@@ -33,53 +35,6 @@ public class VisualizarHospitalController {
     @Autowired
     AplHospital aplHospital;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String loadForm(ModelMap model) {
-
-        preecherLista(model);
-
-        return "lista-hospital";
-    }
-
-//    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-//    public String getMotivoInviabilidade(@PathVariable long id, ModelMap model)
-//            throws Exception {
-//        //pegando do banco
-//        MotivoInviabilidade motivoInviabilidade = aplMotivoInviabilidade.buscar(id);
-//        boolean motivoCadastrado = true;
-//        //jogando para a tela
-//        MotivoInviabilidadeForm motivoInviabilidadeForm = new MotivoInviabilidadeForm(); 
-//        motivoInviabilidadeForm.setNome(motivoInviabilidade.getNome());
-//        motivoInviabilidadeForm.setTipoMotivoInviabilidadeId(motivoInviabilidade.getTipoMotivo().getId());
-//        
-//        model.addAttribute("motivoInviabilidadeForm", motivoInviabilidadeForm);
-//        model.addAttribute("motivoCadastrado", motivoCadastrado);
-//        
-//        return "form-motivosinviabilidade/{motivoInviabilidadeForm.getId()}";
-//    }
-    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
-    public String apagarMotivo(@PathVariable long id, ModelMap model) {
-
-//		aplHospital.remover(id);
-        return "redirect:/admin/hospital";
-    }
-
-    private void preecherLista(ModelMap model) {
-
-        List<Hospital> hospitais = new ArrayList<Hospital>();
-        List<VisualizarHospitalForm> listaHospitaisForm = new ArrayList<VisualizarHospitalForm>();
-
-        hospitais = aplHospital.obter();
-
-        for (Hospital hospital : hospitais) {
-            VisualizarHospitalForm hospitalForm = new VisualizarHospitalForm(
-                    hospital.getNome(), hospital.getId());
-            listaHospitaisForm.add(hospitalForm);
-            
-        }
-
-        model.addAttribute("listaHospitaisForm", listaHospitaisForm);
-
-    }
+    
 
 }
