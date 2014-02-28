@@ -125,7 +125,7 @@ public class HospitalControler {
     }
 
     /*Define o caminho da url que, quando for requisitada, chamará o método pelo  tipo especificado*/
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/novo/add", method = RequestMethod.POST)
     public String addHospital(@ModelAttribute HospitalForm hospitalForm, ModelMap model)
             throws Exception {
 
@@ -142,7 +142,9 @@ public class HospitalControler {
             aplHospital.cadastrar(hospital);
         else
             aplHospital.update(hospital);
-
+        
+        System.out.println("Metodo addHospital");
+        
         return "redirect:/admin/hospital";
     }
 
