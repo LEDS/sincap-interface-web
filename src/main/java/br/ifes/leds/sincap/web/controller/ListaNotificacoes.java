@@ -81,7 +81,7 @@ public class ListaNotificacoes {
         Integer idade = Years.yearsBetween(horaNasc, horaMorte).getYears();
 
         doador.setIdade(idade.toString());
-        doador.setNome(notificacao.getObito().getPaciente().getNome());
+        doador.setNome(notificacao.getObito().getPaciente().getResponsavel().getNome());
         try {
             doador.setTelefone(notificacao.getObito().getPaciente().getResponsavel().getTelefones().get(0).toString());
         } catch (IndexOutOfBoundsException e) {
