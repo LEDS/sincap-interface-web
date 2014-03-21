@@ -162,26 +162,22 @@ public class ListaNotificacoes {
     @RequestMapping(value = "/busca/pordata", method = RequestMethod.POST)
     public String retornarPorData(@ModelAttribute BuscarPorDataForm buscarPorDataForm, ModelMap model){
         Calendar dataIni, dataFim;
-        System.out.println("NULL POINTERRRRR"+buscarPorDataForm.getDataIni().toString());
         dataIni = stringToDate(buscarPorDataForm.getDataIni());
         dataFim = stringToDate(buscarPorDataForm.getDataFim());
         List<Notificacao> notificacoes = aplNotificacao.retornarNotificacaoPorData(dataIni, dataFim);
         List<IndexForm> listaNotificacoesForm = preencherListaNotificacoesForm(notificacoes);
-        
         model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
         return "index";
     }
     
-    private GregorianCalendar stringToDate(String data) {
-
-        int ano, mes, dia;
-        //     dd/MM/aaaa
-        dia = Integer.parseInt(data.substring(0, 2));
-        mes = Integer.parseInt(data.substring(3, 5));
-        ano = Integer.parseInt(data.substring(6, 10));
-
-        GregorianCalendar novaData = new GregorianCalendar(ano, mes - 1, dia);
-
-        return novaData;
+    private Calendar stringToDate(String data){
+        Calendar cal = Calendar.getInstance();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            cal.setTime(sdf.parse(data));
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        return cal;
     }
 }
