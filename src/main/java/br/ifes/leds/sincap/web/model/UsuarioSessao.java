@@ -1,5 +1,6 @@
 package br.ifes.leds.sincap.web.model;
 
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Notificacao;
 import java.io.Serializable;
 
 public class UsuarioSessao implements Serializable {
@@ -11,8 +12,26 @@ public class UsuarioSessao implements Serializable {
     private Long idUsuario;
     private Long idHospital;
     private String cpfUsuario;
+    private Notificacao notificacao;
+    private int etapaNotifica;
 
     private String nome;
+
+    public Notificacao getNotificacao() {
+        return notificacao;
+    }
+
+    public void setNotificacao(Notificacao notificacao) {
+        this.notificacao = notificacao;
+    }
+
+    public int getEtapaNotifica() {
+        return etapaNotifica;
+    }
+
+    public void setEtapaNotifica(int etapaNotifica) {
+        this.etapaNotifica = etapaNotifica;
+    }
 
     public String getNome() {
         return nome;

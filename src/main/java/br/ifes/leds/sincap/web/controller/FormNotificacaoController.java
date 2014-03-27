@@ -59,6 +59,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class FormNotificacaoController {
 
     @Autowired
+    UsuarioSessao usuarioSessao;
+    
+    @Autowired
     AplNotificacao aplNotificacao;
     @Autowired
     AplEndereco aplEndereco;
@@ -66,8 +69,6 @@ public class FormNotificacaoController {
     AplPrincipal aplPrincipal;
     @Autowired
     AplCadastroInterno aplCadastroInterno;
-    @Autowired
-    UsuarioSessao usuarioSessao;
     @Autowired
     AplMotivoRecusa aplMotivoRecusa;
     @Autowired
@@ -89,7 +90,7 @@ public class FormNotificacaoController {
         return "form-notificacao";
     }
 
-    @RequestMapping(value = "/salvarNotificacaoObito", method = RequestMethod.POST)
+    @RequestMapping(value = "/salvarNotificacao", method = RequestMethod.POST)
     public String addNotificacao(@ModelAttribute PacienteForm pacienteForm, ModelMap model)
             throws Exception {
 
