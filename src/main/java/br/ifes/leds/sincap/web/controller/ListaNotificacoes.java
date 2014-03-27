@@ -8,10 +8,13 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Notificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
 import br.ifes.leds.sincap.web.model.DoadorForm;
+import br.ifes.leds.sincap.web.model.IndexForm;
 import br.ifes.leds.sincap.web.model.NotificacaoForm;
 import br.ifes.leds.sincap.web.model.PacienteForm;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import javax.faces.bean.SessionScoped;
 import org.joda.time.DateTime;
@@ -78,7 +81,7 @@ public class ListaNotificacoes {
         Integer idade = Years.yearsBetween(horaNasc, horaMorte).getYears();
 
         doador.setIdade(idade.toString());
-        doador.setNome(notificacao.getObito().getPaciente().getNome());
+        doador.setNome(notificacao.getObito().getPaciente().getResponsavel().getNome());
         try {
             doador.setTelefone(notificacao.getObito().getPaciente().getResponsavel().getTelefones().get(0).toString());
         } catch (IndexOutOfBoundsException e) {
@@ -100,5 +103,53 @@ public class ListaNotificacoes {
         aplNotificacao.arquivar(notificacao);
 
         return "redirect:/notificacao/visualizar/" + notificacaoForm.getId();
+    }
+    
+    @RequestMapping(value = "/arquivadas")
+    public String retornarArquivadas(ModelMap model) {
+                List<Notificacao> notificacoes;
+        List<IndexForm> listaNotificacoesForm = new ArrayList<>();
+
+        notificacoes = aplNotificacao.retornarNotificacaoArquivada();
+        
+        for (Notificacao notificacao : notificacoes) {
+            IndexForm indexForm = new IndexForm(
+                    notificacao.getId().toString(),
+                    notificacao.getCodigo(),
+                    notificacao.getDataAbertura().getTime(),
+                    notificacao.getObito().getDataObito().getTime(),
+                    notificacao.getObito().getPaciente().getNome(),
+                    notificacao.getSetor().getHospital().toString());
+
+            listaNotificacoesForm.add(indexForm);
+        }
+
+        model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
+        
+        return "index";
+    }
+    
+    @RequestMapping(value = "/todas")
+    public String retornarTodas(ModelMap model) {
+        List<Notificacao> notificacoes;
+        List<IndexForm> listaNotificacoesForm = new ArrayList<>();
+
+        notificacoes = aplNotificacao.retornarTodasNotificacoes();
+        
+        for (Notificacao notificacao : notificacoes) {
+            IndexForm indexForm = new IndexForm(
+                    notificacao.getId().toString(),
+                    notificacao.getCodigo(),
+                    notificacao.getDataAbertura().getTime(),
+                    notificacao.getObito().getDataObito().getTime(),
+                    notificacao.getObito().getPaciente().getNome(),
+                    notificacao.getSetor().getHospital().toString());
+
+            listaNotificacoesForm.add(indexForm);
+        }
+
+        model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
+        
+        return "index";
     }
 }
