@@ -64,7 +64,7 @@
 
         <!-- main container -->
         <div class="content">
-
+            
             <div class="container-fluid">
                 <div id="pad-wrapper">
                     <!-- <div class="row-fluid head">
@@ -88,12 +88,22 @@
                                         <span class="step">3</span>
                                         <span class="title">${msg['notificacao.msg.etapa.captacao']}</span>
                                     </li>
-                                </ul>                            
+                                </ul>
+                                
+                                <!-- mensagem de erro -->
+                                <center>
+                                    <div class="span12">
+                                        <div class="alert alert-error" style="display:#{display}">
+                                            <i class="icon-remove-sign"></i>
+                                            Erro, todos os campos devem ser preenchidos.
+                                        </div>
+                                    </div>
+                                </center>
                             </div>
-
+                            
                             <!-- PASSO 1 -->
                             <div class="step-content">
-
+                                
                                 <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacao" method="post">
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
@@ -122,9 +132,6 @@
                                                     <ui:include src="notificacao-obito-aba-obito.xhtml" />
                                                 </ui:insert>                                         
                                             </div>
-                                            <button  type="submit" class="btn-glow success btn-finish">
-                                                ${msg['notificacao.button.finalizar']}
-                                            </button>
                                         </div>
                                         <!-- FIM PASSO 1 -->
                                         <!-- PASSO 2 -->

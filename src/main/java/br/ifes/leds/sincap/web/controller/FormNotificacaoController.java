@@ -86,19 +86,26 @@ public class FormNotificacaoController {
         preencherForm(pacienteForm, model);
 
         model.addAttribute("pacienteForm", pacienteForm);
+        model.addAttribute("display", "none");
 
         return "form-notificacao";
     }
 
     @RequestMapping(value = "/salvarNotificacao", method = RequestMethod.POST)
-    public String addNotificacao(@ModelAttribute PacienteForm pacienteForm, ModelMap model)
-            throws Exception {
-
-        Notificacao notificacao = preencheNotificacao(pacienteForm);
-
-        aplNotificacao.salvar(notificacao);
-
-        return "redirect:/notificacao/novo";
+    public String addNotificacao(@ModelAttribute PacienteForm pacienteForm, ModelMap model) throws Exception {
+        
+        if (pacienteForm.valido()){
+            Notificacao notificacao = preencheNotificacao(pacienteForm);
+            
+            aplNotificacao.salvar(notificacao);
+            
+            return "redirect:/notificacao/novo";
+        }
+        
+        model.addAttribute("pacienteForm", pacienteForm);
+        model.addAttribute("display", "block");
+        preencherForm(pacienteForm, model);
+        return "form-notificacao";
     }
 
     private void preencherForm(PacienteForm pacienteForm, ModelMap model) {
@@ -239,9 +246,9 @@ public class FormNotificacaoController {
             paciente.setSexo(Sexo.FEMININO);
         }
 
-        estado = aplEndereco.ObterEstadoPorNome(pacienteForm.getEstadoPaciente());
-        cidade = aplEndereco.obterCidadePorNome(pacienteForm.getCidadePaciente());
-        bairro = aplEndereco.obterBairroPorNome(pacienteForm.getBairroPaciente());
+        estado = aplEndereco.obterEstadosPorID(Long.parseLong(pacienteForm.getEstadoPaciente()));
+        cidade = aplEndereco.obterCidadePorID(Long.parseLong(pacienteForm.getCidadePaciente()));
+        bairro = aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroPaciente()));
 
         /*atribuicoes dos campos*/
         endereco.setBairro(bairro);
@@ -314,9 +321,11 @@ public class FormNotificacaoController {
 
         Doacao doacao = new Doacao();
 
-        for (int i = 0; i < pacienteForm.getContraIndicacoes().length; i++) {
-            MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
-            doacao.addMotivoRecusa(contraIndicacao);
+        if(pacienteForm.getContraIndicacoes() != null){
+            for (int i = 0; i < pacienteForm.getContraIndicacoes().length; i++) {
+                MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
+                doacao.addMotivoRecusa(contraIndicacao);
+            }
         }
 
         notificacao.getObito().getPaciente().setDoacao(doacao);
@@ -337,7 +346,7 @@ public class FormNotificacaoController {
         //falta salvar o campo: entrevista realizada
         Doacao doacao = notificacao.getObito().getPaciente().getDoacao();
 
-        if (pacienteForm.getEntrevistaRealizada().equals("SIM")) {
+        if (pacienteForm.getDoacaoAutorizada().equals("SIM")) {
             doacao.setAutorizada(true);
         } else {
             doacao.setAutorizada(false);
@@ -346,11 +355,12 @@ public class FormNotificacaoController {
         Calendar dtEntrevista = this.stringToDate(pacienteForm.getDtEntrevista());
         Calendar hrEntrevista = this.stringToDateAndTime(pacienteForm.getDtEntrevista(), pacienteForm.getHrEntrevista());
 
-        for (int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++) {
+        if(pacienteForm.getRecusaFamiliar() != null){
+            for (int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++) {
 
-            MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
-            doacao.addMotivoRecusa(recusaF);
-
+                MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
+                doacao.addMotivoRecusa(recusaF);
+            }
         }
 
         doacao.setDataEntrevista(dtEntrevista);
@@ -441,18 +451,22 @@ public class FormNotificacaoController {
             notificacao.getObito().setEncaminhamento(Encaminhamento.SVO);
         }
 
-        if (pacienteForm.getEquipeCaptacao().equalsIgnoreCase("disponível")) {
+        if (pacienteForm.getEquipeCaptacao().equalsIgnoreCase("disponivel")) {
             captacao.setEquipeCaptacaoDisponivel(true);
         } else {
             captacao.setEquipeCaptacaoDisponivel(false);
         }
 
-        for (Long idEstrutural : pacienteForm.getProblemasEstruturais()) {
-            captacao.addMotivoInviabilidade(aplMotivoInviabilidade.buscar(idEstrutural));
+        if(pacienteForm.getProblemasEstruturais() != null){
+            for (Long idEstrutural : pacienteForm.getProblemasEstruturais()) {
+                captacao.addMotivoInviabilidade(aplMotivoInviabilidade.buscar(idEstrutural));
+            }
         }
 
-        for (Long idLogistico : pacienteForm.getProblemasLogisticos()) {
-            captacao.addMotivoInviabilidade(aplMotivoInviabilidade.buscar(idLogistico));
+        if(pacienteForm.getProblemasLogisticos() != null){
+            for (Long idLogistico : pacienteForm.getProblemasLogisticos()) {
+                captacao.addMotivoInviabilidade(aplMotivoInviabilidade.buscar(idLogistico));
+            }
         }
 
         captacao.setComentario(pacienteForm.getComentarios());

@@ -7,20 +7,20 @@
     <h:panelGrid id="captacao" columns="2">
         <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}"/>
         <h:selectOneRadio style="width: 100%" id="corneasCaptadas" value="#{pacienteForm.corneasCaptadas}" layout="lineDirection">
-            <f:selectItem itemLabel="#{msg['notificacao.sim']}" />
-            <f:selectItem itemLabel="#{msg['notificacao.nao']}" />
+            <f:selectItem itemLabel="#{msg['notificacao.sim']}" itemValue="SIM" />
+            <f:selectItem itemLabel="#{msg['notificacao.nao']}" itemValue="NAO"/>
         </h:selectOneRadio>
 
         <h:outputLabel value="#{msg['captacao.text.corpoEncaminhado']}"/>
         <h:selectOneRadio style="width: 100%" id="corpoEncaminhado" value="#{pacienteForm.corpoEncaminhado}" layout="lineDirection">
-            <f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.iml']}" />
-            <f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.svo']}" />
+            <f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.iml']}" itemValue="IML"/>
+            <f:selectItem itemLabel="#{msg['captacap.radioButton.corpoEncaminhado.svo']}" itemValue="SVO"/>
         </h:selectOneRadio>
 
         <h:outputLabel value="#{msg['captacao.text.equipeCaptacao']}"/>
         <h:selectOneRadio style="width: 100%" id="equipeCaptacao" value="#{pacienteForm.equipeCaptacao}" layout="lineDirection">
-            <f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.disponivel']}" />
-            <f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.indisponivel']}" />
+            <f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.disponivel']}" itemValue="disponivel"/>
+            <f:selectItem itemLabel="#{msg['captacao.radioButton.equipeCaptacao.indisponivel']}" itemValue="indisponivel"/>
         </h:selectOneRadio>
 
         <h:outputLabel style="font-weight: bold" value="#{msg['captacao.text.problemasLogisticos.titulo']}"/><br/>
