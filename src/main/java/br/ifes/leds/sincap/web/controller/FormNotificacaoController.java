@@ -281,8 +281,7 @@ public class FormNotificacaoController {
         responsavel.setTelefones(telefones);
 
         /*atribuicoes dos campos a notificacao*/
-        notificacao.getObito().getPaciente().setResponsavel(responsavel);
-        
+        notificacao.getObito().setResponsavel(responsavel);        
     }
 
     private void preencherNotificacaoObitoAbaObito(PacienteForm pacienteForm, Notificacao notificacao) {
