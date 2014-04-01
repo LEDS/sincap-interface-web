@@ -6,3 +6,6 @@
 .project
 .settings/
 
+#arquivos do glassfish
+nb-configuration.xml
+glassfish-web.xml
