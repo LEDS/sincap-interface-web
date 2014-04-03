@@ -7,6 +7,7 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Notificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
+import br.ifes.leds.sincap.web.model.BuscarPorDataForm;
 import br.ifes.leds.sincap.web.model.DoadorForm;
 import br.ifes.leds.sincap.web.model.IndexForm;
 import br.ifes.leds.sincap.web.model.NotificacaoForm;
@@ -14,6 +15,7 @@ import br.ifes.leds.sincap.web.model.PacienteForm;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import javax.faces.bean.SessionScoped;
@@ -105,13 +107,9 @@ public class ListaNotificacoes {
         return "redirect:/notificacao/visualizar/" + notificacaoForm.getId();
     }
     
-    @RequestMapping(value = "/arquivadas")
-    public String retornarArquivadas(ModelMap model) {
-                List<Notificacao> notificacoes;
+    public List<IndexForm> preencherListaNotificacoesForm(List<Notificacao> notificacoes)
+    {
         List<IndexForm> listaNotificacoesForm = new ArrayList<>();
-
-        notificacoes = aplNotificacao.retornarNotificacaoArquivada();
-        
         for (Notificacao notificacao : notificacoes) {
             IndexForm indexForm = new IndexForm(
                     notificacao.getId().toString(),
@@ -123,7 +121,17 @@ public class ListaNotificacoes {
 
             listaNotificacoesForm.add(indexForm);
         }
-
+        
+        return listaNotificacoesForm;
+    }
+    
+    
+    @RequestMapping(value = "/arquivadas")
+    public String retornarArquivadas(ModelMap model) {
+        List<Notificacao> notificacoes;
+        notificacoes = aplNotificacao.retornarNotificacaoArquivada();
+        List<IndexForm> listaNotificacoesForm  = preencherListaNotificacoesForm(notificacoes);
+                
         model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
         
         return "index";
@@ -132,24 +140,44 @@ public class ListaNotificacoes {
     @RequestMapping(value = "/todas")
     public String retornarTodas(ModelMap model) {
         List<Notificacao> notificacoes;
-        List<IndexForm> listaNotificacoesForm = new ArrayList<>();
-
         notificacoes = aplNotificacao.retornarTodasNotificacoes();
-        
-        for (Notificacao notificacao : notificacoes) {
-            IndexForm indexForm = new IndexForm(
-                    notificacao.getId().toString(),
-                    notificacao.getCodigo(),
-                    notificacao.getDataAbertura().getTime(),
-                    notificacao.getObito().getDataObito().getTime(),
-                    notificacao.getObito().getPaciente().getNome(),
-                    notificacao.getSetor().getHospital().toString());
-
-            listaNotificacoesForm.add(indexForm);
-        }
-
+        List<IndexForm> listaNotificacoesForm = preencherListaNotificacoesForm(notificacoes);
+    
+                
         model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
         
         return "index";
+    }
+    
+       
+    @RequestMapping(value = "/busca")
+    public String loadPaginaBusca(ModelMap model)
+    {
+        BuscarPorDataForm buscarPorDataForm = new BuscarPorDataForm();
+        model.addAttribute("buscarPorDataForm", buscarPorDataForm);
+        
+        return "form-buscarnotificacaodata";
+    }
+    
+    @RequestMapping(value = "/busca/pordata", method = RequestMethod.POST)
+    public String retornarPorData(@ModelAttribute BuscarPorDataForm buscarPorDataForm, ModelMap model){
+        Calendar dataIni, dataFim;
+        dataIni = stringToDate(buscarPorDataForm.getDataIni());
+        dataFim = stringToDate(buscarPorDataForm.getDataFim());
+        List<Notificacao> notificacoes = aplNotificacao.retornarNotificacaoPorData(dataIni, dataFim);
+        List<IndexForm> listaNotificacoesForm = preencherListaNotificacoesForm(notificacoes);
+        model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
+        return "index";
+    }
+    
+    private Calendar stringToDate(String data){
+        Calendar cal = Calendar.getInstance();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            cal.setTime(sdf.parse(data));
+            } catch (Exception e) {
+            e.printStackTrace();
+            }
+        return cal;
     }
 }
