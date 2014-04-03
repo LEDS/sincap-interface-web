@@ -36,6 +36,7 @@ import br.ifes.leds.sincap.web.model.HospitalForm;
 import br.ifes.leds.sincap.web.model.VisualizarHospitalForm;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -58,19 +59,29 @@ public class HospitalControler {
     public String loadForm(ModelMap model) {
 
         preecherLista(model);
+        
+        model.addAttribute("displayError", "none");
+        model.addAttribute("displaySuccess", "none");
 
         return "lista-hospital";
     }
 
-    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
-    public String excluirHospital(@PathVariable long id, ModelMap model) {
+    @RequestMapping(value = "/apagar", method = RequestMethod.POST)
+    public String excluirHospital(@RequestBody String id, ModelMap model) {
+        
+        id = id.split("=")[1]; // table1%3A1%3Aid=7
 
         try{
-            aplHospital.delete(id);
+            aplHospital.delete(Long.parseLong(id));
         }catch(HospitalEmUsoException e){
             
-            model.addAttribute("Error", "Notificaçao existe");
+            //model.addAttribute("Error", "Notificaçao existe");
+            preecherLista(model);
             
+            model.addAttribute("displayError", "block");
+            model.addAttribute("displaySuccess", "none");
+            
+            return "lista-hospital";
         }
         
         return "redirect:/admin/hospital";
