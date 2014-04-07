@@ -55,19 +55,24 @@
         <h:panelGroup layout="block" styleClass="container-fluid">
             <h:panelGroup layout="block" id="pad-wrapper">
                 <!-- mensagem de erro -->
-                <center>
-                    <div class="span12">
-                        <div class="alert alert-error" style="display:#{displayError}">
-                            <i class="icon-remove-sign"></i>
-                            Erro, existe notificações vinculadas a esse hospital.
+                <h:panelGroup rendered="#{(not empty displayError) or (not empty displaySuccess) or (not empty displayNovoSuccess)}">
+                    <center>
+                        <div class="span12">
+                            <div class="alert alert-error" style="display:#{displayError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, existe notificações vinculadas a esse hospital.
+                            </div>
+                            <div class="alert alert-success" style="display:#{displaySuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Hospital excluido com sucesso.
+                            </div>
+                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Hospital salvo com sucesso.
+                            </div>
                         </div>
-                        <div class="alert alert-success" style="display:#{displaySuccess}">
-                            <i class="icon-ok-sign"></i>
-                            Hospital excluido com sucesso.
-                        </div>
-                    </div>
-                </center>
-                
+                    </center>
+                </h:panelGroup>
                 
                 <a class="dropdown-toggle" href="/sincap/admin/hospital/novo"> <i
                         class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
 import br.ifes.leds.sincap.web.model.VisualizarSetorForm;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -42,17 +43,25 @@ public class VisualizarSetorController {
         return "visualizar-setor-form";
     }
 
-    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
-    public String apagarMotivo(@PathVariable long id, ModelMap model) {
+    @RequestMapping(value = "/apagar", method = RequestMethod.POST)
+    public String apagarMotivo(@RequestBody String id, ModelMap model) {
+        
+        id = id.split("=")[1];//table1%3A0%3Aid=15
+
         
         try{
-            aplSetor.excluir(id);
+            aplSetor.excluir(Long.parseLong(id));
         }catch(SetorEmUsoException e){
             e.printStackTrace();
         }
         
+        model.addAttribute("displayError", "none");
+        model.addAttribute("displaySuccess", "true");
+        model.addAttribute("displayNovoSuccess", "none");
 
-        return "redirect:/admin/setor";
+        return loadForm(model);
+        //return "redirect:/admin/setor";
+        
     }
 
     private void preecherLista(ModelMap model) {

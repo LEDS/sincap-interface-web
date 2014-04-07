@@ -33,6 +33,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
 import br.ifes.leds.sincap.web.model.HospitalForm;
+import br.ifes.leds.sincap.web.model.UsuarioForm;
 import br.ifes.leds.sincap.web.model.VisualizarHospitalForm;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,37 +55,37 @@ public class HospitalControler {
     @Autowired
     AplEndereco aplEndereco;
 
-    
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
 
         preecherLista(model);
-        
-        model.addAttribute("displayError", "none");
-        model.addAttribute("displaySuccess", "none");
 
         return "lista-hospital";
     }
 
     @RequestMapping(value = "/apagar", method = RequestMethod.POST)
     public String excluirHospital(@RequestBody String id, ModelMap model) {
-        
+
         id = id.split("=")[1]; // table1%3A1%3Aid=7
 
-        try{
+        try {
             aplHospital.delete(Long.parseLong(id));
-        }catch(HospitalEmUsoException e){
-            
-            //model.addAttribute("Error", "Notificaçao existe");
+
             preecherLista(model);
-            
+
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "block");
+            model.addAttribute("displayNovoSuccess", "none");
+
+        } catch (HospitalEmUsoException e) {
+
+            preecherLista(model);
+
             model.addAttribute("displayError", "block");
             model.addAttribute("displaySuccess", "none");
-            
-            return "lista-hospital";
+            model.addAttribute("displayNovoSuccess", "none");
         }
-        
-        return "redirect:/admin/hospital";
+        return loadForm(model);
     }
 
     private void preecherLista(ModelMap model) {
@@ -98,14 +99,11 @@ public class HospitalControler {
             VisualizarHospitalForm hospitalForm = new VisualizarHospitalForm(
                     hospital.getNome(), hospital.getId());
             listaHospitaisForm.add(hospitalForm);
-
         }
 
         model.addAttribute("listaHospitaisForm", listaHospitaisForm);
-
     }
-    
-    
+
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String loadFormNovo(ModelMap model) {
 
@@ -132,7 +130,6 @@ public class HospitalControler {
         }
 
         model.addAttribute("listaEstadoItem", listaEstadoItem);
-
     }
 
     /*Define o caminho da url que, quando for requisitada, chamará o método pelo  tipo especificado*/
@@ -149,14 +146,17 @@ public class HospitalControler {
         /*preechendo aba setores*/
         hospital = preencherAbaSetores(hospital, hospitalForm);
 
-        if(hospital.getId() == null)
+        if (hospital.getId() == null) {
             aplHospital.cadastrar(hospital);
-        else
+        } else {
             aplHospital.update(hospital);
+        }
         
-        System.out.println("Metodo addHospital");
-        
-        return "redirect:/admin/hospital";
+        model.addAttribute("displayError", "none");
+        model.addAttribute("displaySuccess", "none");
+        model.addAttribute("displayNovoSuccess", "block");
+
+        return loadForm(model);
     }
 
     @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
@@ -182,17 +182,6 @@ public class HospitalControler {
 
         return "form-hospital";
     }
-
-//    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
-//    public String apagarHospital(@PathVariable long id, ModelMap model)
-//            throws Exception {
-//        //pegando do banco
-//        Hospital hospital = aplHospital.obter(id);
-//
-//        aplHospital.delete(hospital);
-//
-//        return montaTabelaHospital(model);
-//    }
 
     // Monta a tabela de hospitais na página principal de Hospitais
     private String montaTabelaHospital(ModelMap model) {
