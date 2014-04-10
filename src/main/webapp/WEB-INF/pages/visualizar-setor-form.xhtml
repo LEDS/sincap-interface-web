@@ -58,18 +58,30 @@
                 <!-- mensagem de erro -->
                 <center>
                     <div class="span12">
-                        <div class="alert alert-error" style="display:#{displayError}">
-                            <i class="icon-remove-sign"></i>
-                            Erro, existe hospitais vinculadas a esse setor.
-                        </div>
-                        <div class="alert alert-success" style="display:#{displaySuccess}">
-                            <i class="icon-ok-sign"></i>
-                            Setor excluido com sucesso.
-                        </div>
-                        <!-- <div class="alert alert-success" style="display:#{displayNovoSuccess}">
-                            <i class="icon-ok-sign"></i>
-                            Setor salvo com sucesso.
-                        </div> -->
+                        <h:panelGroup rendered="#{not empty displayError}">
+                            <div class="alert alert-error" style="display:#{displayError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, existe notificações vinculadas a esse setor.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displaySuccess}">
+                            <div class="alert alert-success" style="display:#{displaySuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Setor excluido com sucesso.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
+                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Setor salvo com sucesso.
+                            </div>  
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoError}">
+                            <div class="alert alert-error" style="display:#{displayNovoError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, não foi possível salvar esse setor.
+                            </div>
+                        </h:panelGroup>
                     </div>
                 </center>
 
@@ -78,27 +90,6 @@
                 </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
-                        
-                        <!-- mensagem de erro -->
-                <h:panelGroup rendered="#{(not empty displayError) or (not empty displaySuccess) or (not empty displayNovoSuccess)}">
-                    <center>
-                        <div class="span12">
-                            <div class="alert alert-error" style="display:#{displayError}">
-                                <i class="icon-remove-sign"></i>
-                                Erro, existe notificações vinculadas a esse setor.
-                            </div>
-                            <div class="alert alert-success" style="display:#{displaySuccess}">
-                                <i class="icon-ok-sign"></i>
-                                Setor excluido com sucesso.
-                            </div>
-                            <!-- <div class="alert alert-success" style="display:#{displayNovoSuccess}">
-                                <i class="icon-ok-sign"></i>
-                                Setor salvo com sucesso.
-                            </div> -->
-                        </div>
-                    </center>
-                </h:panelGroup>
-                        
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
                             <h:dataTable id="table1" value="#{listaSetoresForm}"

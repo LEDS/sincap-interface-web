@@ -33,7 +33,6 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
 import br.ifes.leds.sincap.web.model.HospitalForm;
-import br.ifes.leds.sincap.web.model.UsuarioForm;
 import br.ifes.leds.sincap.web.model.VisualizarHospitalForm;
 import java.util.HashSet;
 import java.util.Set;
@@ -76,6 +75,7 @@ public class HospitalControler {
             model.addAttribute("displayError", "none");
             model.addAttribute("displaySuccess", "block");
             model.addAttribute("displayNovoSuccess", "none");
+            model.addAttribute("displayNovoError", "none");
 
         } catch (HospitalEmUsoException e) {
 
@@ -84,6 +84,7 @@ public class HospitalControler {
             model.addAttribute("displayError", "block");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
+            model.addAttribute("displayNovoError", "none");
         }
         return loadForm(model);
     }
@@ -146,16 +147,27 @@ public class HospitalControler {
         /*preechendo aba setores*/
         hospital = preencherAbaSetores(hospital, hospitalForm);
 
-        if (hospital.getId() == null) {
-            aplHospital.cadastrar(hospital);
-        } else {
-            aplHospital.update(hospital);
+        try{
+            if (hospital.getId() == null) {
+                aplHospital.cadastrar(hospital);
+            } else {
+                aplHospital.update(hospital);
+            }
+            
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "none");
+            model.addAttribute("displayNovoSuccess", "block");
+            model.addAttribute("displayNovoError", "none");
+            
+        } catch (Exception e) { //HospitalEmUsoException
+            e.printStackTrace();
+            
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "none");
+            model.addAttribute("displayNovoSuccess", "none");
+            model.addAttribute("displayNovoError", "block");
         }
         
-        model.addAttribute("displayError", "none");
-        model.addAttribute("displaySuccess", "none");
-        model.addAttribute("displayNovoSuccess", "block");
-
         return loadForm(model);
     }
 
