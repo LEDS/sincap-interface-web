@@ -53,21 +53,36 @@
     <!-- main container -->
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
-            <h:panelGroup layout="block" id="pad-wrapper">
+            <h:panelGroup layout="block" id="pad-wrapper">                
                 <!-- mensagem de erro -->
                 <center>
                     <div class="span12">
-                        <div class="alert alert-error" style="display:#{displayError}">
-                            <i class="icon-remove-sign"></i>
-                            Erro, existe notificações vinculadas a esse hospital.
-                        </div>
-                        <div class="alert alert-success" style="display:#{displaySuccess}">
-                            <i class="icon-ok-sign"></i>
-                            Hospital excluido com sucesso.
-                        </div>
+                        <h:panelGroup rendered="#{not empty displayError}">
+                            <div class="alert alert-error" style="display:#{displayError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, existe notificações vinculadas a esse hospital.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displaySuccess}">
+                            <div class="alert alert-success" style="display:#{displaySuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Hospital excluido com sucesso.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
+                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Hospital salvo com sucesso.
+                            </div>  
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoError}">
+                            <div class="alert alert-error" style="display:#{displayNovoError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, não foi possível salvar esse hospital.
+                            </div>
+                        </h:panelGroup>
                     </div>
                 </center>
-                
                 
                 <a class="dropdown-toggle" href="/sincap/admin/hospital/novo"> <i
                         class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
