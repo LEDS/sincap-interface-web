@@ -89,8 +89,8 @@ public class HospitalControler {
 
     private void preecherLista(ModelMap model) {
 
-        List<Hospital> hospitais = new ArrayList<Hospital>();
-        List<VisualizarHospitalForm> listaHospitaisForm = new ArrayList<VisualizarHospitalForm>();
+        List<Hospital> hospitais = new ArrayList<>();
+        List<VisualizarHospitalForm> listaHospitaisForm = new ArrayList<>();
 
         hospitais = aplHospital.obter();
 
