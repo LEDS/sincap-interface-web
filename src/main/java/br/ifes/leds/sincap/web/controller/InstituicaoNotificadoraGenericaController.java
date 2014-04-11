@@ -43,6 +43,7 @@ public class InstituicaoNotificadoraGenericaController {
     AplEndereco aplEndereco;
 
     private final String urlInstituicaoNotificadoraController = "/admin/instituicaoNotificadora";
+    private final String urlAdicionarInstituicao = "/novo";
     private final String urlEditarInstituicao = "/editar";
     private final String urlApagarInstituicao = "/apagar";
     private final String urlSalvarInstituicao = "/salvar";
@@ -58,8 +59,19 @@ public class InstituicaoNotificadoraGenericaController {
         return "lista-instituicao-notificadora";
     }
 
+    @RequestMapping(urlAdicionarInstituicao)
+    public String adicionarInstituicaoNotificadora(ModelMap model) {
+        InstituicaoNotificadoraForm formularioInstituicaoNotificadora = new InstituicaoNotificadoraForm();
+
+        preencherEstados(model);
+
+        model.addAttribute("formularioInstituicaoNotificadora", formularioInstituicaoNotificadora);
+
+        return "form-instituicao-notificadora";
+    }
+
     @RequestMapping(value = urlApagarInstituicao, method = RequestMethod.POST)
-    public String excluirHospital(@RequestBody String json, ModelMap model) {
+    public String excluirInstituicaoNotificadora(@RequestBody String json, ModelMap model) {
 
         Long idInstituicao = pegarParametroUnicoJSON(json);
 
