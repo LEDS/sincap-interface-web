@@ -7,7 +7,6 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplNotificador;
-import br.ifes.leds.sincap.web.model.NotificacaoForm;
 import br.ifes.leds.sincap.web.model.NotificadorForm;
 import java.util.List;
 import javax.faces.bean.SessionScoped;
@@ -60,7 +59,7 @@ public class NotificadorController {
 
         aplNotificador.salvarNotificador(notificador);
 
-        return "lista-notificador";
+        return "redirect:" + urlNotificadorController;
     }
 
     private void preencherListaNotificadores(ModelMap model) {
