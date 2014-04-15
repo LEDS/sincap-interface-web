@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author 20121BSI0252
  */
 @Controller
-@RequestMapping("/admin/setor/")
+@RequestMapping("/admin/setor")
 @SessionScoped
 public class SetorController {
 
@@ -149,6 +149,8 @@ public class SetorController {
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
             model.addAttribute("displayNovoError", "block");
+            
+            return novoSetor(model); //Redireciona para página atual
         }
         
         return loadForm(model);

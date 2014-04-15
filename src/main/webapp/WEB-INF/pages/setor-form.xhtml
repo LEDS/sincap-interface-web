@@ -56,14 +56,25 @@
             <h:panelGroup layout="block" id="pad-wrapper">
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
-                        <h:panelGroup styleClass="row-fluid form-wrapper">
                         
-						<h:outputLabel>#{msg['setor.title']}</h:outputLabel>
+                        <!-- Mensagem de retorno -->
+                        <h:panelGroup rendered="#{not empty displayNovoError}">
+                            <center>
+                                <div class="alert alert-error" style="display:#{displayNovoError}">
+                                    <i class="icon-remove-sign"></i>
+                                    Erro, não foi possível salvar esse setor.
+                                </div>
+                            </center>
+                        </h:panelGroup>
+                        
+                        <h:panelGroup styleClass="row-fluid form-wrapper">
+
+                            <h:outputLabel>#{msg['setor.title']}</h:outputLabel>
                             <form id="setorForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/novo/salvar" method="post">
                                 <h:panelGrid columns="2">                                    
                                     <h:outputLabel value="#{msg['setor.text.nome']}" />
                                     <h:inputText id="nome" value="#{setorForm.nome}" />
-                                    
+
                                     <h:inputHidden id="id" value="#{setorForm.id}"/>
 
                                     <button type="submit" class="btn-glow success btn-finish"> #{msg['geral.button.salvar']}</button>
@@ -92,12 +103,12 @@
             //Validando os dados do formulario
             $("#setorForm").validate({
                 rules: {
-                	nome: {
+                    nome: {
                         required: true
-                        }                       
+                    }
                 },
                 messages: {
-                	nome: {
+                    nome: {
                         required: "Por favor, digite o nome do setor."
                     }
                 },

@@ -166,6 +166,8 @@ public class HospitalControler {
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
             model.addAttribute("displayNovoError", "block");
+            
+            return loadFormNovo(model); //Redireciona para a página atual
         }
         
         return loadForm(model);
