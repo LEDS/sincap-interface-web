@@ -65,6 +65,16 @@
                 <h:panelGroup layout="block" id="pad-wrapper">
                     <h:panelGroup layout="block" styleClass="row-fluid">
                         <h:panelGroup layout="block" styleClass="span12">
+
+                            <center>
+                                <h:panelGroup rendered="#{not empty displayNovoError}">
+                                    <div class="alert alert-error" style="display:#{displayNovoError}">
+                                        <i class="icon-remove-sign"></i>
+                                        Erro, não foi possível salvar esse hospital.
+                                    </div>
+                                </h:panelGroup>
+                            </center>
+
                             <h:panelGroup styleClass="row-fluid form-wrapper">
 
                                 <h:outputLabel>Cadastro de Hospital:</h:outputLabel>

@@ -56,6 +56,16 @@
             <h:panelGroup layout="block" id="pad-wrapper">
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
+
+                        <h:panelGroup rendered="#{not empty displayNovoError}">
+                            <center>
+                                <div class="alert alert-error" style="display:#{displayNovoError}">
+                                    <i class="icon-remove-sign"></i>
+                                    Erro, não foi possível salvar esse Motivo de Inviabilidade.
+                                </div>
+                            </center>
+                        </h:panelGroup>
+
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
                             <h:outputLabel>Cadastro de Motivos de Inviabilidade:</h:outputLabel>
