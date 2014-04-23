@@ -73,6 +73,7 @@
                                       method="post">
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#abaDadosGerais" data-toggle="tab">${msg['hospital.title.dadosGerais']}</a></li>
+                                        <li><a href="#abaInstituicoes" data-toggle="tab">Instituições</a></li>
                                     </ul>
                                     <h:panelGroup layout="block" styleClass="tab-content">
                                         <h:panelGroup layout="block" id="abaDadosGerais"
@@ -90,6 +91,15 @@
                                                 <h:inputText id="email" value="#{formularioNotificador.email}" />
                                                 <h:outputLabel value="Senha" />
                                                 <h:inputSecret  id="senha" value="#{formularioNotificador.senha}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                        <h:panelGroup id="abaInstituicoes"
+                                                      styleClass="tab-pane">
+                                            <h:panelGrid columns="2">
+                                                <h:selectManyCheckbox id="instituicoesNotificadoras"
+                                                                      value="#{formularioNotificador.instituicoesNotificadoras}" layout="pageDirection">
+                                                    <f:selectItems value="#{listaInstituicoes}" />
+                                                </h:selectManyCheckbox>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGroup>
