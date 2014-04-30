@@ -5,6 +5,7 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.MotivoInviabilidadeEmUsoException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.MotivoInviabilidade;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoMotivoInviabilidade;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplMotivoInviabilidade;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplTipoMotivoInviabilidade;
+import br.ifes.leds.sincap.web.model.ListaMotivoInviabilidadeForm;
 import br.ifes.leds.sincap.web.model.MotivoInviabilidadeForm;
 
 /**
@@ -31,7 +33,7 @@ import br.ifes.leds.sincap.web.model.MotivoInviabilidadeForm;
  * @author 20112BSI0083
  */
 @Controller
-@RequestMapping("/admin/motivoInviabilidade/novo")
+@RequestMapping("/admin/motivoInviabilidade")
 @SessionScoped
 public class MotivoInviabilidadeController {
 
@@ -41,6 +43,14 @@ public class MotivoInviabilidadeController {
     AplTipoMotivoInviabilidade aplTipoMotivoInviabilidade;
 
     @RequestMapping(method = RequestMethod.GET)
+    public String loadLista(ModelMap model) {
+
+        preecherLista(model);
+
+        return "form-lista-motivosinviabilidade";
+    }
+    
+    @RequestMapping("/novo")
     public String loadForm(ModelMap model) {
 
         MotivoInviabilidadeForm motivoInviabilidadeForm = new MotivoInviabilidadeForm();
@@ -50,7 +60,44 @@ public class MotivoInviabilidadeController {
 
         return "form-motivosinviabilidade";
     }
+    
+    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
+    public String apagarMotivo(@PathVariable long id, ModelMap model) {
 
+        MotivoInviabilidade motivoInviabilidade = aplMotivoInviabilidade.buscar(id);
+
+        try {
+           //CATCH NAO UTILIZADO
+           aplMotivoInviabilidade.excluir(motivoInviabilidade);
+        } catch (MotivoInviabilidadeEmUsoException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return "redirect:/admin/motivoInviabilidade";
+    }
+
+    private void preecherLista(ModelMap model) {
+
+        List<MotivoInviabilidade> listaMotivos = aplMotivoInviabilidade.obter();
+        List<ListaMotivoInviabilidadeForm> listaMotivosForm = new ArrayList<ListaMotivoInviabilidadeForm>();
+
+        for (MotivoInviabilidade motivo : listaMotivos) {
+            try {
+                ListaMotivoInviabilidadeForm motivoInviabilidadeForm = new ListaMotivoInviabilidadeForm(
+                        motivo.getNome(), aplTipoMotivoInviabilidade.obter(
+                                motivo.getTipoMotivo().getId()).getNome(),
+                        motivo.getId());
+                listaMotivosForm.add(motivoInviabilidadeForm);
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        model.addAttribute("listaMotivosForm", listaMotivosForm);
+
+    }
+    
     private void preencherDropdown(ModelMap model) {
 
         List<TipoMotivoInviabilidade> listaTipoMotivos;
