@@ -86,7 +86,8 @@ public class FormNotificacaoController {
         preencherForm(pacienteForm, model);
 
         model.addAttribute("pacienteForm", pacienteForm);
-        model.addAttribute("display", "none");
+        model.addAttribute("displayError", "none");
+        model.addAttribute("displaySuccess", "none");
 
         return "form-notificacao";
     }
@@ -99,11 +100,15 @@ public class FormNotificacaoController {
             
             aplNotificacao.salvar(notificacao);
             
-            return "redirect:/notificacao/novo";
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "block");
+            
+            return "form-notificacao";
         }
         
         model.addAttribute("pacienteForm", pacienteForm);
-        model.addAttribute("display", "block");
+        model.addAttribute("displayError", "block");
+        model.addAttribute("displaySuccess", "none");
         preencherForm(pacienteForm, model);
         return "form-notificacao";
     }

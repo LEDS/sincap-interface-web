@@ -54,6 +54,31 @@
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
             <h:panelGroup layout="block" id="pad-wrapper">
+                
+                <!-- mensagem de erro -->
+                <center>
+                    <div class="span12">
+                        <h:panelGroup rendered="#{not empty displayError}">
+                            <div class="alert alert-error" style="display:#{displayError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, existe notificações vinculadas a esse Motivo de Inviabilidade.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displaySuccess}">
+                            <div class="alert alert-success" style="display:#{displaySuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Motivo de Inviabilidade excluido com sucesso.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
+                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Motivo de Inviabilidade salvo com sucesso.
+                            </div>  
+                        </h:panelGroup>
+                    </div>
+                </center>
+                
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <a class="dropdown-toggle" href="/sincap/admin/motivoInviabilidade/novo"> <i
                             class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
@@ -78,19 +103,6 @@
                                 <h:column>
                                     <f:facet name="header">
                                         <center>
-                                            <h:outputText value="Apagar" />
-                                        </center>
-                                    </f:facet>
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/apagar/${l.id}">
-                                        <center>
-                                            <i class="icon-remove"></i>
-                                        </center>
-                                    </a>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <center>
                                             <h:outputText value="Editar" />
                                         </center>
                                     </f:facet>
@@ -101,7 +113,22 @@
                                         </center>
                                     </a>
                                 </h:column>
-
+                                <h:column>
+                                    <f:facet name="header">
+                                        <center>
+                                            <h:outputText value="Apagar" />
+                                        </center>
+                                    </f:facet>
+                                    <form id="form_apagra_motInviabilidade_${l.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/apagar/"
+                                          method="post" >
+                                        <h:inputHidden id="id" value="${l.id}"></h:inputHidden>
+                                        <a onclick="document.getElementById('form_apagra_motInviabilidade_${l.id}').submit()" href="#">
+                                            <center>
+                                                <i class="icon-remove"></i>
+                                            </center>
+                                        </a>
+                                    </form>
+                                </h:column>
                             </h:dataTable>
                         </h:panelGroup>
                     </h:panelGroup>

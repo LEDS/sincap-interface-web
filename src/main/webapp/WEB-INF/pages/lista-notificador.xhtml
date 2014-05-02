@@ -53,46 +53,29 @@
     <!-- main container -->
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
-            <h:panelGroup layout="block" id="pad-wrapper">                
-                <!-- mensagem de erro -->
-                <center>
-                    <div class="span12">
-                        <h:panelGroup rendered="#{not empty displayError}">
-                            <div class="alert alert-error" style="display:#{displayError}">
-                                <i class="icon-remove-sign"></i>
-                                Erro, existe notificações vinculadas a esse hospital.
-                            </div>
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty displaySuccess}">
-                            <div class="alert alert-success" style="display:#{displaySuccess}">
-                                <i class="icon-ok-sign"></i>
-                                Hospital excluido com sucesso.
-                            </div>
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
-                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
-                                <i class="icon-ok-sign"></i>
-                                Hospital salvo com sucesso.
-                            </div>  
-                        </h:panelGroup>
-                    </div>
-                </center>
-                
-                <a class="dropdown-toggle" href="/sincap/admin/hospital/novo"> <i
+            <h:panelGroup layout="block" id="pad-wrapper">
+
+                <a class="dropdown-toggle" href="/sincap/admin/notificador/novo"> <i
                         class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
                 </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
-                            <h:outputLabel>Hospitais</h:outputLabel>
-                            <h:dataTable id="table1" value="#{listaHospitaisForm}" var="h"
+                            <h:outputLabel>Notificadores</h:outputLabel>
+                            <h:dataTable id="table1" value="#{listaNotificadores}" var="notificador"
                                          rows="#{quantidade}" styleClass="table table-hover table-striped">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Nome" />
                                     </f:facet>
-                                    #{h.nome}
+                                    #{notificador.nome}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CPF" />
+                                    </f:facet>
+                                    #{notificador.cpf}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -100,12 +83,14 @@
                                             <h:outputText value="Editar" />
                                         </center>
                                     </f:facet>
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/editar/${h.id}">
-                                        <center>
-                                            <i class="icon-edit"></i>
-                                        </center>
-                                    </a>
+                                    <form id="formulario_editar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/editar" method="post">
+                                        <h:inputHidden id="id" value="${notificador.id}"></h:inputHidden>
+                                        <a onclick="document.getElementById('formulario_editar_com_id_notificador_${notificador.id}').submit()" href="#">
+                                            <center>
+                                                <i class="icon-edit"></i>
+                                            </center>
+                                        </a>
+                                    </form>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -113,9 +98,9 @@
                                             <h:outputText value="Apagar" />
                                         </center>
                                     </f:facet>
-                                    <form id="formulario_com_id_hospital_${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/apagar" method="post">
-                                        <h:inputHidden id="id" value="${h.id}"></h:inputHidden>
-                                        <a onclick="document.getElementById('formulario_com_id_hospital_${h.id}').submit()" href="#">
+                                    <form id="formulario_apagar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/apagar" method="post">
+                                        <h:inputHidden id="id" value="${notificador.id}"></h:inputHidden>
+                                        <a onclick="document.getElementById('formulario_apagar_com_id_notificador_${notificador.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-remove"></i>
                                             </center>
@@ -142,40 +127,40 @@
         <!-- end scripts -->
 
         <script type="text/javascript">
-            //Validando os dados do formulario
-            $("#hospitalForm")
-                    .validate(
-                            {
-                                rules: {
-                                    cnes: {
-                                        required: true
+                                            //Validando os dados do formulario
+                                            $("#hospitalForm")
+                                                    .validate(
+                                                            {
+                                                                rules: {
+                                                                    cnes: {
+                                                                        required: true
 
-                                    },
-                                    nome: {
-                                        required: true
+                                                                    },
+                                                                    nome: {
+                                                                        required: true
 
-                                    },
-                                    sigla: {
-                                        required: true
-                                    }
-                                },
-                                messages: {
-                                    cnes: {
-                                        required: "Por favor, digite o cnes"
+                                                                    },
+                                                                    sigla: {
+                                                                        required: true
+                                                                    }
+                                                                },
+                                                                messages: {
+                                                                    cnes: {
+                                                                        required: "Por favor, digite o cnes"
 
-                                    },
-                                    nome: {
-                                        required: "Por favor, digite o nome."
-                                    },
-                                    sigla: {
-                                        required: "Por favor, digite a sigla."
-                                    }
-                                },
-                                submitHandler: function(
-                                        form) {
-                                    form.submit();
-                                }
-                            });
+                                                                    },
+                                                                    nome: {
+                                                                        required: "Por favor, digite o nome."
+                                                                    },
+                                                                    sigla: {
+                                                                        required: "Por favor, digite a sigla."
+                                                                    }
+                                                                },
+                                                                submitHandler: function(
+                                                                        form) {
+                                                                    form.submit();
+                                                                }
+                                                            });
         </script>
     </h:body>
 </html>

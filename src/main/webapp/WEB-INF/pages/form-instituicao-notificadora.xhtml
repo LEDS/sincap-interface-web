@@ -65,52 +65,39 @@
                 <h:panelGroup layout="block" id="pad-wrapper">
                     <h:panelGroup layout="block" styleClass="row-fluid">
                         <h:panelGroup layout="block" styleClass="span12">
-
-                            <center>
-                                <h:panelGroup rendered="#{not empty displayNovoError}">
-                                    <div class="alert alert-error" style="display:#{displayNovoError}">
-                                        <i class="icon-remove-sign"></i>
-                                        Erro, não foi possível salvar esse hospital.
-                                    </div>
-                                </h:panelGroup>
-                            </center>
-
                             <h:panelGroup styleClass="row-fluid form-wrapper">
 
-                                <h:outputLabel>Cadastro de Hospital:</h:outputLabel>
+                                <h:outputLabel>Cadastro de Instituição Notificadora:</h:outputLabel>
                                 <form id="hospitalForm"
-                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/novo/add"
+                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/instituicaoNotificadora/salvar"
                                       method="post">
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#abaDadosGerais"
                                                               data-toggle="tab">${msg['hospital.title.dadosGerais']}</a></li>
                                         <li><a href="#abaEndereco" data-toggle="tab">${msg['hospital.title.endereco']}</a></li>
-                                        <li><a href="#abaSetores" data-toggle="tab">${msg['hospital.title.setores']}</a></li>
                                     </ul>
                                     <h:panelGroup layout="block" styleClass="tab-content">
                                         <h:panelGroup layout="block" id="abaDadosGerais"
                                                       styleClass="tab-pane active">
                                             <h:panelGrid columns="2">
                                                 <h:outputLabel value="Nome" />
-                                                <h:inputText id="nome" value="#{hospitalForm.nome}" />
+                                                <h:inputText id="nome" value="#{formularioInstituicaoNotificadora.nome}" />
 
                                                 <h:outputLabel value="Nome fantasia" />
-                                                <h:inputText id="fantasia" value="#{hospitalForm.fantasia}" />
-
-                                                <h:outputLabel value="Cnes" />
-                                                <h:inputText id="cnes" value="#{hospitalForm.cnes}" />
+                                                <h:inputText id="fantasia" value="#{formularioInstituicaoNotificadora.fantasia}" />
 
                                                 <h:outputLabel value="Sigla" />
-                                                <h:inputText id="sigla" value="#{hospitalForm.sigla}" />
+                                                <h:inputText id="sigla" value="#{formularioInstituicaoNotificadora.sigla}" />
 
                                                 <h:outputLabel value="Telefone" />
-                                                <h:inputText id="telefone" class="tel" value="#{hospitalForm.telefone}" />
+                                                <h:inputText id="telefone" class="tel" value="#{formularioInstituicaoNotificadora.telefone}" />
 
                                                 <h:outputLabel value="Fax" />
-                                                <h:inputText id="fax" class="tel" value="#{hospitalForm.fax}" />
+                                                <h:inputText id="fax" class="tel" value="#{formularioInstituicaoNotificadora.fax}" />
 
                                                 <h:outputLabel value="E-mail" />
-                                                <h:inputText id="email" value="#{hospitalForm.email}" />
+                                                <h:inputText id="email" value="#{formularioInstituicaoNotificadora.email}" />
+
                                             </h:panelGrid>
                                         </h:panelGroup>
 
@@ -118,51 +105,46 @@
                                                       styleClass="tab-pane">
                                             <h:panelGrid columns="2">
                                                 <h:outputLabel value="CEP" />
-                                                <h:inputText id="cep" value="#{hospitalForm.cep}" />
+                                                <h:inputText id="cep" value="#{formularioInstituicaoNotificadora.cep}" />
 
                                                 <h:outputLabel value="Estado" />
-                                                <h:selectOneMenu id="estado" value="#{hospitalForm.estado}" styleClass="select2" onchange="ajaxGetMunicipios(estado, cidade)">
+                                                <h:selectOneMenu id="estado" value="#{formularioInstituicaoNotificadora.estado}" styleClass="select2" onchange="ajaxGetMunicipios(estado, cidade)" onclick="ajaxGetMunicipios(estado, cidade)">
                                                     <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
                                                     <f:selectItems value="#{listaEstadoItem}" />
                                                 </h:selectOneMenu>
 
                                                 <h:outputLabel value="Cidade" />
-                                                <h:selectOneMenu id="cidade" value="#{hospitalForm.cidade}" styleClass="select2" onchange="ajaxGetBairros(cidade, bairro)">
+                                                <h:selectOneMenu id="cidade" value="#{formularioInstituicaoNotificadora.cidade}" styleClass="select2" onchange="ajaxGetBairros(cidade, bairro)" onclick="ajaxGetBairros(cidade, bairro)">
+                                                    <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.cidade.escolha']}" />
+                                                    <f:selectItems value="#{listaCidadeItem}" />
                                                 </h:selectOneMenu>
 
                                                 <h:outputLabel value="Bairro" />
-                                                <h:selectOneMenu id="bairro" value="#{hospitalForm.bairro}" styleClass="select2">
+                                                <h:selectOneMenu id="bairro" value="#{formularioInstituicaoNotificadora.bairro}" styleClass="select2">
+                                                    <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.bairro.escolha']}" />
+                                                    <f:selectItems value="#{listaBairroItem}" />
                                                 </h:selectOneMenu>
 
                                                 <h:outputLabel value="Logradouro" />
-                                                <h:inputText id="logradouro" value="#{hospitalForm.logradouro}" />
+                                                <h:inputText id="logradouro" value="#{formularioInstituicaoNotificadora.logradouro}" />
 
                                                 <h:outputLabel value="Número" />
-                                                <h:inputText id="numero" value="#{hospitalForm.numero}" />
+                                                <h:inputText id="numero" value="#{formularioInstituicaoNotificadora.numero}" />
 
                                                 <h:outputLabel value="Complemento" />
-                                                <h:inputText id="complemento" value="#{hospitalForm.complemento}" />
-                                            </h:panelGrid>
-                                        </h:panelGroup>
-
-                                        <h:panelGroup id="abaSetores"
-                                                      styleClass="tab-pane">
-                                            <h:panelGrid columns="2">
-                                                <h:selectManyCheckbox id="setores"
-                                                                      value="#{hospitalForm.setores}" layout="pageDirection">
-                                                    <f:selectItems value="#{listaSetorForm}" />
-                                                </h:selectManyCheckbox>
+                                                <h:inputText id="complemento" value="#{formularioInstituicaoNotificadora.complemento}" />
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGroup>
 
+                                    <h:inputHidden id="id" value="#{formularioInstituicaoNotificadora.id}" />
+                                    <h:inputHidden id="idTelefone" value="#{formularioInstituicaoNotificadora.idTelefone}" />
+                                    <h:inputHidden id="idFax" value="#{formularioInstituicaoNotificadora.idFax}" />
+                                    <h:inputHidden id="idEndereco" value="#{formularioInstituicaoNotificadora.idEndereco}" />
 
+                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/instituicaoNotificadora"
+                                       class="btn btn-primary">Voltar</a>
 
-                                    <h:inputHidden id="id" value="#{hospitalForm.id}" />
-
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital"
-                                        class="btn btn-primary">Voltar</a>
                                     <button type="submit" class="btn btn-success">Salvar</button>
                                 </form>
 
