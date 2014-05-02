@@ -61,19 +61,19 @@
                         <h:panelGroup rendered="#{not empty displayError}">
                             <div class="alert alert-error" style="display:#{displayError}">
                                 <i class="icon-remove-sign"></i>
-                                Erro, existe notificações vinculadas a esse setor.
+                                #{msg['msg.erroSetorNotificacaoExiste']}
                             </div>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{not empty displaySuccess}">
                             <div class="alert alert-success" style="display:#{displaySuccess}">
                                 <i class="icon-ok-sign"></i>
-                                Setor excluido com sucesso.
+                                #{msg['msg.sucessoSetorExcluido']}
                             </div>
                         </h:panelGroup>
                         <h:panelGroup rendered="#{not empty displayNovoSuccess}">
                             <div class="alert alert-success" style="display:#{displayNovoSuccess}">
                                 <i class="icon-ok-sign"></i>
-                                Setor salvo com sucesso.
+                                #{msg['msg.sucessoSetorSalvo']}
                             </div>  
                         </h:panelGroup>
                     </div>
