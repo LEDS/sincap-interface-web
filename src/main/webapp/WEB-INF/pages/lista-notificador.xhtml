@@ -83,8 +83,8 @@
                                             <h:outputText value="Editar" />
                                         </center>
                                     </f:facet>
-                                    <form id="formulario_editar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/editar" method="post">
-                                        <h:inputHidden id="id" value="${notificador.id}"></h:inputHidden>
+                                    <form id="formulario_editar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}${contextUrls.editar}" method="post">
+                                        <input type="hidden" name="id" value="#{notificador.id}" />
                                         <a onclick="document.getElementById('formulario_editar_com_id_notificador_${notificador.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-edit"></i>
@@ -98,8 +98,8 @@
                                             <h:outputText value="Apagar" />
                                         </center>
                                     </f:facet>
-                                    <form id="formulario_apagar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/apagar" method="post">
-                                        <h:inputHidden id="id" value="${notificador.id}"></h:inputHidden>
+                                    <form id="formulario_apagar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}${contextUrls.apagar}" method="post">
+                                        <input type="hidden" name="id" value="#{notificador.id}" />
                                         <a onclick="document.getElementById('formulario_apagar_com_id_notificador_${notificador.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-remove"></i>

@@ -4,4 +4,23 @@
           xsi:schemaLocation="http://dozer.sourceforge.net
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
+    <configuration>
+        <custom-converters>
+            <converter type="br.ifes.leds.sincap.web.converter.TelefoneToTelefoneDTOConverter">
+                <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone</class-a>
+                <class-b>br.ifes.leds.sincap.web.model.TelefoneDTO</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+    
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.NotificadorDTO</class-b>
+        <field
+            custom-converter="br.ifes.leds.sincap.web.converter.InstituicaoNotificadoraSetToIdArrayConverter">
+            <a>instituicoesNotificadoras</a>
+            <b>instituicoesNotificadoras</b>
+        </field>
+    </mapping>
+    
 </mappings>

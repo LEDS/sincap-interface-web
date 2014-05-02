@@ -69,7 +69,7 @@
 
                                 <h:outputLabel>Cadastro de Notificador:</h:outputLabel>
                                 <form id="notificadorForm"
-                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/salvar"
+                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}${contextUrls.salvar}"
                                       method="post">
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#abaDadosGerais" data-toggle="tab">${msg['hospital.title.dadosGerais']}</a></li>
@@ -83,10 +83,14 @@
                                                 <h:inputText id="nome" value="#{formularioNotificador.nome}" />
                                                 <h:outputLabel value="CPF" />
                                                 <h:inputText id="cpf" value="#{formularioNotificador.cpf}" />
-                                                <h:outputLabel value="Telefone 1 " />
-                                                <h:inputText id="celular" value="#{formularioNotificador.celular}" />
-                                                <h:outputLabel value="Telefone 2 " />
-                                                <h:inputText id="residencial" value="#{formularioNotificador.residencial}" />
+                                                <h:outputLabel value="Celular " />
+                                                <input id="celular" name="telefones[0].numero" type="text" value="#{formularioNotificador.telefones[0].numero}" />
+                                                <input name="telefones[0].tipo" type="hidden" value="CELULAR" />
+                                                <input name="telefones[0].id" type="hidden" value="#{formularioNotificador.telefones[0].id}" />
+                                                <h:outputLabel value="Residencial " />
+                                                <input id="residencial" name="telefones[1].numero" type="text" value="#{formularioNotificador.telefones[1].numero}" />
+                                                <input name="telefones[1].tipo" type="hidden" value="RESIDENCIAL" />
+                                                <input name="telefones[1].id" type="hidden" value="#{formularioNotificador.telefones[1].id}" />
                                                 <h:outputLabel value="E-mail" />
                                                 <h:inputText id="email" value="#{formularioNotificador.email}" />
                                                 <h:outputLabel value="Senha" />
@@ -105,8 +109,10 @@
                                     </h:panelGroup>
 
                                     <h:inputHidden id="id" value="#{formularioNotificador.id}" />
+                                    <h:inputHidden id="tipoUsuario" value="#{formularioNotificador.tipoUsuario}" />
+                                    <h:inputHidden id="active" value="#{formularioNotificador.active}" />
 
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador"
+                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}"
                                        class="btn btn-primary">Voltar</a>
 
                                     <button type="submit" class="btn btn-success">Salvar</button>

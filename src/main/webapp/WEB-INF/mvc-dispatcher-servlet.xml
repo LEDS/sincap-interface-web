@@ -35,7 +35,7 @@
             <value>.xhtml</value>
         </property>
     </bean>
-        
+
     <bean id="org.dozer.Mapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
