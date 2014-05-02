@@ -54,36 +54,28 @@
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
             <h:panelGroup layout="block" id="pad-wrapper">
-                <!-- mensagem de erro -->
-                <center>
-                    <div class="span12">
-                        <div class="alert alert-error" style="display:#{displayError}">
-                            <i class="icon-remove-sign"></i>
-                            Erro, existe notificações vinculadas a essa instituição.
-                        </div>
-                        <div class="alert alert-success" style="display:#{displaySuccess}">
-                            <i class="icon-ok-sign"></i>
-                            Instituição notificadora excluída com sucesso.
-                        </div>
-                    </div>
-                </center>
 
-
-                <a class="dropdown-toggle" href="/sincap/admin/instituicaoNotificadora/novo"> <i
+                <a class="dropdown-toggle" href="/sincap/admin/notificador/novo"> <i
                         class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
                 </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
-                            <h:outputLabel>Instituições Notificadoras</h:outputLabel>
-                            <h:dataTable id="table1" value="#{instituicoesNotificadoras}" var="instituicao"
+                            <h:outputLabel>Notificadores</h:outputLabel>
+                            <h:dataTable id="table1" value="#{listaNotificadores}" var="notificador"
                                          rows="#{quantidade}" styleClass="table table-hover table-striped">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Nome" />
                                     </f:facet>
-                                    #{instituicao.nome}
+                                    #{notificador.nome}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="CPF" />
+                                    </f:facet>
+                                    #{notificador.cpf}
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -91,9 +83,9 @@
                                             <h:outputText value="Editar" />
                                         </center>
                                     </f:facet>
-                                    <form id="formulario_editar_com_id_instituicao_${instituicao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/instituicaoNotificadora/editar" method="post">
-                                        <h:inputHidden id="id" value="${instituicao.id}"></h:inputHidden>
-                                        <a onclick="document.getElementById('formulario_editar_com_id_instituicao_${instituicao.id}').submit()" href="#">
+                                    <form id="formulario_editar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/editar" method="post">
+                                        <h:inputHidden id="id" value="${notificador.id}"></h:inputHidden>
+                                        <a onclick="document.getElementById('formulario_editar_com_id_notificador_${notificador.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-edit"></i>
                                             </center>
@@ -106,9 +98,9 @@
                                             <h:outputText value="Apagar" />
                                         </center>
                                     </f:facet>
-                                    <form id="formulario_apagar_com_id_instituicao_${instituicao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/instituicaoNotificadora/apagar" method="post">
-                                        <h:inputHidden id="id" value="${instituicao.id}"></h:inputHidden>
-                                        <a onclick="document.getElementById('formulario_apagar_com_id_instituicao_${instituicao.id}').submit()" href="#">
+                                    <form id="formulario_apagar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador/apagar" method="post">
+                                        <h:inputHidden id="id" value="${notificador.id}"></h:inputHidden>
+                                        <a onclick="document.getElementById('formulario_apagar_com_id_notificador_${notificador.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-remove"></i>
                                             </center>

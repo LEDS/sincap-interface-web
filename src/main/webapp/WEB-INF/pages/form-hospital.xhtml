@@ -187,85 +187,85 @@
         <!-- end scripts -->
 
         <script type="text/javascript">
-                                                    $(document).ready(function() {
-                                                        $('#cep').mask('00000-000', {
-                                                            reverse: true
-                                                        });
-                                                        $('.tel').mask('(00)0000-0000', {
-                                                            reverse: true
-                                                        });
-                                                    });
+            $(document).ready(function() {
+                $('#cep').mask('00000-000', {
+                    reverse: true
+                });
+                $('.tel').mask('(00)0000-0000', {
+                    reverse: false
+                });
+            });
 
-                                                    //Validando os dados do formulario
-                                                    $("#hospitalForm").validate({
-                                                        rules: {
-                                                            nome: {
-                                                                required: true,
-                                                            },
-                                                            fantasia: {
-                                                                required: true,
-                                                            },
-                                                            cnes: {
-                                                                required: true,
-                                                            },
-                                                            sigla: {
-                                                                required: true,
-                                                            },
-                                                            telefone: {
-                                                                required: true,
-                                                            },
-                                                            fax: {
-                                                                required: true,
-                                                            },
-                                                            email: {
-                                                                required: true,
-                                                            },
-                                                            estado: {
-                                                                required: true,
-                                                            },
-                                                            cidade: {
-                                                                required: true,
-                                                            },
-                                                            bairro: {
-                                                                required: true,
-                                                            },
-                                                        },
-                                                        messages: {
-                                                            nome: {
-                                                                required: "Por favor, entre com o nome do Hospital.",
-                                                            },
-                                                            fantasia: {
-                                                                required: "Por favor, entre com o nome fantasia do Hospital.",
-                                                            },
-                                                            cnes: {
-                                                                required: "Por favor, entre com o CNES do Hospital.",
-                                                            },
-                                                            sigla: {
-                                                                required: "Por favor, entre com a sigla do Hospital.",
-                                                            },
-                                                            telefone: {
-                                                                required: "Por favor, entre com o telefone do Hospital.",
-                                                            },
-                                                            fax: {
-                                                                required: "Por favor, entre com o fax do Hospital.",
-                                                            },
-                                                            email: {
-                                                                required: "Por favor, entre com o email do Hospital.",
-                                                            },
-                                                            estado: {
-                                                                required: "Por favor, escolha um estado.",
-                                                            },
-                                                            cidade: {
-                                                                required: "Por favor, escolha uma cidade.",
-                                                            },
-                                                            bairro: {
-                                                                required: "Por favor, escolha um bairro.",
-                                                            },
-                                                        },
-                                                        submitHandler: function(form) {
-                                                            form.submit();
-                                                        }
-                                                    });
+            //Validando os dados do formulario
+            $("#hospitalForm").validate({
+                rules: {
+                    nome: {
+                        required: true
+                    },
+                    fantasia: {
+                        required: true
+                    },
+                    cnes: {
+                        required: true
+                    },
+                    sigla: {
+                        required: true
+                    },
+                    telefone: {
+                        required: true
+                    },
+                    fax: {
+                        required: true
+                    },
+                    email: {
+                        required: true
+                    },
+                    estado: {
+                        required: true
+                    },
+                    cidade: {
+                        required: true
+                    },
+                    bairro: {
+                        required: true
+                    }
+                },
+                messages: {
+                    nome: {
+                        required: "Por favor, entre com o nome do Hospital."
+                    },
+                    fantasia: {
+                        required: "Por favor, entre com o nome fantasia do Hospital."
+                    },
+                    cnes: {
+                        required: "Por favor, entre com o CNES do Hospital."
+                    },
+                    sigla: {
+                        required: "Por favor, entre com a sigla do Hospital."
+                    },
+                    telefone: {
+                        required: "Por favor, entre com o telefone do Hospital."
+                    },
+                    fax: {
+                        required: "Por favor, entre com o fax do Hospital."
+                    },
+                    email: {
+                        required: "Por favor, entre com o email do Hospital."
+                    },
+                    estado: {
+                        required: "Por favor, escolha um estado."
+                    },
+                    cidade: {
+                        required: "Por favor, escolha uma cidade."
+                    },
+                    bairro: {
+                        required: "Por favor, escolha um bairro."
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
         </script>
     </h:body>
 </html>
