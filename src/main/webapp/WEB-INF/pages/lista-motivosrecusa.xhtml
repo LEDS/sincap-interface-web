@@ -6,7 +6,7 @@
       >	
     <h:head>
         <!-- title -->
-        <title>#{msg['setor.title.visualizar']}</title>
+        <title>#{msg['form-usuario.title']}</title>
 
         <!-- meta -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -54,66 +54,54 @@
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
             <h:panelGroup layout="block" id="pad-wrapper">
-
-                <!-- mensagem de erro -->
-                <center>
-                    <div class="span12">
-                        <h:panelGroup rendered="#{not empty displayError}">
-                            <div class="alert alert-error" style="display:#{displayError}">
-                                <i class="icon-remove-sign"></i>
-                                #{msg['msg.erroSetorNotificacaoExiste']}
-                            </div>
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty displaySuccess}">
-                            <div class="alert alert-success" style="display:#{displaySuccess}">
-                                <i class="icon-ok-sign"></i>
-                                #{msg['msg.sucessoSetorExcluido']}
-                            </div>
-                        </h:panelGroup>
-                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
-                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
-                                <i class="icon-ok-sign"></i>
-                                #{msg['msg.sucessoSetorSalvo']}
-                            </div>  
-                        </h:panelGroup>
-                    </div>
-                </center>
-
-                <a class="dropdown-toggle" href="/sincap/admin/setor/novo"> <i class="icon-plus-sign"></i>
-                    <span>#{msg['geral.text.novo']}</span>
-                </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
+                    <a class="dropdown-toggle" href="/sincap/admin/motivorecusa/novo"> <i
+                            class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
+                    </a>
                     <h:panelGroup layout="block" styleClass="span12">
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
-                            <h:dataTable id="table1" value="#{listaSetoresForm}"
-                                         var="l" styleClass="table table-hover table-striped">
+                            <h:dataTable id="table1" value="#{motivosRecusaForm}" var="m"
+                                         styleClass="table table-hover table-striped">
                                 <h:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Setor" />
+                                        <h:outputText value="Tipo do Motivo de Recusa" />
                                     </f:facet>
-                                    #{l.nome}				
+                                    #{m.tipoMotivoRecusa}				
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
-                                        <center><h:outputText value="Editar" /></center>
+                                        <h:outputText value="Motivo de Recusa" />
                                     </f:facet>
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/novo/atualizar/${l.id}">
-                                        <center><i class="icon-edit"></i></center>
+                                    #{m.nome}
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <center>
+                                            <h:outputText value="Apagar" />
+                                        </center>
+                                    </f:facet>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivorecusa/apagar/${m.id}">
+                                        <center>
+                                            <i class="icon-remove"></i>
+                                        </center>
                                     </a>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
-                                        <center><h:outputText value="Apagar" /></center>
+                                        <center>
+                                            <h:outputText value="Editar" />
+                                        </center>
                                     </f:facet>
-                                    <form id="form_com_id_setor_${l.id}" method="post"
-                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/apagar">
-                                        <h:inputHidden id="id" value="${l.id}"></h:inputHidden>
-                                        <a onclick="document.getElementById('form_com_id_setor_${l.id}').submit()" href="#">
-                                            <center><i class="icon-remove"></i></center>
-                                        </a>
-                                    </form>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivorecusa/atualizar/${m.id}">
+                                        <center>
+                                            <i class="icon-edit"></i>
+                                        </center>
+                                    </a>
                                 </h:column>
+
                             </h:dataTable>
                         </h:panelGroup>
                     </h:panelGroup>
@@ -131,6 +119,6 @@
         <h:outputScript library="js" name="jquery-2.0.3.js" />	
         <h:outputScript library="js" name="jquery.validate.min.js" />
         <!-- end scripts -->
-
+      
     </h:body>
 </html>
