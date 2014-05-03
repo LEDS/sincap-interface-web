@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Phillipe Lopes
  */
 @Controller
-@RequestMapping("/admin/instituicaoNotificadora")
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_INSTITUICAO_NOTIFICADORA_GENERICA)
 @SessionScoped
 public class InstituicaoNotificadoraGenericaController {
 
@@ -41,12 +41,6 @@ public class InstituicaoNotificadoraGenericaController {
 
     @Autowired
     AplEndereco aplEndereco;
-
-    private final String urlInstituicaoNotificadoraController = "/admin/instituicaoNotificadora";
-    private final String urlAdicionarInstituicao = "/novo";
-    private final String urlEditarInstituicao = "/editar";
-    private final String urlApagarInstituicao = "/apagar";
-    private final String urlSalvarInstituicao = "/salvar";
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
@@ -59,7 +53,7 @@ public class InstituicaoNotificadoraGenericaController {
         return "lista-instituicao-notificadora";
     }
 
-    @RequestMapping(urlAdicionarInstituicao)
+    @RequestMapping(ContextUrls.ADICIONAR)
     public String adicionarInstituicaoNotificadora(ModelMap model) {
         InstituicaoNotificadoraForm formularioInstituicaoNotificadora = new InstituicaoNotificadoraForm();
 
@@ -70,17 +64,17 @@ public class InstituicaoNotificadoraGenericaController {
         return "form-instituicao-notificadora";
     }
 
-    @RequestMapping(value = urlApagarInstituicao, method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
     public String excluirInstituicaoNotificadora(@RequestBody String json, ModelMap model) {
 
         Long idInstituicao = pegarParametroUnicoJSON(json);
 
         aplInstituicaoNotificadoraGenerica.delete(idInstituicao);
 
-        return "redirect:" + urlInstituicaoNotificadoraController;
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_INSTITUICAO_NOTIFICADORA_GENERICA;
     }
 
-    @RequestMapping(value = urlEditarInstituicao, method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.EDITAR, method = RequestMethod.POST)
     public String editarInstituicaoNotificadora(@RequestBody String json, ModelMap model) {
         Long idInstituicao = pegarParametroUnicoJSON(json);
 
@@ -94,14 +88,14 @@ public class InstituicaoNotificadoraGenericaController {
         return "form-instituicao-notificadora";
     }
 
-    @RequestMapping(value = urlSalvarInstituicao, method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarInstituicaoNotificadora(@ModelAttribute InstituicaoNotificadoraForm formularioInstituicaoNotificadora, ModelMap model) {
 
         InstituicaoNotificadoraGenerica instituicaoNotificadora = formularioInstituicaoNotificadora.converterParaInstituicaoNotificadora(aplEndereco);
 
         aplInstituicaoNotificadoraGenerica.salvar(instituicaoNotificadora);
 
-        return "redirect:" + urlInstituicaoNotificadoraController;
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_INSTITUICAO_NOTIFICADORA_GENERICA;
     }
 
     public Long pegarParametroUnicoJSON(String json) {

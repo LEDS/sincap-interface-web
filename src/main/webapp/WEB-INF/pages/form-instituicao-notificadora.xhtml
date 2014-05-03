@@ -69,7 +69,7 @@
 
                                 <h:outputLabel>Cadastro de Instituição Notificadora:</h:outputLabel>
                                 <form id="hospitalForm"
-                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/instituicaoNotificadora/salvar"
+                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}${contextUrls.salvar}"
                                       method="post">
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#abaDadosGerais"
@@ -142,7 +142,7 @@
                                     <h:inputHidden id="idFax" value="#{formularioInstituicaoNotificadora.idFax}" />
                                     <h:inputHidden id="idEndereco" value="#{formularioInstituicaoNotificadora.idEndereco}" />
 
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/instituicaoNotificadora"
+                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}"
                                        class="btn btn-primary">Voltar</a>
 
                                     <button type="submit" class="btn btn-success">Salvar</button>
