@@ -54,7 +54,7 @@
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
             <h:panelGroup layout="block" id="pad-wrapper">
-                <a class="dropdown-toggle" href="/sincap/admin/bancoolhos/novo"> <i
+                <a class="dropdown-toggle" href="${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.adicionar}"> <i
                         class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
                 </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
@@ -77,7 +77,7 @@
                                         </center>
                                     </f:facet>
                                     <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/bancoolhos/editar/${h.id}">
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.editar}/${h.id}">
                                         <center>
                                             <i class="icon-edit"></i>
                                         </center>
@@ -90,7 +90,7 @@
                                         </center>
                                     </f:facet>
                                     <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/bancoolhos/apagar/${h.id}">
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.apagar}/${h.id}">
                                         <center>
                                             <i class="icon-remove"></i>
                                         </center>

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.reuse.endereco.cdp.Endereco;
@@ -34,13 +33,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author 20112BSI0083
  */
 @Controller
-@RequestMapping("/admin/bancoolhos")
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_BANCO_DE_OLHOS)
 public class BancoOlhosController {
+
     @Autowired
     AplBancoOlhos aplBancoOlhos;
     @Autowired
     AplEndereco aplEndereco;
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
 
@@ -48,26 +48,25 @@ public class BancoOlhosController {
 
         return "lista-bancoolhos";
     }
-    
-    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = ContextUrls.APAGAR + "/{id}", method = RequestMethod.GET)
     public String excluirBancoOlhos(@PathVariable long id, ModelMap model) {
 
-        try{
+        try {
             aplBancoOlhos.delete(id);
-        }catch(BancoOlhosEmUsoException e){
-            
-            model.addAttribute("Error", "Notificaçao existe");
-            
+        } catch (BancoOlhosEmUsoException e) {
+
+            model.addAttribute("Error", "Notificação existe");
+
         }
-        
-        return "redirect:/admin/bancoolhos";
+
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_BANCO_DE_OLHOS;
     }
-    
-    
+
     private void preecherLista(ModelMap model) {
 
-        List<BancoOlhos> bancoOlhos = new ArrayList<BancoOlhos>();
-        List<VizualizarBancoOlhosForm> listaBancoOlhosForm = new ArrayList<VizualizarBancoOlhosForm>();
+        List<BancoOlhos> bancoOlhos;
+        List<VizualizarBancoOlhosForm> listaBancoOlhosForm = new ArrayList<>();
 
         bancoOlhos = aplBancoOlhos.obter();
 
@@ -81,20 +80,20 @@ public class BancoOlhosController {
         model.addAttribute("listaBancoOlhosForm", listaBancoOlhosForm);
 
     }
-    
-    @RequestMapping(value = "/novo", method = RequestMethod.GET)
+
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormNovo(ModelMap model) {
 
         BancoOlhosForm bancoOlhosForm = new BancoOlhosForm();
-        
+
         preencherEstados(model);
 
         model.addAttribute("bancoOlhosForm", bancoOlhosForm);
 
         return "form-bancoolhos";
     }
-    
-    @RequestMapping(value = "/novo/add", method = RequestMethod.POST)
+
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String addBancoOlhos(@ModelAttribute BancoOlhosForm bancoOlhosForm, ModelMap model)
             throws Exception {
 
@@ -105,17 +104,18 @@ public class BancoOlhosController {
         /*preenchendo aba endereco*/
         bancoOlhos = preencherAbaEndereco(bancoOlhos, bancoOlhosForm);
 
-        if(bancoOlhos.getId() == null)
+        if (bancoOlhos.getId() == null) {
             aplBancoOlhos.cadastrar(bancoOlhos);
-        else
+        } else {
             aplBancoOlhos.update(bancoOlhos);
-        
+        }
+
         System.out.println("Metodo addBancoOlhos");
-        
-        return "redirect:/admin/bancoolhos";
+
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_BANCO_DE_OLHOS;
     }
-    
-    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = ContextUrls.EDITAR + "/{id}", method = RequestMethod.GET)
     public String editarBancoOlhos(@PathVariable long id, ModelMap model)
             throws Exception {
         //pegando do banco
@@ -130,16 +130,15 @@ public class BancoOlhosController {
         bancoOlhosForm = popularAbaDadosGerais(bancoOlhosForm, bancoOlhos);
         //populando a tela de endereco
         bancoOlhosForm = popularAbaEndereco(bancoOlhosForm, bancoOlhos);
-        
 
         model.addAttribute("bancoOlhosForm", bancoOlhosForm);
 
         return "form-bancoolhos";
     }
-    
+
     private BancoOlhos preencherAbaDadosGerais(BancoOlhos bancoOlhos, BancoOlhosForm bancoOlhosForm) {
 
-        Set<Telefone> telefones = new HashSet<Telefone>();
+        Set<Telefone> telefones = new HashSet<>();
 
         bancoOlhos.setNome(bancoOlhosForm.getNome().toUpperCase());
         bancoOlhos.setFantasia(bancoOlhosForm.getFantasia().toUpperCase());
@@ -151,7 +150,7 @@ public class BancoOlhosController {
 
         return bancoOlhos;
     }
-    
+
     private BancoOlhos preencherAbaEndereco(BancoOlhos bancoOlhos, BancoOlhosForm bancoOlhosForm) {
 
         Endereco endereco = new Endereco();
@@ -167,11 +166,11 @@ public class BancoOlhosController {
 
         return bancoOlhos;
     }
-    
+
     private void preencherEstados(ModelMap model) {
 
-        List<Estado> listaEstado = new ArrayList<Estado>();
-        List<SelectItem> listaEstadoItem = new ArrayList<SelectItem>();
+        List<Estado> listaEstado;
+        List<SelectItem> listaEstadoItem = new ArrayList<>();
 
         listaEstado = aplEndereco.obterEstadosPorNomePais("Brasil");
 
@@ -183,7 +182,7 @@ public class BancoOlhosController {
         model.addAttribute("listaEstadoItem", listaEstadoItem);
 
     }
-    
+
     private Telefone stringParaTelefone(String telefoneStr, TipoTelefone tipo) {
 
         Telefone telefone = new Telefone();
@@ -196,16 +195,16 @@ public class BancoOlhosController {
         return telefone;
 
     }
-    
+
     private BancoOlhosForm popularAbaDadosGerais(BancoOlhosForm bancoOlhosForm, BancoOlhos bancoOlhos) {
 
         bancoOlhosForm.setNome(bancoOlhos.getNome());
         bancoOlhosForm.setFantasia(bancoOlhos.getFantasia());
         bancoOlhosForm.setSigla(bancoOlhos.getSigla());
-        
+
         String[] telefonesStr = new String[2];
         for (Telefone telefone : bancoOlhos.getTelefones()) {
-            String tel = "";
+            String tel;
             tel = telefone.getDdd() + telefone.getNumero();
             if (telefone.getTipo().equals(TipoTelefone.COMERCIAL)) {
                 telefonesStr[0] = tel;
@@ -213,7 +212,7 @@ public class BancoOlhosController {
                 telefonesStr[1] = tel;
             }
         }
-        
+
         bancoOlhosForm.setTelefone(telefonesStr[0]);
         bancoOlhosForm.setFax(telefonesStr[1]);
         bancoOlhosForm.setEmail(bancoOlhos.getEmail());
@@ -221,7 +220,7 @@ public class BancoOlhosController {
         return bancoOlhosForm;
 
     }
-    
+
     private BancoOlhosForm popularAbaEndereco(BancoOlhosForm bancoOlhosForm, BancoOlhos bancoOlhos) {
 
         bancoOlhosForm.setCep(bancoOlhos.getEndereco().getCEP());
