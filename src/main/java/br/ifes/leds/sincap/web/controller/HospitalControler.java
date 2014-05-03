@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author 20112BSI0083
  */
 @Controller
-@RequestMapping("/admin/hospital")
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_HOSPITAL)
 @SessionScoped
 public class HospitalControler {
 
@@ -62,7 +62,7 @@ public class HospitalControler {
         return "lista-hospital";
     }
 
-    @RequestMapping(value = "/apagar", method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
     public String excluirHospital(@RequestBody String id, ModelMap model) {
 
         id = id.split("=")[1]; // table1%3A1%3Aid=7
@@ -91,7 +91,7 @@ public class HospitalControler {
 
     private void preecherLista(ModelMap model) {
 
-        List<Hospital> hospitais = new ArrayList<>();
+        List<Hospital> hospitais;
         List<VisualizarHospitalForm> listaHospitaisForm = new ArrayList<>();
 
         hospitais = aplHospital.obter();
@@ -105,7 +105,7 @@ public class HospitalControler {
         model.addAttribute("listaHospitaisForm", listaHospitaisForm);
     }
 
-    @RequestMapping(value = "/novo", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormNovo(ModelMap model) {
 
         HospitalForm hospitalForm = new HospitalForm();
@@ -120,8 +120,8 @@ public class HospitalControler {
 
     private void preencherEstados(ModelMap model) {
 
-        List<Estado> listaEstado = new ArrayList<Estado>();
-        List<SelectItem> listaEstadoItem = new ArrayList<SelectItem>();
+        List<Estado> listaEstado;
+        List<SelectItem> listaEstadoItem = new ArrayList<>();
 
         listaEstado = aplEndereco.obterEstadosPorNomePais("Brasil");
 
@@ -134,12 +134,13 @@ public class HospitalControler {
     }
 
     /*Define o caminho da url que, quando for requisitada, chamará o método pelo  tipo especificado*/
-    @RequestMapping(value = "/novo/add", method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String addHospital(@ModelAttribute HospitalForm hospitalForm, ModelMap model)
             throws Exception {
 
         Hospital hospital = new Hospital();
 
+        hospital.setId(hospitalForm.getId());
         /*preenchendo aba dados gerais*/
         hospital = preencherAbaDadosGerais(hospital, hospitalForm);
         /*preenchendo aba endereco*/
@@ -147,39 +148,34 @@ public class HospitalControler {
         /*preechendo aba setores*/
         hospital = preencherAbaSetores(hospital, hospitalForm);
 
-        try{
-            if (hospital.getId() == null) {
-                aplHospital.cadastrar(hospital);
-            } else {
-                aplHospital.update(hospital);
-            }
+        try {
+            aplHospital.cadastrar(hospital);
             
             model.addAttribute("displayError", "none");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "block");
             model.addAttribute("displayNovoError", "none");
-            
+
         } catch (Exception e) { //HospitalEmUsoException
-            e.printStackTrace();
-            
             model.addAttribute("displayError", "none");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
             model.addAttribute("displayNovoError", "block");
-            
+
             return loadFormNovo(model); //Redireciona para a página atual
         }
-        
+
         return loadForm(model);
     }
 
-    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.EDITAR + "/{id}", method = RequestMethod.GET)
     public String editarHospital(@PathVariable long id, ModelMap model)
             throws Exception {
         //pegando do banco
         Hospital hospital = aplHospital.obter(id);
         //jogando para a tela
         HospitalForm hospitalForm = new HospitalForm();
+        hospitalForm.setId(id);
 
         /*preenchendo os setores e estados*/
         preencherSetores(model);
@@ -214,9 +210,9 @@ public class HospitalControler {
 
     private void preencherSetores(ModelMap model) {
 
-        List<Setor> listaSetor = new ArrayList<Setor>();
+        List<Setor> listaSetor;
 
-        List<SelectItem> listaSetorForm = new ArrayList<SelectItem>();
+        List<SelectItem> listaSetorForm = new ArrayList<>();
         listaSetor = aplSetor.obter();
 
         for (Setor setor : listaSetor) {
@@ -242,7 +238,7 @@ public class HospitalControler {
 
     private Hospital preencherAbaDadosGerais(Hospital hospital, HospitalForm hospitalForm) {
 
-        Set<Telefone> telefones = new HashSet<Telefone>();
+        Set<Telefone> telefones = new HashSet<>();
 
         hospital.setNome(hospitalForm.getNome().toUpperCase());
         hospital.setFantasia(hospitalForm.getFantasia().toUpperCase());
@@ -292,7 +288,7 @@ public class HospitalControler {
         hospitalForm.setSigla(hospital.getSigla());
         String[] telefonesStr = new String[2];
         for (Telefone telefone : hospital.getTelefones()) {
-            String tel = "";
+            String tel;
             tel = telefone.getDdd() + telefone.getNumero();
             if (telefone.getTipo().equals(TipoTelefone.COMERCIAL)) {
                 telefonesStr[0] = tel;

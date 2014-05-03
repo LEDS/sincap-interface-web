@@ -12,7 +12,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
 import br.ifes.leds.sincap.web.model.IndexForm;
 
 @Controller
-@RequestMapping("/adm")
+@RequestMapping(ContextUrls.ADMIN)
 @SessionScoped
 public class IndexAdmController {
 

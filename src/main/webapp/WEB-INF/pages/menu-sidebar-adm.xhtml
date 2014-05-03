@@ -29,19 +29,19 @@
                 </ul>
             </li>-->
             <li>
-                <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade">
+                <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}/motivoInviabilidade">
                     <i class="icon-eye-close"></i>
                     <span>#{msg['sidebar.motivoinviabilidade']}</span>
                 </a>
             </li>
             <li>
-            	<a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor">
+            	<a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}/setor">
                     <i class="icon-map-marker"></i>
                     <span>#{msg['sidebar.setor']}</span>
                 </a>
             </li>
             <li>
-            	<a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/notificador">
+                <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}">
                     <i class="icon-user"></i>
                     <span>#{msg['sidebar.notificador']}</span>
                 </a>
@@ -53,9 +53,9 @@
                     <i class="icon-chevron-down"></i>
                 </a>
                 <ul class="submenu">
-                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital">#{msg['sidebar.instituicao.hospital']}</a></li>
-                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/bancoolhos">#{msg['sidebar.instituicao.banco']}</a></li>
-                    <!--<li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/outro">#{msg['sidebar.instituicao.outro']}</a></li>-->
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}">#{msg['sidebar.instituicao.hospital']}</a></li>
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}/bancoolhos">#{msg['sidebar.instituicao.banco']}</a></li>
+                    <li class="active"><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}">#{msg['sidebar.instituicao.outro']}</a></li>
                 </ul>
             </li>
 

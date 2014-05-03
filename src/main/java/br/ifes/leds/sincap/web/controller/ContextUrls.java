@@ -28,6 +28,7 @@ public class ContextUrls {
      * Aplicações (Controllers)
      */
     public static final String APP_NOTIFICADOR = "/notificador";
+    public static final String APP_HOSPITAL = "/hospital";
     public static final String APP_INSTITUICAO_NOTIFICADORA_GENERICA = "/instituicaoNotificadora";
     /**
      * Métodos
@@ -45,6 +46,7 @@ public class ContextUrls {
      * Aplicações (Controllers)
      */
     String app_notificador = APP_NOTIFICADOR;
+    String app_hospital = APP_HOSPITAL;
     String app_instituicao_notificadora_generica = APP_INSTITUICAO_NOTIFICADORA_GENERICA;
     /**
      * Métodos

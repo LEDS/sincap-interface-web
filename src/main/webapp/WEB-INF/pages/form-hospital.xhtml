@@ -79,7 +79,7 @@
 
                                 <h:outputLabel>Cadastro de Hospital:</h:outputLabel>
                                 <form id="hospitalForm"
-                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/novo/add"
+                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}${contextUrls.salvar}"
                                       method="post">
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a href="#abaDadosGerais"
@@ -161,7 +161,7 @@
                                     <h:inputHidden id="id" value="#{hospitalForm.id}" />
 
                                     <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital"
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}"
                                         class="btn btn-primary">Voltar</a>
                                     <button type="submit" class="btn btn-success">Salvar</button>
                                 </form>
