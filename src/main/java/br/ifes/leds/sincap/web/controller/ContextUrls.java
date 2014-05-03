@@ -31,6 +31,7 @@ public class ContextUrls {
     public static final String APP_HOSPITAL = "/hospital";
     public static final String APP_BANCO_DE_OLHOS = "/bancoolhos";
     public static final String APP_INSTITUICAO_NOTIFICADORA_GENERICA = "/instituicaoNotificadora";
+    public static final String APP_SETOR = "/setor";
     /**
      * Métodos
      */
@@ -50,6 +51,7 @@ public class ContextUrls {
     String app_hospital = APP_HOSPITAL;
     String app_banco_de_olhos = APP_BANCO_DE_OLHOS;
     String app_instituicao_notificadora_generica = APP_INSTITUICAO_NOTIFICADORA_GENERICA;
+    String app_setor = APP_SETOR;
     /**
      * Métodos
      */

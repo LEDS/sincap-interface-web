@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author 20121BSI0252
  */
 @Controller
-@RequestMapping("/admin/setor")
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_SETOR)
 @SessionScoped
 public class SetorController {
 
@@ -46,7 +46,7 @@ public class SetorController {
         return "visualizar-setor-form";
     }
 
-    @RequestMapping(value = "/apagar", method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
     public String apagarSetor(@RequestBody String id, ModelMap model) {
 
         id = id.split("=")[1];//table1%3A0%3Aid=15
@@ -59,8 +59,6 @@ public class SetorController {
             model.addAttribute("displayNovoSuccess", "none");
             model.addAttribute("displayNovoError", "none");
         } catch (SetorEmUsoException e) {
-            e.printStackTrace();
-            
             model.addAttribute("displayError", "true");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
@@ -75,7 +73,7 @@ public class SetorController {
     private void preecherLista(ModelMap model) {
 
         List<Setor> listaSetor = aplSetor.obter();
-        List<VisualizarSetorForm> listaSetoresForm = new ArrayList<VisualizarSetorForm>();
+        List<VisualizarSetorForm> listaSetoresForm = new ArrayList<>();
 
         for (Setor setor : listaSetor) {
             VisualizarSetorForm setorForm = new VisualizarSetorForm(
@@ -88,7 +86,7 @@ public class SetorController {
 
     }
 
-    @RequestMapping(value = "/novo", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String novoSetor(ModelMap model) {
 
         SetorForm setorForm = new SetorForm();
@@ -98,7 +96,7 @@ public class SetorController {
         return "setor-form";
     }
 
-    @RequestMapping(value = "/novo/atualizar/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.EDITAR + "/{id}", method = RequestMethod.GET)
     public String atualizarSetor(@PathVariable long id, ModelMap model)
             throws Exception {
 
@@ -116,7 +114,7 @@ public class SetorController {
     }
 
     // Salvar e Editar
-    @RequestMapping(value = "/novo/salvar", method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarSetor(
             @ModelAttribute SetorForm setorForm,
             ModelMap model) throws Exception {

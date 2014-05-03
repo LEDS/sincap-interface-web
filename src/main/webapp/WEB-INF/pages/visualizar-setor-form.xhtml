@@ -79,7 +79,7 @@
                     </div>
                 </center>
 
-                <a class="dropdown-toggle" href="/sincap/admin/setor/novo"> <i class="icon-plus-sign"></i>
+                <a class="dropdown-toggle" href="${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.adicionar}"> <i class="icon-plus-sign"></i>
                     <span>#{msg['geral.text.novo']}</span>
                 </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
@@ -98,7 +98,7 @@
                                     <f:facet name="header">
                                         <center><h:outputText value="Editar" /></center>
                                     </f:facet>
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/novo/atualizar/${l.id}">
+                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.editar}/${l.id}">
                                         <center><i class="icon-edit"></i></center>
                                     </a>
                                 </h:column>
@@ -107,7 +107,7 @@
                                         <center><h:outputText value="Apagar" /></center>
                                     </f:facet>
                                     <form id="form_com_id_setor_${l.id}" method="post"
-                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/apagar">
+                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.apagar}">
                                         <h:inputHidden id="id" value="${l.id}"></h:inputHidden>
                                         <a onclick="document.getElementById('form_com_id_setor_${l.id}').submit()" href="#">
                                             <center><i class="icon-remove"></i></center>

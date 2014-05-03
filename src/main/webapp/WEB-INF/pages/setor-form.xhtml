@@ -70,7 +70,7 @@
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
                             <h:outputLabel>#{msg['setor.title']}</h:outputLabel>
-                            <form id="setorForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/novo/salvar" method="post">
+                            <form id="setorForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.salvar}" method="post">
                                 <h:panelGrid columns="2">                                    
                                     <h:outputLabel value="#{msg['setor.text.nome']}" />
                                     <h:inputText id="nome" value="#{setorForm.nome}" />
