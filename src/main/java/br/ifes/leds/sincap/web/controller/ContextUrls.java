@@ -10,14 +10,14 @@ import javax.faces.bean.ManagedBean;
 import lombok.Getter;
 import lombok.Setter;
 
-
 /**
  *
  * @author phillipe
  */
 @ManagedBean
 @ApplicationScoped
-@Getter @Setter
+@Getter
+@Setter
 public class ContextUrls {
 
     public static final String ADMIN = "/admin";
