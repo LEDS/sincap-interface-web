@@ -98,9 +98,18 @@
                                     <f:facet name="header">
                                         <center><h:outputText value="Editar" /></center>
                                     </f:facet>
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.editar}/${l.id}">
-                                        <center><i class="icon-edit"></i></center>
-                                    </a>
+                                    <form id="form_editar_com_id_setor_${l.id}" method="post"
+                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.editar}">
+                                        <input type="hidden" name="id" value="${l.id}" />
+                                        <a id="submit_editar_${l.id}" href="#" >
+                                            <center><i class="icon-edit"></i></center>
+                                        </a>
+                                        <script>
+                                            $(submit_editar_${l.id}).click(function() {
+                                                $(form_editar_com_id_setor_${l.id}).submit();
+                                            });
+                                        </script>
+                                    </form>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -108,10 +117,15 @@
                                     </f:facet>
                                     <form id="form_com_id_setor_${l.id}" method="post"
                                           action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.apagar}">
-                                        <h:inputHidden id="id" value="${l.id}"></h:inputHidden>
-                                        <a onclick="document.getElementById('form_com_id_setor_${l.id}').submit()" href="#">
+                                        <input type="hidden" name="id" value="${l.id}"/>
+                                        <a id="submit_apagar_${l.id}" href="#">
                                             <center><i class="icon-remove"></i></center>
                                         </a>
+                                        <script>
+                                            $(submit_apagar_${l.id}).click(function() {
+                                                $(form_com_id_setor_${l.id}).submit();
+                                            });
+                                        </script>
                                     </form>
                                 </h:column>
                             </h:dataTable>

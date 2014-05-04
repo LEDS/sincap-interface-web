@@ -42,5 +42,9 @@
         <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos</class-a>
         <class-b>br.ifes.leds.sincap.web.model.BancoOlhosDTO</class-b>
     </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Setor</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.SetorDTO</class-b>
+    </mapping>
     
 </mappings>

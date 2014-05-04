@@ -7,7 +7,6 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.SetorEmUsoException;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.SetorExistenteException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.SessionScoped;
@@ -21,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
-import br.ifes.leds.sincap.web.model.SetorForm;
-import br.ifes.leds.sincap.web.model.VisualizarSetorForm;
+import br.ifes.leds.sincap.web.model.Id;
+import br.ifes.leds.sincap.web.model.SetorDTO;
+import org.dozer.Mapper;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  *
@@ -38,6 +37,9 @@ public class SetorController {
     @Autowired
     AplSetor aplSetor;
 
+    @Autowired
+    Mapper mapper;
+
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
 
@@ -47,13 +49,11 @@ public class SetorController {
     }
 
     @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
-    public String apagarSetor(@RequestBody String id, ModelMap model) {
-
-        id = id.split("=")[1];//table1%3A0%3Aid=15
+    public String apagarSetor(@ModelAttribute Id id, ModelMap model) {
 
         try {
-            aplSetor.excluir(Long.parseLong(id));
-            
+            aplSetor.excluir(id.getId());
+
             model.addAttribute("displayError", "none");
             model.addAttribute("displaySuccess", "true");
             model.addAttribute("displayNovoSuccess", "none");
@@ -66,48 +66,33 @@ public class SetorController {
         }
 
         return loadForm(model);
-        //return "redirect:/admin/setor";
-
     }
 
     private void preecherLista(ModelMap model) {
 
         List<Setor> listaSetor = aplSetor.obter();
-        List<VisualizarSetorForm> listaSetoresForm = new ArrayList<>();
 
-        for (Setor setor : listaSetor) {
-            VisualizarSetorForm setorForm = new VisualizarSetorForm(
-                    setor.getNome(), setor.getId());
-            listaSetoresForm.add(setorForm);
-
-        }
-
-        model.addAttribute("listaSetoresForm", listaSetoresForm);
-
+        model.addAttribute("listaSetoresForm", listaSetor);
     }
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String novoSetor(ModelMap model) {
 
-        SetorForm setorForm = new SetorForm();
+        SetorDTO setorForm = new SetorDTO();
 
         model.addAttribute("setorForm", setorForm);
 
         return "setor-form";
     }
 
-    @RequestMapping(value = ContextUrls.EDITAR + "/{id}", method = RequestMethod.GET)
-    public String atualizarSetor(@PathVariable long id, ModelMap model)
+    @RequestMapping(value = ContextUrls.EDITAR, method = RequestMethod.POST)
+    public String atualizarSetor(@ModelAttribute Id id, ModelMap model)
             throws Exception {
 
-        //pegando do banco
-        Setor setor = aplSetor.buscarSetor(id);
+        Setor setor = aplSetor.buscarSetor(id.getId());
 
-        //jogando para a tela
-        SetorForm setorForm = new SetorForm();
+        SetorDTO setorForm = mapper.map(setor, SetorDTO.class);
 
-        setorForm.setNome(setor.getNome());
-        setorForm.setId(setor.getId());
         model.addAttribute("setorForm", setorForm);
 
         return "setor-form";
@@ -116,43 +101,28 @@ public class SetorController {
     // Salvar e Editar
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarSetor(
-            @ModelAttribute SetorForm setorForm,
+            @ModelAttribute SetorDTO setorForm,
             ModelMap model) throws Exception {
 
-        Setor setor = null;
+        Setor setor = mapper.map(setorForm, Setor.class);
 
         try {
-            // salvando
-            if (setorForm.getId() == null) {
-                setor = new Setor();
-            } else {
-                // Editando
-                setor = aplSetor.buscarSetor(setorForm.getId());
-            }
-
-            // salvar
-            setor.setNome(setorForm.getNome());
-
             aplSetor.adicionar(setor);
-            
+
             model.addAttribute("displayError", "none");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "block");
             model.addAttribute("displayNovoError", "none");
         } catch (SetorExistenteException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            
             model.addAttribute("displayError", "none");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
             model.addAttribute("displayNovoError", "block");
-            
-            return novoSetor(model); //Redireciona para página atual
+
+            return novoSetor(model);
         }
-        
+
         return loadForm(model);
-        //return "redirect:/admin/setor/";
     }
 
 }
