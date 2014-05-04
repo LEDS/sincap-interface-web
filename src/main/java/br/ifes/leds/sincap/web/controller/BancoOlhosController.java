@@ -5,26 +5,24 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.endereco.cdp.Bairro;
+import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Endereco;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.BancoOlhosEmUsoException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
-import br.ifes.leds.sincap.web.model.BancoOlhosForm;
-import br.ifes.leds.sincap.web.model.VizualizarBancoOlhosForm;
+import br.ifes.leds.sincap.web.model.BancoOlhosDTO;
+import br.ifes.leds.sincap.web.model.Id;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import javax.faces.model.SelectItem;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -40,6 +38,8 @@ public class BancoOlhosController {
     AplBancoOlhos aplBancoOlhos;
     @Autowired
     AplEndereco aplEndereco;
+    @Autowired
+    Mapper mapper;
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
@@ -49,42 +49,22 @@ public class BancoOlhosController {
         return "lista-bancoolhos";
     }
 
-    @RequestMapping(value = ContextUrls.APAGAR + "/{id}", method = RequestMethod.GET)
-    public String excluirBancoOlhos(@PathVariable long id, ModelMap model) {
+    @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
+    public String excluirBancoOlhos(@ModelAttribute Id id, ModelMap model) {
 
         try {
-            aplBancoOlhos.delete(id);
+            aplBancoOlhos.delete(id.getId());
         } catch (BancoOlhosEmUsoException e) {
-
             model.addAttribute("Error", "Notificação existe");
-
         }
 
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_BANCO_DE_OLHOS;
     }
 
-    private void preecherLista(ModelMap model) {
-
-        List<BancoOlhos> bancoOlhos;
-        List<VizualizarBancoOlhosForm> listaBancoOlhosForm = new ArrayList<>();
-
-        bancoOlhos = aplBancoOlhos.obter();
-
-        for (BancoOlhos bancoOlho : bancoOlhos) {
-            VizualizarBancoOlhosForm bancoOlhosForm = new VizualizarBancoOlhosForm(
-                    bancoOlho.getNome(), bancoOlho.getId());
-            listaBancoOlhosForm.add(bancoOlhosForm);
-
-        }
-
-        model.addAttribute("listaBancoOlhosForm", listaBancoOlhosForm);
-
-    }
-
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormNovo(ModelMap model) {
 
-        BancoOlhosForm bancoOlhosForm = new BancoOlhosForm();
+        BancoOlhosDTO bancoOlhosForm = new BancoOlhosDTO();
 
         preencherEstados(model);
 
@@ -94,144 +74,90 @@ public class BancoOlhosController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String addBancoOlhos(@ModelAttribute BancoOlhosForm bancoOlhosForm, ModelMap model)
-            throws Exception {
+    public String addBancoOlhos(@ModelAttribute BancoOlhosDTO bancoOlhosForm, ModelMap model) {
 
-        BancoOlhos bancoOlhos = new BancoOlhos();
+        BancoOlhos bancoOlhos = mapper.map(bancoOlhosForm, BancoOlhos.class);
 
-        /*preenchendo aba dados gerais*/
-        bancoOlhos = preencherAbaDadosGerais(bancoOlhos, bancoOlhosForm);
-        /*preenchendo aba endereco*/
-        bancoOlhos = preencherAbaEndereco(bancoOlhos, bancoOlhosForm);
-
-        if (bancoOlhos.getId() == null) {
-            aplBancoOlhos.cadastrar(bancoOlhos);
-        } else {
-            aplBancoOlhos.update(bancoOlhos);
-        }
-
-        System.out.println("Metodo addBancoOlhos");
+        aplBancoOlhos.cadastrar(bancoOlhos);
 
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_BANCO_DE_OLHOS;
     }
 
-    @RequestMapping(value = ContextUrls.EDITAR + "/{id}", method = RequestMethod.GET)
-    public String editarBancoOlhos(@PathVariable long id, ModelMap model)
-            throws Exception {
-        //pegando do banco
-        BancoOlhos bancoOlhos = aplBancoOlhos.obter(id);
-        //jogando para a tela
-        BancoOlhosForm bancoOlhosForm = new BancoOlhosForm();
+    @RequestMapping(value = ContextUrls.EDITAR, method = RequestMethod.POST)
+    public String editarBancoOlhos(@ModelAttribute Id id, ModelMap model) {
 
-        /*preenchendo os estados*/
-        preencherEstados(model);
+        BancoOlhos bancoOlhos = aplBancoOlhos.obter(id.getId());
+        BancoOlhosDTO bancoOlhosForm;
 
-        //populando a tela de dados gerais
-        bancoOlhosForm = popularAbaDadosGerais(bancoOlhosForm, bancoOlhos);
-        //populando a tela de endereco
-        bancoOlhosForm = popularAbaEndereco(bancoOlhosForm, bancoOlhos);
+        preencherEndereco(bancoOlhos.getEndereco(), model);
+
+        bancoOlhosForm = mapper.map(bancoOlhos, BancoOlhosDTO.class);
 
         model.addAttribute("bancoOlhosForm", bancoOlhosForm);
 
         return "form-bancoolhos";
     }
 
-    private BancoOlhos preencherAbaDadosGerais(BancoOlhos bancoOlhos, BancoOlhosForm bancoOlhosForm) {
+    private void preecherLista(ModelMap model) {
 
-        Set<Telefone> telefones = new HashSet<>();
+        List<BancoOlhos> listaBancoOlhos;
 
-        bancoOlhos.setNome(bancoOlhosForm.getNome().toUpperCase());
-        bancoOlhos.setFantasia(bancoOlhosForm.getFantasia().toUpperCase());
-        bancoOlhos.setSigla(bancoOlhosForm.getSigla().toUpperCase());
-        telefones.add(stringParaTelefone(bancoOlhosForm.getTelefone(), TipoTelefone.COMERCIAL));
-        telefones.add(stringParaTelefone(bancoOlhosForm.getFax(), TipoTelefone.FAX));
-        bancoOlhos.setTelefones(telefones);
-        bancoOlhos.setEmail(bancoOlhosForm.getEmail().toUpperCase());
+        listaBancoOlhos = aplBancoOlhos.obter();
 
-        return bancoOlhos;
+        model.addAttribute("listaBancoOlhosForm", listaBancoOlhos);
+
     }
 
-    private BancoOlhos preencherAbaEndereco(BancoOlhos bancoOlhos, BancoOlhosForm bancoOlhosForm) {
+    private void preencherEndereco(Endereco endereco, ModelMap model) {
+        preencherEstados(model);
+        try {
+            preencherCidades(endereco.getEstado().getId(), model);
+            preencherBairros(endereco.getCidade().getId(), model);
+        } catch (NullPointerException e) {
+        }
 
-        Endereco endereco = new Endereco();
-
-        endereco.setCEP(bancoOlhosForm.getCep());
-        endereco.setEstado(aplEndereco.obterEstadosPorID(bancoOlhosForm.getEstado()));
-        endereco.setCidade(aplEndereco.obterCidadePorID(bancoOlhosForm.getCidade()));
-        endereco.setBairro(aplEndereco.obterBairroPorID(bancoOlhosForm.getBairro()));
-        endereco.setLogradouro(bancoOlhosForm.getLogradouro().toUpperCase());
-        endereco.setNumero(bancoOlhosForm.getNumero());
-        endereco.setComplemento(bancoOlhosForm.getComplemento().toUpperCase());
-        bancoOlhos.setEndereco(endereco);
-
-        return bancoOlhos;
     }
 
     private void preencherEstados(ModelMap model) {
 
-        List<Estado> listaEstado;
+        List<Estado> listaEstados;
         List<SelectItem> listaEstadoItem = new ArrayList<>();
 
-        listaEstado = aplEndereco.obterEstadosPorNomePais("Brasil");
+        listaEstados = aplEndereco.obterEstadosPorNomePais("Brasil");
 
-        for (Estado estado : listaEstado) {
+        for (Estado estado : listaEstados) {
             SelectItem estadoItem = new SelectItem(estado.getId(), estado.getNome());
             listaEstadoItem.add(estadoItem);
         }
 
         model.addAttribute("listaEstadoItem", listaEstadoItem);
-
     }
 
-    private Telefone stringParaTelefone(String telefoneStr, TipoTelefone tipo) {
+    private void preencherCidades(Long idEstado, ModelMap model) {
+        List<Cidade> listaCidades;
+        List<SelectItem> listaCidadeItem = new ArrayList<>();
 
-        Telefone telefone = new Telefone();
+        listaCidades = aplEndereco.obterCidadesPorEstado(idEstado);
 
-        telefone.setTipo(tipo);
-
-        telefone.setDdd(telefoneStr.substring(1, 3));
-        telefone.setNumero(telefoneStr.substring(4, 8) + telefoneStr.substring(9, 13));
-
-        return telefone;
-
-    }
-
-    private BancoOlhosForm popularAbaDadosGerais(BancoOlhosForm bancoOlhosForm, BancoOlhos bancoOlhos) {
-
-        bancoOlhosForm.setNome(bancoOlhos.getNome());
-        bancoOlhosForm.setFantasia(bancoOlhos.getFantasia());
-        bancoOlhosForm.setSigla(bancoOlhos.getSigla());
-
-        String[] telefonesStr = new String[2];
-        for (Telefone telefone : bancoOlhos.getTelefones()) {
-            String tel;
-            tel = telefone.getDdd() + telefone.getNumero();
-            if (telefone.getTipo().equals(TipoTelefone.COMERCIAL)) {
-                telefonesStr[0] = tel;
-            } else {
-                telefonesStr[1] = tel;
-            }
+        for (Cidade cidade : listaCidades) {
+            SelectItem cidadeItem = new SelectItem(cidade.getId(), cidade.getNome());
+            listaCidadeItem.add(cidadeItem);
         }
 
-        bancoOlhosForm.setTelefone(telefonesStr[0]);
-        bancoOlhosForm.setFax(telefonesStr[1]);
-        bancoOlhosForm.setEmail(bancoOlhos.getEmail());
-
-        return bancoOlhosForm;
-
+        model.addAttribute("listaCidadeItem", listaCidadeItem);
     }
 
-    private BancoOlhosForm popularAbaEndereco(BancoOlhosForm bancoOlhosForm, BancoOlhos bancoOlhos) {
+    private void preencherBairros(Long idCidade, ModelMap model) {
+        List<Bairro> listaBairros;
+        List<SelectItem> listaBairroItem = new ArrayList<>();
 
-        bancoOlhosForm.setCep(bancoOlhos.getEndereco().getCEP());
-        bancoOlhosForm.setEstado(bancoOlhos.getEndereco().getEstado().getId());
-        bancoOlhosForm.setCidade(bancoOlhos.getEndereco().getCidade().getId());
-        bancoOlhosForm.setBairro(bancoOlhos.getEndereco().getBairro().getId());
-        bancoOlhosForm.setLogradouro(bancoOlhos.getEndereco().getLogradouro());
-        bancoOlhosForm.setNumero(bancoOlhos.getEndereco().getNumero());
-        bancoOlhosForm.setComplemento(bancoOlhos.getEndereco().getComplemento());
+        listaBairros = aplEndereco.obterBairrosPorCidade(idCidade);
 
-        return bancoOlhosForm;
+        for (Bairro bairro : listaBairros) {
+            SelectItem cidadeItem = new SelectItem(bairro.getId(), bairro.getNome());
+            listaBairroItem.add(cidadeItem);
+        }
+
+        model.addAttribute("listaBairroItem", listaBairroItem);
     }
-
 }

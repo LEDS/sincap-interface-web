@@ -34,10 +34,16 @@ public class TelefoneToTelefoneDTOConverter extends DozerConverter<Telefone, Tel
     public Telefone convertFrom(TelefoneDTO source, Telefone destination) {
         Telefone telefone = new Telefone();
 
-        telefone.setTipo(source.getTipo());
-        telefone.setId(source.getId());
-        telefone.setDdd(source.getNumero().substring(1, 3));
-        telefone.setNumero(source.getNumero().substring(4, 8) + source.getNumero().substring(9, 13));
+        if (source.getNumero() != null) {
+            try {
+                telefone.setTipo(source.getTipo());
+                telefone.setId(source.getId());
+                telefone.setDdd(source.getNumero().substring(1, 3));
+                telefone.setNumero(source.getNumero().substring(4, 8) + source.getNumero().substring(9, 13));
+            } catch (IndexOutOfBoundsException e) {
+                throw new IllegalArgumentException(e);
+            }
+        }
 
         return telefone;
     }

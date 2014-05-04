@@ -1,15 +1,12 @@
-function copyValue(source, destino) {
+function setNome(elemento, nome) {
+    $(elemento).prop("name", nome);
+}
 
-    source = $(source);
-    destino = $(destino);
-    funcao = function() {
-        destino.attr('value', source.val());
-    };
-
-    destino.attr('value', source.val());
-
-    source.click(funcao);
-    source.change(funcao);
+function setNomeVarios(nomeAtributo) {
+    for (var i = 1; i < arguments.length; i++) {
+        var id = $(arguments[i]).prop("id");
+        $(arguments[i]).prop("name", nomeAtributo + '.' + id);
+    }
 }
 
 function ajaxHideElement() {

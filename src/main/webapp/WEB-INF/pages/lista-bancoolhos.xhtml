@@ -76,12 +76,20 @@
                                             <h:outputText value="Editar" />
                                         </center>
                                     </f:facet>
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.editar}/${h.id}">
-                                        <center>
-                                            <i class="icon-edit"></i>
-                                        </center>
-                                    </a>
+                                    <form id="formulario_editar_com_id_instituicao_${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.editar}" method="post">
+                                        <input type="hidden" name="id" value="${h.id}" />
+                                        <a id="submit_editar_${h.id}" href="#">
+                                            <center>
+                                                <i class="icon-edit"></i>
+                                            </center>
+                                        </a>
+                                        <!-- Link dando submit no form com JQuery -->
+                                        <script>
+                                            $(submit_editar_${h.id}).click(function() {
+                                                $(formulario_editar_com_id_instituicao_${h.id}).submit();
+                                            });
+                                        </script>
+                                    </form>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -89,12 +97,19 @@
                                             <h:outputText value="Apagar" />
                                         </center>
                                     </f:facet>
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.apagar}/${h.id}">
-                                        <center>
-                                            <i class="icon-remove"></i>
-                                        </center>
-                                    </a>
+                                    <form id="formulario_apagar_com_id_instituicao_${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_banco_de_olhos}${contextUrls.apagar}" method="post">
+                                        <input type="hidden" name="id" value="${h.id}" />
+                                        <a id="submit_apagar_${h.id}" href="#">
+                                            <center>
+                                                <i class="icon-remove"></i>
+                                            </center>
+                                            <script>
+                                                $(submit_apagar_${h.id}).click(function() {
+                                                    $(formulario_apagar_com_id_instituicao_${h.id}).submit();
+                                                });
+                                            </script>
+                                        </a>
+                                    </form>
                                 </h:column>
                             </h:dataTable>
 
@@ -116,40 +131,40 @@
         <!-- end scripts -->
 
         <script type="text/javascript">
-            //Validando os dados do formulario
-            $("#bancoOlhosForm")
-                    .validate(
-                            {
-                                rules: {
-                                    cnes: {
-                                        required: true
+                                                //Validando os dados do formulario
+                                                $("#bancoOlhosForm")
+                                                        .validate(
+                                                                {
+                                                                    rules: {
+                                                                        cnes: {
+                                                                            required: true
 
-                                    },
-                                    nome: {
-                                        required: true
+                                                                        },
+                                                                        nome: {
+                                                                            required: true
 
-                                    },
-                                    sigla: {
-                                        required: true
-                                    }
-                                },
-                                messages: {
-                                    cnes: {
-                                        required: "Por favor, digite o cnes"
+                                                                        },
+                                                                        sigla: {
+                                                                            required: true
+                                                                        }
+                                                                    },
+                                                                    messages: {
+                                                                        cnes: {
+                                                                            required: "Por favor, digite o cnes"
 
-                                    },
-                                    nome: {
-                                        required: "Por favor, digite o nome."
-                                    },
-                                    sigla: {
-                                        required: "Por favor, digite a sigla."
-                                    }
-                                },
-                                submitHandler: function(
-                                        form) {
-                                    form.submit();
-                                }
-                            });
+                                                                        },
+                                                                        nome: {
+                                                                            required: "Por favor, digite o nome."
+                                                                        },
+                                                                        sigla: {
+                                                                            required: "Por favor, digite a sigla."
+                                                                        }
+                                                                    },
+                                                                    submitHandler: function(
+                                                                            form) {
+                                                                        form.submit();
+                                                                    }
+                                                                });
         </script>
     </h:body>
 </html>

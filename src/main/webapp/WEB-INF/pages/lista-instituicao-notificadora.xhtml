@@ -93,11 +93,16 @@
                                     </f:facet>
                                     <form id="formulario_editar_com_id_instituicao_${instituicao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}${contextUrls.editar}" method="post">
                                         <input type="hidden" name="id" value="${instituicao.id}" />
-                                        <a onclick="document.getElementById('formulario_editar_com_id_instituicao_${instituicao.id}').submit()" href="#">
+                                        <a id="submit_editar_${instituicao.id}" href="#">
                                             <center>
                                                 <i class="icon-edit"></i>
                                             </center>
                                         </a>
+                                        <script>
+                                            $(submit_editar_${instituicao.id}).click(function() {
+                                                $(formulario_editar_com_id_instituicao_${instituicao.id}).submit();
+                                            });
+                                        </script>
                                     </form>
                                 </h:column>
                                 <h:column>
@@ -108,11 +113,16 @@
                                     </f:facet>
                                     <form id="formulario_apagar_com_id_instituicao_${instituicao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}${contextUrls.apagar}" method="post">
                                         <input type="hidden" name="id" value="${instituicao.id}" />
-                                        <a onclick="document.getElementById('formulario_apagar_com_id_instituicao_${instituicao.id}').submit()" href="#">
+                                        <a id="submit_apagar_${instituicao.id}" href="#">
                                             <center>
                                                 <i class="icon-remove"></i>
                                             </center>
                                         </a>
+                                        <script>
+                                            $(submit_apagar_${instituicao.id}).click(function() {
+                                                $(formulario_apagar_com_id_instituicao_${instituicao.id}).submit();
+                                            });
+                                        </script>
                                     </form>
                                 </h:column>
                             </h:dataTable>
