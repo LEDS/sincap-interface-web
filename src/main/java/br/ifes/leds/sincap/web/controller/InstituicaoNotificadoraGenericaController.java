@@ -11,19 +11,18 @@ import br.ifes.leds.reuse.endereco.cdp.Endereco;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadoraGenerica;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadoraGenerica;
-import br.ifes.leds.sincap.web.model.InstituicaoNotificadoraForm;
+import br.ifes.leds.sincap.web.model.Id;
+import br.ifes.leds.sincap.web.model.InstituicaoNotificadoraDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -42,6 +41,9 @@ public class InstituicaoNotificadoraGenericaController {
     @Autowired
     AplEndereco aplEndereco;
 
+    @Autowired
+    Mapper mapper;
+
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
 
@@ -55,7 +57,7 @@ public class InstituicaoNotificadoraGenericaController {
 
     @RequestMapping(ContextUrls.ADICIONAR)
     public String adicionarInstituicaoNotificadora(ModelMap model) {
-        InstituicaoNotificadoraForm formularioInstituicaoNotificadora = new InstituicaoNotificadoraForm();
+        InstituicaoNotificadoraDTO formularioInstituicaoNotificadora = new InstituicaoNotificadoraDTO();
 
         preencherEstados(model);
 
@@ -65,21 +67,19 @@ public class InstituicaoNotificadoraGenericaController {
     }
 
     @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
-    public String excluirInstituicaoNotificadora(@RequestBody String json, ModelMap model) {
+    public String excluirInstituicaoNotificadora(@ModelAttribute Id id, ModelMap model) {
 
-        Long idInstituicao = pegarParametroUnicoJSON(json);
-
-        aplInstituicaoNotificadoraGenerica.delete(idInstituicao);
+        aplInstituicaoNotificadoraGenerica.delete(id.getId());
 
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_INSTITUICAO_NOTIFICADORA_GENERICA;
     }
 
     @RequestMapping(value = ContextUrls.EDITAR, method = RequestMethod.POST)
-    public String editarInstituicaoNotificadora(@RequestBody String json, ModelMap model) {
-        Long idInstituicao = pegarParametroUnicoJSON(json);
+    public String editarInstituicaoNotificadora(@ModelAttribute Id id, ModelMap model) {
+        Long idInstituicao = id.getId();
 
         InstituicaoNotificadoraGenerica instituicaoNotificadora = aplInstituicaoNotificadoraGenerica.obter(idInstituicao);
-        InstituicaoNotificadoraForm formularioInstituicaoNotificadora = new InstituicaoNotificadoraForm(instituicaoNotificadora);
+        InstituicaoNotificadoraDTO formularioInstituicaoNotificadora = mapper.map(instituicaoNotificadora, InstituicaoNotificadoraDTO.class);
 
         preencherEndereco(instituicaoNotificadora.getEndereco(), model);
 
@@ -89,19 +89,13 @@ public class InstituicaoNotificadoraGenericaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarInstituicaoNotificadora(@ModelAttribute InstituicaoNotificadoraForm formularioInstituicaoNotificadora, ModelMap model) {
+    public String salvarInstituicaoNotificadora(@ModelAttribute InstituicaoNotificadoraDTO formularioInstituicaoNotificadora, ModelMap model) {
 
-        InstituicaoNotificadoraGenerica instituicaoNotificadora = formularioInstituicaoNotificadora.converterParaInstituicaoNotificadora(aplEndereco);
+        InstituicaoNotificadoraGenerica instituicaoNotificadora = mapper.map(formularioInstituicaoNotificadora, InstituicaoNotificadoraGenerica.class);
 
         aplInstituicaoNotificadoraGenerica.salvar(instituicaoNotificadora);
 
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_INSTITUICAO_NOTIFICADORA_GENERICA;
-    }
-
-    public Long pegarParametroUnicoJSON(String json) {
-        String parametro = json.split("=")[1];
-
-        return Long.parseLong(parametro);
     }
 
     public void preencherListaInstituicoesNotificadoras(ModelMap model) {
@@ -163,18 +157,5 @@ public class InstituicaoNotificadoraGenericaController {
         }
 
         model.addAttribute("listaBairroItem", listaBairroItem);
-    }
-
-    private Telefone stringParaTelefone(String telefoneStr, TipoTelefone tipo) {
-
-        Telefone telefone = new Telefone();
-
-        telefone.setTipo(tipo);
-
-        telefone.setDdd(telefoneStr.substring(1, 3));
-        telefone.setNumero(telefoneStr.substring(4, 8) + telefoneStr.substring(9, 13));
-
-        return telefone;
-
     }
 }

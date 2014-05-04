@@ -15,12 +15,28 @@
                 <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora</class-a>
                 <class-b>java.lang.Long</class-b>
             </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.EstadoToLongIdConverter">
+                <class-a>br.ifes.leds.reuse.endereco.cdp.Estado</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.CidadeToLongIdConverter">
+                <class-a>br.ifes.leds.reuse.endereco.cdp.Cidade</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.BairroToLongIdConverter">
+                <class-a>br.ifes.leds.reuse.endereco.cdp.Bairro</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
         </custom-converters>
     </configuration>
     
     <mapping>
         <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador</class-a>
         <class-b>br.ifes.leds.sincap.web.model.NotificadorDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadoraGenerica</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.InstituicaoNotificadoraDTO</class-b>
     </mapping>
     
 </mappings>

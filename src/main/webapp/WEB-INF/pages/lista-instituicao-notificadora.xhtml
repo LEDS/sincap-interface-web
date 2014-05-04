@@ -92,7 +92,7 @@
                                         </center>
                                     </f:facet>
                                     <form id="formulario_editar_com_id_instituicao_${instituicao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}${contextUrls.editar}" method="post">
-                                        <h:inputHidden id="id" value="${instituicao.id}"></h:inputHidden>
+                                        <input type="hidden" name="id" value="${instituicao.id}" />
                                         <a onclick="document.getElementById('formulario_editar_com_id_instituicao_${instituicao.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-edit"></i>
@@ -107,7 +107,7 @@
                                         </center>
                                     </f:facet>
                                     <form id="formulario_apagar_com_id_instituicao_${instituicao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}${contextUrls.apagar}" method="post">
-                                        <h:inputHidden id="id" value="${instituicao.id}"></h:inputHidden>
+                                        <input type="hidden" name="id" value="${instituicao.id}" />
                                         <a onclick="document.getElementById('formulario_apagar_com_id_instituicao_${instituicao.id}').submit()" href="#">
                                             <center>
                                                 <i class="icon-remove"></i>

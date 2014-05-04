@@ -90,10 +90,14 @@
                                                 <h:inputText id="sigla" value="#{formularioInstituicaoNotificadora.sigla}" />
 
                                                 <h:outputLabel value="Telefone" />
-                                                <h:inputText id="telefone" class="tel" value="#{formularioInstituicaoNotificadora.telefone}" />
+                                                <input type="text" name="telefones[0].numero" class="tel" value="#{formularioInstituicaoNotificadora.telefones[0].numero}" />
+                                                <input type="hidden" name="telefones[0].tipo" value="COMERCIAL" />
+                                                <input type="hidden" name="telefones[0].id" value="#{formularioInstituicaoNotificadora.telefones[0].id}" />
 
                                                 <h:outputLabel value="Fax" />
-                                                <h:inputText id="fax" class="tel" value="#{formularioInstituicaoNotificadora.fax}" />
+                                                <input type="text" name="telefones[1].numero" class="tel" value="#{formularioInstituicaoNotificadora.telefones[1].numero}" />
+                                                <input type="hidden" name="telefones[1].tipo" value="FAX" />
+                                                <input type="hidden" name="telefones[1].id" value="#{formularioInstituicaoNotificadora.telefones[1].id}" />
 
                                                 <h:outputLabel value="E-mail" />
                                                 <h:inputText id="email" value="#{formularioInstituicaoNotificadora.email}" />
@@ -105,42 +109,43 @@
                                                       styleClass="tab-pane">
                                             <h:panelGrid columns="2">
                                                 <h:outputLabel value="CEP" />
-                                                <h:inputText id="cep" value="#{formularioInstituicaoNotificadora.cep}" />
+                                                <input type="text" id="cep" name="endereco.cep" value="#{formularioInstituicaoNotificadora.endereco.cep}" />
 
                                                 <h:outputLabel value="Estado" />
-                                                <h:selectOneMenu id="estado" value="#{formularioInstituicaoNotificadora.estado}" styleClass="select2" onchange="ajaxGetMunicipios(estado, cidade)" onclick="ajaxGetMunicipios(estado, cidade)">
+                                                <h:selectOneMenu id="estado" value="#{formularioInstituicaoNotificadora.endereco.estado}" styleClass="select2" onchange="ajaxGetMunicipios(estado, cidade)" onclick="ajaxGetMunicipios(estado, cidade)">
                                                     <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
                                                     <f:selectItems value="#{listaEstadoItem}" />
+                                                    <input id="endereco_estado" type="hidden" name="endereco.estado" />
                                                 </h:selectOneMenu>
 
                                                 <h:outputLabel value="Cidade" />
-                                                <h:selectOneMenu id="cidade" value="#{formularioInstituicaoNotificadora.cidade}" styleClass="select2" onchange="ajaxGetBairros(cidade, bairro)" onclick="ajaxGetBairros(cidade, bairro)">
+                                                <h:selectOneMenu id="cidade" value="#{formularioInstituicaoNotificadora.endereco.cidade}" styleClass="select2" onchange="ajaxGetBairros(cidade, bairro)" onclick="ajaxGetBairros(cidade, bairro)">
                                                     <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.cidade.escolha']}" />
                                                     <f:selectItems value="#{listaCidadeItem}" />
+                                                    <input id="endereco_cidade" type="hidden" name="endereco.cidade" />
                                                 </h:selectOneMenu>
 
                                                 <h:outputLabel value="Bairro" />
-                                                <h:selectOneMenu id="bairro" value="#{formularioInstituicaoNotificadora.bairro}" styleClass="select2">
+                                                <h:selectOneMenu id="bairro" value="#{formularioInstituicaoNotificadora.endereco.bairro}" styleClass="select2">
                                                     <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.bairro.escolha']}" />
                                                     <f:selectItems value="#{listaBairroItem}" />
+                                                    <input id="endereco_bairro" type="hidden" name="endereco.bairro" />
                                                 </h:selectOneMenu>
 
                                                 <h:outputLabel value="Logradouro" />
-                                                <h:inputText id="logradouro" value="#{formularioInstituicaoNotificadora.logradouro}" />
+                                                <input type="text" name="endereco.logradouro" value="#{formularioInstituicaoNotificadora.endereco.logradouro}" />
 
                                                 <h:outputLabel value="Número" />
-                                                <h:inputText id="numero" value="#{formularioInstituicaoNotificadora.numero}" />
+                                                <input type="text" name="endereco.numero" value="#{formularioInstituicaoNotificadora.endereco.numero}" />
 
                                                 <h:outputLabel value="Complemento" />
-                                                <h:inputText id="complemento" value="#{formularioInstituicaoNotificadora.complemento}" />
+                                                <input type="text" name="endereco.complemento" value="#{formularioInstituicaoNotificadora.endereco.complemento}" />
                                             </h:panelGrid>
                                         </h:panelGroup>
                                     </h:panelGroup>
 
-                                    <h:inputHidden id="id" value="#{formularioInstituicaoNotificadora.id}" />
-                                    <h:inputHidden id="idTelefone" value="#{formularioInstituicaoNotificadora.idTelefone}" />
-                                    <h:inputHidden id="idFax" value="#{formularioInstituicaoNotificadora.idFax}" />
-                                    <h:inputHidden id="idEndereco" value="#{formularioInstituicaoNotificadora.idEndereco}" />
+                                    <input type="hidden" name="id" value="#{formularioInstituicaoNotificadora.id}" />
+                                    <input type="hidden" name="endereco.id" value="#{formularioInstituicaoNotificadora.endereco.id}" />
 
                                     <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_instituicao_notificadora_generica}"
                                        class="btn btn-primary">Voltar</a>
@@ -169,85 +174,89 @@
         <!-- end scripts -->
 
         <script type="text/javascript">
-            $(document).ready(function() {
-                $('#cep').mask('00000-000', {
-                    reverse: true
-                });
-                $('.tel').mask('(00)0000-0000', {
-                    reverse: false
-                });
-            });
+                                                    $(document).load(copyValue(estado, endereco_estado));
+                                                    $(document).load(copyValue(cidade, endereco_cidade));
+                                                    $(document).load(copyValue(bairro, endereco_bairro));
 
-            //Validando os dados do formulario
-            $("#hospitalForm").validate({
-                rules: {
-                    nome: {
-                        required: true
-                    },
-                    fantasia: {
-                        required: true
-                    },
-                    cnes: {
-                        required: true
-                    },
-                    sigla: {
-                        required: true
-                    },
-                    telefone: {
-                        required: true
-                    },
-                    fax: {
-                        required: true
-                    },
-                    email: {
-                        required: true
-                    },
-                    estado: {
-                        required: true
-                    },
-                    cidade: {
-                        required: true
-                    },
-                    bairro: {
-                        required: true
-                    }
-                },
-                messages: {
-                    nome: {
-                        required: "Por favor, entre com o nome do Hospital."
-                    },
-                    fantasia: {
-                        required: "Por favor, entre com o nome fantasia do Hospital."
-                    },
-                    cnes: {
-                        required: "Por favor, entre com o CNES do Hospital."
-                    },
-                    sigla: {
-                        required: "Por favor, entre com a sigla do Hospital."
-                    },
-                    telefone: {
-                        required: "Por favor, entre com o telefone do Hospital."
-                    },
-                    fax: {
-                        required: "Por favor, entre com o fax do Hospital."
-                    },
-                    email: {
-                        required: "Por favor, entre com o email do Hospital."
-                    },
-                    estado: {
-                        required: "Por favor, escolha um estado."
-                    },
-                    cidade: {
-                        required: "Por favor, escolha uma cidade."
-                    },
-                    bairro: {
-                        required: "Por favor, escolha um bairro."
-                    }
-                },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });
+                                                    $(document).ready(function() {
+                                                        $('#cep').mask('00000-000', {
+                                                            reverse: true
+                                                        });
+                                                        $('.tel').mask('(00)0000-0000', {
+                                                            reverse: false
+                                                        });
+                                                    });
+
+                                                    //Validando os dados do formulario
+                                                    $("#hospitalForm").validate({
+                                                        rules: {
+                                                            nome: {
+                                                                required: true
+                                                            },
+                                                            fantasia: {
+                                                                required: true
+                                                            },
+                                                            cnes: {
+                                                                required: true
+                                                            },
+                                                            sigla: {
+                                                                required: true
+                                                            },
+                                                            telefone: {
+                                                                required: true
+                                                            },
+                                                            fax: {
+                                                                required: true
+                                                            },
+                                                            email: {
+                                                                required: true
+                                                            },
+                                                            estado: {
+                                                                required: true
+                                                            },
+                                                            cidade: {
+                                                                required: true
+                                                            },
+                                                            bairro: {
+                                                                required: true
+                                                            }
+                                                        },
+                                                        messages: {
+                                                            nome: {
+                                                                required: "Por favor, entre com o nome do Hospital."
+                                                            },
+                                                            fantasia: {
+                                                                required: "Por favor, entre com o nome fantasia do Hospital."
+                                                            },
+                                                            cnes: {
+                                                                required: "Por favor, entre com o CNES do Hospital."
+                                                            },
+                                                            sigla: {
+                                                                required: "Por favor, entre com a sigla do Hospital."
+                                                            },
+                                                            telefone: {
+                                                                required: "Por favor, entre com o telefone do Hospital."
+                                                            },
+                                                            fax: {
+                                                                required: "Por favor, entre com o fax do Hospital."
+                                                            },
+                                                            email: {
+                                                                required: "Por favor, entre com o email do Hospital."
+                                                            },
+                                                            estado: {
+                                                                required: "Por favor, escolha um estado."
+                                                            },
+                                                            cidade: {
+                                                                required: "Por favor, escolha uma cidade."
+                                                            },
+                                                            bairro: {
+                                                                required: "Por favor, escolha um bairro."
+                                                            }
+                                                        },
+                                                        submitHandler: function(form) {
+                                                            form.submit();
+                                                        }
+                                                    });
         </script>
     </h:body>
 </html>
