@@ -85,11 +85,16 @@
                                     </f:facet>
                                     <form id="formulario_editar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}${contextUrls.editar}" method="post">
                                         <input type="hidden" name="id" value="#{notificador.id}" />
-                                        <a onclick="document.getElementById('formulario_editar_com_id_notificador_${notificador.id}').submit()" href="#">
+                                        <a id="submit_editar_${notificador.id}" href="#">
                                             <center>
                                                 <i class="icon-edit"></i>
                                             </center>
                                         </a>
+                                        <script>
+                                            $(submit_editar_${notificador.id}).click(function() {
+                                                $(formulario_editar_com_id_notificador_${notificador.id}).submit();
+                                            });
+                                        </script>
                                     </form>
                                 </h:column>
                                 <h:column>
@@ -100,11 +105,16 @@
                                     </f:facet>
                                     <form id="formulario_apagar_com_id_notificador_${notificador.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_notificador}${contextUrls.apagar}" method="post">
                                         <input type="hidden" name="id" value="#{notificador.id}" />
-                                        <a onclick="document.getElementById('formulario_apagar_com_id_notificador_${notificador.id}').submit()" href="#">
+                                        <a id="submit_apagar_${notificador.id}" href="#">
                                             <center>
                                                 <i class="icon-remove"></i>
                                             </center>
                                         </a>
+                                        <script>
+                                            $(submit_apagar_${notificador.id}).click(function() {
+                                                $(formulario_apagar_com_id_notificador_${notificador.id}).submit();
+                                            });
+                                        </script>
                                     </form>
                                 </h:column>
                             </h:dataTable>
@@ -125,42 +135,5 @@
         <h:outputScript library="js" name="jquery-2.0.3.js" />
         <h:outputScript library="js" name="jquery.validate.min.js" />
         <!-- end scripts -->
-
-        <script type="text/javascript">
-                                            //Validando os dados do formulario
-                                            $("#hospitalForm")
-                                                    .validate(
-                                                            {
-                                                                rules: {
-                                                                    cnes: {
-                                                                        required: true
-
-                                                                    },
-                                                                    nome: {
-                                                                        required: true
-
-                                                                    },
-                                                                    sigla: {
-                                                                        required: true
-                                                                    }
-                                                                },
-                                                                messages: {
-                                                                    cnes: {
-                                                                        required: "Por favor, digite o cnes"
-
-                                                                    },
-                                                                    nome: {
-                                                                        required: "Por favor, digite o nome."
-                                                                    },
-                                                                    sigla: {
-                                                                        required: "Por favor, digite a sigla."
-                                                                    }
-                                                                },
-                                                                submitHandler: function(
-                                                                        form) {
-                                                                    form.submit();
-                                                                }
-                                                            });
-        </script>
     </h:body>
 </html>

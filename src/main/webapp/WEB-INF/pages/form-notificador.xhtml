@@ -84,18 +84,33 @@
                                                 <h:inputText id="nome" value="#{formularioNotificador.nome}" />
                                                 <h:outputLabel value="CPF" />
                                                 <h:inputText id="cpf" value="#{formularioNotificador.cpf}" />
-                                                <h:outputLabel value="Celular " />
-                                                <input id="celular" name="telefones[0].numero" type="text" value="#{formularioNotificador.telefones[0].numero}" />
-                                                <input name="telefones[0].tipo" type="hidden" value="CELULAR" />
-                                                <input name="telefones[0].id" type="hidden" value="#{formularioNotificador.telefones[0].id}" />
-                                                <h:outputLabel value="Residencial " />
-                                                <input id="residencial" name="telefones[1].numero" type="text" value="#{formularioNotificador.telefones[1].numero}" />
-                                                <input name="telefones[1].tipo" type="hidden" value="RESIDENCIAL" />
-                                                <input name="telefones[1].id" type="hidden" value="#{formularioNotificador.telefones[1].id}" />
+                                                <c:if test="#{formularioNotificador.telefones != null}">
+                                                    <h:outputLabel value="#{formularioNotificador.telefones[0].tipo}" />
+                                                    <input type="text" name="telefones[0].numero" class="tel" value="#{formularioNotificador.telefones[0].numero}"/>
+                                                    <input type="hidden" name="telefones[0].tipo" value="#{formularioNotificador.telefones[0].tipo}" />
+                                                    <input type="hidden" name="telefones[0].id" value="#{formularioNotificador.telefones[0].id}" />
+
+                                                    <h:outputLabel value="#{formularioNotificador.telefones[1].tipo}" />
+                                                    <input type="text" name="telefones[1].numero" class="tel" value="#{formularioNotificador.telefones[1].numero}"/>
+                                                    <input type="hidden" name="telefones[1].tipo" value="#{formularioNotificador.telefones[1].tipo}" />
+                                                    <input type="hidden" name="telefones[1].id" value="#{formularioNotificador.telefones[1].id}" />
+                                                </c:if>
+
+                                                <c:if test="#{formularioNotificador.telefones == null}">
+                                                    <h:outputLabel value="CELULAR" />
+                                                    <input type="text" name="telefones[0].numero" class="tel" value="#{formularioNotificador.telefones[0].numero}"/>
+                                                    <input type="hidden" name="telefones[0].tipo" value="CELULAR" />
+                                                    <input type="hidden" name="telefones[0].id" value="#{formularioNotificador.telefones[0].id}" />
+
+                                                    <h:outputLabel value="RESIDENCIAL" />
+                                                    <input type="text" name="telefones[1].numero" class="tel" value="#{formularioNotificador.telefones[1].numero}"/>
+                                                    <input type="hidden" name="telefones[1].tipo" value="RESIDENCIAL" />
+                                                    <input type="hidden" name="telefones[1].id" value="#{formularioNotificador.telefones[1].id}" />
+                                                </c:if>
                                                 <h:outputLabel value="E-mail" />
                                                 <h:inputText id="email" value="#{formularioNotificador.email}" />
                                                 <h:outputLabel value="Senha" />
-                                                <h:inputSecret  id="senha" value="#{formularioNotificador.senha}" />
+                                                <h:inputSecret  id="senha" value="#{formularioNotificador.senha}"/>
                                             </h:panelGrid>
                                         </h:panelGroup>
                                         <h:panelGroup id="abaInstituicoes"
@@ -153,10 +168,10 @@
                 $('#cpf').mask('000.000.000-00', {
                     reverse: true
                 });
-                $('#celular').mask('(00)0000-0000', {
+                $('[name="telefones[0].numero"]').mask('(00)0000-0000', {
                     reverse: false
                 });
-                $('#residencial').mask('(00)0000-0000', {
+                $('[name="telefones[1].numero"]').mask('(00)0000-0000', {
                     reverse: false
                 });
             });
@@ -168,10 +183,16 @@
                         required: true
                     },
                     cpf: {
-                        required: true
+                        required: true,
+                        minlength: 14
                     },
-                    celular: {
-                        required: true
+                    'telefones[0].numero': {
+                        required: true,
+                        minlength: 13
+                    },
+                    'telefones[1].numero': {
+                        required: true,
+                        minlength: 13
                     },
                     email: {
                         required: true
@@ -185,10 +206,16 @@
                         required: "Por favor, entre com o nome do Notificador."
                     },
                     cpf: {
-                        required: "Por favor, entre com o CPF do Notificador."
+                        required: "Por favor, entre com o CPF do Notificador.",
+                        minlength: "Por favor, complete o CPF do Notificador."
                     },
-                    celular: {
-                        required: "Por favor, entre com o telefone do Notificador."
+                    'telefones[0].numero': {
+                        required: "Por favor, entre com o celular do Notificador.",
+                        minlength: "Por favor, complete o número do celular do Notificador."
+                    },
+                    'telefones[1].numero': {
+                        required: "Por favor, entre com o telefone do Notificador.",
+                        minlength: "Por favor, complete o número do telefone do Notificador."
                     },
                     email: {
                         required: "Por favor, entre com o email do Notificador."

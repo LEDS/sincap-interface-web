@@ -27,6 +27,10 @@
                 <class-a>br.ifes.leds.reuse.endereco.cdp.Bairro</class-a>
                 <class-b>java.lang.Long</class-b>
             </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.SetorToLongIdConverter">
+                <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Setor</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
         </custom-converters>
     </configuration>
     
@@ -45,6 +49,10 @@
     <mapping>
         <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Setor</class-a>
         <class-b>br.ifes.leds.sincap.web.model.SetorDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.HospitalDTO</class-b>
     </mapping>
     
 </mappings>
