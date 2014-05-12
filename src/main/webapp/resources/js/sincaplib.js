@@ -1,3 +1,14 @@
+function setNome(elemento, nome) {
+    $(elemento).prop("name", nome);
+}
+
+function setNomeVarios(nomeAtributo) {
+    for (var i = 1; i < arguments.length; i++) {
+        var id = $(arguments[i]).prop("id");
+        $(arguments[i]).prop("name", nomeAtributo + '.' + id);
+    }
+}
+
 function ajaxHideElement() {
 
     var val = $("#username").val();
@@ -36,7 +47,7 @@ function ajaxHideElement() {
 }
 
 function ajaxGetHospitais() {
-    
+
     var val = $("#username").val();
     $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
 
@@ -154,10 +165,10 @@ function ajaxGetBairros(idMunicipio, idBairro) {
 function ajaxGetNovasNotificacoes() {
     // Endereço da aplicação.
     var aplicacao = "http://" + location.host + "/sincap";
-    
+
     // Limpa todo o html do painel.
     $('#painelNovasNotificacoes').html("");
-    
+
     // Faz a requisição ao controlador.
     $.ajax({
         type: "get",
@@ -168,18 +179,18 @@ function ajaxGetNovasNotificacoes() {
         success: function(response) {
             // Variável que conta o número de notificações.
             var quantasNotificacoes = 0;
-            
+
             // Variável que agregará os vários itens do painel.
             var itens = new Array();
-            
+
             var id;
             var codigo;
             var nomePaciente;
             var tempo;
             $.each(response, function(idx, notificacao) {
                 // Para cada notificação, aumenta 1 no número de notificações.
-            	quantasNotificacoes += 1;
-                
+                quantasNotificacoes += 1;
+
                 // Pega os campos necessários da notificação.
                 $.each(notificacao, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
                     if (key === "id")
@@ -191,36 +202,36 @@ function ajaxGetNovasNotificacoes() {
                     if (key === "tempo")
                         tempo = value;
                 });
-                
+
                 // Acrescenta um item ao painel, com os dados da notificação.
-                itens[idx] = 
-                    "<a href=\"" + aplicacao + "/notificacao/visualizar/" + id + "\" class=\"item\">"
-                    + "<i class=\"icon-download-alt\"></i>" + codigo + " " + nomePaciente
-                    + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
-                    + "</a>";
+                itens[idx] =
+                        "<a href=\"" + aplicacao + "/notificacao/visualizar/" + id + "\" class=\"item\">"
+                        + "<i class=\"icon-download-alt\"></i>" + codigo + " " + nomePaciente
+                        + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
+                        + "</a>";
             });
 
             // Atualiza o contador do número de novas notificações e o título do painel.
             $("#contador").html(quantasNotificacoes);
-            
+
             // Anexa o cabeçalho do painel.
             $("#painelNovasNotificacoes").append(
                     "<h3>Você tem " + quantasNotificacoes + " novas notificações</h3>");
-            
+
             // Anexa os itens do painel.
             $("#painelNovasNotificacoes").append(itens);
-            
+
             // Anexa o rodapé a lista.
             $("#painelNovasNotificacoes").append(
-                "<div class=\"footer\">"
-                     + "<a href=\"" + aplicacao + "/index" + "\" class=\"logout\">Ver todas as notificações</a>"
-                + "</div>");
+                    "<div class=\"footer\">"
+                    + "<a href=\"" + aplicacao + "/index" + "\" class=\"logout\">Ver todas as notificações</a>"
+                    + "</div>");
         },
         error: function(response, status, error) {
             //alert("Erro no javascript do painel de novas notificações");
         }
     });
-    
+
 }
 
 function mascaraData(id) {

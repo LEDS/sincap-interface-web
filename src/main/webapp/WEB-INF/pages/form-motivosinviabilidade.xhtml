@@ -69,7 +69,9 @@
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
                             <h:outputLabel>Cadastro de Motivos de Inviabilidade:</h:outputLabel>
-                            <form id="motivoInviabilidadeForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/novo/salvar" method="post">
+                            <form id="motivoInviabilidadeForm"
+                                  action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_motivo_inviabilidade}${contextUrls.salvar}"
+                                  method="post">
                                 <h:panelGrid columns="2">
                                     <h:outputLabel value="#{msg['motivosinviabilidade.dropdown.tiposmotivoinviabilidade']}" />
                                     <h:selectOneMenu id="tipoMotivoInviabilidadeId" value="#{motivoInviabilidadeForm.tipoMotivoInviabilidadeId}" class="ui-select" disabled="#{motivoCadastrado}">

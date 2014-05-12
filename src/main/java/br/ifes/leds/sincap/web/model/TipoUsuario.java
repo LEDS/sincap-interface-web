@@ -11,5 +11,5 @@ package br.ifes.leds.sincap.web.model;
  * @author 20121BSI0252
  */
 public enum TipoUsuario {
-    NOTIFICADOR, ANALISTACNCDO, ANALISTABANCOOLHOS
+    NOTIFICADOR, ANALISTACNCDO, ANALISTABANCOOLHOS,CAPTADOR
 }

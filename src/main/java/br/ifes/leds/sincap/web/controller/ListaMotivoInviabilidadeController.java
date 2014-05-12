@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author 20112BSI0083
  */
 @Controller
-@RequestMapping("/admin/motivoInviabilidade")
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_MOTIVO_INVIABILIDADE)
 @SessionScoped
 public class ListaMotivoInviabilidadeController {
 
@@ -48,7 +48,7 @@ public class ListaMotivoInviabilidadeController {
         return "form-lista-motivosinviabilidade";
     }
 
-    @RequestMapping(value = "/apagar/", method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
     public String apagarMotivo(@RequestBody String id, ModelMap model) {
 
         id = id.split("=")[1];//table1%3A0%3Aid=2
@@ -63,9 +63,6 @@ public class ListaMotivoInviabilidadeController {
             model.addAttribute("displayNovoSuccess", "none");
             model.addAttribute("displayNovoError", "none");
         } catch (MotivoInviabilidadeEmUsoException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            
             model.addAttribute("displayError", "block");
             model.addAttribute("displaySuccess", "none");
             model.addAttribute("displayNovoSuccess", "none");
@@ -79,7 +76,7 @@ public class ListaMotivoInviabilidadeController {
     private void preecherLista(ModelMap model) {
 
         List<MotivoInviabilidade> listaMotivos = aplMotivoInviabilidade.obter();
-        List<ListaMotivoInviabilidadeForm> listaMotivosForm = new ArrayList<ListaMotivoInviabilidadeForm>();
+        List<ListaMotivoInviabilidadeForm> listaMotivosForm = new ArrayList<>();
 
         for (MotivoInviabilidade motivo : listaMotivos) {
             try {
@@ -89,8 +86,6 @@ public class ListaMotivoInviabilidadeController {
                         motivo.getId());
                 listaMotivosForm.add(motivoInviabilidadeForm);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
             }
         }
 
@@ -98,7 +93,7 @@ public class ListaMotivoInviabilidadeController {
 
     }
     
-    @RequestMapping(value ="/novo", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String novoMotivo(ModelMap model) {
 
         MotivoInviabilidadeForm motivoInviabilidadeForm = new MotivoInviabilidadeForm();
@@ -121,12 +116,11 @@ public class ListaMotivoInviabilidadeController {
             }
             model.addAttribute("listaTipoMotivosSelectItem", listaTipoMotivosSelectItem);
         } catch (Exception e) {
-            e.printStackTrace();
         }
 
     }
 
-    @RequestMapping(value = "/novo/atualizar/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.EDITAR + "/{id}", method = RequestMethod.GET)
     public String atualizarMotivoInviabilidade(@PathVariable long id, ModelMap model)
             throws Exception {
         boolean motivoCadastrado = true;
@@ -148,7 +142,7 @@ public class ListaMotivoInviabilidadeController {
     }
 
     //Salvar e Editar
-    @RequestMapping(value = "/novo/salvar", method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarMotivoInviabilidade(@ModelAttribute MotivoInviabilidadeForm motivoInviabilidadeForm, ModelMap model) throws Exception {
 
         MotivoInviabilidade motivoInviabilidade = null;

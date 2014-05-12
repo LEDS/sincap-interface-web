@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >	
     <h:head>
@@ -70,7 +69,7 @@
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
                             <h:outputLabel>#{msg['setor.title']}</h:outputLabel>
-                            <form id="setorForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/novo/salvar" method="post">
+                            <form id="setorForm" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.salvar}" method="post">
                                 <h:panelGrid columns="2">                                    
                                     <h:outputLabel value="#{msg['setor.text.nome']}" />
                                     <h:inputText id="nome" value="#{setorForm.nome}" />

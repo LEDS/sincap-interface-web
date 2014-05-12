@@ -80,7 +80,7 @@
                 </center>
                 
                 <h:panelGroup layout="block" styleClass="row-fluid">
-                    <a class="dropdown-toggle" href="/sincap/admin/motivoInviabilidade/novo"> <i
+                    <a class="dropdown-toggle" href="${request.contextPath}${contextUrls.admin}${contextUrls.app_motivo_inviabilidade}${contextUrls.adicionar}"> <i
                             class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
                     </a>
                     <h:panelGroup layout="block" styleClass="span12">
@@ -107,7 +107,7 @@
                                         </center>
                                     </f:facet>
                                     <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/novo/atualizar/${l.id}">
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_motivo_inviabilidade}${contextUrls.editar}/${l.id}">
                                         <center>
                                             <i class="icon-edit"></i>
                                         </center>
@@ -119,7 +119,8 @@
                                             <h:outputText value="Apagar" />
                                         </center>
                                     </f:facet>
-                                    <form id="form_apagra_motInviabilidade_${l.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/motivoInviabilidade/apagar/"
+                                    <form id="form_apagra_motInviabilidade_${l.id}"
+                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_motivo_inviabilidade}${contextUrls.apagar}"
                                           method="post" >
                                         <h:inputHidden id="id" value="${l.id}"></h:inputHidden>
                                         <a onclick="document.getElementById('form_apagra_motInviabilidade_${l.id}').submit()" href="#">

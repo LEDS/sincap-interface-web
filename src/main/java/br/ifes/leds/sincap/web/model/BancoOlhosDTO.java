@@ -1,0 +1,27 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.ifes.leds.sincap.web.model;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ *
+ * @author 20112BSI0083
+ */
+@Getter
+@Setter
+public class BancoOlhosDTO {
+
+    private Long id;
+    private String nome;
+    private String fantasia;
+    private String sigla;
+    private String email;
+    private EnderecoDTO endereco;
+    private TelefoneDTO[] telefones;
+    private String cnes;
+}
