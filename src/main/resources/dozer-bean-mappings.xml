@@ -54,5 +54,9 @@
         <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital</class-a>
         <class-b>br.ifes.leds.sincap.web.model.HospitalDTO</class-b>
     </mapping>
+    <mapping date-format="dd/MM/YYYY">
+        <class-a>br.ifes.leds.sincap.web.model.BuscarPorDataForm</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.DataForm</class-b>
+    </mapping>
     
 </mappings>

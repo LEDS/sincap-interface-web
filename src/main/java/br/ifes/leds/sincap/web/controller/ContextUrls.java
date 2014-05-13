@@ -22,6 +22,7 @@ public class ContextUrls {
      * Subsistemas
      */
     public static final String ADMIN = "/admin";
+    public static final String RELATORIOS = "/relatorio";
     /**
      * Aplicações (Controllers)
      */
@@ -31,6 +32,8 @@ public class ContextUrls {
     public static final String APP_INSTITUICAO_NOTIFICADORA_GENERICA = "/instituicaoNotificadora";
     public static final String APP_SETOR = "/setor";
     public static final String APP_MOTIVO_INVIABILIDADE = "/motivoinviabilidade";
+    public static final String RLT_DOACAO_HOSPITAL = "/doacaoporhospital";
+    public static final String RLT_N_DOACAO_HOSPITAL = "/naodoacaoporhospital";
     /**
      * Métodos
      */
@@ -43,6 +46,7 @@ public class ContextUrls {
      * Subsistemas
      */
     String admin = ADMIN;
+    String relatorios = RELATORIOS;
     /**
      * Aplicações (Controllers)
      */
@@ -52,6 +56,8 @@ public class ContextUrls {
     String app_instituicao_notificadora_generica = APP_INSTITUICAO_NOTIFICADORA_GENERICA;
     String app_setor = APP_SETOR;
     String app_motivo_inviabilidade = APP_MOTIVO_INVIABILIDADE;
+    String rlt_doacao_hospital = RLT_DOACAO_HOSPITAL;
+    String rlt_n_doacao_hospital = RLT_N_DOACAO_HOSPITAL;
     /**
      * Métodos
      */

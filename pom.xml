@@ -15,7 +15,6 @@
         <hibernate.version>4.1.9.Final</hibernate.version>
         <aspectj.version>1.6.9</aspectj.version>
         <dozer.version>5.4.0</dozer.version>
-        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
 
     <dependencies>
