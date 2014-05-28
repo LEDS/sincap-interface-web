@@ -54,15 +54,40 @@
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
             <h:panelGroup layout="block" id="pad-wrapper">
-			<a class="dropdown-toggle" href="/sincap/admin/setor/novo"> <i class="icon-plus-sign"></i>
-				<span>#{msg['geral.text.novo']}</span>
-			</a>
-			<h:panelGroup layout="block" styleClass="row-fluid">
+
+                <!-- mensagem de erro -->
+                <center>
+                    <div class="span12">
+                        <h:panelGroup rendered="#{not empty displayError}">
+                            <div class="alert alert-error" style="display:#{displayError}">
+                                <i class="icon-remove-sign"></i>
+                                #{msg['msg.erroSetorNotificacaoExiste']}
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displaySuccess}">
+                            <div class="alert alert-success" style="display:#{displaySuccess}">
+                                <i class="icon-ok-sign"></i>
+                                #{msg['msg.sucessoSetorExcluido']}
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
+                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
+                                <i class="icon-ok-sign"></i>
+                                #{msg['msg.sucessoSetorSalvo']}
+                            </div>  
+                        </h:panelGroup>
+                    </div>
+                </center>
+
+                <a class="dropdown-toggle" href="${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.adicionar}"> <i class="icon-plus-sign"></i>
+                    <span>#{msg['geral.text.novo']}</span>
+                </a>
+                <h:panelGroup layout="block" styleClass="row-fluid">
                     <h:panelGroup layout="block" styleClass="span12">
                         <h:panelGroup styleClass="row-fluid form-wrapper">
 
                             <h:dataTable id="table1" value="#{listaSetoresForm}"
-                                 var="l" styleClass="table table-hover table-striped">
+                                         var="l" styleClass="table table-hover table-striped">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="Setor" />
@@ -71,21 +96,38 @@
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
-                                        <center><h:outputText value="Apagar" /></center>
+                                        <center><h:outputText value="Editar" /></center>
                                     </f:facet>
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/apagar/${l.id}">
-                                        <center><i class="icon-remove"></i></center>
-                                    </a>
+                                    <form id="form_editar_com_id_setor_${l.id}" method="post"
+                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.editar}">
+                                        <input type="hidden" name="id" value="${l.id}" />
+                                        <a id="submit_editar_${l.id}" href="#" >
+                                            <center><i class="icon-edit"></i></center>
+                                        </a>
+                                        <script>
+                                            $(submit_editar_${l.id}).click(function() {
+                                                $(form_editar_com_id_setor_${l.id}).submit();
+                                            });
+                                        </script>
+                                    </form>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
-                                        <center><h:outputText value="Editar" /></center>
+                                        <center><h:outputText value="Apagar" /></center>
                                     </f:facet>
-                                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/setor/novo/atualizar/${l.id}">
-                                        <center><i class="icon-edit"></i></center>
-                                    </a>
+                                    <form id="form_com_id_setor_${l.id}" method="post"
+                                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_setor}${contextUrls.apagar}">
+                                        <input type="hidden" name="id" value="${l.id}"/>
+                                        <a id="submit_apagar_${l.id}" href="#">
+                                            <center><i class="icon-remove"></i></center>
+                                        </a>
+                                        <script>
+                                            $(submit_apagar_${l.id}).click(function() {
+                                                $(form_com_id_setor_${l.id}).submit();
+                                            });
+                                        </script>
+                                    </form>
                                 </h:column>
-
                             </h:dataTable>
                         </h:panelGroup>
                     </h:panelGroup>

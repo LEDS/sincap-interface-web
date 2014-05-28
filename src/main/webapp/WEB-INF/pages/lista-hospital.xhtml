@@ -53,8 +53,32 @@
     <!-- main container -->
     <h:panelGroup layout="block" class="content">
         <h:panelGroup layout="block" styleClass="container-fluid">
-            <h:panelGroup layout="block" id="pad-wrapper">
-                <a class="dropdown-toggle" href="/sincap/admin/hospital/novo"> <i
+            <h:panelGroup layout="block" id="pad-wrapper">                
+                <!-- mensagem de erro -->
+                <center>
+                    <div class="span12">
+                        <h:panelGroup rendered="#{not empty displayError}">
+                            <div class="alert alert-error" style="display:#{displayError}">
+                                <i class="icon-remove-sign"></i>
+                                Erro, existe notificações vinculadas a esse hospital.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displaySuccess}">
+                            <div class="alert alert-success" style="display:#{displaySuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Hospital excluido com sucesso.
+                            </div>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{not empty displayNovoSuccess}">
+                            <div class="alert alert-success" style="display:#{displayNovoSuccess}">
+                                <i class="icon-ok-sign"></i>
+                                Hospital salvo com sucesso.
+                            </div>  
+                        </h:panelGroup>
+                    </div>
+                </center>
+
+                <a class="dropdown-toggle" href="${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}${contextUrls.adicionar}"> <i
                         class="icon-plus-sign"></i> <span>#{msg['geral.text.novo']}</span>
                 </a>
                 <h:panelGroup layout="block" styleClass="row-fluid">
@@ -76,12 +100,19 @@
                                             <h:outputText value="Editar" />
                                         </center>
                                     </f:facet>
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/novo/editar/${h.id}">
-                                        <center>
-                                            <i class="icon-edit"></i>
-                                        </center>
-                                    </a>
+                                    <form id="formulario_editar_com_id_hospital_${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}${contextUrls.editar}" method="post">
+                                        <input type="hidden" name="id" value="${h.id}" />
+                                        <a id="submit_editar_${h.id}" href="#">
+                                            <center>
+                                                <i class="icon-edit"></i>
+                                            </center>
+                                        </a>
+                                        <script>
+                                            $(submit_editar_${h.id}).click(function() {
+                                                $(formulario_editar_com_id_hospital_${h.id}).submit();
+                                            });
+                                        </script>
+                                    </form>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -89,12 +120,19 @@
                                             <h:outputText value="Apagar" />
                                         </center>
                                     </f:facet>
-                                    <a
-                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital/apagar/${h.id}">
-                                        <center>
-                                            <i class="icon-remove"></i>
-                                        </center>
-                                    </a>
+                                    <form id="formulario_com_id_hospital_${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}${contextUrls.apagar}" method="post">
+                                        <input type="hidden" name="id" value="${h.id}" />
+                                        <a id="submit_apagar_${h.id}" href="#">
+                                            <center>
+                                                <i class="icon-remove"></i>
+                                            </center>
+                                        </a>
+                                        <script>
+                                            $(submit_apagar_${h.id}).click(function() {
+                                                $(formulario_com_id_hospital_${h.id}).submit();
+                                            });
+                                        </script>
+                                    </form>
                                 </h:column>
                             </h:dataTable>
 
@@ -114,42 +152,5 @@
         <h:outputScript library="js" name="jquery-2.0.3.js" />
         <h:outputScript library="js" name="jquery.validate.min.js" />
         <!-- end scripts -->
-
-        <script type="text/javascript">
-            //Validando os dados do formulario
-            $("#hospitalForm")
-                    .validate(
-                            {
-                                rules: {
-                                    cnes: {
-                                        required: true
-
-                                    },
-                                    nome: {
-                                        required: true
-
-                                    },
-                                    sigla: {
-                                        required: true
-                                    }
-                                },
-                                messages: {
-                                    cnes: {
-                                        required: "Por favor, digite o cnes"
-
-                                    },
-                                    nome: {
-                                        required: "Por favor, digite o nome."
-                                    },
-                                    sigla: {
-                                        required: "Por favor, digite a sigla."
-                                    }
-                                },
-                                submitHandler: function(
-                                        form) {
-                                    form.submit();
-                                }
-                            });
-        </script>
     </h:body>
 </html>

@@ -53,20 +53,23 @@
 					action="http://${request.serverName}:${request.serverPort}${request.contextPath}/autenticar"
 					method="post">
 
-					<h:outputLabel value="Usuário" for="username" />
-					<h:inputText class="cpf" id="username" value="#{usuario.username}"
-						onblur="ajaxGetHospitais();" title="#{msg['login.text.usuario']}" />
-
-					<h:outputLabel value="Senha"/>
-					<h:inputSecret id="password" value="#{usuario.password}"
-						title="#{msg['login.text.senha']}" />
+					<input id="username" name="username" class="span12" type="text" placeholder="CPF"
+                                                value="#{usuario.username}" onblur="ajaxGetHospitais();"
+                                                title="#{msg['login.text.usuario']}"/>
+                                        <input id="password" name="password" class="span12" type="password" placeholder="Senha"
+                                                value="#{usuario.password}"
+                                                title="#{msg['login.text.senha']}"/>
 
 					<h:outputLabel value="Hospital"/>
-					<h:selectOneMenu class="ui-select" id="hospital"
-						value="#{usuario.hospital}" title="#{msg['login.text.hospital']}">
-					</h:selectOneMenu>
+					<div class="ui-select">
+                                                <h:selectOneMenu id="hospital" value="#{usuario.hospital}"
+                                                             title="#{msg['login.text.hospital']}">
+                                              </h:selectOneMenu>
+                                        </div>
+                                        
+                                        <br/><br/>
 
-					<a href="#" class="forgot">#{msg['login.btn.esqueceuSenha']}</a>
+					<!--<a href="#" class="forgot">#{msg['login.btn.esqueceuSenha']}</a>-->
 
 					<button id="botaoLogin" type="submit"
 						class="btn-glow primary login">#{msg['login.btn.entrar']}</button>
@@ -100,7 +103,7 @@
 	
 	<script type="text/javascript">
 		$(document).ready(function() {
-			$('.cpf').mask('000.000.000-00', {
+			$(username).mask('000.000.000-00', {
 				reverse : true
 			});
 		});

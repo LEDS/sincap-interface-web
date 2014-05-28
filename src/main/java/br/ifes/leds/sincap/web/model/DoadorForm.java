@@ -3,22 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package br.ifes.leds.sincap.web.model;
 
 /**
  *
- * @author 20121BSI0252
+ * @author Phillipe Lopes
  */
-public class SetorForm {
-
+public class DoadorForm {
+    private String idade;
     private String nome;
-    private Long id;
-    
-    public SetorForm(){}
-    
-    public SetorForm(String nome, Long id){
-    	this.nome = nome;
-    	this.id = id;
+    private String telefone;
+
+    public String getIdade() {
+        return idade;
+    }
+
+    public void setIdade(String idade) {
+        this.idade = idade;
     }
 
     public String getNome() {
@@ -29,13 +31,12 @@ public class SetorForm {
         this.nome = nome;
     }
 
-	public Long getId() {
-		return id;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-    
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
     
 }

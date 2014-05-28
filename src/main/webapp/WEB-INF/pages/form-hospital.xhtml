@@ -1,261 +1,321 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<!-- title -->
-	<title>#{msg['form-usuario.title']}</title>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:head>
+        <!-- title -->
+        <title>#{msg['form-usuario.title']}</title>
 
-	<!-- meta -->
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<!-- bootstrap -->
-	<h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
-	<h:outputStylesheet library="css/bootstrap"
-		name="bootstrap-responsive.css" />
-	<h:outputStylesheet library="css/bootstrap"
-		name="bootstrap-overrides.css" />
+        <!-- bootstrap -->
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
+        <h:outputStylesheet library="css/bootstrap"
+                            name="bootstrap-responsive.css" />
+        <h:outputStylesheet library="css/bootstrap"
+                            name="bootstrap-overrides.css" />
 
-	<!-- global styles -->
-	<h:outputStylesheet library="css" name="layout.css" />
-	<h:outputStylesheet library="css" name="elements.css" />
-	<h:outputStylesheet library="css" name="icons.css" />
+        <!-- global styles -->
+        <h:outputStylesheet library="css" name="layout.css" />
+        <h:outputStylesheet library="css" name="elements.css" />
+        <h:outputStylesheet library="css" name="icons.css" />
 
-	<!-- libraries -->
-	<h:outputStylesheet library="css/lib"
-		name="jquery-ui-1.10.2.custom.css" />
-	<h:outputStylesheet library="css/lib" name="font-awesome.css" />
-	<h:outputStylesheet library="css/lib" name="morris.css" />
-	<h:outputStylesheet library="css/lib" name="select2.css" />
-	<h:outputStylesheet library="css/lib" name="bootstrap-wysihtml5.css" />
-	<h:outputStylesheet library="css/lib/compiled" name="form-showcase.css" />
+        <!-- libraries -->
+        <h:outputStylesheet library="css/lib"
+                            name="jquery-ui-1.10.2.custom.css" />
+        <h:outputStylesheet library="css/lib" name="font-awesome.css" />
+        <h:outputStylesheet library="css/lib" name="morris.css" />
+        <h:outputStylesheet library="css/lib" name="select2.css" />
+        <h:outputStylesheet library="css/lib" name="bootstrap-wysihtml5.css" />
+        <h:outputStylesheet library="css/lib/compiled" name="form-showcase.css" />
 
-	<!-- this page specific styles -->
-	<h:outputStylesheet library="css/compiled/" name="chart-showcase.css" />
+        <!-- this page specific styles -->
+        <h:outputStylesheet library="css/compiled/" name="chart-showcase.css" />
 
-	<!-- open sans font -->
-	<link
-		href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-		rel='stylesheet' type='text/css' />
+        <!-- open sans font -->
+        <link
+            href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+            rel='stylesheet' type='text/css' />
 
-</h:head>
+    </h:head>
 
-<h:body>
-	<!-- navbar -->
-	<h:panelGroup layout="block" id="menu-navbar">
-		<ui:insert name="menu-navbar">
-			<ui:include src="menu-navbar.xhtml" />
-		</ui:insert>
-	</h:panelGroup>
-	<!-- end navbar -->
+    <h:body>
+        <!-- navbar -->
+        <h:panelGroup layout="block" id="menu-navbar">
+            <ui:insert name="menu-navbar">
+                <ui:include src="menu-navbar.xhtml" />
+            </ui:insert>
+        </h:panelGroup>
+        <!-- end navbar -->
 
-	<!-- sidebar -->
-	<h:panelGroup layout="block" id="menu-sidebar">
-		<ui:insert name="menu-sidebar">
-			<ui:include src="menu-sidebar-adm.xhtml" />
-		</ui:insert>
-	</h:panelGroup>
-	<!-- end sidebar -->
+        <!-- sidebar -->
+        <h:panelGroup layout="block" id="menu-sidebar">
+            <ui:insert name="menu-sidebar">
+                <ui:include src="menu-sidebar-adm.xhtml" />
+            </ui:insert>
+        </h:panelGroup>
+        <!-- end sidebar -->
 
-	<!-- main container -->
-	<h:panelGroup layout="block" class="content">
-		<h:panelGroup layout="block" styleClass="container-fluid">
-			<h:panelGroup layout="block" id="pad-wrapper">
-				<h:panelGroup layout="block" styleClass="row-fluid">
-					<h:panelGroup layout="block" styleClass="span12">
-						<h:panelGroup styleClass="row-fluid form-wrapper">
+        <!-- main container -->
+        <h:panelGroup layout="block" class="content">
+            <h:panelGroup layout="block" styleClass="container-fluid">
+                <h:panelGroup layout="block" id="pad-wrapper">
+                    <h:panelGroup layout="block" styleClass="row-fluid">
+                        <h:panelGroup layout="block" styleClass="span12">
 
-							<h:outputLabel>Cadastro de Hospital:</h:outputLabel>
-							<form id="hospitalForm"
-								action="http://${request.serverName}:${request.serverPort}${request.contextPath}/admin/hospital/novo/add"
-								method="post">
-								<ul class="nav nav-tabs">
-									<li class="active"><a href="#abaDadosGerais"
-										data-toggle="tab">${msg['hospital.title.dadosGerais']}</a></li>
-									<li><a href="#abaEndereco" data-toggle="tab">${msg['hospital.title.endereco']}</a></li>
-									<li><a href="#abaSetores" data-toggle="tab">${msg['hospital.title.setores']}</a></li>
-								</ul>
-								<h:panelGroup layout="block" styleClass="tab-content">
-									<h:panelGroup layout="block" id="abaDadosGerais"
-										styleClass="tab-pane active">
-										<h:panelGrid columns="2">
-											<h:outputLabel value="Nome" />
-											<h:inputText id="nome" value="#{hospitalForm.nome}" />
+                            <center>
+                                <h:panelGroup rendered="#{not empty displayNovoError}">
+                                    <div class="alert alert-error" style="display:#{displayNovoError}">
+                                        <i class="icon-remove-sign"></i>
+                                        Erro, não foi possível salvar esse hospital.
+                                    </div>
+                                </h:panelGroup>
+                            </center>
 
-											<h:outputLabel value="Nome fantasia" />
-											<h:inputText id="fantasia" value="#{hospitalForm.fantasia}" />
+                            <h:panelGroup styleClass="row-fluid form-wrapper">
 
-											<h:outputLabel value="Cnes" />
-											<h:inputText id="cnes" value="#{hospitalForm.cnes}" />
+                                <h:outputLabel>Cadastro de Hospital:</h:outputLabel>
+                                <form id="hospitalForm"
+                                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}${contextUrls.salvar}"
+                                      method="post">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#abaDadosGerais"
+                                                              data-toggle="tab">${msg['hospital.title.dadosGerais']}</a></li>
+                                        <li><a href="#abaEndereco" data-toggle="tab">${msg['hospital.title.endereco']}</a></li>
+                                        <li><a href="#abaSetores" data-toggle="tab">${msg['hospital.title.setores']}</a></li>
+                                    </ul>
+                                    <h:panelGroup layout="block" styleClass="tab-content">
+                                        <h:panelGroup layout="block" id="abaDadosGerais"
+                                                      styleClass="tab-pane active">
+                                            <h:panelGrid columns="2">
+                                                <h:outputLabel value="Nome" />
+                                                <h:inputText id="nome" value="#{hospitalForm.nome}" />
 
-											<h:outputLabel value="Sigla" />
-											<h:inputText id="sigla" value="#{hospitalForm.sigla}" />
+                                                <h:outputLabel value="Nome fantasia" />
+                                                <h:inputText id="fantasia" value="#{hospitalForm.fantasia}" />
 
-											<h:outputLabel value="Telefone" />
-											<h:inputText id="telefone" class="tel" value="#{hospitalForm.telefone}" />
+                                                <h:outputLabel value="Cnes" />
+                                                <h:inputText id="cnes" value="#{hospitalForm.cnes}" />
 
-											<h:outputLabel value="Fax" />
-											<h:inputText id="fax" class="tel" value="#{hospitalForm.fax}" />
+                                                <h:outputLabel value="Sigla" />
+                                                <h:inputText id="sigla" value="#{hospitalForm.sigla}" />
 
-											<h:outputLabel value="E-mail" />
-											<h:inputText id="email" value="#{hospitalForm.email}" />
-										</h:panelGrid>
-									</h:panelGroup>
+                                                <c:if test="#{hospitalForm.telefones != null}">
+                                                    <h:outputLabel value="#{hospitalForm.telefones[0].tipo}" />
+                                                    <input type="text" name="telefones[0].numero" class="tel" value="#{hospitalForm.telefones[0].numero}"/>
+                                                    <input type="hidden" name="telefones[0].tipo" value="#{hospitalForm.telefones[0].tipo}" />
+                                                    <input type="hidden" name="telefones[0].id" value="#{hospitalForm.telefones[0].id}" />
 
-									<h:panelGroup layout="block" id="abaEndereco"
-										styleClass="tab-pane">
-										<h:panelGrid columns="2">
-											<h:outputLabel value="CEP" />
-											<h:inputText id="cep" value="#{hospitalForm.cep}" />
+                                                    <h:outputLabel value="#{hospitalForm.telefones[1].tipo}" />
+                                                    <input type="text" name="telefones[1].numero" class="tel" value="#{hospitalForm.telefones[1].numero}"/>
+                                                    <input type="hidden" name="telefones[1].tipo" value="#{hospitalForm.telefones[1].tipo}" />
+                                                    <input type="hidden" name="telefones[1].id" value="#{hospitalForm.telefones[1].id}" />
+                                                </c:if>
 
-											<h:outputLabel value="Estado" />
-											<h:selectOneMenu id="estado" value="#{hospitalForm.estado}" styleClass="select2" onchange="ajaxGetMunicipios(estado, cidade)">
-												<f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
-												<f:selectItems value="#{listaEstadoItem}" />
-											</h:selectOneMenu>
-											
-											<h:outputLabel value="Cidade" />
-											<h:selectOneMenu id="cidade" value="#{hospitalForm.cidade}" styleClass="select2" onchange="ajaxGetBairros(cidade, bairro)">
-											</h:selectOneMenu>
+                                                <c:if test="#{hospitalForm.telefones == null}">
+                                                    <h:outputLabel value="COMERCIAL" />
+                                                    <input type="text" name="telefones[0].numero" class="tel" value="#{hospitalForm.telefones[0].numero}"/>
+                                                    <input type="hidden" name="telefones[0].tipo" value="COMERCIAL" />
+                                                    <input type="hidden" name="telefones[0].id" value="#{hospitalForm.telefones[0].id}" />
 
-											<h:outputLabel value="Bairro" />
-											<h:selectOneMenu id="bairro" value="#{hospitalForm.bairro}" styleClass="select2">
-											</h:selectOneMenu>
-											
-											<h:outputLabel value="Logradouro" />
-											<h:inputText id="logradouro" value="#{hospitalForm.logradouro}" />
-											
-											<h:outputLabel value="Número" />
-											<h:inputText id="numero" value="#{hospitalForm.numero}" />
-											
-											<h:outputLabel value="Complemento" />
-											<h:inputText id="complemento" value="#{hospitalForm.complemento}" />
-										</h:panelGrid>
-									</h:panelGroup>
+                                                    <h:outputLabel value="FAX" />
+                                                    <input type="text" name="telefones[1].numero" class="tel" value="#{hospitalForm.telefones[1].numero}"/>
+                                                    <input type="hidden" name="telefones[1].tipo" value="FAX" />
+                                                    <input type="hidden" name="telefones[1].id" value="#{hospitalForm.telefones[1].id}" />
+                                                </c:if>
 
-									<h:panelGroup id="abaSetores"
-										styleClass="tab-pane">
-										<h:panelGrid columns="2">
-											<h:selectManyCheckbox id="setores"
-												value="#{hospitalForm.setores}" layout="pageDirection">
-												<f:selectItems value="#{listaSetorForm}" />
-											</h:selectManyCheckbox>
-										</h:panelGrid>
-									</h:panelGroup>
-								</h:panelGroup>
+                                                <h:outputLabel value="E-mail" />
+                                                <h:inputText id="email" value="#{hospitalForm.email}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup layout="block" id="abaEndereco"
+                                                      styleClass="tab-pane">
+                                            <h:panelGrid columns="2">
+                                                <h:outputLabel value="CEP" />
+                                                <input type="text" name="endereco.cep" value="#{hospitalForm.endereco.cep}" />
+
+                                                <h:outputLabel value="Estado" />
+                                                <h:selectOneMenu id="estado" value="#{hospitalForm.endereco.estado}" styleClass="select2">
+                                                    <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
+                                                    <f:selectItems value="#{listaEstadoItem}" />
+                                                </h:selectOneMenu>
+
+                                                <h:outputLabel value="Cidade" />
+                                                <h:selectOneMenu id="cidade" value="#{hospitalForm.endereco.cidade}" styleClass="select2">
+                                                    <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.cidade.escolha']}" />
+                                                    <f:selectItems value="#{listaCidadeItem}" />
+                                                </h:selectOneMenu>
+
+                                                <h:outputLabel value="Bairro" />
+                                                <h:selectOneMenu id="bairro" value="#{hospitalForm.endereco.bairro}" styleClass="select2">
+                                                    <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.bairro.escolha']}" />
+                                                    <f:selectItems value="#{listaBairroItem}" />
+                                                </h:selectOneMenu>
+
+                                                <h:outputLabel value="Logradouro" />
+                                                <input type="text" name="endereco.logradouro" value="#{hospitalForm.endereco.logradouro}" />
+
+                                                <h:outputLabel value="Número" />
+                                                <input type="text" name="endereco.numero" value="#{hospitalForm.endereco.numero}" />
+
+                                                <h:outputLabel value="Complemento" />
+                                                <input type="text" id="endereco.complemento" value="#{hospitalForm.endereco.complemento}" />
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+
+                                        <h:panelGroup id="abaSetores"
+                                                      styleClass="tab-pane">
+                                            <h:panelGrid columns="2">
+                                                <h:selectManyCheckbox id="setores"
+                                                                      value="#{hospitalForm.setores}" layout="pageDirection">
+                                                    <f:selectItems value="#{listaSetorForm}" />
+                                                </h:selectManyCheckbox>
+                                            </h:panelGrid>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
 
 
 
-								<h:inputHidden id="id" value="#{hospitalForm.id}" />
+                                    <h:inputHidden id="id" value="#{hospitalForm.id}" />
+                                    <input type="hidden" name="endereco.id" value="#{hospitalForm.endereco.id}" />
 
-								<a
-									href="http://${request.serverName}:${request.serverPort}${request.contextPath}/hospital"
-									class="btn btn-primary">Voltar</a>
-								<button type="submit" class="btn btn-success">Salvar</button>
-							</form>
+                                    <a
+                                        href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_hospital}"
+                                        class="btn btn-primary">Voltar</a>
+                                    <button type="submit" class="btn btn-success">Salvar</button>
+                                </form>
 
-						</h:panelGroup>
-					</h:panelGroup>
-				</h:panelGroup>
-			</h:panelGroup>
-		</h:panelGroup>
-	</h:panelGroup>
-	<!-- end main container -->
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+        <!-- end main container -->
 
-	<!-- scripts -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<h:outputScript library="js" name="bootstrap.min.js" />
-	<h:outputScript library="js" name="theme.js" />
-	<h:outputScript library="js" name="sincaplib.js" />
-	<h:outputScript library="js" name="jquery.mask.min.js" />
-	<h:outputScript library="js" name="jquery.validate.min.js" />
+        <!-- scripts -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="theme.js" />
+        <h:outputScript library="js" name="sincaplib.js" />
+        <h:outputScript library="js" name="jquery.mask.min.js" />
+        <h:outputScript library="js" name="jquery.validate.min.js" />
 
 
 
-	<!-- end scripts -->
+        <!-- end scripts -->
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$('#cep').mask('00000-000', {
-				reverse : true
-			});
-			$('.tel').mask('(00)0000-0000', {
-				reverse : true
-			});
-		});
+        <script type="text/javascript">
+            $(estado).click(function() {
+                ajaxGetMunicipios(estado, cidade);
+            });
+            $(estado).change(function() {
+                ajaxGetMunicipios(estado, cidade);
+            });
+            $(cidade).click(function() {
+                ajaxGetBairros(cidade, bairro);
+            });
+            $(cidade).change(function() {
+                ajaxGetBairros(cidade, bairro);
+            });
+            $(document).ready(function() {
+                $('[name="endereco.cep"]').mask('00000-000', {
+                    reverse: true
+                });
+                $('.tel').mask('(00)0000-0000', {
+                    reverse: false
+                });
+                setNomeVarios('endereco', estado, cidade, bairro);
+            });
 
-		//Validando os dados do formulario
-		$("#hospitalForm").validate({
-			rules : {
-				nome : {
-					required : true,
-				},
-				fantasia : {
-					required : true,
-				},
-				cnes : {
-					required : true,
-				},
-				sigla : {
-					required : true,
-				},
-				telefone : {
-					required : true,
-				},
-				fax : {
-					required : true,
-				},
-				email : {
-					required : true,
-				},
-				estado : {
-					required : true,
-				},
-				cidade : {
-					required : true,
-				},
-				bairro : {
-					required : true,
-				},
-			},
-			messages : {
-				nome : {
-					required : "Por favor, entre com o nome do Hospital.",
-				},
-				fantasia : {
-					required : "Por favor, entre com o nome fantasia do Hospital.",
-				},
-				cnes : {
-					required : "Por favor, entre com o CNES do Hospital.",
-				},
-				sigla : {
-					required : "Por favor, entre com a sigla do Hospital.",
-				},
-				telefone : {
-					required : "Por favor, entre com o telefone do Hospital.",
-				},
-				fax : {
-					required : "Por favor, entre com o fax do Hospital.",
-				},
-				email : {
-					required : "Por favor, entre com o email do Hospital.",
-				},
-				estado : {
-					required : "Por favor, escolha um estado.",
-				},
-				cidade : {
-					required : "Por favor, escolha uma cidade.",
-				},
-				bairro : {
-					required : "Por favor, escolha um bairro.",
-				},
-			},
-			submitHandler : function(form) {
-				form.submit();
-			}
-		});
-	</script>
-</h:body>
+            //Validando os dados do formulario
+            $("#hospitalForm").validate({
+                rules: {
+                    nome: {
+                        required: true
+                    },
+                    fantasia: {
+                        required: true
+                    },
+                    cnes: {
+                        required: true
+                    },
+                    sigla: {
+                        required: true
+                    },
+                    'telefones[0].numero': {
+                        required: true,
+                        minlength: 13,
+                        maxlength: 13
+                    },
+                    'telefones[1].numero': {
+                        required: true,
+                        minlength: 13,
+                        maxlength: 13
+                    },
+                    email: {
+                        required: true
+                    },
+                    'endereco.cep': {
+                        required: false,
+                        minlength: 9
+                    },
+                    'endereco.estado': {
+                        required: true
+                    },
+                    'endereco.cidade': {
+                        required: true
+                    },
+                    'endereco.bairro': {
+                        required: true
+                    }
+                },
+                messages: {
+                    nome: {
+                        required: "Por favor, entre com o nome do Hospital."
+                    },
+                    fantasia: {
+                        required: "Por favor, entre com o nome fantasia do Hospital."
+                    },
+                    cnes: {
+                        required: "Por favor, entre com o CNES do Hospital."
+                    },
+                    sigla: {
+                        required: "Por favor, entre com a sigla do Hospital."
+                    },
+                    'telefones[0].numero': {
+                        required: "Por favor, entre com o telefone do Hospital.",
+                        minlength: "Por favor, complete o número do telefone do Hospital."
+                    },
+                    'telefones[1].numero': {
+                        required: "Por favor, entre com o fax do Hospital.",
+                        minlength: "Por favor, complete o número do fax do Hospital."
+                    },
+                    email: {
+                        required: "Por favor, entre com o email do Hospital."
+                    },
+                    'endereco.cep': {
+                        minlength: "Por favor, complete o CEP."
+                    },
+                    'endereco.estado': {
+                        required: "Por favor, escolha um estado."
+                    },
+                    'endereco.cidade': {
+                        required: "Por favor, escolha uma cidade."
+                    },
+                    'endereco.bairro': {
+                        required: "Por favor, escolha um bairro."
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+        </script>
+    </h:body>
 </html>

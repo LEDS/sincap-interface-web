@@ -64,7 +64,7 @@
 
         <!-- main container -->
         <div class="content">
-
+            
             <div class="container-fluid">
                 <div id="pad-wrapper">
                     <!-- <div class="row-fluid head">
@@ -88,12 +88,27 @@
                                         <span class="step">3</span>
                                         <span class="title">${msg['notificacao.msg.etapa.captacao']}</span>
                                     </li>
-                                </ul>                            
+                                </ul>
+                                
+                                <!-- mensagem de erro -->
+                                <center>
+                                    <div class="span12">
+                                        <div class="alert alert-error" style="display:#{displayError}">
+                                            <i class="icon-remove-sign"></i>
+                                            Erro, todos os campos devem ser preenchidos.
+                                        </div>
+                                        <div class="alert alert-success" style="display:#{displaySuccess}">
+                                            <i class="icon-ok-sign"></i>
+                                            Notificação salva com sucesso.
+                                        </div>
+                                    </div>
+                                </center>
                             </div>
-
+                            
                             <!-- PASSO 1 -->
                             <div class="step-content">
-                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacaoObito" method="post"> 
+                                
+                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacao" method="post">
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
                                             <ul class="nav nav-tabs">
@@ -120,83 +135,73 @@
                                                 <ui:insert name="notificacao-obito-aba-obito">
                                                     <ui:include src="notificacao-obito-aba-obito.xhtml" />
                                                 </ui:insert>                                         
-                                            </div>                                            
+                                            </div>
                                         </div>
                                         <!-- FIM PASSO 1 -->
                                         <!-- PASSO 2 -->
                                     </div>
                                     <div class="step-pane" id="step2">
                                         <div class="row-fluid form-wrapper">
-                                            <div class="span8">
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#abaContraIndicacoes" 
-                                                                          data-toggle="tab">#{msg['contraIndicacoes.text.titulo']}</a></li>
-                                                    <li><a href="#paneEntrevista1" data-toggle="tab">#{msg['notificacao.step2.tab1.title']}</a></li>                                                    
-                                                    <li><a href="#paneEntrevista2" data-toggle="tab">#{msg['notificacao.step2.tab2.title']}</a></li>
-                                                    <li><a href="#paneEntrevista3" data-toggle="tab">#{msg['notificacao.step2.tab3.title']}</a></li>
-                                                </ul>                                   
-
-                                                <div class="tab-content">
-                                                    <div id="abaContraIndicacoes" class="tab-pane active">                                        
-                                                        <ui:insert name="notificacao-contraindicacoes">
-                                                            <ui:include src="notificacao-contraindicacoes.xhtml" />
-                                                        </ui:insert>
-                                                    </div>
-                                                    
-                                                    <div id="paneEntrevista1" class="tab-pane">
-                                                        <ui:insert name="form-entrevista">
-                                                            <ui:include src="form-entrevista.xhtml" />
-                                                        </ui:insert>
-                                                    </div>                                                    
-
-                                                    <div id="paneEntrevista2" class="tab-pane ">                                        
-                                                        <ui:insert name="form-responsavel">
-                                                            <ui:include src="form-responsavel.xhtml" />
-                                                        </ui:insert>                                  
-                                                    </div>
-
-                                                    <div id="paneEntrevista3" class="tab-pane ">                                        
-                                                        <ui:insert name="form-testemunhas">
-                                                            <ui:include src="form-testemunhas.xhtml" />
-                                                        </ui:insert>                                      
-                                                    </div>                                   
-                                                    
-                                                    <button type="submit" class="btn-glow success btn-finish">
-                                                        ${msg['notificacao.button.finalizar']}
-                                                    </button>
-                                                </div> 
-
-                                            </div>
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a href="#abaContraIndicacoes" 
+                                                                      data-toggle="tab">#{msg['contraIndicacoes.text.titulo']}</a></li>
+                                                <li><a href="#paneEntrevista1" data-toggle="tab">#{msg['notificacao.step2.tab1.title']}</a></li>                                                    
+                                                <li><a href="#paneEntrevista2" data-toggle="tab">#{msg['notificacao.step2.tab2.title']}</a></li>
+                                                <li><a href="#paneEntrevista3" data-toggle="tab">#{msg['notificacao.step2.tab3.title']}</a></li>
+                                            </ul>  
                                         </div>
-                                    </div>
-                                </form>
-                                <!-- FIM PASSO 2 -->
-                                <!-- PASSO 3 -->
-                                <div class="step-pane" id="step3">
-                                    <div class="row-fluid form-wrapper">
-                                        <div class="span8">
-                                            <div class="tab-content">
-                                                <ui:insert name="form-captacao">
-                                                    <ui:include src="form-captacao.xhtml" />
+
+                                        <div class="tab-content" >
+                                            <div id="abaContraIndicacoes" class="tab-pane active">                                        
+                                                <ui:insert name="notificacao-contraindicacoes">
+                                                    <ui:include src="notificacao-doacao-aba-contraindicacoes.xhtml" />
                                                 </ui:insert>
-                                            </div>      
+                                            </div>
+
+                                            <div id="paneEntrevista1" class="tab-pane">
+                                                <ui:insert name="form-entrevista">
+                                                    <ui:include src="notificacao-doacao-aba-entrevista.xhtml" />
+                                                </ui:insert>
+                                            </div>                                                    
+
+                                            <div id="paneEntrevista2" class="tab-pane ">                                        
+                                                <ui:insert name="form-responsavel">
+                                                    <ui:include src="notificacao-doacao-aba-responsavel.xhtml" />
+                                                </ui:insert>                                  
+                                            </div>
+
+                                            <div id="paneEntrevista3" class="tab-pane ">                                        
+                                                <ui:insert name="form-testemunhas">
+                                                    <ui:include src="notificacao-doacao-aba-testemunhas.xhtml" />
+                                                </ui:insert>                                      
+                                            </div>                                   
+
                                         </div>
                                     </div>
-                                </div>
+                                    <!-- FIM PASSO 2 -->
+                                    <!-- PASSO 3 -->
+                                    <div class="step-pane" id="step3">
+                                        <div class="tab-content">
+                                            <ui:insert name="form-captacao">
+                                                <ui:include src="notificacao-captacao.xhtml" />
+                                            </ui:insert>
+                                        </div>      
+                                    </div>
+                                    <div class="wizard-actions">
+                                        <button type="button" class="btn-glow primary btn-prev"> 
+                                            <i class="icon-chevron-left"></i> ${msg['notificacao.button.anterior']}
+                                        </button>
+                                        <button type="button" class="btn-glow primary btn-next" data-last="Finish">
+                                            ${msg['notificacao.button.proximo']} <i class="icon-chevron-right"></i>
+                                        </button>
+                                        <button type="submit" class="btn-glow success btn-finish">
+                                            ${msg['notificacao.button.finalizar']}
+                                        </button>
+                                    </div>
+                                    <!-- FIM PASSO 3 -->
+                                </form>
+                            </div>
 
-                            </div>
-                            <div class="wizard-actions">
-                                <button type="button" class="btn-glow primary btn-prev"> 
-                                    <i class="icon-chevron-left"></i> ${msg['notificacao.button.anterior']}
-                                </button>
-                                <button type="button" class="btn-glow primary btn-next" data-last="Finish">
-                                    ${msg['notificacao.button.proximo']} <i class="icon-chevron-right"></i>
-                                </button>
-                                <button type="button" class="btn-glow success btn-finish">
-                                    ${msg['notificacao.button.finalizar']}
-                                </button>
-                            </div>
-                            <!-- FIM PASSO 3 -->
                         </div>
                     </div>
                 </div>
@@ -206,11 +211,13 @@
         <!-- end main container -->
         <!-- scripts for this page -->
 
-        <h:outputScript library="js" name="jquery-2.0.3.js" />
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
         <h:outputScript library="js" name="bootstrap.min.js" />
         <h:outputScript library="js" name="theme.js" />
         <h:outputScript library="js" name="fuelux.wizard.js" />	
         <h:outputScript library="js" name="sincaplib.js" />
+        <h:outputScript library="js" name="jquery.mask.min.js" />
+        <h:outputScript library="js" name="jquery.validate.min.js" />
 
 
         <script type="text/javascript">
@@ -245,6 +252,161 @@
                     $wizard.wizard('next');
                 });
             });
+
+            $(document).ready(function() {
+                $('.data').mask('00/00/0000', {
+                    reverse: true
+                });
+                $('.hora').mask('00:00', {
+                    reverse: true
+                });
+                $('.rg').mask('0.000.000', {
+                    reverse: true
+                });
+                $('.cpf').mask('000.000.000-00', {
+                    reverse: true
+                });
+                $('.cep').mask('00000-000', {
+                    reverse: true
+                });
+                $('.tel').mask('(00)0000-0000', {
+                    reverse: true
+                });
+            });
+
+            //Validando os dados do formulario
+            $("#notifObito").validate({
+                rules: {
+                    nomePaciente: {
+                        required: true
+                    },
+                    rgPaciente: {
+                        required: true
+                    },
+                    numeroProntuario: {
+                        required: true
+                    },
+                    dataNascimentoPaciente: {
+                        required: true
+                    },
+                    sexoPaciente: {
+                        required: true
+                    },
+                    nomeMaePaciente: {
+                        required: true
+                    },
+                    estadoPaciente: {
+                        required: true
+                    },
+                    cidadePaciente: {
+                        required: true
+                    },
+                    bairroPaciente: {
+                        required: true
+                    },
+                    cepPaciente: {
+                        required: true
+                    },
+                    logradouroPaciente: {
+                        required: true
+                    }
+                },
+                messages: {
+                    nomePaciente: {
+                        required: "Por favor, insira o nome do paciente"
+                    },
+                    rgPaciente: {
+                        required: "Por favor, insira o RG do paciente"
+                    },
+                    numeroProntuario: {
+                        required: "Por favor, insira o prontuário do paciente"
+                    },
+                    dataNascimentoPaciente: {
+                        required: "Por favor, insira o nascimento do paciente"
+                    },
+                    sexoPaciente: {
+                        required: "Por favor, insira o sexo do paciente"
+                    },
+                    nomeMaePaciente: {
+                        required: "Por favor, insira o nome da mãe do paciente"
+                    },
+                    estadoPaciente: {
+                        required: "Por favor, insira o estado do paciente"
+                    },
+                    cidadePaciente: {
+                        required: "Por favor, insira a cidade do paciente"
+                    },
+                    bairroPaciente: {
+                        required: "Por favor, insira o bairro do paciente"
+                    },
+                    cepPaciente: {
+                        required: "Por favor, insira o CEP do paciente"
+                    },
+                    logradouroPaciente: {
+                        required: "Por favor, insira o logradouro do paciente"
+                    }
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
         </script>
     </h:body>
 </html>
+
+<!--$(document).ready(function() {
+                $('data').mask('00/00/0000', {
+                    reverse: true
+                });
+            });
+
+            //Validando os dados do formulario
+            $("#notifObito").validate({
+                rules: {
+                    nomePaciente: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    nomePaciente: {
+                        required: "Por favor, entre com o nome do paciente.",
+                    },
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });-->
+
+
+
+<!-- $(function() {
+                var $wizard = $('#fuelux-wizard'),
+                        $btnPrev = $('.wizard-actions .btn-prev'),
+                        $btnNext = $('.wizard-actions .btn-next'),
+                        $btnFinish = $(".wizard-actions .btn-finish");
+
+                $wizard.wizard().on('finished', function(e) {
+                    // wizard complete code
+                }).on("changed", function(e) {
+                    var step = $wizard.wizard("selectedItem");
+                    // reset states
+                    $btnNext.removeAttr("disabled");
+                    $btnPrev.removeAttr("disabled");
+                    $btnNext.show();
+                    $btnFinish.hide();
+
+                    if (step.step === 1) {
+                        $btnPrev.attr("disabled", "disabled");
+                    } else if (step.step === 3) {
+                        $btnNext.hide();
+                        $btnFinish.show();
+                    }
+                });
+
+                $btnPrev.on('click', function() {
+                    $wizard.wizard('previous');
+                });
+                $btnNext.on('click', function() {
+                    $wizard.wizard('next');
+                });
+            });-->

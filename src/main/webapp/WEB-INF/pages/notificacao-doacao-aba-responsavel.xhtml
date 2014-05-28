@@ -34,31 +34,31 @@
 		<h:inputText id="nomeRespEntrevista" value="#{pacienteForm.nomeRespEntrevista}"/>
 		
 		<h:outputLabel value="#{msg['notificacao.rg']}"/>
-		<h:inputText id="rgResponsavelRespDoacao" value="#{pacienteForm.rgResponsavelRespDoacao}"/>
-
-		<h:outputLabel value="#{msg['responsavel.dropdown.grauParentesco']}" />
-		<h:selectOneMenu id="grauParentescoDoacao" value="#{pacienteForm.grauParentescoDoacao}"
-			class="ui-select">
-			<f:selectItems value="#{pacienteForm.grauParentescoBanco}" />
+		<h:inputText id="rgResponsavelRespDoacao" class="rg" value="#{pacienteForm.rgResponsavelRespDoacao}"/>
+                
+                <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
+                <h:selectOneMenu id="parentesco" value="#(pacienteForm.parentesco)"
+                                 class="ui-select">
+			<f:selectItems value="#{pacienteForm.parentescoBanco}" />
 		</h:selectOneMenu>
 		
 		<h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
-                <h:selectOneMenu id="estadosCivisItem" value="#(pacienteForm.estadosCivisItem)"
+                <h:selectOneMenu id="estavoCivilRespDoacao" value="#(pacienteForm.estavoCivilRespDoacao)"
                                  class="ui-select">
 			<f:selectItems value="#{pacienteForm.estadosCivisBanco}" />
 		</h:selectOneMenu>
 		
 		<h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
-		<h:inputText id="telefone1Resp" value="#{pacienteForm.telefone1Resp}"/>
+		<h:inputText class="tel" id="telefone1Resp" value="#{pacienteForm.telefone1Resp}"/>
 		
 		<h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
-		<h:inputText id="telefone2Resp" value="#{pacienteForm.telefone2Resp}"/>
+		<h:inputText class="tel" id="telefone2Resp" value="#{pacienteForm.telefone2Resp}"/>
 		
 		<h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
 		<h:inputText id="profissaoRespDoacao" value="#{pacienteForm.profissaoRespDoacao}"/>
 		
 		<h:outputLabel value="#{msg['responsavel.text.cep']}"/>
-		<h:inputText id="cepRespDoacao" value="#{pacienteForm.cepRespDoacao}"/>
+		<h:inputText id="cepRespDoacao" class="cep" value="#{pacienteForm.cepRespDoacao}"/>
 		
 		<h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
 		<h:inputText id="nacionalidadeRespDoacao" value="#{pacienteForm.nacionalidadeRespDoacao}"/>

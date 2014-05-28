@@ -4,9 +4,7 @@ import br.ifes.leds.reuse.endereco.cdp.Bairro;
 import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Endereco;
 import java.util.List;
-
 import javax.faces.bean.SessionScoped;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.MotivoInviabilidade;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.MotivoRecusa;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
@@ -21,8 +20,11 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplMotivoInviabilidade;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplMotivoRecusa;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplPrincipal;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplTipoMotivoInviabilidade;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Captacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaMortis;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Doacao;
@@ -31,16 +33,20 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Notificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Obito;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Paciente;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Responsavel;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Testemunha;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
 import br.ifes.leds.sincap.web.model.Mensagem;
 import br.ifes.leds.sincap.web.model.PacienteForm;
+import br.ifes.leds.sincap.web.model.ResumoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
+import javax.faces.model.SelectItem;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -53,6 +59,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class FormNotificacaoController {
 
     @Autowired
+    UsuarioSessao usuarioSessao;
+    
+    @Autowired
     AplNotificacao aplNotificacao;
     @Autowired
     AplEndereco aplEndereco;
@@ -61,34 +70,50 @@ public class FormNotificacaoController {
     @Autowired
     AplCadastroInterno aplCadastroInterno;
     @Autowired
-    UsuarioSessao usuarioSessao;
-    @Autowired
     AplMotivoRecusa aplMotivoRecusa;
+    @Autowired
+    AplHospital aplHospital;
+    @Autowired
+    AplMotivoInviabilidade aplMotivoInviabilidade;
+    @Autowired
+    AplTipoMotivoInviabilidade aplTipoMotivoInviabilidade;
 
     @RequestMapping(value = "/novo", method = RequestMethod.GET)
     public String loadFormNovaNotificacao(ModelMap model) {
 
         PacienteForm pacienteForm = new PacienteForm();
 
-        preencherForm(pacienteForm);
+        preencherForm(pacienteForm, model);
 
         model.addAttribute("pacienteForm", pacienteForm);
+        model.addAttribute("displayError", "none");
+        model.addAttribute("displaySuccess", "none");
 
         return "form-notificacao";
     }
 
-    @RequestMapping(value = "/salvarNotificacaoObito", method = RequestMethod.POST)
-    public String addNotificacao(@ModelAttribute PacienteForm pacienteForm, ModelMap model)
-            throws Exception {
-
-        Notificacao notificacao = preencheNotificacao(pacienteForm);
-
-        aplNotificacao.salvar(notificacao);
-
-        return "redirect:/notificacao/novo";
+    @RequestMapping(value = "/salvarNotificacao", method = RequestMethod.POST)
+    public String addNotificacao(@ModelAttribute PacienteForm pacienteForm, ModelMap model) throws Exception {
+        
+        if (pacienteForm.valido()){
+            Notificacao notificacao = preencheNotificacao(pacienteForm);
+            
+            aplNotificacao.salvar(notificacao);
+            
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "block");
+            
+            return "form-notificacao";
+        }
+        
+        model.addAttribute("pacienteForm", pacienteForm);
+        model.addAttribute("displayError", "block");
+        model.addAttribute("displaySuccess", "none");
+        preencherForm(pacienteForm, model);
+        return "form-notificacao";
     }
 
-    private void preencherForm(PacienteForm pacienteForm) {
+    private void preencherForm(PacienteForm pacienteForm, ModelMap model) {
 
         List<Estado> estados = aplEndereco.obterEstadosPorNomePais("Brasil");
 
@@ -97,7 +122,11 @@ public class FormNotificacaoController {
         List<CausaMortis> motivosObitos = aplCadastroInterno.obterTodosCausaObito();
         List<MotivoRecusa> contraIndicacoes = aplMotivoRecusa.obterTodosContraindicacaoMedica();
         List<MotivoRecusa> recusasFamiliares = aplMotivoRecusa.obterTodosRecusaFamiliar();
-
+        List<MotivoInviabilidade> problemasLogisticos = aplMotivoInviabilidade.buscarPorTipoMotivoInviabilidade(aplTipoMotivoInviabilidade.obter("Problema Logístico"));
+        List<MotivoInviabilidade> problemasEstruturais = aplMotivoInviabilidade.buscarPorTipoMotivoInviabilidade(aplTipoMotivoInviabilidade.obter("Problema Estrutural"));
+        
+        preencherMotivosInviabilidade(problemasLogisticos, problemasEstruturais, model);
+        
         Notificador notificador = aplPrincipal.obterNotificadorPorUsuarioUsername(usuarioSessao.getCpfUsuario());
         pacienteForm.setNomeNotificador(notificador.getNome());
 
@@ -175,34 +204,33 @@ public class FormNotificacaoController {
         GregorianCalendar dataNotificacao = new GregorianCalendar();
         Notificador notificador;
 
+        notificacao.setInstituicao(aplHospital.obter(usuarioSessao.getIdHospital()));
         notificador = aplPrincipal.obterNotificadorPorUsuarioUsername(usuarioSessao.getCpfUsuario());
 
         //TODO
         //Primeira etapa feita, mas falta acertar o fato de um notificação ter um setor ou uma instuição como local
-        notificacao = preencherNotificacaoObito(pacienteForm, notificacao);
-        notificacao = preencherNotificacaoEntrevista(pacienteForm, notificacao);
-        //notificacao = preencherNotificacaoCaptacao(pacienteForm, notificacao);
+        preencherNotificacaoObito(pacienteForm, notificacao);
+        preencherNotificacaoEntrevista(pacienteForm, notificacao);
+        preencherNotificacaoCaptacao(pacienteForm, notificacao);
 
         notificacao.setNotificador(notificador);
-        notificacao.setDataNotificacao(dataNotificacao);
+        notificacao.setDataAbertura(dataNotificacao);
 
         return notificacao;
     }
 
-    private Notificacao preencherNotificacaoObito(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoObito(PacienteForm pacienteForm, Notificacao notificacao) {
 
         try {
-            notificacao = preencherNotificacaoObitoAbaPaciente(pacienteForm, notificacao);
+            preencherNotificacaoObitoAbaPaciente(pacienteForm, notificacao);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        notificacao = preencherNotificacaoObitoAbaResponsavel(pacienteForm, notificacao);
-        notificacao = preencherNotificacaoObitoAbaObito(pacienteForm, notificacao);
-
-        return notificacao;
+        preencherNotificacaoObitoAbaResponsavel(pacienteForm, notificacao);
+        preencherNotificacaoObitoAbaObito(pacienteForm, notificacao);
     }
 
-    private Notificacao preencherNotificacaoObitoAbaPaciente(PacienteForm pacienteForm, Notificacao notificacao) throws ClassNotFoundException {
+    private void preencherNotificacaoObitoAbaPaciente(PacienteForm pacienteForm, Notificacao notificacao) throws ClassNotFoundException {
 
         Paciente paciente = new Paciente();
         Endereco endereco = new Endereco();
@@ -223,29 +251,29 @@ public class FormNotificacaoController {
             paciente.setSexo(Sexo.FEMININO);
         }
 
-        estado = aplEndereco.ObterEstadoPorNome(pacienteForm.getEstadoPaciente());
-        cidade = aplEndereco.obterCidadePorNome(pacienteForm.getCidadePaciente());
-        bairro = aplEndereco.obterBairroPorNome(pacienteForm.getBairroPaciente());
+        estado = aplEndereco.obterEstadosPorID(Long.parseLong(pacienteForm.getEstadoPaciente()));
+        cidade = aplEndereco.obterCidadePorID(Long.parseLong(pacienteForm.getCidadePaciente()));
+        bairro = aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroPaciente()));
 
         /*atribuicoes dos campos*/
         endereco.setBairro(bairro);
         endereco.setCidade(cidade);
         endereco.setEstado(estado);
         endereco.setCEP(pacienteForm.getCepPaciente());
+        endereco.setComplemento("Complemento");
         endereco.setLogradouro(pacienteForm.getLogradouroPaciente());
+        paciente.setEndereco(endereco);
 
         obito.setPaciente(paciente);
 
-        notificacao.setObito(obito);
-
-        return notificacao;
+        notificacao.setObito(obito);        
     }
 
-    private Notificacao preencherNotificacaoObitoAbaResponsavel(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoObitoAbaResponsavel(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Responsavel responsavel = new Responsavel();
         Telefone telefone = new Telefone();
-        Set<Telefone> telefones = new HashSet<Telefone>();
+        List<Telefone> telefones = new ArrayList<Telefone>();
 
         /*atribuicao dos campos*/
         responsavel.setNome(pacienteForm.getNomeResp());
@@ -255,34 +283,32 @@ public class FormNotificacaoController {
         /*teste*/
         telefone.setTipo(TipoTelefone.RESIDENCIAL);
         telefones.add(telefone);
-        //responsavel.setTelef(telefones); ------------------------------------------------------
-        // TODO atribuição de entedeço em responsavel
-        /*atribuicoes dos campos a notificacao*/
-        notificacao.getObito().getPaciente().setResponsavel(responsavel);
+        responsavel.setTelefones(telefones);
 
-        return notificacao;
+        /*atribuicoes dos campos a notificacao*/
+        notificacao.getObito().setResponsavel(responsavel);        
     }
 
-    private Notificacao preencherNotificacaoObitoAbaObito(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoObitoAbaObito(PacienteForm pacienteForm, Notificacao notificacao) {
 
         GregorianCalendar dataHorarioObito = new GregorianCalendar();
         Setor setor = this.aplCadastroInterno.obterSetorPorId(Long.parseLong(pacienteForm.getSetorObito()));
 
         dataHorarioObito.clear();
         dataHorarioObito = stringToDateAndTime(pacienteForm.getDataObito(), pacienteForm.getHorarioObito());
-        
+
         CausaMortis causaMortis1 = new CausaMortis();
         causaMortis1.setDescricao(pacienteForm.getMotivosObito1());
-        
+
         CausaMortis causaMortis2 = new CausaMortis();
         causaMortis2.setDescricao(pacienteForm.getMotivosObito2());
-        
+
         CausaMortis causaMortis3 = new CausaMortis();
         causaMortis3.setDescricao(pacienteForm.getMotivosObito3());
-        
+
         CausaMortis causaMortis4 = new CausaMortis();
         causaMortis4.setDescricao(pacienteForm.getMotivosObito4());
-        
+
         /*atribuicoes dos campos a notificacao*/
         notificacao.getObito().setDataObito(dataHorarioObito);
         notificacao.getObito().setPrimeiraCausaMortis(causaMortis1);
@@ -290,100 +316,111 @@ public class FormNotificacaoController {
         notificacao.getObito().setTerceiraCausaMortis(causaMortis3);
         notificacao.getObito().setQuartaCausaMortis(causaMortis4);
 
+        if (setor != null) {
+            notificacao.setSetor(setor);
+        }       
+    }
+
+    private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao) {
+
+        Doacao doacao = new Doacao();
+
+        if(pacienteForm.getContraIndicacoes() != null){
+            for (int i = 0; i < pacienteForm.getContraIndicacoes().length; i++) {
+                MotivoRecusa contraIndicacao = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
+                doacao.addMotivoRecusa(contraIndicacao);
+            }
+        }
+
+        notificacao.getObito().getPaciente().setDoacao(doacao);
+
         return notificacao;
     }
 
-//    private Notificacao preencherNotificacaoAbaContraindicacao(PacienteForm pacienteForm, Notificacao notificacao){
-//
-//            Set<ContraIndicacaoMedica> contraIndicacoes = new HashSet<ContraIndicacaoMedica>();
-//
-//            for(int i = 0; i < pacienteForm.getContraIndicacoes().length; i++){
-//                    ContraIndicacaoMedica contraIndicacao = this.aplCadastroInterno.obterContraindicaoMedicaPorId(Long.parseLong(pacienteForm.getContraIndicacoes()[i]));
-//                    contraIndicacoes.add(contraIndicacao);
-//            }
-//
-//            notificacao.getObito().getPaciente().getDoacao().get setContraIndicacoesMedicas(contraIndicacoes);
-//
-//            return notificacao;
-//    }
-    
-    private Notificacao preencherNotificacaoEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
 
-        //notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao); 
-        //notificacao = preencherNotificacaoEntrevistaAbaEntrevista(pacienteForm, notificacao);
+        notificacao = preencherNotificacaoAbaContraindicacao(pacienteForm, notificacao);
+        notificacao = preencherNotificacaoEntrevistaAbaEntrevista(pacienteForm, notificacao);
         notificacao = preencherNotificacaoEntrevistaAbaResponsavelLegal(pacienteForm, notificacao);
-        //notificacao = preencherNotificacaoEntrevistaAbaTestemunhas(pacienteForm, notificacao);
-
-        return notificacao;
+        notificacao = preencherNotificacaoEntrevistaAbaTestemunhas(pacienteForm, notificacao);
     }
 
     private Notificacao preencherNotificacaoEntrevistaAbaEntrevista(PacienteForm pacienteForm, Notificacao notificacao) {
 
-            //falta salvar o campo: entrevista realizada
-        Doacao doacao = new Doacao();
-//		Set<RecusaFamiliar> recusasFamiliares = new HashSet<RecusaFamiliar>();
-//		
-//		if(pacienteForm.getEntrevistaRealizada().equals("SIM"))
-//			doacao.setAutorizada(true);
-//		else
-//			doacao.setAutorizada(false);
-//		
-//		for(String recusaFamiliarStr : pacienteForm.getRecusaFamiliar()){
-//			MotivoRecusa recusaFamiliar = this.aplCadastroInterno.obterRecusaFamiliarPorId(Long.parseLong(recusaFamiliarStr));
-//			recusasFamiliares.add(recusaFamiliar);
-//		}
-//		
-//		notificacao.setRecusaFamiliar(recusasFamiliares);
-//		notificacao.getObito().getPaciente().setDoacao(doacao);
+        //falta salvar o campo: entrevista realizada
+        Doacao doacao = notificacao.getObito().getPaciente().getDoacao();
+
+        if (pacienteForm.getDoacaoAutorizada().equals("SIM")) {
+            doacao.setAutorizada(true);
+        } else {
+            doacao.setAutorizada(false);
+        }
+
+        Calendar dtEntrevista = this.stringToDate(pacienteForm.getDtEntrevista());
+        Calendar hrEntrevista = this.stringToDateAndTime(pacienteForm.getDtEntrevista(), pacienteForm.getHrEntrevista());
+
+        if(pacienteForm.getRecusaFamiliar() != null){
+            for (int i = 0; i < pacienteForm.getRecusaFamiliar().length; i++) {
+
+                MotivoRecusa recusaF = this.aplMotivoRecusa.obter(Long.parseLong(pacienteForm.getRecusaFamiliar()[i]));
+                doacao.addMotivoRecusa(recusaF);
+            }
+        }
+
+        doacao.setDataEntrevista(dtEntrevista);
+        doacao.setHrEntrevista(hrEntrevista);
+        notificacao.getObito().getPaciente().setDoacao(doacao);
 
         return notificacao;
 
     }
 
-    private Notificacao preencherNotificacaoEntrevistaAbaResponsavelLegal(PacienteForm pacienteForm, Notificacao notificacao){
+    private Notificacao preencherNotificacaoEntrevistaAbaResponsavelLegal(PacienteForm pacienteForm, Notificacao notificacao) {
 
-//            Responsavel responsavel = new Responsavel();
-//            Set <Responsavel> responsaveis = new HashSet<Responsavel>();
-//            Telefone telefone1 = new Telefone();
-//            Telefone telefone2 = new Telefone();
-//            Set <Telefone> telefones = new HashSet<Telefone>();
-//
-//            Endereco endereco = new Endereco();
-//            Bairro bairro;
-//            Cidade cidade;
-//            Estado estado;
-//
-//            responsavel.setNome(pacienteForm.getNomeRespEntrevista());
-//            responsavel.setRg(pacienteForm.getRgResponsavelRespDoacao());
-//            responsavel.setEstadoCivil(pacienteForm.);//pegar parentesco - salvar no banco?
-//            //pegar estado civil - salvar no banco? estadoCivilStringEnum(string)
-//            telefone1.setNumero(pacienteForm.getTelefone1Responsavel());
-//            telefone1.setTipo(TipoTelefone.RESIDENCIAL);
-//            telefone2.setNumero(pacienteForm.getTelefone2Responsavel());
-//            telefone2.setTipo(TipoTelefone.RESIDENCIAL);
-//            telefones.add(telefone1);
-//            telefones.add(telefone2);
-//            responsavel.setTelefones(telefones);
-//            responsavel.setProfissao(pacienteForm.getProfissao());
-//
-//            //salvar nacionalidade
-//            bairro = this.aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroResponsavel()));
-//            estado = this.aplEndereco.obterEstadoPorID(Long.parseLong(pacienteForm.getEstadoResponsavel()));
-//            municipio = this.aplEndereco.obterMunicipioPorID(Long.parseLong(pacienteForm.getCidade()));
-//            municipio.setEstado(estado);
-//            bairro.setMunicipio(municipio);
-//            endereco.setBairro(bairro);
-//            endereco.setCep(Long.parseLong(pacienteForm.getCep()));
-//            endereco.setLogradouro(pacienteForm.getLogradouro());
-//            endereco.setNumero(Integer.parseInt(pacienteForm.getNumero()));
-//            responsavel.setEndereco(endereco);
-//            responsaveis.add(responsavel);
-//
-//            notificacao.getObito().getPaciente().getDoacao().setResponsaveis(responsaveis);
+        Responsavel responsavel = new Responsavel();
+        Set<Responsavel> responsaveis = new HashSet<>();
+        Telefone telefone1 = new Telefone();
+        Telefone telefone2 = new Telefone();
+        List<Telefone> telefones = new ArrayList<>();
 
-            return notificacao;
+        Endereco endereco = new Endereco();
+        Bairro bairro;
+        Cidade cidade;
+        Estado estado;
+
+        responsavel.setNome(pacienteForm.getNomeRespEntrevista());
+        responsavel.setRg(pacienteForm.getRgResponsavelRespDoacao());
+
+        responsavel.setEstadoCivil(EstadoCivil.valueOf(pacienteForm.getEstavoCivilRespDoacao()));
+        responsavel.setParentesco(Parentesco.valueOf(pacienteForm.getParentesco()));
+        telefone1.setNumero(pacienteForm.getTelefone1Resp());
+        telefone1.setTipo(TipoTelefone.RESIDENCIAL);
+        telefone2.setNumero(pacienteForm.getTelefone2Resp());
+        telefone2.setTipo(TipoTelefone.RESIDENCIAL);
+        telefones.add(telefone1);
+        telefones.add(telefone2);
+        responsavel.setTelefones(telefones);
+        responsavel.setProfissao(pacienteForm.getProfissaoRespDoacao());
+
+        responsavel.setNacionalidade(pacienteForm.getNacionalidadeRespDoacao());
+
+        bairro = this.aplEndereco.obterBairroPorID(Long.parseLong(pacienteForm.getBairroRespDoacao()));
+        estado = this.aplEndereco.obterEstadosPorID(Long.parseLong(pacienteForm.getEstadoRespDoacao()));
+        cidade = this.aplEndereco.obterCidadePorID(Long.parseLong(pacienteForm.getCidadeRespDoacao()));
+        endereco.setBairro(bairro);
+        endereco.setCidade(cidade);
+        endereco.setEstado(estado);
+        endereco.setCEP(pacienteForm.getCepRespDoacao());
+        endereco.setLogradouro(pacienteForm.getLogradouroRespDoacao());
+        endereco.setNumero(pacienteForm.getNumeroRespDoacao());
+        responsavel.setEndereco(endereco);
+        responsaveis.add(responsavel);
+
+        notificacao.getObito().getPaciente().getDoacao().setResponsaveis(responsaveis);
+
+        return notificacao;
     }
-    
+
     private Notificacao preencherNotificacaoEntrevistaAbaTestemunhas(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Testemunha testemunha1 = new Testemunha();
@@ -402,14 +439,14 @@ public class FormNotificacaoController {
         return notificacao;
     }
 
-    private Notificacao preencherNotificacaoCaptacao(PacienteForm pacienteForm, Notificacao notificacao) {
+    private void preencherNotificacaoCaptacao(PacienteForm pacienteForm, Notificacao notificacao) {
 
         Captacao captacao = new Captacao();
 
         if (pacienteForm.getCorneasCaptadas().equalsIgnoreCase("sim")) {
-            captacao.setRealizada(true);
+            captacao.setCorneasCaptadas(true);
         } else {
-            captacao.setRealizada(false);
+            captacao.setCorneasCaptadas(false);
         }
 
         if (pacienteForm.getCorpoEncaminhado().equalsIgnoreCase("iml")) {
@@ -418,12 +455,27 @@ public class FormNotificacaoController {
             notificacao.getObito().setEncaminhamento(Encaminhamento.SVO);
         }
 
-            //pegar equipe de captacao - onde salvar?
-        //pegar problemas logistico e estruturais - juntar os dois em uma unica classe?
-        //pegar o comentario - onde salvar
-        notificacao.getObito().getPaciente().getDoacao().setCaptacao(captacao);
+        if (pacienteForm.getEquipeCaptacao().equalsIgnoreCase("disponivel")) {
+            captacao.setEquipeCaptacaoDisponivel(true);
+        } else {
+            captacao.setEquipeCaptacaoDisponivel(false);
+        }
 
-        return notificacao;
+        if(pacienteForm.getProblemasEstruturais() != null){
+            for (Long idEstrutural : pacienteForm.getProblemasEstruturais()) {
+                captacao.addMotivoInviabilidade(aplMotivoInviabilidade.buscar(idEstrutural));
+            }
+        }
+
+        if(pacienteForm.getProblemasLogisticos() != null){
+            for (Long idLogistico : pacienteForm.getProblemasLogisticos()) {
+                captacao.addMotivoInviabilidade(aplMotivoInviabilidade.buscar(idLogistico));
+            }
+        }
+
+        captacao.setComentario(pacienteForm.getComentarios());
+
+        notificacao.getObito().getPaciente().getDoacao().setCaptacao(captacao);
     }
 
     private GregorianCalendar stringToDateAndTime(String data, String horario) {
@@ -444,7 +496,7 @@ public class FormNotificacaoController {
     private GregorianCalendar stringToDate(String data) {
 
         int ano, mes, dia;
-
+        //     dd/MM/aaaa
         dia = Integer.parseInt(data.substring(0, 2));
         mes = Integer.parseInt(data.substring(3, 5));
         ano = Integer.parseInt(data.substring(6, 10));
@@ -453,29 +505,80 @@ public class FormNotificacaoController {
 
         return novaData;
     }
-    
-    private Enum<EstadoCivil> estadoCivilStringEnum(String str){
+
+    private Enum<EstadoCivil> estadoCivilStringEnum(String str) {
         Enum ret;
-        switch(str.charAt(0)){
+        switch (str.charAt(0)) {
             case '1':
                 ret = EstadoCivil.CASADO;
-                //break;
-                
+            //break;
+
             case '2':
                 ret = EstadoCivil.DIVORCIADO;
                 break;
-                
+
             case '3':
                 ret = EstadoCivil.SOLTEIRO;
                 break;
-                
+
             case '4':
                 ret = EstadoCivil.VIUVO;
                 break;
             default:
                 ret = EstadoCivil.SOLTEIRO;
-                break;               
-        }        
+                break;
+        }
         return ret;
+    }
+
+    /**
+     * Pega todas as notificações novas (não arquivadas).
+     *
+     * @return Resumo das notificações
+     */
+    @RequestMapping(value = "/getNovasNotificacoes", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<ResumoNotificacao>> getNovasNotificacoes() {
+
+        List<ResumoNotificacao> resumos = null;
+        try {
+            // Pega as notificações não arquivadas.
+            List<Notificacao> novasNotificacoes = aplNotificacao.retornarNotificacaoNaoArquivada();
+
+            // Monta os resumos das notificações, para que as notificações sejam facilmente
+            // interpretadas pelo AJAX.
+            resumos = new ArrayList<>();
+            for (Notificacao notificacao : novasNotificacoes) {
+                long id = notificacao.getId();
+                String codigo = notificacao.getCodigo();
+                String paciente = notificacao.getObito().getPaciente().getNome();
+                Calendar dataAbertura = notificacao.getDataAbertura();
+                resumos.add(new ResumoNotificacao(id, codigo, paciente, dataAbertura));
+            }
+
+            // Retorna a resposta.
+            return new ResponseEntity<>(resumos, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(resumos, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    
+    private void preencherMotivosInviabilidade(List<MotivoInviabilidade> problemasLogisticos, List<MotivoInviabilidade> problemasEstruturais, ModelMap model) {
+       
+        List<SelectItem> ProblemaLogisticoItem = new ArrayList<SelectItem>();
+        List<SelectItem> ProblemaEstruturalItem = new ArrayList<SelectItem>();
+        
+        for(MotivoInviabilidade motivoInviabilidade : problemasLogisticos){
+            ProblemaLogisticoItem.add(new SelectItem(motivoInviabilidade.getId(), motivoInviabilidade.getNome()));
+        }
+        
+        for(MotivoInviabilidade motivoInviabilidade : problemasEstruturais){
+            ProblemaEstruturalItem.add(new SelectItem(motivoInviabilidade.getId(), motivoInviabilidade.getNome()));
+        }
+        
+        model.addAttribute("ProblemaLogisticoItem", ProblemaLogisticoItem);
+        model.addAttribute("ProblemaEstruturalItem", ProblemaEstruturalItem);
     }
 }

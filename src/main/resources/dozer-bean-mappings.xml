@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <configuration>
+        <custom-converters>
+            <converter type="br.ifes.leds.sincap.web.converter.TelefoneToTelefoneDTOConverter">
+                <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone</class-a>
+                <class-b>br.ifes.leds.sincap.web.model.TelefoneDTO</class-b>
+            </converter>
+            <!-- Conversor de InstituicaoNotificadora para Long (id) -->
+            <converter type="br.ifes.leds.sincap.web.converter.InstituicaoNotificadoraToLongId">
+                <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.BancoOlhosToLongId">
+                <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.EstadoToLongIdConverter">
+                <class-a>br.ifes.leds.reuse.endereco.cdp.Estado</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.CidadeToLongIdConverter">
+                <class-a>br.ifes.leds.reuse.endereco.cdp.Cidade</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.BairroToLongIdConverter">
+                <class-a>br.ifes.leds.reuse.endereco.cdp.Bairro</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+            <converter type="br.ifes.leds.sincap.web.converter.SetorToLongIdConverter">
+                <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Setor</class-a>
+                <class-b>java.lang.Long</class-b>
+            </converter>
+        </custom-converters>
+    </configuration>
+    
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.NotificadorDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Captador</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.CaptadorDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadoraGenerica</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.InstituicaoNotificadoraDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.BancoOlhosDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Setor</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.SetorDTO</class-b>
+    </mapping>
+    <mapping>
+        <class-a>br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.HospitalDTO</class-b>
+    </mapping>
+    <mapping date-format="dd/MM/YYYY">
+        <class-a>br.ifes.leds.sincap.web.model.BuscarPorDataForm</class-a>
+        <class-b>br.ifes.leds.sincap.web.model.DataForm</class-b>
+    </mapping>
+    
+</mappings>

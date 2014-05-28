@@ -1,6 +1,7 @@
 package br.ifes.leds.sincap.web.controller;
 
 
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Notificacao;
 import javax.faces.bean.SessionScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplNotificacao;
 import br.ifes.leds.sincap.web.model.IndexForm;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.script.Invocable;
@@ -64,34 +67,30 @@ public class IndexController {
             Logger.getLogger(IndexController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//		try {
-//			//preencherTelaPrincipal(indexForm); ---------------------
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+        preencherForm(model);
         model.addAttribute("indexForm", indexForm);
 
         return "index";
     }
 
-//	private void preencherTelaPrincipal(IndexForm indexForm) throws Exception -----------------------
-//	{
-//		
-//		List<Notificacao> notificacoes = aplNotificacao.obterNotificacao();
-//		List<IndexForm> listaNotificacoes = new ArrayList<IndexForm>();
-//		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy"); 
-//		
-//		for(Notificacao notificacao : notificacoes){
-//			IndexForm elementoIndexForm = new IndexForm(
-//					notificacao.getCodigo(), s.format(notificacao
-//							.getDataNotificacao().getTime()), notificacao.getObito()
-//							.getPaciente().getNome(), notificacao
-//							.getObito().getSetor().getNome());
-//			listaNotificacoes.add(elementoIndexForm);
-//		}
-//		
-//		indexForm.setListaNotificacoes(listaNotificacoes);
-//
-//	}	
+    private void preencherForm(ModelMap model) {
+        List<Notificacao> notificacoes;
+        List<IndexForm> listaNotificacoesForm = new ArrayList<>();
+
+        notificacoes = aplNotificacao.retornarNotificacaoNaoArquivada();
+        
+        for (Notificacao notificacao : notificacoes) {
+            IndexForm indexForm = new IndexForm(
+                    notificacao.getId().toString(),
+                    notificacao.getCodigo(),
+                    notificacao.getDataAbertura().getTime(),
+                    notificacao.getObito().getDataObito().getTime(),
+                    notificacao.getObito().getPaciente().getNome(),
+                    notificacao.getSetor().getHospital().toString());
+
+            listaNotificacoesForm.add(indexForm);
+        }
+
+        model.addAttribute("listaNotificacoesForm", listaNotificacoesForm);
+    }
 }

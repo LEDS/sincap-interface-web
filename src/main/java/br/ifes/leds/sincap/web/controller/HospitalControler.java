@@ -5,6 +5,7 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.endereco.cdp.Bairro;
 import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,35 +14,30 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.ifes.leds.reuse.endereco.cdp.Endereco;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.HospitalEmUsoException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.TipoTelefone;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
-import br.ifes.leds.sincap.web.model.HospitalForm;
-import java.util.HashSet;
-import java.util.Set;
+import br.ifes.leds.sincap.web.model.HospitalDTO;
+import br.ifes.leds.sincap.web.model.Id;
+import org.dozer.Mapper;
 
 /**
  *
  * @author 20112BSI0083
  */
 @Controller
-@RequestMapping("/admin/hospital/novo")
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_HOSPITAL)
 @SessionScoped
 public class HospitalControler {
 
@@ -51,113 +47,112 @@ public class HospitalControler {
     AplSetor aplSetor;
     @Autowired
     AplEndereco aplEndereco;
+    @Autowired
+    Mapper mapper;
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(ModelMap model) {
 
-        HospitalForm hospitalForm = new HospitalForm();
+        preecherLista(model);
 
-        preencherSetores(model);
+        return "lista-hospital";
+    }
+
+    @RequestMapping(value = ContextUrls.APAGAR, method = RequestMethod.POST)
+    public String excluirHospital(@ModelAttribute Id id, ModelMap model) {
+
+        try {
+            aplHospital.delete(id.getId());
+
+            preecherLista(model);
+
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "block");
+            model.addAttribute("displayNovoSuccess", "none");
+            model.addAttribute("displayNovoError", "none");
+
+        } catch (HospitalEmUsoException e) {
+
+            preecherLista(model);
+
+            model.addAttribute("displayError", "block");
+            model.addAttribute("displaySuccess", "none");
+            model.addAttribute("displayNovoSuccess", "none");
+            model.addAttribute("displayNovoError", "none");
+        }
+        return loadForm(model);
+    }
+
+    private void preecherLista(ModelMap model) {
+
+        List<Hospital> hospitais;
+
+        hospitais = aplHospital.obter();
+
+        model.addAttribute("listaHospitaisForm", hospitais);
+    }
+
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
+    public String loadFormNovo(ModelMap model) {
+
+        HospitalDTO hospitalForm = new HospitalDTO();
+
         preencherEstados(model);
+        preencherSetores(model);
 
         model.addAttribute("hospitalForm", hospitalForm);
 
         return "form-hospital";
-    }
-
-    private void preencherEstados(ModelMap model) {
-
-        List<Estado> listaEstado = new ArrayList<Estado>();
-        List<SelectItem> listaEstadoItem = new ArrayList<SelectItem>();
-
-        listaEstado = aplEndereco.obterEstadosPorNomePais("Brasil");
-
-        for (Estado estado : listaEstado) {
-            SelectItem estadoItem = new SelectItem(estado.getId(), estado.getNome());
-            listaEstadoItem.add(estadoItem);
-        }
-
-        model.addAttribute("listaEstadoItem", listaEstadoItem);
-
     }
 
     /*Define o caminho da url que, quando for requisitada, chamará o método pelo  tipo especificado*/
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addHospital(@ModelAttribute HospitalForm hospitalForm, ModelMap model)
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
+    public String addHospital(@ModelAttribute HospitalDTO hospitalForm, ModelMap model)
             throws Exception {
 
-        Hospital hospital = new Hospital();
+        Hospital hospital = mapper.map(hospitalForm, Hospital.class);
 
-        /*preenchendo aba dados gerais*/
-        hospital = preencherAbaDadosGerais(hospital, hospitalForm);
-        /*preenchendo aba endereco*/
-        hospital = preencherAbaEndereco(hospital, hospitalForm);
-        /*preechendo aba setores*/
-        hospital = preencherAbaSetores(hospital, hospitalForm);
-
-        if(hospital.getId() == null)
+        try {
             aplHospital.cadastrar(hospital);
-        else
-            aplHospital.update(hospital);
 
-        return "redirect:/admin/hospital/novo";
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "none");
+            model.addAttribute("displayNovoSuccess", "block");
+            model.addAttribute("displayNovoError", "none");
+
+        } catch (Exception e) {
+            model.addAttribute("displayError", "none");
+            model.addAttribute("displaySuccess", "none");
+            model.addAttribute("displayNovoSuccess", "none");
+            model.addAttribute("displayNovoError", "block");
+
+            return loadFormNovo(model);
+        }
+
+        return loadForm(model);
     }
 
-    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-    public String editarHospital(@PathVariable long id, ModelMap model)
+    @RequestMapping(value = ContextUrls.EDITAR, method = RequestMethod.POST)
+    public String editarHospital(@ModelAttribute Id id, ModelMap model)
             throws Exception {
-        //pegando do banco
-        Hospital hospital = aplHospital.obter(id);
-        //jogando para a tela
-        HospitalForm hospitalForm = new HospitalForm();
 
-        /*preenchendo os setores e estados*/
+        Hospital hospital = aplHospital.obter(id.getId());
+
+        HospitalDTO hospitalForm = mapper.map(hospital, HospitalDTO.class);
+
+        preencherEndereco(hospital.getEndereco(), model);
         preencherSetores(model);
-        preencherEstados(model);
-
-        //populando a tela de dados gerais
-        hospitalForm = popularAbaDadosGerais(hospitalForm, hospital);
-        //populando a tela de endereco
-        hospitalForm = popularAbaEndereco(hospitalForm, hospital);
-        //populando a tela de setores
-        hospitalForm = popularAbaSetores(hospitalForm, hospital);
 
         model.addAttribute("hospitalForm", hospitalForm);
-
-        return "form-hospital";
-    }
-
-    @RequestMapping(value = "/apagar/{id}", method = RequestMethod.GET)
-    public String apagarHospital(@PathVariable long id, ModelMap model)
-            throws Exception {
-        //pegando do banco
-        Hospital hospital = aplHospital.obter(id);
-
-        aplHospital.delete(hospital);
-
-        return montaTabelaHospital(model);
-    }
-
-    // Monta a tabela de hospitais na página principal de Hospitais
-    private String montaTabelaHospital(ModelMap model) {
-
-        Long quantidade = aplHospital.quantidade();
-
-        Pageable pageable = new PageRequest(0, 50, Sort.Direction.ASC, "nome", "sigla", "cnes");
-
-        List<Hospital> hospitais = aplHospital.obter(pageable);
-
-        model.addAttribute("hospitais", hospitais);
-        model.addAttribute("quantidade", quantidade);
 
         return "form-hospital";
     }
 
     private void preencherSetores(ModelMap model) {
 
-        List<Setor> listaSetor = new ArrayList<Setor>();
+        List<Setor> listaSetor;
 
-        List<SelectItem> listaSetorForm = new ArrayList<SelectItem>();
+        List<SelectItem> listaSetorForm = new ArrayList<>();
         listaSetor = aplSetor.obter();
 
         for (Setor setor : listaSetor) {
@@ -168,119 +163,56 @@ public class HospitalControler {
         model.addAttribute("listaSetorForm", listaSetorForm);
     }
 
-    private Telefone stringParaTelefone(String telefoneStr, TipoTelefone tipo) {
-
-        Telefone telefone = new Telefone();
-
-        telefone.setTipo(tipo);
-
-        telefone.setDdd(telefoneStr.substring(1, 3));
-        telefone.setNumero(telefoneStr.substring(4, 8) + telefoneStr.substring(9, 13));
-
-        return telefone;
-
-    }
-
-    private Hospital preencherAbaDadosGerais(Hospital hospital, HospitalForm hospitalForm) {
-
-        Set<Telefone> telefones = new HashSet<Telefone>();
-
-        hospital.setNome(hospitalForm.getNome().toUpperCase());
-        hospital.setFantasia(hospitalForm.getFantasia().toUpperCase());
-        hospital.setCnes(hospitalForm.getCnes());
-        hospital.setSigla(hospitalForm.getSigla().toUpperCase());
-        telefones.add(stringParaTelefone(hospitalForm.getTelefone(), TipoTelefone.COMERCIAL));
-        telefones.add(stringParaTelefone(hospitalForm.getFax(), TipoTelefone.FAX));
-        hospital.setTelefones(telefones);
-        hospital.setEmail(hospitalForm.getEmail().toUpperCase());
-
-        return hospital;
-    }
-
-    private Hospital preencherAbaEndereco(Hospital hospital, HospitalForm hospitalForm) {
-
-        Endereco endereco = new Endereco();
-
-        endereco.setCEP(hospitalForm.getCep());
-        endereco.setEstado(aplEndereco.obterEstadosPorID(hospitalForm.getEstado()));
-        endereco.setCidade(aplEndereco.obterCidadePorID(hospitalForm.getCidade()));
-        endereco.setBairro(aplEndereco.obterBairroPorID(hospitalForm.getBairro()));
-        endereco.setLogradouro(hospitalForm.getLogradouro().toUpperCase());
-        endereco.setNumero(hospitalForm.getNumero());
-        endereco.setComplemento(hospitalForm.getComplemento().toUpperCase());
-        hospital.setEndereco(endereco);
-
-        return hospital;
-    }
-
-    private Hospital preencherAbaSetores(Hospital hospital, HospitalForm hospitalForm) {
-
-        if (hospitalForm.getSetores() != null) {
-            for (Long id : hospitalForm.getSetores()) {
-                Setor setor = aplSetor.buscarSetor(id);
-                hospital.addSetor(setor);
-            }
+    private void preencherEndereco(Endereco endereco, ModelMap model) {
+        preencherEstados(model);
+        try {
+            preencherCidades(endereco.getEstado().getId(), model);
+            preencherBairros(endereco.getCidade().getId(), model);
+        } catch (NullPointerException e) {
         }
 
-        return hospital;
     }
 
-    private HospitalForm popularAbaDadosGerais(HospitalForm hospitalForm, Hospital hospital) {
+    private void preencherEstados(ModelMap model) {
 
-        hospitalForm.setNome(hospital.getNome());
-        hospitalForm.setFantasia(hospital.getFantasia());
-        hospitalForm.setCnes(hospital.getCnes());
-        hospitalForm.setSigla(hospital.getSigla());
-        String[] telefonesStr = new String[2];
-        for (Telefone telefone : hospital.getTelefones()) {
-            String tel = "";
-            tel = telefone.getDdd() + telefone.getNumero();
-            if (telefone.getTipo().equals(TipoTelefone.COMERCIAL)) {
-                telefonesStr[0] = tel;
-            } else {
-                telefonesStr[1] = tel;
-            }
-        }
-        hospitalForm.setTelefone(telefonesStr[0]);
-        hospitalForm.setFax(telefonesStr[1]);
-        hospitalForm.setEmail(hospital.getEmail());
+        List<Estado> listaEstados;
+        List<SelectItem> listaEstadoItem = new ArrayList<>();
 
-        return hospitalForm;
+        listaEstados = aplEndereco.obterEstadosPorNomePais("Brasil");
 
-    }
-
-    private HospitalForm popularAbaEndereco(HospitalForm hospitalForm, Hospital hospital) {
-
-        hospitalForm.setCep(hospital.getEndereco().getCEP());
-        hospitalForm.setEstado(hospital.getEndereco().getEstado().getId());
-        hospitalForm.setCidade(hospital.getEndereco().getCidade().getId());
-        hospitalForm.setBairro(hospital.getEndereco().getBairro().getId());
-        hospitalForm.setLogradouro(hospital.getEndereco().getLogradouro());
-        hospitalForm.setNumero(hospital.getEndereco().getNumero());
-        hospitalForm.setComplemento(hospital.getEndereco().getComplemento());
-
-        return hospitalForm;
-    }
-
-    private HospitalForm popularAbaSetores(HospitalForm hospitalForm, Hospital hospital) {
-
-        int posicao = 0;
-        int quantidadeSetores = 0;
-        Long[] setores;
-
-        for (Setor setor : hospital.getSetores()) {
-            quantidadeSetores++;
+        for (Estado estado : listaEstados) {
+            SelectItem estadoItem = new SelectItem(estado.getId(), estado.getNome());
+            listaEstadoItem.add(estadoItem);
         }
 
-        setores = new Long[quantidadeSetores];
-        hospitalForm.setSetores(setores);
-
-        for (Setor setor : hospital.getSetores()) {
-            hospitalForm.getSetores()[posicao] = setor.getId();
-            posicao++;
-        }
-
-        return hospitalForm;
+        model.addAttribute("listaEstadoItem", listaEstadoItem);
     }
 
+    private void preencherCidades(Long idEstado, ModelMap model) {
+        List<Cidade> listaCidades;
+        List<SelectItem> listaCidadeItem = new ArrayList<>();
+
+        listaCidades = aplEndereco.obterCidadesPorEstado(idEstado);
+
+        for (Cidade cidade : listaCidades) {
+            SelectItem cidadeItem = new SelectItem(cidade.getId(), cidade.getNome());
+            listaCidadeItem.add(cidadeItem);
+        }
+
+        model.addAttribute("listaCidadeItem", listaCidadeItem);
+    }
+
+    private void preencherBairros(Long idCidade, ModelMap model) {
+        List<Bairro> listaBairros;
+        List<SelectItem> listaBairroItem = new ArrayList<>();
+
+        listaBairros = aplEndereco.obterBairrosPorCidade(idCidade);
+
+        for (Bairro bairro : listaBairros) {
+            SelectItem cidadeItem = new SelectItem(bairro.getId(), bairro.getNome());
+            listaBairroItem.add(cidadeItem);
+        }
+
+        model.addAttribute("listaBairroItem", listaBairroItem);
+    }
 }

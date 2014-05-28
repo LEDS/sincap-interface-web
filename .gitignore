@@ -1,7 +1,11 @@
-# Binários gerados pelo maven.
+# Arquivos da build do maven.
 /target
 
 # Arquivos de configuração do eclipse.
 .classpath
 .project
 .settings/
+
+# Arquivos do glassfish
+nb-configuration.xml
+glassfish-web.xml

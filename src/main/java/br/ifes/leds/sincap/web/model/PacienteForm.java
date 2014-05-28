@@ -13,6 +13,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaMortis;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Encaminhamento;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 
 
 public class PacienteForm {   
@@ -38,7 +39,7 @@ public class PacienteForm {
     private String rgPaciente;
     private String numeroProntuario;
     private String dataNascimentoPaciente;
-    private String[] sexoPaciente;
+    private String sexoPaciente;
     private String estadoPaciente;
     private String cidadePaciente;
     private String bairroPaciente;
@@ -71,16 +72,19 @@ public class PacienteForm {
 
     /* -- Aba Entrevista -- */
     private String entrevistaRealizada;
+    private String dtEntrevista;
+    private String hrEntrevista;
     private String doacaoAutorizada;
     private String[] recusaFamiliar;
 
     /* -- Aba Responsavel Doacao  -- */
     private String grauParentescoDoacao;
+    private String parentesco;
     private String nomeRespEntrevista;
     private String estavoCivilRespDoacao;
-    private String logradouroRespDoacao; //???
+    private String logradouroRespDoacao;
     private String telefone1Resp;
-    private String telefone2Resp;
+    private String telefone2Resp;    
     private String nacionalidadeRespDoacao;
     private String profissaoRespDoacao;
     
@@ -101,12 +105,12 @@ public class PacienteForm {
     private String corneasCaptadas;
     private String corpoEncaminhado;
     private String equipeCaptacao;
-    private String[] problemasLogisticosEstruturais;
+    private Long[] problemasLogisticos;
+    private Long[] problemasEstruturais;
     private String comentarios;
 
     /** -- Preenche os dropdowns --**/
-    public List<SelectItem> getEstadosBanco() {
-        
+    public List<SelectItem> getEstadosBanco() {        
         List<SelectItem> estadosSelectItem = new ArrayList<SelectItem>();
 
         for(Estado estado : this.estados)
@@ -119,7 +123,7 @@ public class PacienteForm {
     /* Talvez seja desnecessario */
     public List<SelectItem> getCidadesBanco() {
         List<SelectItem> cidadeSelectItem = new ArrayList<SelectItem>();
-
+        
         for(Cidade cidade : this.cidades)
                 cidadeSelectItem.add(new SelectItem(cidade.getId(), cidade.getNome()));
 
@@ -129,7 +133,7 @@ public class PacienteForm {
     /* Talvez seja desnecessario */
     public List<SelectItem> getBairrosBanco() {
         List<SelectItem> bairroSelectItem = new ArrayList<SelectItem>();
-
+        
         for(Bairro bairro : this.bairros)
                 bairroSelectItem.add(new SelectItem(bairro.getId(), bairro.getNome()));
 
@@ -170,9 +174,9 @@ public class PacienteForm {
     public List<SelectItem> getGrauParentescoBanco() {
         
         List<SelectItem> grauParentesco = new ArrayList<SelectItem>();
-        grauParentesco.add(new SelectItem("1", "Grau 1"));
-        grauParentesco.add(new SelectItem("2", "Grau 2"));
-        grauParentesco.add(new SelectItem("3", "Grau 3"));
+        grauParentesco.add(new SelectItem("Grau 1", "Grau 1"));
+        grauParentesco.add(new SelectItem("Grau 1", "Grau 2"));
+        grauParentesco.add(new SelectItem("Grau 1", "Grau 3"));
 
         return grauParentesco;
         
@@ -201,25 +205,121 @@ public class PacienteForm {
     public List<SelectItem> getEstadosCivisBanco(){
         List<SelectItem> estadosCivisItem = new ArrayList<SelectItem>();
         
-        estadosCivisItem.add(new SelectItem("1", EstadoCivil.CASADO.toString()));
-        estadosCivisItem.add(new SelectItem("2", EstadoCivil.DIVORCIADO.toString()));
-        estadosCivisItem.add(new SelectItem("3", EstadoCivil.SOLTEIRO.toString()));
-        estadosCivisItem.add(new SelectItem("4", EstadoCivil.VIUVO.toString()));
+        estadosCivisItem.add(new SelectItem(null, ""));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.CASADO.toString(), EstadoCivil.CASADO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.DIVORCIADO.toString(), EstadoCivil.DIVORCIADO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.SOLTEIRO.toString(), EstadoCivil.SOLTEIRO.toString()));
+        estadosCivisItem.add(new SelectItem(EstadoCivil.VIUVO.toString(), EstadoCivil.VIUVO.toString()));
                 
         return estadosCivisItem;
+    }
+    
+    public List<SelectItem> getParentescoBanco(){
+        List<SelectItem> parentescoItem = new ArrayList<SelectItem>();
+        
+        parentescoItem.add(new SelectItem(null, ""));
+        parentescoItem.add(new SelectItem(Parentesco.AVOS, Parentesco.AVOS.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.CONJUGE, Parentesco.CONJUGE.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.IRMAOS, Parentesco.IRMAOS.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.PAIS, Parentesco.PAIS.toString()));
+        parentescoItem.add(new SelectItem(Parentesco.PAIS, Parentesco.PAIS.toString()));
+        //new SelectItem()
+        return parentescoItem;
     }
     
     public List<SelectItem> getEncaminhado(){
         List<SelectItem> corpoEncItem = new ArrayList<SelectItem>();
         
-        corpoEncItem.add(new SelectItem("1", Encaminhamento.IML.toString()));
-        corpoEncItem.add(new SelectItem("2", Encaminhamento.SVO.toString()));
-        corpoEncItem.add(new SelectItem("3", Encaminhamento.NAO_ENCAMINHADO.toString()));
+        corpoEncItem.add(new SelectItem(Encaminhamento.IML.toString(), Encaminhamento.IML.toString()));
+        corpoEncItem.add(new SelectItem(Encaminhamento.SVO.toString(), Encaminhamento.SVO.toString()));
+        corpoEncItem.add(new SelectItem(Encaminhamento.NAO_ENCAMINHADO.toString(), Encaminhamento.NAO_ENCAMINHADO.toString()));
                 
         return corpoEncItem;
     }
+    
+    public boolean valido(){
+        /* -- Aba Paciente -- */
+        if(this.nomePaciente == null) return false;
+        if(this.rgPaciente == null) return false;
+        if(this.numeroProntuario == null) return false;
+        if(this.dataNascimentoPaciente == null) return false;
+        if(this.sexoPaciente == null) return false;
+        if(this.nomeMaePaciente == null) return false;
+        if(this.estadoPaciente == null) return false;
+        if(this.cidadePaciente == null) return false;
+        if(this.bairroPaciente == null) return false;
+        if(this.cepPaciente == null) return false;
+        if(this.logradouroPaciente == null) return false;
+        
+        /* -- Aba Responsavel -- */
+        if(this.nomeResp == null) return false;
+        if(this.rgResp == null) return false;
+        if(this.telResp == null) return false;
+        
+        /* -- Aba Obito -- */
+        if(this.dataObito == null) return false;
+        if(this.horarioObito == null) return false;
+        if(this.setorObito == null) return false;
+        if(this.motivosObito1 == null) return false;
+        if(this.motivosObito2 == null) return false;
+        if(this.motivosObito3 == null) return false;
+        if(this.motivosObito4 == null) return false;
+        
+         /* -- Aba Entrevista -- */
+        if(this.entrevistaRealizada == null) return false;
+        if(this.doacaoAutorizada == null) return false;
+        if(this.dtEntrevista == null) return false;
+        if(this.dtEntrevista == null) return false;
+        
+        /* -- Aba Responsavel Doacao  -- */
+        if(this.nomeRespEntrevista == null) return false;
+        if(this.rgResponsavelRespDoacao == null) return false;
+        if(this.parentesco == null) return false;
+        if(this.estadoRespDoacao == null) return false;
+        if(this.telefone1Resp == null) return false;
+        if(this.telefone2Resp == null) return false;
+        if(this.profissaoRespDoacao == null) return false;
+        if(this.cepRespDoacao == null) return false;
+        if(this.nacionalidadeRespDoacao == null) return false;
+        if(this.estadoRespDoacao == null) return false;
+        if(this.cidadeRespDoacao == null) return false;
+        if(this.bairroRespDoacao == null) return false;
+        if(this.logradouroRespDoacao == null) return false;
+        if(this.numeroRespDoacao == null) return false;
+
+        /* -- Aba Testemunhas -- */
+        if(this.nomeTestemunha1 == null) return false;
+        if(this.cpfTestemunha1 == null) return false;
+        if(this.nomeTestemunha2 == null) return false;
+        if(this.cpfTestemunha2 == null) return false;
+
+        /**-- Etapa de Captacao --**/
+        if(this.corneasCaptadas == null) return false;
+        if(this.corpoEncaminhado == null) return false;
+        if(this.equipeCaptacao == null) return false;
+        
+        return true;
+    }
 
     /** -- Getters e Setters -- **/
+    public String getHrEntrevista() {
+        return hrEntrevista;
+    }
+    public void setHrEntrevista(String hrEntrevista) {
+        this.hrEntrevista = hrEntrevista;
+    }
+    public String getDtEntrevista() {
+        return dtEntrevista;
+    }
+    public void setDtEntrevista(String dtEntrevista) {
+        this.dtEntrevista = dtEntrevista;
+    }
+    public String getParentesco() {
+        return parentesco;
+    }
+    public void setParentesco(String parentesco) {
+        this.parentesco = parentesco;
+    }
     public List<Estado> getEstados() {
         return estados;
     }
@@ -340,13 +440,14 @@ public class PacienteForm {
         this.dataNascimentoPaciente = dataNascimentoPaciente;
     }
 
-    public String[] getSexoPaciente() {
+    public String getSexoPaciente() {
         return sexoPaciente;
     }
 
-    public void setSexoPaciente(String[] sexoPaciente) {
+    public void setSexoPaciente(String sexoPaciente) {
         this.sexoPaciente = sexoPaciente;
     }
+
 
     public String getEstadoPaciente() {
         return estadoPaciente;
@@ -691,14 +792,22 @@ public class PacienteForm {
         this.equipeCaptacao = equipeCaptacao;
     }
 
-    public String[] getProblemasLogisticosEstruturais() {
-        return problemasLogisticosEstruturais;
+    public Long[] getProblemasLogisticos() {
+        return problemasLogisticos;
     }
 
-    public void setProblemasLogisticosEstruturais(String[] problemasLogisticosEstruturais) {
-        this.problemasLogisticosEstruturais = problemasLogisticosEstruturais;
+    public void setProblemasLogisticos(Long[] problemasLogisticos) {
+        this.problemasLogisticos = problemasLogisticos;
     }
 
+    public Long[] getProblemasEstruturais() {
+        return problemasEstruturais;
+    }
+
+    public void setProblemasEstruturais(Long[] problemasEstruturais) {
+        this.problemasEstruturais = problemasEstruturais;
+    }
+    
     public String getComentarios() {
         return comentarios;
     }
