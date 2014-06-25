@@ -16,6 +16,7 @@ public class ContextUrls {
     /**
      * Subsistemas
      */
+    public static final String INDEX = "/index";
     public static final String ADMIN = "/admin";
     public static final String RELATORIOS = "/relatorio";
     /**
