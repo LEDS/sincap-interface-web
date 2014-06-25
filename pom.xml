@@ -32,14 +32,7 @@
             <version>9.1-901.jdbc4</version>
         </dependency>
 
-        <!-- Dozer -->
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
-            <version>${dozer.version}</version>
-        </dependency>
-
-        <!-- Lombok (gera getter and setters automaticamente) -->
+       <!-- Lombok (gera getter and setters automaticamente) -->
         <dependency> 
             <groupId>org.projectlombok</groupId> 
             <artifactId>lombok</artifactId> 

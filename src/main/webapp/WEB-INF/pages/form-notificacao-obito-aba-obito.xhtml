@@ -39,8 +39,23 @@
             <h:outputLabel value="#{msg['obito.text.motivos4']}" />
             <h:inputText id="motivosObito4"
                          value="#{pacienteForm.motivosObito4}" />
-
+            
+            <h:outputLabel value="#{msg['obito.radioButton.aptoDoacao.apto']}" />
+            <h:selectOneRadio style="width: 100%" id="sexoPaciente" value="#{pacienteForm.sexoPaciente}"
+                              styleClass="radio">
+                <f:selectItem itemValue="Apto"
+                              itemLabel="#{msg['obito.radioButton.contraIndicacao.apto']}" />
+                <f:selectItem itemValue="Inapto"
+                              itemLabel="#{msg['obito.radioButton.contraIndicacao.inapto']}" />
+            </h:selectOneRadio>
+            
+            <h:outputLabel value="#{msg['obito.contraIndicacoes-Medicas']}" />
+            <h:selectOneMenu id="estadoPaciente" value="#{pacienteForm.estadoPaciente}"
+                             styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['obito.contraIndicacoes-Medicas.escolha']}" />
+                <f:selectItems value="#{pacienteForm.estadosBanco}" />
+            </h:selectOneMenu>
         </h:panelGrid>
-
     </h:panelGrid>
 </ui:composition>

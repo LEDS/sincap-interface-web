@@ -2,9 +2,9 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Funcionario;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.UsuarioDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplPrincipal;
 import br.ifes.leds.sincap.web.model.Mensagem;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.UsuarioDTO;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 
 /**
  *
