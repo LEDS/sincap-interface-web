@@ -61,16 +61,15 @@
         </div>
         <!-- end sidebar -->
 
-
         <!-- main container -->
         <div class="content">
-            
+
             <div class="container-fluid">
                 <div id="pad-wrapper">
                     <div class="row-fluid">
                         <div class="span12">
                             <div id="fuelux-wizard" class="wizard row-fluid">
-                                
+
                                 <!-- mensagem de erro -->
                                 <center>
                                     <div class="span12">
@@ -85,10 +84,7 @@
                                     </div>
                                 </center>
                             </div>
-                            
-                            <!-- PASSO 1 -->
-                            <div class="step-content">
-                                
+                            <div class="step-content">                                
                                 <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacao" method="post">
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
@@ -105,88 +101,24 @@
                                                     <ui:include src="notificacao-obito-aba-paciente.xhtml" />
                                                 </ui:insert>
                                             </div>
-
-                                            <div id="abaResponsavel" class="tab-pane ">                                        
-                                                <ui:insert name="notificacao-obito-aba-responsavel">
-                                                    <ui:include src="notificacao-obito-aba-responsavel.xhtml" />
-                                                </ui:insert>                                            
-                                            </div>
-
                                             <div id="abaObito" class="tab-pane ">                                        
                                                 <ui:insert name="notificacao-obito-aba-obito">
                                                     <ui:include src="notificacao-obito-aba-obito.xhtml" />
                                                 </ui:insert>                                         
                                             </div>
                                         </div>
-                                        <!-- FIM PASSO 1 -->
-                                        <!-- PASSO 2 -->
-                                    </div>
-                                    <div class="step-pane" id="step2">
-                                        <div class="row-fluid form-wrapper">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#abaContraIndicacoes" 
-                                                                      data-toggle="tab">#{msg['contraIndicacoes.text.titulo']}</a></li>
-                                                <li><a href="#paneEntrevista1" data-toggle="tab">#{msg['notificacao.step2.tab1.title']}</a></li>                                                    
-                                                <li><a href="#paneEntrevista2" data-toggle="tab">#{msg['notificacao.step2.tab2.title']}</a></li>
-                                                <li><a href="#paneEntrevista3" data-toggle="tab">#{msg['notificacao.step2.tab3.title']}</a></li>
-                                            </ul>  
-                                        </div>
-
-                                        <div class="tab-content" >
-                                            <div id="abaContraIndicacoes" class="tab-pane active">                                        
-                                                <ui:insert name="notificacao-contraindicacoes">
-                                                    <ui:include src="notificacao-doacao-aba-contraindicacoes.xhtml" />
-                                                </ui:insert>
-                                            </div>
-
-                                            <div id="paneEntrevista1" class="tab-pane">
-                                                <ui:insert name="form-entrevista">
-                                                    <ui:include src="notificacao-doacao-aba-entrevista.xhtml" />
-                                                </ui:insert>
-                                            </div>                                                    
-
-                                            <div id="paneEntrevista2" class="tab-pane ">                                        
-                                                <ui:insert name="form-responsavel">
-                                                    <ui:include src="notificacao-doacao-aba-responsavel.xhtml" />
-                                                </ui:insert>                                  
-                                            </div>
-
-                                            <div id="paneEntrevista3" class="tab-pane ">                                        
-                                                <ui:insert name="form-testemunhas">
-                                                    <ui:include src="notificacao-doacao-aba-testemunhas.xhtml" />
-                                                </ui:insert>                                      
-                                            </div>                                   
-
-                                        </div>
-                                    </div>
-                                    <!-- FIM PASSO 2 -->
-                                    <!-- PASSO 3 -->
-                                    <div class="step-pane" id="step3">
-                                        <div class="tab-content">
-                                            <ui:insert name="form-captacao">
-                                                <ui:include src="notificacao-captacao.xhtml" />
-                                            </ui:insert>
-                                        </div>      
-                                    </div>
-                                    <div class="wizard-actions">
-                                        <button type="button" class="btn-glow primary btn-prev"> 
-                                            <i class="icon-chevron-left"></i> ${msg['notificacao.button.anterior']}
-                                        </button>
-                                        <button type="button" class="btn-glow primary btn-next" data-last="Finish">
-                                            ${msg['notificacao.button.proximo']} <i class="icon-chevron-right"></i>
-                                        </button>
+                                        
                                         <button type="submit" class="btn-glow success btn-finish">
                                             ${msg['notificacao.button.finalizar']}
                                         </button>
                                     </div>
-                                    <!-- FIM PASSO 3 -->
                                 </form>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
         <!-- end main container -->
