@@ -31,6 +31,7 @@ public class ContextUrls {
     public static final String APP_MOTIVO_INVIABILIDADE = "/motivoinviabilidade";
     public static final String RLT_DOACAO_HOSPITAL = "/doacaoporhospital";
     public static final String RLT_N_DOACAO_HOSPITAL = "/naodoacaoporhospital";
+    public static final String APP_NOTIFICACAO_OBITO = "/obito";
     /**
      * Métodos
      */
@@ -56,6 +57,7 @@ public class ContextUrls {
     String app_motivo_inviabilidade = APP_MOTIVO_INVIABILIDADE;
     String rlt_doacao_hospital = RLT_DOACAO_HOSPITAL;
     String rlt_n_doacao_hospital = RLT_N_DOACAO_HOSPITAL;
+    String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
     /**
      * Métodos
      */

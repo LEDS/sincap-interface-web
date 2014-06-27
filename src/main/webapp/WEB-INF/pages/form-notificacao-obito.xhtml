@@ -70,7 +70,7 @@
                         <div class="span12">
                             <div id="fuelux-wizard" class="wizard row-fluid">
                                 
-                                <h:outputLabel>${msg['notificacao.msg.etapa.obito']}:</h:outputLabel>
+                                <h:outputLabel>${msg['obito.text.titulo']}:</h:outputLabel>
                                 
                                 <!-- mensagem de erro -->
                                 <center>
@@ -95,7 +95,7 @@
                                 </center>
                             </div>
                             <div class="step-content">                                
-                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/salvarNotificacao" method="post">
+                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.adicionar}" method="post">
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
                                             <ul class="nav nav-tabs">
@@ -118,7 +118,7 @@
                                         </div>
 
                                         <button type="submit" class="btn-glow success btn-finish">
-                                            ${msg['notificacao.button.finalizar']}
+                                            ${msg['obito.button.finalizar']}
                                         </button>
                                     </div>
                                 </form>
@@ -163,13 +163,6 @@
                         $btnNext.hide();
                         $btnFinish.show();
                     }
-                });
-
-                $btnPrev.on('click', function() {
-                    $wizard.wizard('previous');
-                });
-                $btnNext.on('click', function() {
-                    $wizard.wizard('next');
                 });
             });
 
