@@ -1,0 +1,61 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGrid>
+
+        <h:panelGrid id="obito" columns="2">
+
+            <h:outputLabel value="#{msg['obito.text.data']}" />
+            <h:inputText class="data" id="dataObito"
+                         value="#{pacienteForm.dataObito}" />
+
+            <h:outputLabel value="#{msg['obito.text.horario']}" />
+            <h:inputText class="hora" id="horarioObito"
+                         value="#{pacienteForm.horarioObito}" />
+
+            <h:outputLabel value="#{msg['obito.dropDown.setor']}" />
+            <h:selectOneMenu id="setorObito" value="#{pacienteForm.setorObito}"
+                             class="ui-select">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['obito.dropDown.setor.escolha']}" />
+                <f:selectItems value="#{pacienteForm.setoresBanco}" />
+            </h:selectOneMenu>
+
+            <h:outputLabel value="#{msg['obito.text.motivos1']}" />
+            <h:inputText id="motivosObito1"
+                         value="#{pacienteForm.motivosObito1}" />
+
+            <h:outputLabel value="#{msg['obito.text.motivos2']}" />
+            <h:inputText id="motivosObito2"
+                         value="#{pacienteForm.motivosObito2}" />
+
+            <h:outputLabel value="#{msg['obito.text.motivos3']}" />
+            <h:inputText id="motivosObito3"
+                         value="#{pacienteForm.motivosObito3}" />
+
+            <h:outputLabel value="#{msg['obito.text.motivos4']}" />
+            <h:inputText id="motivosObito4"
+                         value="#{pacienteForm.motivosObito4}" />
+            
+            <h:outputLabel value="#{msg['obito.radioButton.aptoDoacao.apto']}" />
+            <h:selectOneRadio style="width: 100%" id="sexoPaciente" value="#{pacienteForm.sexoPaciente}"
+                              styleClass="radio">
+                <f:selectItem itemValue="Apto"
+                              itemLabel="#{msg['obito.radioButton.contraIndicacao.apto']}" />
+                <f:selectItem itemValue="Inapto"
+                              itemLabel="#{msg['obito.radioButton.contraIndicacao.inapto']}" />
+            </h:selectOneRadio>
+            
+            <h:outputLabel value="#{msg['obito.contraIndicacoes-Medicas']}" />
+            <h:selectOneMenu id="estadoPaciente" value="#{pacienteForm.estadoPaciente}"
+                             styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['obito.contraIndicacoes-Medicas.escolha']}" />
+                <f:selectItems value="#{pacienteForm.estadosBanco}" />
+            </h:selectOneMenu>
+        </h:panelGrid>
+    </h:panelGrid>
+</ui:composition>
