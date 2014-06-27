@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @SessionScoped
 public class NotificacaoObitoControler {
 
-    @RequestMapping(value = "/novo", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormNovaNotificacao(ModelMap model) {
 
         
