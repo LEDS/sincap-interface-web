@@ -1,34 +1,142 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:panelGrid>
+    <h:head>
+        <!-- title -->
+        <title>#{msg['notificacao.step2.tab1.title']}</title>
 
-        <h:panelGrid id="entrevista" columns="2">
-            <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-            <h:inputText id="nomePaciente" value="#{pacienteForm.nomePaciente}" />
-            <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
-            <h:inputText id="nomePaciente" value="#{notificacaoForm.codigo}" />
-            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
-            <h:selectOneRadio style="width: 100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
-                              styleClass="radio">
-                <f:selectItem itemValue="SIM"
-                              itemLabel="#{msg['entrevista.radioButton.realizada.sim']}" />
-                <f:selectItem itemValue="NÃO"
-                              itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
-            </h:selectOneRadio>
-            <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
-            <h:selectOneMenu id="problemasEstruturais" value="#{entrevistaForm.problemasEtruturais}"
-                             styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
-                <f:selectItem itemValue=""
-                              itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
-                <f:selectItems value="#{pacienteForm.estadosBanco}" />
-            </h:selectOneMenu>
-            <h:button class="btn-glow primary" value="#{msg['geral.button.analisado']}"/>
-            
-        </h:panelGrid>
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    </h:panelGrid>
-</ui:composition>
+        <!-- bootstrap -->
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+
+        <!-- libraries -->
+        <h:outputStylesheet library="css/lib" name="jquery-ui-1.10.2.custom.css" />
+        <h:outputStylesheet library="css/lib" name="font-awesome.css" />	
+
+        <!-- global styles -->
+        <h:outputStylesheet library="css" name="layout.css" />
+        <h:outputStylesheet library="css" name="elements.css" />
+        <h:outputStylesheet library="css" name="icons.css" />
+
+        <!-- this page specific styles -->    
+        <h:outputStylesheet library="css/compiled" name="index.css" />
+
+        <!-- open sans font -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+
+        <!-- lato font -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'/>
+    </h:head>
+
+    <!-- navbar -->
+    <h:panelGroup layout="block"  id="menu-navbar">
+        <ui:insert  name="menu-navbar" >
+            <ui:include src="menu-navbar.xhtml" />
+        </ui:insert>
+    </h:panelGroup>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <h:panelGroup layout="block"  id="menu-sidebar">
+        <ui:insert name="menu-sidebar" >
+            <ui:include src="menu-sidebar.xhtml" />
+        </ui:insert>
+    </h:panelGroup>
+    <!-- end sidebar -->
+
+    <!-- main container -->
+    <h:panelGroup layout="block" styleClass="content">
+
+        <!-- settings changer -->
+        <h:panelGroup layout="block" styleClass="container-fluid">
+
+            <!-- upper main stats -->
+            <h:panelGroup layout="block"  id="content">
+<!--                <ui:insert name="content" >
+                    <ui:include src="estatisticas.xhtml" />
+                </ui:insert>-->
+            </h:panelGroup>
+            <!-- end upper main stats -->
+            <h:panelGrid id="entrevista" columns="2" >
+                <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+                <h:inputText id="nomePaciente" value="#{pacienteForm.nomePaciente}" />
+                <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+                <h:inputText id="nomePaciente" value="#{notificacaoForm.codigo}" />
+                <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
+                <h:selectOneRadio style="width: 100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
+                                  styleClass="radio">
+                    <f:selectItem itemValue="SIM"
+                                  itemLabel="#{msg['entrevista.radioButton.realizada.sim']}" />
+                    <f:selectItem itemValue="NÃO"
+                                  itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
+                </h:selectOneRadio>
+                <h:panelGroup rendered="#{entrevistaRelizada == 1}">
+                    <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+                    <h:selectOneMenu id="problemasEstruturais" value="#{entrevistaForm.problemasEtruturais}"
+                                     styleClass="select2" >
+                        <f:selectItem itemValue=""
+                                      itemLabel="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+                        <f:selectItems value="#{entrevistaForm.problemasEstruturaisBanco}" />
+                    </h:selectOneMenu>
+                </h:panelGroup> 
+                 <h:panelGroup rendered="#{entrevistaRelizada == 0}">
+                    <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}" />
+                    <h:selectOneRadio style="width: 100%" id="doacaoAutorizada" value="#{entrevistaForm.doacaoAutorizada}"
+                                      styleClass="radio">
+                        <f:selectItem itemValue="SIM"
+                                      itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}" />
+                        <f:selectItem itemValue="NÃO"
+                                      itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}" />
+                    </h:selectOneRadio>           
+                    <h:panelGroup rendered="#{doacaoAutorizada == 1}">
+                        <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}" />
+                        <h:selectOneMenu id="recusaFamiliar" value="#{entrevistaForm.recusaFamiliar}"
+                                         styleClass="select2" >
+                            <f:selectItem itemValue=""
+                                          itemLabel="#{msg['entrevista.dropdown.recusaFamiliar']}" />
+                            <f:selectItems value="#{entrevistaForm.recusaFamiliar}" />
+                        </h:selectOneMenu>
+                        <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
+                        <h:inputText id="dataEntrevista" value="#{entrevistaForm.dataEntrevista}" />
+                        <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
+                        <h:inputText id="horaEntrevista" value="#{entrevistaForm.horaEntrevista}" />
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{doacaoAutorizada == 0}">
+                        <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
+                        <h:inputText id="dataEntrevista" value="#{entrevistaForm.dataEntrevista}" />
+                        <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
+                        <h:inputText id="horaEntrevista" value="#{entrevistaForm.horaEntrevista}" />
+                        
+                    </h:panelGroup>
+                </h:panelGroup> 
+
+                <h:button class="btn-glow primary" value="#{msg['geral.button.analisado']}"/>
+                <h:button class="btn-glow primary" value="#{msg['geral.button.rejeitar']}"/>
+
+            </h:panelGrid>
+        </h:panelGroup>
+    </h:panelGroup>
+    <!-- end main container -->
+
+    <h:body>
+        <!-- scripts -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="theme.js" />
+        <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
+        <!-- end scripts -->
+    </h:body>
+</html>
+
+
+    
