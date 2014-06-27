@@ -94,8 +94,9 @@
                                     </div>
                                 </center>
                             </div>
-                            <div class="step-content">                                
+                            <div class="step-content">    
                                 <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.adicionar}" method="post">
+
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
                                             <ul class="nav nav-tabs">
@@ -118,7 +119,11 @@
                                         </div>
 
                                         <button type="submit" class="btn-glow success btn-finish">
+<<<<<<< HEAD
                                             ${msg['obito.button.finalizar']}
+=======
+                                            ${msg['notificacao.button.finalizar']}
+>>>>>>> 57fc0fd9d22dad2b70517cd89b739b1f04a0a433
                                         </button>
                                     </div>
                                 </form>
@@ -164,6 +169,16 @@
                         $btnFinish.show();
                     }
                 });
+<<<<<<< HEAD
+=======
+
+                $btnPrev.on('click', function() {
+                    $wizard.wizard('previous');
+                });
+                $btnNext.on('click', function() {
+                    $wizard.wizard('next');
+                });
+>>>>>>> 57fc0fd9d22dad2b70517cd89b739b1f04a0a433
             });
 
             $(document).ready(function() {
