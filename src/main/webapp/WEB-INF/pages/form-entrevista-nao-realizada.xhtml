@@ -1,0 +1,34 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGrid>
+
+        <h:panelGrid id="entrevista" columns="2">
+            <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+            <h:inputText id="nomePaciente" value="#{pacienteForm.nomePaciente}" />
+            <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+            <h:inputText id="nomePaciente" value="#{notificacaoForm.codigo}" />
+            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
+            <h:selectOneRadio style="width: 100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
+                              styleClass="radio">
+                <f:selectItem itemValue="SIM"
+                              itemLabel="#{msg['entrevista.radioButton.realizada.sim']}" />
+                <f:selectItem itemValue="NÃO"
+                              itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
+            </h:selectOneRadio>
+            <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+            <h:selectOneMenu id="problemasEstruturais" value="#{entrevistaForm.problemasEtruturais}"
+                             styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['paciente.dropDown.uf.escolha']}" />
+                <f:selectItems value="#{pacienteForm.estadosBanco}" />
+            </h:selectOneMenu>
+            <h:button class="btn-glow primary" value="#{msg['geral.button.analisado']}"/>
+            
+        </h:panelGrid>
+
+    </h:panelGrid>
+</ui:composition>
