@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package br.ifes.leds.sincap.web.controller;
 
 import javax.faces.bean.SessionScoped;
@@ -13,17 +14,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author 20121bsi0252
+ * @author marcosdias
  */
 @Controller
-@RequestMapping(ContextUrls.INDEX)
+@RequestMapping("/obito")
 @SessionScoped
-public class IndexController {
+public class NotificacaoObitoControler {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String loadForm(ModelMap model) {
+    @RequestMapping(value = "/novo", method = RequestMethod.GET)
+    public String loadFormNovaNotificacao(ModelMap model) {
 
-        return "index";
+        
+        return "form-notificacao-obito";
     }
-
 }
