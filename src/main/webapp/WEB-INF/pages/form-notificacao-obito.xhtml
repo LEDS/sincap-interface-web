@@ -96,7 +96,6 @@
                             </div>
                             <div class="step-content">    
                                 <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.adicionar}" method="post">
-
                                     <div class="step-pane active" id="step1">
                                         <div class="row-fluid form-wrapper">
                                             <ul class="nav nav-tabs">
@@ -221,9 +220,6 @@
                     cepPaciente: {
                         required: true
                     },
-                    logradouroPaciente: {
-                        required: true
-                    }
                 },
                 messages: {
                     nomePaciente: {
@@ -256,9 +252,6 @@
                     cepPaciente: {
                         required: "Por favor, insira o CEP do paciente"
                     },
-                    logradouroPaciente: {
-                        required: "Por favor, insira o logradouro do paciente"
-                    }
                 },
                 submitHandler: function(form) {
                     form.submit();

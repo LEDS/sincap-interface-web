@@ -23,6 +23,7 @@ public class ContextUrls {
      * Aplicações (Controllers)
      */
     public static final String APP_NOTIFICADOR = "/notificador";
+    public static final String APP_ENTREVISTA = "/entrevista";
     public static final String APP_CAPTADOR = "/captador";
     public static final String APP_HOSPITAL = "/hospital";
     public static final String APP_BANCO_DE_OLHOS = "/bancoolhos";
@@ -31,6 +32,7 @@ public class ContextUrls {
     public static final String APP_MOTIVO_INVIABILIDADE = "/motivoinviabilidade";
     public static final String RLT_DOACAO_HOSPITAL = "/doacaoporhospital";
     public static final String RLT_N_DOACAO_HOSPITAL = "/naodoacaoporhospital";
+    public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     /**
      * Métodos
@@ -43,12 +45,14 @@ public class ContextUrls {
     /**
      * Subsistemas
      */
+    String index = INDEX;
     String admin = ADMIN;
     String relatorios = RELATORIOS;
     /**
      * Aplicações (Controllers)
      */
     String app_notificador = APP_NOTIFICADOR;
+    String app_entrevista = APP_ENTREVISTA;
     String app_captador = APP_CAPTADOR;
     String app_hospital = APP_HOSPITAL;
     String app_banco_de_olhos = APP_BANCO_DE_OLHOS;
@@ -57,6 +61,7 @@ public class ContextUrls {
     String app_motivo_inviabilidade = APP_MOTIVO_INVIABILIDADE;
     String rlt_doacao_hospital = RLT_DOACAO_HOSPITAL;
     String rlt_n_doacao_hospital = RLT_N_DOACAO_HOSPITAL;
+    String app_notificacao_captacao = APP_NOTIFICACAO_CAPTACAO;
     String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
     /**
      * Métodos
