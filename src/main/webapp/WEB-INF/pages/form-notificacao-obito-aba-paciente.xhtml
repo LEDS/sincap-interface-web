@@ -1,79 +1,69 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:panelGrid>
 
-        <h:panelGrid columns="2"  style="width: 100%">
+        <h:panelGrid columns="2" style="width: 100%">
             <h:outputLabel value="#{msg['obito.paciente.nome']}" />
-            <h:inputText id="nomePaciente" value="#{pacienteForm.nomePaciente}"/>
-            
+            <h:inputText id="nomePaciente" value="#{pacienteForm.nomePaciente}" />
+
             <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}" />
-            <h:inputText class="data" styleClass="input-large datepicker"
-                         id="dataNascimentoPaciente" value="#{pacienteForm.dataNascimentoPaciente}" />
+            <h:inputText class="data" styleClass="input-large datepicker" id="dataNascimentoPaciente"
+                value="#{pacienteForm.dataNascimentoPaciente}" />
 
             <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}" />
-            <h:inputText class="data" styleClass="input-large datepicker"
-                         id="dataInternacaoPaciente" value="#{pacienteForm.dataNascimentoPaciente}" />
+            <h:inputText class="data" styleClass="input-large datepicker" id="dataInternacaoPaciente"
+                value="#{pacienteForm.dataNascimentoPaciente}" />
 
             <h:outputLabel value="#{msg['obito.paciente.docSocial']}" />
-            <h:inputText id="docSocialPaciente"
-                         value="#{pacienteForm.rgPaciente}" />
-            
+            <h:inputText id="docSocialPaciente" value="#{pacienteForm.rgPaciente}" />
+
             <h:outputLabel value="#{msg['obito.paciente.telefone']}" />
-            <h:inputText class="tel" id="telefonePaciente"
-                         value="#{pacienteForm.rgPaciente}" />
-            
+            <h:inputText class="tel" id="telefonePaciente" value="#{pacienteForm.rgPaciente}" />
+
             <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}" />
-            <h:selectOneRadio style="width: 100%" id="sexoPaciente" value="#{pacienteForm.sexoPaciente}"
-                              styleClass="radio">
-                <f:selectItem itemValue="MASCULINO"
-                              itemLabel="#{msg['paciente.radioButton.sexo.masc']}" />
-                <f:selectItem itemValue="FEMININO"
-                              itemLabel="#{msg['paciente.radioButton.sexo.fem']}" />
+            <h:selectOneRadio style="width: 100%" id="sexoPaciente" value="#{pacienteForm.sexoPaciente}" styleClass="radio">
+                <f:selectItem itemValue="MASCULINO" itemLabel="#{msg['paciente.radioButton.sexo.masc']}" />
+                <f:selectItem itemValue="FEMININO" itemLabel="#{msg['paciente.radioButton.sexo.fem']}" />
             </h:selectOneRadio>
-            
+
             <h:outputLabel value="#{msg['obito.paciente.numeroSUS']}" />
-            <h:inputText id="numeroSUS"
-                         value="#{pacienteForm.numeroProntuario}" />
-            
+            <h:inputText id="numeroSUS" value="#{pacienteForm.numeroProntuario}" />
+
             <h:outputLabel value="#{msg['obito.paciente.profissao']}" />
-            <h:inputText id="profissao"
-                         value="#{pacienteForm.numeroProntuario}" />
-            
+            <h:inputText id="profissao" value="#{pacienteForm.numeroProntuario}" />
+
             <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}" />
-            <h:inputText id="nacionalidade"
-                         value="#{pacienteForm.numeroProntuario}" />
+            <h:inputText id="nacionalidade" value="#{pacienteForm.numeroProntuario}" />
 
             <h:outputLabel value="#{msg['obito.paciente.prontuario']}" />
-            <h:inputText id="numeroProntuario"
-                         value="#{pacienteForm.numeroProntuario}" />
+            <h:inputText id="numeroProntuario" value="#{pacienteForm.numeroProntuario}" />
 
             <h:outputLabel value="#{msg['obito.paciente.mae']}" />
             <h:inputText id="nomeMae" value="#{pacienteForm.nomeMaePaciente}" />
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}" />
-            <h:selectOneMenu id="estadoPaciente" value="#{pacienteForm.estadoPaciente}"
-                             styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
-                <f:selectItem itemValue=""
-                              itemLabel="#{msg['obito.paciente.dropDown.uf.escolha']}" />
-                <f:selectItems value="#{pacienteForm.estadosBanco}" />
+            <h:selectOneMenu id="estadoPaciente" value="#{pacienteForm.endereco.estado}" styleClass="select2"
+                onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
+                <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.uf.escolha']}" />
+                <f:selectItems value="#{listaEstadoItem}" />
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}" />
-            <h:selectOneMenu id="cidadePaciente" value="#{pacienteForm.cidadePaciente}"
-                             class="ui-select"  onchange="ajaxGetBairros(cidadePaciente, bairroPaciente)">
+            <h:selectOneMenu id="cidadePaciente" value="#{pacienteForm.endereco.cidade}" class="ui-select"
+                onchange="ajaxGetBairros(cidadePaciente, bairroPaciente)">
+                <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.cidade.escolha']}" />
+                <f:selectItems value="#{listaCidadeItem}" />
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}" />
-            <h:selectOneMenu id="bairroPaciente" value="#{pacienteForm.bairroPaciente}"
-                             class="ui-select" >
+            <h:selectOneMenu id="bairroPaciente" value="#{pacienteForm.endereco.bairro}" class="ui-select">
+                <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.bairro.escolha']}" />
+                <f:selectItems value="#{listaBairroItem}" />
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.paciente.cep']}" />
-            <h:inputText id="cepPaciente" class="cep" value="#{pacienteForm.cepPaciente}" />
+            <h:inputText id="cep" class="cep" value="#{pacienteForm.endereco.cep}" />
 
             <h:outputLabel value="#{msg['obito.paciente.logradouro']}" />
             <h:inputText id="logradouroPaciente" value="#{pacienteForm.logradouroPaciente}" />
