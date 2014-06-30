@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author marcosdias
  */
 @Controller
-@RequestMapping("/entrevista")
+@RequestMapping(ContextUrls.APP_ENTREVISTA)
 @SessionScoped
 public class RegistarEntrevistaController {
 
     @RequestMapping( method = RequestMethod.GET)
-    public String loadFormNovaNotificacao(ModelMap model) {
+    public String loadFormEntrevista(ModelMap model) {
 
         
-        return "form-entrevista-nao-realizada";
+        return "form-entrevista";
     }
 }
