@@ -78,7 +78,6 @@ public class SignInController {
 
         Set<InstituicaoNotificadora> setInstituicoesNotificadoras;
         List<Mensagem> listaMensagem = new ArrayList<Mensagem>();
-        Funcionario usuario;
         Mensagem mensagem;
 
         try {
