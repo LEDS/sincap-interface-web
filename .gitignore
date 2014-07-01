@@ -9,3 +9,6 @@
 # Arquivos do glassfish
 nb-configuration.xml
 glassfish-web.xml
+
+# Qualquer tipo de log
+*.log
