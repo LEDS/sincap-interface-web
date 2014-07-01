@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <!-- title -->
+        <title>#{msg['notificacao.step2.tab1.title']}</title>
+
+        <!-- meta -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!-- bootstrap -->
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
+        <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+
+        <!-- libraries -->
+        <h:outputStylesheet library="css/lib" name="jquery-ui-1.10.2.custom.css" />
+        <h:outputStylesheet library="css/lib" name="font-awesome.css" />	
+
+        <!-- global styles -->
+        <h:outputStylesheet library="css" name="layout.css" />
+        <h:outputStylesheet library="css" name="elements.css" />
+        <h:outputStylesheet library="css" name="icons.css" />
+
+        <!-- this page specific styles -->    
+        <h:outputStylesheet library="css/compiled" name="index.css" />
+
+        <!-- open sans font -->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+
+        <!-- lato font -->
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'/>
+    </h:head>
+
+    <!-- navbar -->
+    <h:panelGroup layout="block"  id="menu-navbar">
+        <ui:insert  name="menu-navbar" >
+            <ui:include src="menu-navbar.xhtml" />
+        </ui:insert>
+    </h:panelGroup>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <h:panelGroup layout="block"  id="menu-sidebar">
+        <ui:insert name="menu-sidebar" >
+            <ui:include src="menu-sidebar.xhtml" />
+        </ui:insert>
+    </h:panelGroup>
+    <!-- end sidebar -->
+
+    <!-- main container -->
+    <h:panelGroup layout="block" styleClass="content">
+        
+        <h:outputLabel>${msg['analise.obito.titulo']} - Página em Construção</h:outputLabel>
+        
+        <form id="analisaObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.confirmar}" method="post">
+            
+            Nessa tela os dados serão analisados e será dado o aval </br>
+            para continuar o Processo de Notificação.</br>
+            Caso haja algum erro na notificação a mesma pode ser recusa </br>
+            ou, caso esteja tudo certo ela também pode ser arquivada.
+            
+            <h:panelGroup layout="block"  id="content">
+                <button type="submit" class="btn-glow success btn-finish">
+                    ${msg['analise.confirmar']}
+                </button>
+                
+                <a id="recusado" class="btn-glow danger btn-finish"
+                    href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.confirmar}">
+                    ${msg['analise.recusar']}
+                </a>
+            
+                <a id="arquivar" class="btn-glow gray btn-finish"
+                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.arquivar}">
+                    ${msg['analise.arquivar']}
+                </a>
+            </h:panelGroup>
+        </form>
+
+        <!-- settings changer -->
+        <h:panelGroup layout="block" styleClass="container-fluid">
+
+            <!-- upper main stats -->
+            <h:panelGroup layout="block"  id="content">
+<!--                <ui:insert name="content" >
+                    <ui:include src="estatisticas.xhtml" />
+                </ui:insert>-->
+            </h:panelGroup>
+            <!-- end upper main stats -->
+            <ui:insert>
+                <ui:include src="form-entrevista-nao-realizada.xhtml" />
+            </ui:insert>
+        </h:panelGroup>
+    </h:panelGroup>
+    <!-- end main container -->
+
+    <h:body>
+        <!-- scripts -->
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="theme.js" />
+        <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
+        <!-- end scripts -->
+    </h:body>
+</html>

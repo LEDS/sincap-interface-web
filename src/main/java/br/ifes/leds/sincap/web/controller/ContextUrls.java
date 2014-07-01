@@ -34,6 +34,8 @@ public class ContextUrls {
     public static final String RLT_N_DOACAO_HOSPITAL = "/naodoacaoporhospital";
     public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
+    public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
+    public static final String APP_ANALISAR = "/analisar";
     /**
      * Métodos
      */
@@ -41,6 +43,10 @@ public class ContextUrls {
     public static final String APAGAR = "/apagar";
     public static final String ADICIONAR = "/adicionar";
     public static final String SALVAR = "/salvar";
+    public static final String CONFIRMAR = "/confirmar";
+    public static final String RECUSAR = "/recusar";
+    public static final String ARQUIVAR = "/arquivar";
+    
 
     /**
      * Subsistemas
@@ -63,6 +69,8 @@ public class ContextUrls {
     String rlt_n_doacao_hospital = RLT_N_DOACAO_HOSPITAL;
     String app_notificacao_captacao = APP_NOTIFICACAO_CAPTACAO;
     String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
+    String app_notificacao_entrevista = APP_NOTIFICACAO_ENTREVISTA;
+    String app_analisar = APP_ANALISAR;
     /**
      * Métodos
      */
@@ -70,4 +78,7 @@ public class ContextUrls {
     String apagar = APAGAR;
     String adicionar = ADICIONAR;
     String salvar = SALVAR;
+    String confirmar = CONFIRMAR;
+    String recusar = RECUSAR;
+    String arquivar = ARQUIVAR;
 }
