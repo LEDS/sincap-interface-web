@@ -20,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(ContextUrls.APP_ENTREVISTA)
 @SessionScoped
 public class NotificacaoEntrevistaController {
+    
+    @RequestMapping(method = RequestMethod.GET)
+    public String loadListObitoAguardandoEntrevista() {        
+        return "entrevista";
+    }
 
-    @RequestMapping( method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormEntrevista() {        
         return "form-entrevista";
     }
