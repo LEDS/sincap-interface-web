@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author marcosdias
  */
 @Controller
-@RequestMapping(ContextUrls.APP_ENTREVISTA)
+@RequestMapping(ContextUrls.APP_NOTIFICACAO_ENTREVISTA)
 @SessionScoped
 public class NotificacaoEntrevistaController {
 
@@ -113,7 +113,16 @@ public class NotificacaoEntrevistaController {
         }
         return "analise-entrevista";
     }
-
+    
+    private String finalizarAnaliseEntrevista(ProcessoNotificacaoDTO processoNotificacaoDTO, EstadoNotificacaoEnum ESTADO){
+        modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
+        try {
+            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
+        } catch (ViolacaoDeRIException e) {
+        }
+        return "analise-entrevista";
+    }
+    
     private void modificaEstadoAtual(ProcessoNotificacaoDTO pnDTO, EstadoNotificacaoEnum ESTADO) {
         AtualizacaoEstadoDTO atualizacaoEstado = new AtualizacaoEstadoDTO();
         atualizacaoEstado.setEstadoNotificacao(ESTADO);
