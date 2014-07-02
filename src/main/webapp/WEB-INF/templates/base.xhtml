@@ -9,7 +9,7 @@
     <h:head>
         <!-- title -->
         <title>
-            <ui:insert name="page-name" > Sincap </ui:insert>
+            <ui:insert name="#{sects.title}" > Sincap </ui:insert>
         </title>
 
         <!-- meta -->
@@ -42,8 +42,8 @@
     <h:body>
 
         <!-- navbar -->
-        <h:panelGroup layout="block"  id="menu-navbar">
-            <ui:insert  name="menu-navbar" >
+        <h:panelGroup layout="block" id="menu-navbar">
+            <ui:insert  name="#{sects.topbar}" >
                 <ui:include src="/WEB-INF/components/menu-navbar.xhtml" />
             </ui:insert>
         </h:panelGroup>
@@ -51,7 +51,7 @@
 
         <!-- sidebar -->
         <h:panelGroup layout="block"  id="menu-sidebar">
-            <ui:insert name="menu-sidebar" >
+            <ui:insert name="#{sects.sidebar}" >
                 <ui:include src="/WEB-INF/components/menu-sidebar.xhtml" />
             </ui:insert>
         </h:panelGroup>
@@ -65,7 +65,7 @@
 
                 <!-- content wrapper -->
                 <h:panelGroup layout="block"  id="content">
-                    <ui:insert name="content" >
+                    <ui:insert name="#{sects.content}" >
                         <!-- Aqui entra o conteúdo da página -->
                     </ui:insert>
                 </h:panelGroup>
@@ -76,7 +76,7 @@
         <!-- end main container -->
 
         <!-- scripts -->
-        <ui:insert name="scripts" >
+        <ui:insert name="#{sects.scripts}" >
             <h:outputScript library="js" name="bootstrap.min.js" />
             <h:outputScript library="js" name="theme.js" />
             <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />

@@ -7,13 +7,13 @@
                 >
 
     <!-- Título da página -->
-    <ui:define name="page-name">
+    <ui:define name="#{sects.title}">
         #{msg['index.title']}
     </ui:define>
     <!-- Fim do Título -->
 
     <!-- Conteúdo da página -->
-    <ui:define name="content">
+    <ui:define name="#{sects.content}">
         <ui:include src="lista-notificacao-reduzida.xhtml" />
     </ui:define>
     <!-- Fim do conteúdo -->
