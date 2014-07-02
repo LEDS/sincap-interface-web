@@ -1,144 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                >
 
-    <h:head>
-        <title>#{msg['busca-notificacao.title']}</title>
-        <!-- meta -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título da página -->
+    <ui:define name="page-name">
+        #{msg['busca-notificacao.title']}
+    </ui:define>
 
-        <!-- bootstrap -->
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+    <!-- Conteúdo da página -->
+    <ui:define name="content">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
 
-        <!-- libraries -->
-        <h:outputStylesheet library="css/lib" name="bootstrap-wysihtml5.css" />
-        <h:outputStylesheet library="css/lib" name="uniform.default.css" />
-        <h:outputStylesheet library="css/lib" name="select2.css" />
-        <h:outputStylesheet library="css/lib" name="bootstrap.datepicker.css" />
-        <h:outputStylesheet library="css/lib" name="font-awesome.css" />
-        <h:outputStylesheet library="css/lib" name="bootstrap.datepicker.css" />
+                        <h:outputLabel>${msg['notificacao.msg.etapa.obito']}:</h:outputLabel>
 
-        <!-- global styles -->
-        <h:outputStylesheet library="css" name="layout.css" />
-        <h:outputStylesheet library="css" name="elements.css" />
-        <h:outputStylesheet library="css" name="icons.css" />
-
-        <!-- this page specific styles -->
-        <h:outputStylesheet library="css/compiled" name="form-wizard.css" />
-        <h:outputStylesheet library="css/compiled" name="form-showcase.css" />
-
-        <!-- open sans font -->
-        <link
-            href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-            rel='stylesheet' type='text/css' />
-
-        <!--[if lt IE 9]>
-                      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-                    <![endif] -->
-
-    </h:head>
-    <h:body>
-        <!-- navbar -->
-        <div class="navbar navbar-inverse">
-            <ui:insert  name="menu-navbar" >
-                <ui:include src="menu-navbar.xhtml" />
-            </ui:insert>
-        </div>
-        <!-- end navbar -->
-
-        <!-- sidebar -->
-        <div id="sidebar-nav">
-            <ui:insert name="menu-sidebar" >
-                <ui:include src="menu-sidebar.xhtml" />
-            </ui:insert>
-        </div>
-        <!-- end sidebar -->
-
-        <!-- main container -->
-        <div class="content">
-
-            <div class="container-fluid">
-                <div id="pad-wrapper">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div id="fuelux-wizard" class="wizard row-fluid">
-                                
-                                <h:outputLabel>${msg['notificacao.msg.etapa.obito']}:</h:outputLabel>
-                                
-                                <!-- mensagem de erro -->
-                                <center>
-                                    <h:panelGroup rendered="#{not empty displayError}">
-                                        <div class="span12">
-                                            <div class="alert alert-error" style="display:#{displayError}">
-                                                <i class="icon-remove-sign"></i>
-                                                Erro, todos os campos devem ser preenchidos.
-                                            </div>
-                                        </div>
-                                    </h:panelGroup>
-                                </center>
-                                <center>
-                                    <div>
-                                        <h:panelGroup rendered="#{not empty displaySuccess}">
-                                            <div class="alert alert-success" style="display:#{displaySuccess}">
-                                                <i class="icon-ok-sign"></i>
-                                                Notificação salva com sucesso.
-                                            </div>
-                                        </h:panelGroup>
+                        <!-- mensagem de erro -->
+                        <center>
+                            <h:panelGroup rendered="#{not empty displayError}">
+                                <div class="span12">
+                                    <div class="alert alert-error" style="display:#{displayError}">
+                                        <i class="icon-remove-sign"></i>
+                                        Erro, todos os campos devem ser preenchidos.
                                     </div>
-                                </center>
-                            </div>
-                            <div class="step-content">    
-                                <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.adicionar}" method="post">
-                                    <div class="step-pane active" id="step1">
-                                        <div class="row-fluid form-wrapper">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#abaPaciente" data-toggle="tab">${msg['paciente.aba.text.titulo']}</a></li>
-                                                <li><a href="#abaObito" data-toggle="tab">${msg['obito.aba.text.titulo']}</a></li>
-                                            </ul>
-                                        </div>
-
-                                        <div class="tab-content">
-                                            <div id="abaPaciente" class="tab-pane active">
-                                                <ui:insert name="notificacao-obito-aba-paciente">
-                                                    <ui:include src="form-notificacao-obito-aba-paciente.xhtml" />
-                                                </ui:insert>
-                                            </div>
-                                            <div id="abaObito" class="tab-pane ">                                        
-                                                <ui:insert name="notificacao-obito-aba-obito">
-                                                    <ui:include src="form-notificacao-obito-aba-obito.xhtml" />
-                                                </ui:insert>                                         
-                                            </div>
-                                        </div>
-
-                                        <button type="submit" class="btn-glow success btn-finish">
-                                            ${msg['obito.button.finalizar']}
-                                        </button>
+                                </div>
+                            </h:panelGroup>
+                        </center>
+                        <center>
+                            <div>
+                                <h:panelGroup rendered="#{not empty displaySuccess}">
+                                    <div class="alert alert-success" style="display:#{displaySuccess}">
+                                        <i class="icon-ok-sign"></i>
+                                        Notificação salva com sucesso.
                                     </div>
-                                </form>
+                                </h:panelGroup>
                             </div>
-                        </div>
+                        </center>
+                    </div>
+                    <div class="step-content">
+                        <form id="notifObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.adicionar}" method="post">
+                            <div class="step-pane active" id="step1">
+                                <div class="row-fluid form-wrapper">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#abaPaciente" data-toggle="tab">${msg['paciente.aba.text.titulo']}</a></li>
+                                        <li><a href="#abaObito" data-toggle="tab">${msg['obito.aba.text.titulo']}</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div id="abaPaciente" class="tab-pane active">
+                                        <ui:insert name="notificacao-obito-aba-paciente">
+                                            <ui:include src="form-notificacao-obito-aba-paciente.xhtml" />
+                                        </ui:insert>
+                                    </div>
+                                    <div id="abaObito" class="tab-pane ">
+                                        <ui:insert name="notificacao-obito-aba-obito">
+                                            <ui:include src="form-notificacao-obito-aba-obito.xhtml" />
+                                        </ui:insert>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-glow success btn-finish">
+                                    ${msg['obito.button.finalizar']}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end main container -->
-        <!-- scripts for this page -->
-
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="theme.js" />
-        <h:outputScript library="js" name="fuelux.wizard.js" />	
-        <h:outputScript library="js" name="sincaplib.js" />
-        <h:outputScript library="js" name="jquery.mask.min.js" />
-        <h:outputScript library="js" name="jquery.validate.min.js" />
-
 
         <script type="text/javascript">
             $(function() {
@@ -328,62 +263,7 @@
                 }
             });
         </script>
-    </h:body>
-</html>
+    </ui:define>
+    <!-- Fim do conteúdo -->
 
-<!--$(document).ready(function() {
-                $('data').mask('00/00/0000', {
-                    reverse: true
-                });
-            });
-
-            //Validando os dados do formulario
-            $("#notifObito").validate({
-                rules: {
-                    nomePaciente: {
-                        required: true,
-                    },
-                },
-                messages: {
-                    nomePaciente: {
-                        required: "Por favor, entre com o nome do paciente.",
-                    },
-                },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });-->
-
-
-
-<!-- $(function() {
-                var $wizard = $('#fuelux-wizard'),
-                        $btnPrev = $('.wizard-actions .btn-prev'),
-                        $btnNext = $('.wizard-actions .btn-next'),
-                        $btnFinish = $(".wizard-actions .btn-finish");
-
-                $wizard.wizard().on('finished', function(e) {
-                    // wizard complete code
-                }).on("changed", function(e) {
-                    var step = $wizard.wizard("selectedItem");
-                    // reset states
-                    $btnNext.removeAttr("disabled");
-                    $btnPrev.removeAttr("disabled");
-                    $btnNext.show();
-                    $btnFinish.hide();
-
-                    if (step.step === 1) {
-                        $btnPrev.attr("disabled", "disabled");
-                    } else if (step.step === 3) {
-                        $btnNext.hide();
-                        $btnFinish.show();
-                    }
-                });
-
-                $btnPrev.on('click', function() {
-                    $wizard.wizard('previous');
-                });
-                $btnNext.on('click', function() {
-                    $wizard.wizard('next');
-                });
-            });-->
+</ui:composition>
