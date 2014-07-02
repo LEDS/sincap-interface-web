@@ -8,7 +8,7 @@
 
     <h:head>
         <!-- title -->
-        <title>#{msg['notificacao.step2.tab1.title']}</title>
+        <title>#{msg['analise.entrevista.titulo']}</title>
 
         <!-- meta -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -56,47 +56,41 @@
 
     <!-- main container -->
     <h:panelGroup layout="block" styleClass="content">
-        
-        <h:outputLabel>${msg['analise.entrevista.titulo']} - Página em Construção</h:outputLabel>
-        
-        <form id="analisaObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}" method="post">
-            
-            Nessa tela os dados serão analisados e será dado o aval </br>
-            para continuar o Processo de Notificação.</br>
-            Caso haja algum erro na notificação a mesma pode ser recusa </br>
-            ou, caso esteja tudo certo ela também pode ser arquivada.
-            
-            <h:panelGroup layout="block"  id="content">
-                <button type="submit" class="btn-glow success btn-finish">
-                    ${msg['analise.confirmar']}
-                </button>
-                
-                <a id="recusado" class="btn-glow danger btn-finish"
-                    href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}">
-                    ${msg['analise.recusar']}
-                </a>
-            
-                <a id="arquivar" class="btn-glow gray btn-finish"
-                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.arquivar}">
-                    ${msg['analise.arquivar']}
-                </a>
-            </h:panelGroup>
-        </form>
+        <div class="container-fluid">
+            <div id="pad-wrapper">
+                <div class="row-fluid">
+                    <div class="span12">
+                        <h:outputLabel>${msg['analise.entrevista.titulo']} - Página em Construção</h:outputLabel>
 
-        <!-- settings changer -->
-        <h:panelGroup layout="block" styleClass="container-fluid">
+                        <p>
+                            Nessa tela os dados serão analisados e será dado o aval
+                            para continuar o Processo de Notificação.
+                            Caso haja algum erro na notificação a mesma pode ser recusa, 
+                            ou caso esteja tudo certo para finalizar, ela também pode ser arquivada.
+                        </p>
 
-            <!-- upper main stats -->
-            <h:panelGroup layout="block"  id="content">
-<!--                <ui:insert name="content" >
-                    <ui:include src="estatisticas.xhtml" />
-                </ui:insert>-->
-            </h:panelGroup>
-            <!-- end upper main stats -->
-            <ui:insert>
-                <ui:include src="form-entrevista-nao-realizada.xhtml" />
-            </ui:insert>
-        </h:panelGroup>
+                        <form id="analisaObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}" method="post">
+
+                            <h:panelGroup layout="block"  id="content">
+                                <button type="submit" class="btn-glow success btn-finish">
+                                    ${msg['analise.confirmar']}
+                                </button>
+
+                                <a id="recusado" class="btn-glow inverse btn-finish"
+                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.recusar}">
+                                    ${msg['analise.recusar']}
+                                </a>
+
+                                <a id="arquivar" class="btn-glow primary btn-finish"
+                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.arquivar}">
+                                    ${msg['analise.arquivar']}
+                                </a>
+                            </h:panelGroup>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </h:panelGroup>
     <!-- end main container -->
 

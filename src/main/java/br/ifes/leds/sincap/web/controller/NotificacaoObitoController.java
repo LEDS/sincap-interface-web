@@ -19,5 +19,10 @@ public class NotificacaoObitoController {
     public String loadFormNovaNotificacao() {
         return "form-notificacao-obito";
     }
+    
+    @RequestMapping(value = ContextUrls.APP_ANALISAR, method = RequestMethod.GET)
+    public String loadAnalisaNotificacaoObito() {
+        return "analise-obito";
+    }
 
 }
