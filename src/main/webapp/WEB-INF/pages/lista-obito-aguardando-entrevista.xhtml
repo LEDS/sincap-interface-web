@@ -3,71 +3,79 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"> 
-    
+
     <!-- main container -->
-                <h:panelGroup layout="block" styleClass="row-fluid">
-                    
-                    <h:panelGroup layout="block" styleClass="span12">
-                        <h:panelGroup styleClass="row-fluid form-wrapper">
-                            <h:dataTable id="table1" value="#{listaNotificacoesForm}" var="notificacao"
-                                         rows="#{quantidade}" styleClass="table table-hover table-striped">
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Protocolo" />
-                                    </f:facet>
-                                    #{notificacao.protocolo}
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Paciente" />
-                                    </f:facet>
-                                    #{notificacao.paciente}
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Data do Óbito" />
-                                    </f:facet>
-                                    <h:outputText value="#{notificacao.dataObito}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Hora do Óbito" />
-                                    </f:facet>
-                                    <h:outputText value="#{notificacao.horaObito}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Data da Notificação" />
-                                    </f:facet>
-                                    <h:outputText value="#{notificacao.dataNotificacao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Hora da Notificação" />
-                                    </f:facet>
-                                    <h:outputText value="#{notificacao.horaNotificacao}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Resumo" />
-                                    </f:facet>
-                                    <a
-                                        href = "http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/visualizar/#{notificacao.idNotificacao}">
-                                        <i class="icon-file"></i>
-                                    </a>
-                                </h:column>
-                            </h:dataTable>
-                        </h:panelGroup>
-                    </h:panelGroup>
-                </h:panelGroup>
-    <!-- end main container -->
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">   
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+                <h:dataTable id="table1" value="#{listaNotificacoesForm}" var="notificacao"
+                             rows="#{quantidade}" styleClass="table table-hover table-striped">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Protocolo" />
+                        </f:facet>
+                        #{notificacao.protocolo}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Paciente" />
+                        </f:facet>
+                        #{notificacao.paciente}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data do Óbito" />
+                        </f:facet>
+                        <h:outputText value="#{notificacao.dataObito}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Hora do Óbito" />
+                        </f:facet>
+                        <h:outputText value="#{notificacao.horaObito}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data da Notificação" />
+                        </f:facet>
+                        <h:outputText value="#{notificacao.dataNotificacao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Hora da Notificação" />
+                        </f:facet>
+                        <h:outputText value="#{notificacao.horaNotificacao}">
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Notificar Entrevista" />
+                        </f:facet>
+                        <form id="formulario-notificar-entrevista-${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.adicionar}" method="post">
+                            <input type="hidden" name="id" value="${h.id}" />
+                            <a id="submit-notificar-entrevista-${h.id}" href="#">
+                                <center>
+                                    <i class="icon-edit"></i>
+                                </center>
+                            </a>
+                            <!-- Link dando submit no form com JQuery -->
+                            <script>
+                                $(submit-notificar-entrevista-${h.id}).click(function() {
+                                    $(formulario-notificar-entrevista-${h.id}).submit();
+                                });
+                            </script>
+                        </form>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
 
 </ui:composition>
