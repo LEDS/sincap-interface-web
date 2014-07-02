@@ -18,7 +18,7 @@ public class ContextUrls {
      */
     public static final String INDEX = "/index";
     public static final String ADMIN = "/admin";
-    public static final String RELATORIOS = "/relatorio";   
+    public static final String RELATORIOS = "/relatorio";
     /**
      * Aplicações (Controllers)
      */
@@ -34,6 +34,7 @@ public class ContextUrls {
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
     public static final String APP_ANALISAR = "/analisar";
+    public static final String APP_ENDERECO = "/endereco";
     /**
      * Métodos
      */
@@ -44,7 +45,8 @@ public class ContextUrls {
     public static final String CONFIRMAR = "/confirmar";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
-    
+    public static final String GET_MUNICIPIOS = "/getMunicipios";
+    public static final String GET_BAIRROS = "/getBairros";
 
     /**
      * Subsistemas
@@ -67,6 +69,7 @@ public class ContextUrls {
     String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
     String app_notificacao_entrevista = APP_NOTIFICACAO_ENTREVISTA;
     String app_analisar = APP_ANALISAR;
+    String app_endereco = APP_ENDERECO;
     /**
      * Métodos
      */
@@ -77,4 +80,6 @@ public class ContextUrls {
     String confirmar = CONFIRMAR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
+    String get_municipios = GET_MUNICIPIOS;
+    String get_bairros = GET_BAIRROS;
 }

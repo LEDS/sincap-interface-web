@@ -52,13 +52,13 @@
             <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}" />
             <h:selectOneMenu id="cidadePaciente" value="#{pacienteForm.endereco.cidade}" class="ui-select"
                 onchange="ajaxGetBairros(cidadePaciente, bairroPaciente)">
-                <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.cidade.escolha']}" />
+                <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.cidade']}" />
                 <f:selectItems value="#{listaCidadeItem}" />
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}" />
             <h:selectOneMenu id="bairroPaciente" value="#{pacienteForm.endereco.bairro}" class="ui-select">
-                <f:selectItem itemValue="" itemLabel="#{msg['paciente.dropDown.bairro.escolha']}" />
+                <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.bairro']}" />
                 <f:selectItems value="#{listaBairroItem}" />
             </h:selectOneMenu>
 

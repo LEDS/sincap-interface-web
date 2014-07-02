@@ -91,7 +91,7 @@ function ajaxGetMunicipios(estado, municipio) {
     $.ajax({
         type: "post",
 //		url: "http://localhost:8080/sincap/notificacao/getMunicipios",
-        url: "http://" + location.host + "/sincap/notificacao/getMunicipios",
+        url: "http://" + location.host + "/sincap/endereco/getMunicipios",
         cache: false,
         data: val,
         Accept: "application/json",
@@ -128,7 +128,7 @@ function ajaxGetBairros(idMunicipio, idBairro) {
     $.ajax({
         type: "post",
 //		url: "http://localhost:8080/sincap/notificacao/getBairros",
-        url: "http://" + location.host + "/sincap/notificacao/getBairros",
+        url: "http://" + location.host + "/sincap/endereco/getBairros",
         cache: false,
         data: val,
         Accept: "application/json",

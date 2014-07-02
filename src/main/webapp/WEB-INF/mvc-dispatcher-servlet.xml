@@ -14,13 +14,13 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 
-    <context:component-scan base-package="br.ifes.leds.sincap.web.controller,br.ifes.leds.sincap.web.model" />
+    <context:component-scan base-package="br.ifes.leds.sincap.web.controller,br.ifes.leds.sincap.web.model,br.ifes.leds.sincap.web.utility" />
 
     <bean id="usuarioSessao" class="br.ifes.leds.sincap.web.model.UsuarioSessao" scope="session">
         <!-- this next element effects the proxying of the surrounding bean -->
         <aop:scoped-proxy/>
     </bean>
-
+    
     <mvc:annotation-driven />
 	
     <!-- Adicionado as entidades do banco de dados  -->  
@@ -35,7 +35,6 @@
             <value>.xhtml</value>
         </property>
     </bean>
-
 </beans>
 
 

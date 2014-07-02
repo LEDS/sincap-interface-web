@@ -55,8 +55,7 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String cadastrarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO,
-            ModelMap model) {
+    public String cadastrarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
         try {
             modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
 
@@ -83,40 +82,22 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO, ModelMap model) {
-        modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
-        try {
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
-        } catch (ViolacaoDeRIException e) {
-        }
-        
-        return "analise-entrevista";
+    public String recusarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+        return finalizarAnaliseEntrevista(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
     }
 
     @RequestMapping(value = ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO,
-            ModelMap model) {
-        modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOCAPTACAO);
-        try {
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
-        } catch (ViolacaoDeRIException e) {
-        }
-        return "analise-entrevista";
+    public String confirmarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+        return finalizarAnaliseEntrevista(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOCAPTACAO);
     }
 
     @RequestMapping(value = ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO,
-            ModelMap model) {
-        modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
-        try {
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
-        } catch (ViolacaoDeRIException e) {
-        }
-        return "analise-entrevista";
+    public String arquivarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+        return finalizarAnaliseEntrevista(processoNotificacaoDTO, EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
     }
     
     private String finalizarAnaliseEntrevista(ProcessoNotificacaoDTO processoNotificacaoDTO, EstadoNotificacaoEnum ESTADO){
-        modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
+        modificaEstadoAtual(processoNotificacaoDTO, ESTADO);
         try {
             aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
         } catch (ViolacaoDeRIException e) {
