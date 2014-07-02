@@ -5,6 +5,7 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.AtualizacaoEstadoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.EntrevistaDTO;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author marcosdias
+ * @author Breninnho Paraneuê
  */
 @Controller
 @RequestMapping(ContextUrls.APP_NOTIFICACAO_ENTREVISTA)
