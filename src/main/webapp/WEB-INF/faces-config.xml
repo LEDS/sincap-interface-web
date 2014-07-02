@@ -5,10 +5,17 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
     http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     version="2.0">
-	<application>
-		<resource-bundle>
-			<base-name>br.ifes.leds.sincap.message.messages</base-name>
-			<var>msg</var>
-		</resource-bundle>
-	</application>
+    <application>
+        <!-- Mensagens para as páginas -->
+        <resource-bundle>
+            <base-name>br.ifes.leds.sincap.message.messages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+
+        <!-- Nomes das seções dos facelets -->
+        <resource-bundle>
+            <base-name>br.ifes.leds.sincap.facelets.facelets-sections</base-name>
+            <var>sects</var>
+        </resource-bundle>
+    </application>
 </faces-config>
