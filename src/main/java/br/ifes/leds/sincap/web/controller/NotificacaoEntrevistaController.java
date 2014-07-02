@@ -6,7 +6,9 @@
 
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import javax.faces.bean.SessionScoped;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
