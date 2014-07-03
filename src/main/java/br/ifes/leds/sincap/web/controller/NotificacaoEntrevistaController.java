@@ -43,9 +43,9 @@ public class NotificacaoEntrevistaController {
         try {
             //ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(idProcessoNotificacao);
             EntrevistaDTO novaEntrevista = new EntrevistaDTO();
-            pnDTO.setEntrevista(novaEntrevista);
+            //pnDTO.setEntrevista(novaEntrevista);
 
-            model.addAttribute("processoNotificacaoDTO", pnDTO);
+            //model.addAttribute("processo", pnDTO);
 
         } catch (Exception e) {
 
