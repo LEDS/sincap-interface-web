@@ -9,6 +9,7 @@ import javax.faces.model.SelectItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -16,6 +17,7 @@ import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.CausaNaoDoacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
 
@@ -39,12 +41,22 @@ public class NotificacaoObitoController {
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormNovaNotificacao(ModelMap model) {
+        ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
+
         utility.preencherEstados(model, aplEndereco);
 
+        model.addAttribute("processo", processo);
         model.addAttribute("listaSetor", getListaSetoresSelectItem());
         model.addAttribute("listaCausaNaoDoacao",
                 getListaCausaNDoacaoSelectItem());
 
+        return "form-notificacao-obito";
+    }
+
+    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
+    public String salvarFormNovaNotificacao(
+            @ModelAttribute ProcessoNotificacaoDTO processo) {
+        
         return "form-notificacao-obito";
     }
 
