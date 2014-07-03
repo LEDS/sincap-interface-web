@@ -21,7 +21,7 @@
                              class="ui-select">
                 <f:selectItem itemValue=""
                               itemLabel="#{msg['obito.obito.dropDown.setor.escolha']}" />
-                <f:selectItems value="#{pacienteForm.setoresBanco}" />
+                <f:selectItems value="#{listaSetor}" />
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.obito.motivos1']}" />
@@ -54,7 +54,7 @@
                              styleClass="select2" onchange="ajaxGetMunicipios(estadoPaciente, cidadePaciente)">
                 <f:selectItem itemValue=""
                               itemLabel="#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}" />
-                <f:selectItems value="#{pacienteForm.estadosBanco}" />
+                <f:selectItems value="#{listaCausaNaoDoacao}" />
             </h:selectOneMenu>
         </h:panelGrid>
     </h:panelGrid>
