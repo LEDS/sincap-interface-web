@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author Breninnho Paraneuê
+ * @author Breno Grillo
  */
 @Controller
 @RequestMapping(ContextUrls.APP_NOTIFICACAO_ENTREVISTA)
