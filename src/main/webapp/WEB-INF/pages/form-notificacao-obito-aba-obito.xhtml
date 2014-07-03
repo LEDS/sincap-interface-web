@@ -6,12 +6,13 @@
     <h:panelGrid>
 
         <h:panelGrid id="obito" columns="2">
-
             <h:outputLabel value="#{msg['obito.obito.data']}" />
             <h:inputText class="data" id="dataObito"
                 value="#{processo.obito.dataObito}" />
 
-            
+            <h:outputLabel value="#{msg['obito.obito.horario']}" />
+            <h:inputText class="hora" id="horarioObito"
+                value="#{processo.obito.dataObito}" />
 
             <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}" />
             <h:selectOneMenu id="setor" value="#{processo.obito.setor}"
@@ -46,7 +47,6 @@
                 <f:selectItem itemValue="false"
                     itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.inapto']}" />
             </h:selectOneRadio>
-
             <h:outputLabel
                 value="#{msg['obito.obito.contraIndicacoes-Medicas']}" />
             <h:selectOneMenu id="causaNaoDoacao"
@@ -63,8 +63,8 @@
 									function() {
 										$('[name="aptoDoacao"]').prop("name",
 												"obito.aptoDoacao");
-										setNomeVarios('obito', dataObito,
-												setor, primeiraCausaMortis,
+										setNomeVarios('obito', setor,
+												primeiraCausaMortis,
 												segundaCausaMortis,
 												terceiraCausaMortis,
 												quartaCausaMortis);

@@ -1,5 +1,6 @@
 package br.ifes.leds.sincap.web.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
@@ -36,7 +38,8 @@ public class NotificacaoObitoController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UsuarioSessao usuarioSessao;
-
+    @Autowired
+    private br.ifes.leds.reuse.utility.Utility utilityEntities;
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
@@ -55,8 +58,24 @@ public class NotificacaoObitoController {
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarFormNovaNotificacao(
-            @ModelAttribute ProcessoNotificacaoDTO processo) {
-        
+            @ModelAttribute ProcessoNotificacaoDTO processo,
+            @RequestParam("dataNascimento") String dataNascimento,
+            @RequestParam("dataInternacao") String dataInternacao,
+            @RequestParam("dataObito") String dataObito,
+            @RequestParam("horarioObito") String horarioObito)
+            throws ParseException {
+
+        processo.getObito().setDataObito(
+                utilityEntities.stringToCalendar(dataObito, horarioObito));
+        processo.getObito()
+                .getPaciente()
+                .setDataNascimento(
+                        utilityEntities.stringToCalendar(dataNascimento));
+        processo.getObito()
+                .getPaciente()
+                .setDataInternacao(
+                        utilityEntities.stringToCalendar(dataInternacao));
+
         return "form-notificacao-obito";
     }
 
