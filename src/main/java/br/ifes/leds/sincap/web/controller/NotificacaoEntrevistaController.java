@@ -39,9 +39,9 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormEntrevista(@ModelAttribute Long idProcessoNotificacao, ModelMap model) {
+    public String loadFormEntrevista(ModelMap model) { //@ModelAttribute Long idProcessoNotificacao, 
         try {
-            ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(idProcessoNotificacao);
+            //ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(idProcessoNotificacao);
             EntrevistaDTO novaEntrevista = new EntrevistaDTO();
             pnDTO.setEntrevista(novaEntrevista);
 
