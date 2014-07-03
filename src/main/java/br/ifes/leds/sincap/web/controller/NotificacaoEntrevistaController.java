@@ -41,11 +41,11 @@ public class NotificacaoEntrevistaController {
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormEntrevista(ModelMap model) { //@ModelAttribute Long idProcessoNotificacao, 
         try {
-            //ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(idProcessoNotificacao);
             EntrevistaDTO novaEntrevista = new EntrevistaDTO();
-            pnDTO.setEntrevista(novaEntrevista);
-
-            model.addAttribute("processoNotificacaoDTO", pnDTO);
+//            ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(idProcessoNotificacao);
+//            pnDTO.setEntrevista(novaEntrevista);
+//
+//            model.addAttribute("processoNotificacaoDTO", pnDTO);
 
         } catch (Exception e) {
 
