@@ -12,12 +12,12 @@
             <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}" />
             <h:inputText class="data" styleClass="input-large datepicker"
                 id="dataNascimento"
-                value="#{processo.obito.paciente.dataNascimento}" />
+                value="#{dataNascimento}" />
 
             <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}" />
             <h:inputText class="data" styleClass="input-large datepicker"
                 id="dataInternacao"
-                value="#{processo.obito.paciente.dataInternacao}" />
+                value="#{dataInternacao}" />
 
             <h:outputLabel value="#{msg['obito.paciente.docSocial']}" />
             <h:inputText id="documentoSocial"
@@ -56,7 +56,7 @@
             <h:inputText id="nomeMae" value="#{processo.obito.paciente.nomeMae}" />
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}" />
-            <h:selectOneMenu id="estado" value="#{pacienteForm.endereco.estado}"
+            <h:selectOneMenu id="estado" value="#{processo.obito.paciente.endereco.estado}"
                 styleClass="select2"
                 onchange="ajaxGetMunicipios(estado, cidade)">
                 <f:selectItem itemValue=""
@@ -65,7 +65,7 @@
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}" />
-            <h:selectOneMenu id="cidade" value="#{pacienteForm.endereco.cidade}"
+            <h:selectOneMenu id="cidade" value="#{processo.obito.paciente.endereco.cidade}"
                 class="ui-select" onchange="ajaxGetBairros(cidade, bairro)">
                 <f:selectItem itemValue=""
                     itemLabel="#{msg['obito.paciente.dropDown.cidade']}" />
@@ -73,7 +73,7 @@
             </h:selectOneMenu>
 
             <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}" />
-            <h:selectOneMenu id="bairro" value="#{pacienteForm.endereco.bairro}"
+            <h:selectOneMenu id="bairro" value="#{processo.obito.paciente.endereco.bairro}"
                 class="ui-select">
                 <f:selectItem itemValue=""
                     itemLabel="#{msg['obito.paciente.dropDown.bairro']}" />

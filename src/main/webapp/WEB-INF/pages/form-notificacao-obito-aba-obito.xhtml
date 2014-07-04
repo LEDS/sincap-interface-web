@@ -8,11 +8,11 @@
         <h:panelGrid id="obito" columns="2">
             <h:outputLabel value="#{msg['obito.obito.data']}" />
             <h:inputText class="data" id="dataObito"
-                value="#{processo.obito.dataObito}" />
+                value="#{dataObito}" />
 
             <h:outputLabel value="#{msg['obito.obito.horario']}" />
             <h:inputText class="hora" id="horarioObito"
-                value="#{processo.obito.dataObito}" />
+                value="#{horaObito}" />
 
             <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}" />
             <h:selectOneMenu id="setor" value="#{processo.obito.setor}"
@@ -24,19 +24,19 @@
 
             <h:outputLabel value="#{msg['obito.obito.motivos1']}" />
             <h:inputText id="primeiraCausaMortis"
-                value="#{processo.obito.primeiraCausaMortis}" />
+                value="#{processo.obito.primeiraCausaMortis.nome}" />
 
             <h:outputLabel value="#{msg['obito.obito.motivos2']}" />
             <h:inputText id="segundaCausaMortis"
-                value="#{processo.obito.segundaCausaMortis}" />
+                value="#{processo.obito.segundaCausaMortis.nome}" />
 
             <h:outputLabel value="#{msg['obito.obito.motivos3']}" />
             <h:inputText id="terceiraCausaMortis"
-                value="#{processo.obito.terceiraCausaMortis}" />
+                value="#{processo.obito.terceiraCausaMortis.nome}" />
 
             <h:outputLabel value="#{msg['obito.obito.motivos4']}" />
             <h:inputText id="quartaCausaMortis"
-                value="#{processo.obito.quartaCausaMortis}" />
+                value="#{processo.obito.quartaCausaMortis.nome}" />
 
             <h:outputLabel
                 value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}" />
