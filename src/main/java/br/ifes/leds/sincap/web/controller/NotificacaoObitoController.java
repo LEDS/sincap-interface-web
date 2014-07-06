@@ -83,7 +83,7 @@ public class NotificacaoObitoController {
         model.addAttribute("horaObito", utilityEntities
                 .calendarHoraToString(processo.getObito().getDataObito()));
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "form-notificacao-obito";
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
