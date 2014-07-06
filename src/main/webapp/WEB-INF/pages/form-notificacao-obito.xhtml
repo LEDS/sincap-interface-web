@@ -110,24 +110,11 @@
 									});
 
 									$(document).ready(function() {
-										$('.data').mask('00/00/0000', {
-											reverse: false
-										});
-										$('.hora').mask('00:00', {
-											reverse: true
-										});
-										$('.rg').mask('0.000.000', {
-											reverse: false
-										});
-										$('.cpf').mask('000.000.000-00', {
-											reverse: false
-										});
-										$('.cep').mask('00000-000', {
-											reverse: false
-										});
-										$('.tel').mask('(00)0000-0000', {
-											reverse: false
-										});
+										$('.data').inputmask('99/99/9999');
+										$('.hora').inputmask('99:99');
+										$('.cpf').inputmask('999.999.999-99');
+										$('.cep').mask('99999-999');
+										$('.tel').inputmask({mask: ["(99)9999-9999", "(99)99999-9999"]});
 									});
 
 									//Validando os dados do formulario
