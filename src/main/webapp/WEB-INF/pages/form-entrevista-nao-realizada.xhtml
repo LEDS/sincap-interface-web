@@ -80,25 +80,25 @@
             <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
             <h:inputText style="width: 100%" id="nacionalidadeResponsavel" value="#{entrevistaForm.nacionalidadeResponsavel}"/>
             <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
-            <h:selectOneMenu style="width: 100%" id="ufResponsavel" value="#{entrevistaForm.ufResponsavel}"
+            <h:selectOneMenu style="width: 100%" id="estado" value="#{entrevistaForm.ufResponsavel}" onchange="ajaxGetMunicipios(estado, cidade)"
                              styleClass="select2" >
                 <f:selectItem itemValue=""
                               itemLabel="#{msg['responsavel.dropdown.uf']}" />
-                <f:selectItems value="#{entrevistaForm.ufResponsavel}" />
+                <f:selectItems value="#{listaEstadoItem}" />
             </h:selectOneMenu>
             <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
-            <h:selectOneMenu style="width: 100%" id="cidadeResponsavel" value="#{entrevistaForm.cidadeResponsavel}"
+            <h:selectOneMenu style="width: 100%" id="cidade" value="#{entrevistaForm.cidadeResponsavel}" onchange="ajaxGetBairros(cidade, bairro)"
                              styleClass="select2" >
                 <f:selectItem itemValue=""
                               itemLabel="#{msg['responsavel.dropdown.cidade']}" />
-                <f:selectItems value="#{entrevistaForm.cidadeResponsavel}" />
+                <f:selectItems value="#{listaCidadeItem}" />
             </h:selectOneMenu>
             <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
-            <h:selectOneMenu style="width: 100%" id="bairroResponsavel" value="#{entrevistaForm.bairroResponsavel}"
+            <h:selectOneMenu style="width: 100%" id="bairro" value="#{entrevistaForm.bairroResponsavel}"
                              styleClass="select2" >
                 <f:selectItem itemValue=""
                               itemLabel="#{msg['responsavel.dropdown.bairro']}" />
-                <f:selectItems value="#{entrevistaForm.bairroResponsavel}" />
+                <f:selectItems value="#{listaBairroItem}" />
             </h:selectOneMenu>
             <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
             <h:inputText style="width: 100%" id="logradouroResponsavel" value="#{entrevistaForm.logradouroResponsavel}"/>

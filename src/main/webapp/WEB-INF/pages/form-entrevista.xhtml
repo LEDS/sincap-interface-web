@@ -84,30 +84,21 @@
         });
 
         $(document).ready(function() {
-            $('.dataEntrevista').mask('00/00/0000', {
-                reverse: true
+            $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
+            $('.horaEntrevista').inputmask('hh:mm');
+            $('.rgResponsavel').inputmask({
+            	mask: ['9.999.999-aa', '99.999.999-aa'],
+            	placeholder: "_"
+        	});
+            $('.cepResponsavel').inputmask('99999-999');
+            $('.telefone1Responsavel').inputmask({
+                mask: ["(99)9999-9999", "(99)99999-9999"]
             });
-            $('.horaEntrevista').mask('00:00', {
-                reverse: true
+            $('.telefone2Responsavel').inputmask({
+                mask: ["(99)9999-9999", "(99)99999-9999"]
             });
-            $('.rgResponsavel').mask('0.000.000', {
-                reverse: true
-            });
-            $('.cepResponsavel').mask('00000-000', {
-                reverse: true
-            });
-            $('.telefone1Responsavel').mask('(00)0000-0000', {
-                reverse: true
-            });
-            $('.telefone2Responsavel').mask('(00)0000-0000', {
-                reverse: true
-            });
-            $('.cpfTestemunha1').mask('000.000.000-00', {
-                reverse: true
-            });
-            $('.cpfTestemunha2').mask('000.000.000-00', {
-                reverse: true
-            });
+            $('.cpfTestemunha1').inputmask('999.999.999-99');
+            $('.cpfTestemunha2').inputmask('999.999.999-99');
         });
 
          //Validando os dados do formulario
