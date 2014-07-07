@@ -1,5 +1,6 @@
 package br.ifes.leds.sincap.web.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,14 +11,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.ProcessoNotificacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
 
@@ -35,8 +40,11 @@ public class NotificacaoObitoController {
     @Autowired
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
+    private AplProcessoNotificacao aplProcessoNotificacao;
+    @Autowired
     private UsuarioSessao usuarioSessao;
-
+    @Autowired
+    private br.ifes.leds.reuse.utility.Utility utilityEntities;
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
@@ -44,20 +52,75 @@ public class NotificacaoObitoController {
         ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
 
         utility.preencherEstados(model, aplEndereco);
+        preencherSetorCausaNDoacao(model);
+        model.addAttribute("processo", processo);
+
+        return "form-notificacao-obito";
+    }
+
+    @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
+    public String editarNotificacaoObito(ModelMap model,
+            @PathVariable Long idProcesso) {
+
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        utility.preencherEndereco(processo.getObito().getPaciente()
+                .getEndereco(), model, aplEndereco);
+        preencherSetorCausaNDoacao(model);
 
         model.addAttribute("processo", processo);
-        model.addAttribute("listaSetor", getListaSetoresSelectItem());
-        model.addAttribute("listaCausaNaoDoacao",
-                getListaCausaNDoacaoSelectItem());
+        model.addAttribute(
+                "dataNascimento",
+                utilityEntities.calendarDataToString(processo.getObito()
+                        .getPaciente().getDataNascimento()));
+        model.addAttribute(
+                "dataInternacao",
+                utilityEntities.calendarDataToString(processo.getObito()
+                        .getPaciente().getDataInternacao()));
+        model.addAttribute("dataObito", utilityEntities
+                .calendarDataToString(processo.getObito().getDataObito()));
+        model.addAttribute("horaObito", utilityEntities
+                .calendarHoraToString(processo.getObito().getDataObito()));
 
         return "form-notificacao-obito";
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarFormNovaNotificacao(
-            @ModelAttribute ProcessoNotificacaoDTO processo) {
-        
-        return "form-notificacao-obito";
+    public String salvarFormNovaNotificacao(ModelMap model,
+            @ModelAttribute ProcessoNotificacaoDTO processo,
+            @RequestParam("dataNascimento") String dataNascimento,
+            @RequestParam("dataInternacao") String dataInternacao,
+            @RequestParam("dataObito") String dataObito,
+            @RequestParam("horarioObito") String horarioObito)
+            throws ParseException {
+
+        try {
+            processo.getObito().setHospital(usuarioSessao.getIdHospital());
+            processo.setNotificador(usuarioSessao.getIdUsuario());
+            processo.getObito().setDataObito(
+                    utilityEntities.stringToCalendar(dataObito, horarioObito));
+            processo.getObito()
+                    .getPaciente()
+                    .setDataNascimento(
+                            utilityEntities.stringToCalendar(dataNascimento));
+            processo.getObito()
+                    .getPaciente()
+                    .setDataInternacao(
+                            utilityEntities.stringToCalendar(dataInternacao));
+            aplProcessoNotificacao.salvarNovaNotificacao(processo);
+        } catch (ParseException | ViolacaoDeRIException e) {
+            loadFormNovaNotificacao(model);
+        }
+
+        return "redirect:" + ContextUrls.INDEX;
+    }
+
+    private void preencherSetorCausaNDoacao(ModelMap model) {
+
+        model.addAttribute("listaSetor", getListaSetoresSelectItem());
+        model.addAttribute("listaCausaNaoDoacao",
+                getListaCausaNDoacaoSelectItem());
     }
 
     private List<SelectItem> getListaCausaNDoacaoSelectItem() {

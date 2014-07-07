@@ -1,132 +1,124 @@
 <ui:composition 
-    template="/WEB-INF/templates/form.xhtml"
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:c="http://java.sun.com/jsp/jstl/core">
-  
  
-    <h:panelGrid id="entrevista" columns="2" style=" width: 40%">
-        <h:outputLabel value="#{msg['obito.paciente.nome']}"/> 
-        <h:inputText style="width: 100%" id="nomePaciente" value="#{pacienteForm.nomePaciente}" />
-        <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
-        <h:inputText style="width: 100%" id="notificacaoProtocolo" value="#{notificacaoForm.codigo}" />
-        <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
-        <h:selectOneRadio style="padding-left:20%; width: 100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
-                          styleClass="radio">
-            <f:selectItem itemValue="SIM"
-                          itemLabel="#{msg['entrevista.radioButton.realizada.sim']}"  />
-            <f:selectItem itemValue="NÃO"
-                          itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
-        </h:selectOneRadio>
-
-
-        <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
-        <h:selectOneMenu style="width: 100%" id="problemasEstruturais" value="#{entrevistaForm.problemasEtruturais}"
-                         styleClass="dropdown" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['entrevista.dropdown.problemasEstruturais']}" />
-            <f:selectItems value="#{entrevistaForm.problemasEstruturaisBanco}" />
-        </h:selectOneMenu>
-
-
-
-
-        <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}" />
-        <h:selectOneRadio style="width: 100%" id="doacaoAutorizada" value="#{entrevistaForm.doacaoAutorizada}"
-                          styleClass="radio">
-            <f:selectItem itemValue="SIM"
-                          itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}" />
-            <f:selectItem itemValue="NÃO"
-                          itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}" />
-        </h:selectOneRadio>
-
-
-
-
-        <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}" />
-        <h:selectOneMenu style="width: 100%" id="recusaFamiliar" value="#{entrevistaForm.recusaFamiliar}"
-                         styleClass="select2" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['entrevista.dropdown.recusaFamiliar']}" />
-            <f:selectItems value="#{entrevistaForm.recusaFamiliar}" />
-        </h:selectOneMenu>
-        <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
-        <h:inputText style="width: 100%" class="dataEntrevista" id="dataEntrevista" value="#{entrevistaForm.dataEntrevista}" />
-        <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
-        <h:inputText style="width: 100%" class="horaEntrevista" id="horaEntrevista" value="#{entrevistaForm.horaEntrevista}" />
-
-
-        <h:outputLabel><center><b>${msg['entrevista.text.reponsavelLegal']}</b></center></h:outputLabel><br/><br/>
-
-        <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
-        <h:inputText style="width: 100%" id="nomeResponsavel" value="#{entrevistaForm.nomeResponsavel}" />
-        <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
-        <h:inputText style="width: 100%" class="rgResponsavel" id="rgResponsavel" value="#{entrevistaForm.rgResponsavel}" />
-        <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
-        <h:selectOneMenu style="width: 100%" id="parentescoResponsavel" value="#{entrevistaForm.parentescoResponsavel}"
-                         styleClass="select2" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['responsavel.dropdown.parentesco']}" />
-            <f:selectItems value="#{entrevistaForm.parentescoResponsavel}" />
-        </h:selectOneMenu>
-        <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
-        <h:selectOneMenu  style="width: 100%" id="estadoCivilResponsavel" value="#{entrevistaForm.estadoCivilResponsavel}"
-                          styleClass="select2" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['responsavel.dropdown.estadoCivil']}" />
-            <f:selectItems value="#{entrevistaForm.estadoCivilResponsavel}" />
-        </h:selectOneMenu>
-        <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
-        <h:inputText style="width: 100%" class="telefone1Responsavel" id="telefone1Responsavel" value="#{entrevistaForm.telefone1Responsavel}"/>
-        <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
-        <h:inputText style="width: 100%" class="telefone2Responsavel" id="telefone2Responsavel" value="#{entrevistaForm.telefone2Responsavel}"/>
-        <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
-        <h:inputText style="width: 100%" id="profissaoResponsavel" value="#{entrevistaForm.profissaoResponsavel}"/>
-        <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
-        <h:inputText style="width: 100%" class="cepResponsavel" id="cepResponsavel" value="#{entrevistaForm.cepResponsavel}"/>
-        <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
-        <h:inputText style="width: 100%" id="nacionalidadeResponsavel" value="#{entrevistaForm.nacionalidadeResponsavel}"/>
-        <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
-        <h:selectOneMenu style="width: 100%" id="ufResponsavel" value="#{entrevistaForm.ufResponsavel}"
-                         styleClass="select2" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['responsavel.dropdown.uf']}" />
-            <f:selectItems value="#{entrevistaForm.ufResponsavel}" />
-        </h:selectOneMenu>
-        <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
-        <h:selectOneMenu style="width: 100%" id="cidadeResponsavel" value="#{entrevistaForm.cidadeResponsavel}"
-                         styleClass="select2" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['responsavel.dropdown.cidade']}" />
-            <f:selectItems value="#{entrevistaForm.cidadeResponsavel}" />
-        </h:selectOneMenu>
-        <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
-        <h:selectOneMenu style="width: 100%" id="bairroResponsavel" value="#{entrevistaForm.bairroResponsavel}"
-                         styleClass="select2" >
-            <f:selectItem itemValue=""
-                          itemLabel="#{msg['responsavel.dropdown.bairro']}" />
-            <f:selectItems value="#{entrevistaForm.bairroResponsavel}" />
-        </h:selectOneMenu>
-        <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
-        <h:inputText style="width: 100%" id="logradouroResponsavel" value="#{entrevistaForm.logradouroResponsavel}"/>
-        <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
-        <h:inputText style="width: 100%" id="numeroResponsavel" value="#{entrevistaForm.numeroResponsavel}"/>
-
-        <h:outputLabel><center><b>${msg['entrevista.text.testemunha1']}</b></center></h:outputLabel><br/><br/>
-
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
-        <h:inputText style="width: 100%" id="nomeTestemunha1" value="#{entrevistaForm.nomeTestemunha1}"/>
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
-        <h:inputText style="width: 100%" class="cpfTestemunha1" id="cpfTestemunha1" value="#{entrevistaForm.cpfTestemunha1}"/>
-
-        <h:outputLabel><center><b>${msg['entrevista.text.testemunha2']}</b></center></h:outputLabel><br/><br/>
-
-        <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}"/>
-        <h:inputText style="width: 100%" id="nomeTestemunha2" value="#{entrevistaForm.nomeTestemunha2}"/>
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
-        <h:inputText style="width: 100%" class="cpfTestemunha2" id="cpfTestemunha2" value="#{entrevistaForm.cpfTestemunha2}"/>
-
+    <h:panelGrid>
+        <h:panelGrid id="entrevista" columns="2" style=" width: 100%">
+            <h:outputLabel value="#{msg['obito.paciente.nome']}"/> 
+            <h:inputText style="width: 100%" id="nomePaciente" value="#{pacienteForm.nomePaciente}" />
+            <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+            <h:inputText style="width: 100%" id="notificacaoProtocolo" value="#{notificacaoForm.codigo}" />
+            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
+            <h:selectOneRadio style="padding-left:20%; width: 100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
+                              styleClass="radio">
+                <f:selectItem itemValue="SIM"
+                              itemLabel="#{msg['entrevista.radioButton.realizada.sim']}"  />
+                <f:selectItem itemValue="NÃO"
+                              itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
+            </h:selectOneRadio>
+    
+            <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+            <h:selectOneMenu style="width: 100%" id="problemasEstruturais" value="#{entrevistaForm.problemasEtruturais}"
+                             styleClass="dropdown" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+                <f:selectItems value="#{entrevistaForm.problemasEstruturaisBanco}" />
+            </h:selectOneMenu>
+    
+            <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}" />
+            <h:selectOneRadio style="width: 100%" id="doacaoAutorizada" value="#{entrevistaForm.doacaoAutorizada}"
+                              styleClass="radio">
+                <f:selectItem itemValue="SIM"
+                              itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}" />
+                <f:selectItem itemValue="NÃO"
+                              itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}" />
+            </h:selectOneRadio>
+    
+            <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}" />
+            <h:selectOneMenu style="width: 100%" id="recusaFamiliar" value="#{entrevistaForm.recusaFamiliar}"
+                             styleClass="select2" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['entrevista.dropdown.recusaFamiliar']}" />
+                <f:selectItems value="#{entrevistaForm.recusaFamiliar}" />
+            </h:selectOneMenu>
+            <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
+            <h:inputText style="width: 100%" class="dataEntrevista" id="dataEntrevista" value="#{entrevistaForm.dataEntrevista}" />
+            <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
+            <h:inputText style="width: 100%" class="horaEntrevista" id="horaEntrevista" value="#{entrevistaForm.horaEntrevista}" />
+    
+            <h:outputLabel><b>${msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel><br/><br/>
+    
+            <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
+            <h:inputText style="width: 100%" id="nomeResponsavel" value="#{entrevistaForm.nomeResponsavel}" />
+            <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
+            <h:inputText style="width: 100%" class="rgResponsavel" id="rgResponsavel" value="#{entrevistaForm.rgResponsavel}" />
+            <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
+            <h:selectOneMenu style="width: 100%" id="parentescoResponsavel" value="#{entrevistaForm.parentescoResponsavel}"
+                             styleClass="select2" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.parentesco']}" />
+                <f:selectItems value="#{entrevistaForm.parentescoResponsavel}" />
+            </h:selectOneMenu>
+            <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
+            <h:selectOneMenu  style="width: 100%" id="estadoCivilResponsavel" value="#{entrevistaForm.estadoCivilResponsavel}"
+                              styleClass="select2" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.estadoCivil']}" />
+                <f:selectItems value="#{entrevistaForm.estadoCivilResponsavel}" />
+            </h:selectOneMenu>
+            <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
+            <h:inputText style="width: 100%" class="telefone1Responsavel" id="telefone1Responsavel" value="#{entrevistaForm.telefone1Responsavel}"/>
+            <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
+            <h:inputText style="width: 100%" class="telefone2Responsavel" id="telefone2Responsavel" value="#{entrevistaForm.telefone2Responsavel}"/>
+            <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
+            <h:inputText style="width: 100%" id="profissaoResponsavel" value="#{entrevistaForm.profissaoResponsavel}"/>
+            <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
+            <h:inputText style="width: 100%" class="cepResponsavel" id="cepResponsavel" value="#{entrevistaForm.cepResponsavel}"/>
+            <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
+            <h:inputText style="width: 100%" id="nacionalidadeResponsavel" value="#{entrevistaForm.nacionalidadeResponsavel}"/>
+            <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
+            <h:selectOneMenu style="width: 100%" id="estado" value="#{entrevistaForm.ufResponsavel}" onchange="ajaxGetMunicipios(estado, cidade)"
+                             styleClass="select2" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.uf']}" />
+                <f:selectItems value="#{listaEstadoItem}" />
+            </h:selectOneMenu>
+            <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
+            <h:selectOneMenu style="width: 100%" id="cidade" value="#{entrevistaForm.cidadeResponsavel}" onchange="ajaxGetBairros(cidade, bairro)"
+                             styleClass="select2" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.cidade']}" />
+                <f:selectItems value="#{listaCidadeItem}" />
+            </h:selectOneMenu>
+            <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
+            <h:selectOneMenu style="width: 100%" id="bairro" value="#{entrevistaForm.bairroResponsavel}"
+                             styleClass="select2" >
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.bairro']}" />
+                <f:selectItems value="#{listaBairroItem}" />
+            </h:selectOneMenu>
+            <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
+            <h:inputText style="width: 100%" id="logradouroResponsavel" value="#{entrevistaForm.logradouroResponsavel}"/>
+            <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
+            <h:inputText style="width: 100%" id="numeroResponsavel" value="#{entrevistaForm.numeroResponsavel}"/>
+    
+            <h:outputLabel><center><b>${msg['entrevista.text.testemunha1']}</b></center></h:outputLabel><br/><br/>
+    
+            <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+            <h:inputText style="width: 100%" id="nomeTestemunha1" value="#{entrevistaForm.nomeTestemunha1}"/>
+            <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
+            <h:inputText style="width: 100%" class="cpfTestemunha1" id="cpfTestemunha1" value="#{entrevistaForm.cpfTestemunha1}"/>
+    
+            <h:outputLabel><center><b>${msg['entrevista.text.testemunha2']}</b></center></h:outputLabel><br/><br/>
+    
+            <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}"/>
+            <h:inputText style="width: 100%" id="nomeTestemunha2" value="#{entrevistaForm.nomeTestemunha2}"/>
+            <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
+            <h:inputText style="width: 100%" class="cpfTestemunha2" id="cpfTestemunha2" value="#{entrevistaForm.cpfTestemunha2}"/>
+    
+        </h:panelGrid>
     </h:panelGrid> 
 </ui:composition>
