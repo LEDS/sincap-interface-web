@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <ui:composition template="/WEB-INF/templates/form.xhtml"
-    xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
@@ -24,40 +25,39 @@
 
                     </div>
                     <div class="step-content">
-                        <form id="notifObito"
-                            action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.adicionar}"
-                            method="post">
+                        <form id="processo" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.salvar}" method="post">
                             <div class="step-pane active" id="step1">
                                 <div class="row-fluid form-wrapper">
                                     <ul class="nav nav-tabs">
-                                        <li class="active"><a
-                                            href="#abaPaciente"
-                                            data-toggle="tab">${msg['paciente.aba.text.titulo']}</a></li>
-                                        <li><a href="#abaObito"
-                                            data-toggle="tab">${msg['obito.aba.text.titulo']}</a></li>
+                                        <li class="active"><a href="#abaPaciente" data-toggle="tab">${msg['paciente.aba.text.titulo']}</a>
+                                        </li>
+                                        <li><a href="#abaObito" data-toggle="tab">${msg['obito.aba.text.titulo']}</a>
+                                        </li>
                                     </ul>
                                 </div>
 
                                 <div class="tab-content">
-                                    <div id="abaPaciente"
-                                        class="tab-pane active">
-                                        <ui:insert
-                                            name="notificacao-obito-aba-paciente">
-                                            <ui:include
-                                                src="form-notificacao-obito-aba-paciente.xhtml" />
+                                    <div id="abaPaciente" class="tab-pane active">
+                                        <ui:insert name="notificacao-obito-aba-paciente">
+                                            <ui:include src="form-notificacao-obito-aba-paciente.xhtml" />
                                         </ui:insert>
                                     </div>
                                     <div id="abaObito" class="tab-pane ">
-                                        <ui:insert
-                                            name="notificacao-obito-aba-obito">
-                                            <ui:include
-                                                src="form-notificacao-obito-aba-obito.xhtml" />
+                                        <ui:insert name="notificacao-obito-aba-obito">
+                                            <ui:include src="form-notificacao-obito-aba-obito.xhtml" />
                                         </ui:insert>
                                     </div>
                                 </div>
-
-                                <button type="submit"
-                                    class="btn-glow success btn-finish">
+                                <input id="id" name="id" type="hidden" value="#{processo.id}" />
+                                <input id="idObito" name="obito.id" type="hidden" value="#{processo.obito.id}" />
+                                <input id="idPaciente" name="obito.paciente.id" type="hidden" value="#{processo.obito.paciente.id}" />
+                                <input id="idPrimeiraCausaMortis" name="obito.primeiraCausaMortis.id" type="hidden" value="#{processo.obito.primeiraCausaMortis.id}" />
+                                <input id="idSegundaCausaMortis" name="obito.segundaCausaMortis.id" type="hidden" value="#{processo.obito.segundaCausaMortis.id}" />
+                                <input id="idTerceiraCausaMortis" name="obito.terceiraCausaMortis.id" type="hidden" value="#{processo.obito.terceiraCausaMortis.id}" />
+                                <input id="idQuartaCausaMortis" name="obito.quartaCausaMortis.id" type="hidden" value="#{processo.obito.quartaCausaMortis.id}" />
+                                <input id="idEntrevista" name="entrevista.id" type="hidden" value="#{processo.entrevista.id}" />
+                                <input id="idCausaNaoDoacao" name="causaNaoDoacao" type="hidden" value="#{processo.causaNaoDoacao}" />
+                                <button type="submit" class="btn-glow success btn-finish">
                                     ${msg['obito.button.finalizar']}</button>
                             </div>
                         </form>
@@ -67,205 +67,189 @@
         </div>
 
         <script type="text/javascript">
-									$(function() {
-										var $wizard = $('#fuelux-wizard'), $btnPrev = $('.wizard-actions .btn-prev'), $btnNext = $('.wizard-actions .btn-next'), $btnFinish = $(".wizard-actions .btn-finish");
+        $(function() {
+            var $wizard = $('#fuelux-wizard'),
+                $btnPrev = $('.wizard-actions .btn-prev'),
+                $btnNext = $('.wizard-actions .btn-next'),
+                $btnFinish = $(".wizard-actions .btn-finish");
 
-										$wizard
-												.wizard()
-												.on('finished', function(e) {
-													// wizard complete code
-												})
-												.on(
-														"changed",
-														function(e) {
-															var step = $wizard
-																	.wizard("selectedItem");
-															// reset states
-															$btnNext
-																	.removeAttr("disabled");
-															$btnPrev
-																	.removeAttr("disabled");
-															$btnNext.show();
-															$btnFinish.hide();
+            $wizard.wizard().on('finished', function(e) {
+                // wizard complete code
+            }).on("changed", function(e) {
+                var step = $wizard.wizard("selectedItem");
+                // reset states
+                $btnNext.removeAttr("disabled");
+                $btnPrev.removeAttr("disabled");
+                $btnNext.show();
+                $btnFinish.hide();
 
-															if (step.step === 1) {
-																$btnPrev
-																		.attr(
-																				"disabled",
-																				"disabled");
-															} else if (step.step === 3) {
-																$btnNext.hide();
-																$btnFinish
-																		.show();
-															}
-														});
-									});
+                if (step.step === 1) {
+                    $btnPrev.attr("disabled", "disabled");
+                } else if (step.step === 3) {
+                    $btnNext.hide();
+                    $btnFinish.show();
+                }
+            });
+        });
 
-									$(document).ready(function() {
-										$('.data').mask('00/00/0000', {
-											reverse : true
-										});
-										$('.hora').mask('00:00', {
-											reverse : true
-										});
-										$('.rg').mask('0.000.000', {
-											reverse : true
-										});
-										$('.cpf').mask('000.000.000-00', {
-											reverse : true
-										});
-										$('.cep').mask('00000-000', {
-											reverse : true
-										});
-										$('.tel').mask('(00)0000-0000', {
-											reverse : true
-										});
-									});
+        $(document).ready(function() {
+            $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
+            $('.tel').inputmask({
+                mask: ["(99)9999-9999", "(99)99999-9999"]
+            });
+            $('.hora').inputmask('hh:mm');
+            $('.cpf').inputmask('999.999.999-99');
+            $('.cep').mask('99999-999');
+        });
 
-									//Validando os dados do formulario
-									$("#notifObito")
-											.validate(
-													{
-														rules : {
-															//Notificacao de Obito aba Paciente
-															nomePaciente : {
-																required : true
-															},
-															dataNascimentoPaciente : {
-																required : true
-															},
-															dataInternacaoPaciente : {
-																required : true
-															},
-															docSocialPaciente : {
-																required : true
-															},
-															telefonePaciente : {
-																required : true
-															},
-															sexoPaciente : {
-																required : true
-															},
-															numeroSUS : {
-																required : true
-															},
-															profissao : {
-																required : true
-															},
-															nacionalidade : {
-																required : true
-															},
-															numeroProntuario : {
-																required : true
-															},
-															cidadePaciente : {
-																required : true
-															},
-															bairroPaciente : {
-																required : true
-															},
-															cepPaciente : {
-																required : true
-															},
-															// Notificacao de Obito aba Obito
-															dataObito : {
-																required : true
-															},
-															horarioObito : {
-																required : true
-															},
-															setorObito : {
-																required : true
-															},
-															motivosObito1 : {
-																required : true
-															},
-															motivosObito2 : {
-																required : true
-															},
-															motivosObito3 : {
-																required : true
-															},
-															motivosObito4 : {
-																required : true
-															},
-															aptoDoacao : {
-																required : true
-															},
-														},
-														messages : {
-															//Notificacao de Obito aba Paciente
-															nomePaciente : {
-																required : "Por favor, insira o nome do paciente"
-															},
-															dataNascimentoPaciente : {
-																required : "Por favor, insira a data de nascimento do paciente"
-															},
-															dataInternacaoPaciente : {
-																required : "Por favor, insira a data de internação do paciente"
-															},
-															docSocialPaciente : {
-																required : "Por favor, insira um documento social do paciente"
-															},
-															telefonePaciente : {
-																required : "Por favor, insira um telefone do paciente"
-															},
-															sexoPaciente : {
-																required : "Por favor, selecione o sexo do paciente"
-															},
-															numeroSUS : {
-																required : "Por favor, insira o número de SUS do paciente"
-															},
-															profissao : {
-																required : "Por favor, insira a profissão do paciente"
-															},
-															nacionalidade : {
-																required : "Por favor, insira a nascionalidade do paciente"
-															},
-															numeroProntuario : {
-																required : "Por favor, insira o número do prontuário do paciente"
-															},
-															cidadePaciente : {
-																required : "Por favor, insira a cidade do paciente"
-															},
-															bairroPaciente : {
-																required : "Por favor, insira o bairro do paciente"
-															},
-															cepPaciente : {
-																required : "Por favor, insira o cep do paciente"
-															},
-															//Notificacao de Obito aba Obito
-															dataObito : {
-																required : "Por favor, insira a data do óbito do paciente"
-															},
-															horarioObito : {
-																required : "Por favor, insira o horário do óbito do paciente"
-															},
-															setorObito : {
-																required : "Por favor, insira setor onde ocorreu o óbito"
-															},
-															motivosObito1 : {
-																required : "Por favor, insira primeiro motivo do obito"
-															},
-															motivosObito2 : {
-																required : "Por favor, insira segundo motivo do obito"
-															},
-															motivosObito3 : {
-																required : "Por favor, insira terceiro motivo do obito"
-															},
-															motivosObito4 : {
-																required : "Por favor, insira quarto motivo do obito"
-															},
-															aptoDoacao : {
-																required : "Por favor, selecione o estado do paciente"
-															},
-														},
-														submitHandler : function(
-																form) {
-															form.submit();
-														}
-													});
-								</script>
+         //Validando os dados do formulario
+        $("#processo").validate({
+            rules: {
+                //Notificacao de Obito aba Paciente
+                'obito.paciente.nome': {
+                    required: true
+                },
+                dataNascimento: {
+                    required: true,
+                    date: true
+                },
+                dataInternacao: {
+                    required: true,
+                    date: true
+                },
+                'obito.paciente.documentoSocial': {
+                    required: true
+                },
+                'obito.paciente.telefone.numero': {
+                    required: true,
+                    rangelength: [13, 14]
+                },
+                'obito.paciente.sexo': {
+                    required: true
+                },
+                'obito.paciente.numeroSUS': {
+                    required: true
+                },
+                'obito.paciente.profissao': {
+                    required: true
+                },
+                'obito.paciente.nacionalidade': {
+                    required: true
+                },
+                'obito.paciente.numeroProntuario': {
+                    required: true
+                },
+                'obito.paciente.endereco.cidade': {
+                    required: true
+                },
+                'obito.paciente.endereco.bairro': {
+                    required: true
+                },
+                'obito.paciente.endereco.cep': {
+                    required: true,
+                    minlength: 9
+                },
+                // Notificacao de Obito aba Obito
+                dataObito: {
+                    required: true,
+                    date: true
+                },
+                horarioObito: {
+                    required: true,
+                    minlength: 5
+                },
+                'obito.setor': {
+                    required: true
+                },
+                'obito.primeiraCausaMortis': {
+                    required: true
+                },
+                'obito.segundaCausaMortis': {
+                    required: true
+                },
+                'obito.terceiraCausaMortis': {
+                    required: true
+                },
+                'obito.quartaCausaMortis': {
+                    required: true
+                },
+                'obito.aptoDoacao': {
+                    required: true
+                },
+            },
+            messages: {
+                //Notificacao de Obito aba Paciente
+                'obito.paciente.nome': {
+                    required: "Por favor, insira o nome do paciente"
+                },
+                dataNascimento: {
+                    required: "Por favor, insira a data de nascimento do paciente"
+                },
+                dataInternacao: {
+                    required: "Por favor, insira a data de internação do paciente"
+                },
+                'obito.paciente.documentoSocial': {
+                    required: "Por favor, insira um documento social do paciente"
+                },
+                'obito.paciente.telefone.numero': {
+                    required: "Por favor, insira um telefone do paciente",
+                    rangelength: "O telefone de ter entre 10 e 11 dígitos"
+                },
+                'obito.paciente.sexo': {
+                    required: "Por favor, selecione o sexo do paciente"
+                },
+                'obito.paciente.numeroSUS': {
+                    required: "Por favor, insira o número de SUS do paciente"
+                },
+                'obito.paciente.profissao': {
+                    required: "Por favor, insira a profissão do paciente"
+                },
+                'obito.paciente.nacionalidade': {
+                    required: "Por favor, insira a nascionalidade do paciente"
+                },
+                'obito.paciente.numeroProntuario': {
+                    required: "Por favor, insira o número do prontuário do paciente"
+                },
+                'obito.paciente.endereco.cidade': {
+                    required: "Por favor, insira a cidade do paciente"
+                },
+                'obito.paciente.endereco.bairro': {
+                    required: "Por favor, insira o bairro do paciente"
+                },
+                'obito.paciente.endereco.cep': {
+                    required: "Por favor, insira o cep do paciente"
+                },
+                //Notificacao de Obito aba Obito
+                dataObito: {
+                    required: "Por favor, insira a data do óbito do paciente"
+                },
+                horarioObito: {
+                    required: "Por favor, insira o horário do óbito do paciente"
+                },
+                'obito.setor': {
+                    required: "Por favor, insira setor onde ocorreu o óbito"
+                },
+                'obito.primeiraCausaMortis': {
+                    required: "Por favor, insira primeiro motivo do obito"
+                },
+                'obito.segundaCausaMortis': {
+                    required: "Por favor, insira segundo motivo do obito"
+                },
+                'obito.terceiraCausaMortis': {
+                    required: "Por favor, insira terceiro motivo do obito"
+                },
+                'obito.quartaCausaMortis': {
+                    required: "Por favor, insira quarto motivo do obito"
+                },
+                'obito.aptoDoacao': {
+                    required: "Por favor, selecione o estado do paciente"
+                },
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+        </script>
     </ui:define>
     <!-- Fim do conteúdo -->
 

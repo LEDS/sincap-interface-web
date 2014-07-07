@@ -1,76 +1,201 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
-        <!-- title -->
-        <title>#{msg['captacao.title']}</title>
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['captacao.title']}
+    </ui:define>
 
-        <!-- meta -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
 
-        <!-- bootstrap -->
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+                        <h2>${msg['notificacao.msg.etapa.captacao']}</h2>
+                        <br/>
 
-        <!-- libraries -->
-        <h:outputStylesheet library="css/lib" name="jquery-ui-1.10.2.custom.css" />
-        <h:outputStylesheet library="css/lib" name="font-awesome.css" />	
+                        <div class="step-content">
+                            <form id="processoCaptacao"
+                                  action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_captacao}${contextUrls.salvar}"
+                                  method="post">
+                                <ui:include src="form-notificacao-captacao-aba-captacao.xhtml" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- global styles -->
-        <h:outputStylesheet library="css" name="layout.css" />
-        <h:outputStylesheet library="css" name="elements.css" />
-        <h:outputStylesheet library="css" name="icons.css" />
+                <h:inputHidden id="id" value="#{id}" />
+                <button type="submit"
+                        class="btn-glow success btn-finish">
+                    ${msg['obito.button.finalizar']}</button>
+            </div>
+        </div>
+    </ui:define>
 
-        <!-- this page specific styles -->    
-        <h:outputStylesheet library="css/compiled" name="index.css" />
+    <!-- scripts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <h:outputScript library="js" name="bootstrap.min.js" />
+    <h:outputScript library="js" name="theme.js" />
+    <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.data').mask('00/00/0000', {
+                reverse: true
+            });
+            $('.hora').mask('00:00', {
+                reverse: true
+            });
+        });
 
-        <!-- open sans font -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
+        //Validando os dados do formulario
+        $("#processoCaptacao")
+                .validate(
+                        {
+                            rules: {
+                                //Notificacao de Obito aba Paciente
+                                nomePaciente: {
+                                    required: true
+                                },
+                                dataNascimentoPaciente: {
+                                    required: true
+                                },
+                                dataInternacaoPaciente: {
+                                    required: true
+                                },
+                                docSocialPaciente: {
+                                    required: true
+                                },
+                                telefonePaciente: {
+                                    required: true
+                                },
+                                sexoPaciente: {
+                                    required: true
+                                },
+                                numeroSUS: {
+                                    required: true
+                                },
+                                profissao: {
+                                    required: true
+                                },
+                                nacionalidade: {
+                                    required: true
+                                },
+                                numeroProntuario: {
+                                    required: true
+                                },
+                                cidadePaciente: {
+                                    required: true
+                                },
+                                bairroPaciente: {
+                                    required: true
+                                },
+                                cepPaciente: {
+                                    required: true
+                                },
+                                // Notificacao de Obito aba Obito
+                                dataObito: {
+                                    required: true
+                                },
+                                horarioObito: {
+                                    required: true
+                                },
+                                setorObito: {
+                                    required: true
+                                },
+                                motivosObito1: {
+                                    required: true
+                                },
+                                motivosObito2: {
+                                    required: true
+                                },
+                                motivosObito3: {
+                                    required: true
+                                },
+                                motivosObito4: {
+                                    required: true
+                                },
+                                aptoDoacao: {
+                                    required: true
+                                },
+                            },
+                            messages: {
+                                //Notificacao de Obito aba Paciente
+                                nomePaciente: {
+                                    required: "Por favor, insira o nome do paciente"
+                                },
+                                dataNascimentoPaciente: {
+                                    required: "Por favor, insira a data de nascimento do paciente"
+                                },
+                                dataInternacaoPaciente: {
+                                    required: "Por favor, insira a data de internação do paciente"
+                                },
+                                docSocialPaciente: {
+                                    required: "Por favor, insira um documento social do paciente"
+                                },
+                                telefonePaciente: {
+                                    required: "Por favor, insira um telefone do paciente"
+                                },
+                                sexoPaciente: {
+                                    required: "Por favor, selecione o sexo do paciente"
+                                },
+                                numeroSUS: {
+                                    required: "Por favor, insira o número de SUS do paciente"
+                                },
+                                profissao: {
+                                    required: "Por favor, insira a profissão do paciente"
+                                },
+                                nacionalidade: {
+                                    required: "Por favor, insira a nascionalidade do paciente"
+                                },
+                                numeroProntuario: {
+                                    required: "Por favor, insira o número do prontuário do paciente"
+                                },
+                                cidadePaciente: {
+                                    required: "Por favor, insira a cidade do paciente"
+                                },
+                                bairroPaciente: {
+                                    required: "Por favor, insira o bairro do paciente"
+                                },
+                                cepPaciente: {
+                                    required: "Por favor, insira o cep do paciente"
+                                },
+                                //Notificacao de Obito aba Obito
+                                dataObito: {
+                                    required: "Por favor, insira a data do óbito do paciente"
+                                },
+                                horarioObito: {
+                                    required: "Por favor, insira o horário do óbito do paciente"
+                                },
+                                setorObito: {
+                                    required: "Por favor, insira setor onde ocorreu o óbito"
+                                },
+                                motivosObito1: {
+                                    required: "Por favor, insira primeiro motivo do obito"
+                                },
+                                motivosObito2: {
+                                    required: "Por favor, insira segundo motivo do obito"
+                                },
+                                motivosObito3: {
+                                    required: "Por favor, insira terceiro motivo do obito"
+                                },
+                                motivosObito4: {
+                                    required: "Por favor, insira quarto motivo do obito"
+                                },
+                                aptoDoacao: {
+                                    required: "Por favor, selecione o estado do paciente"
+                                },
+                            },
+                            submitHandler: function(
+                                    form) {
+                                form.submit();
+                            }
+                        });
+    </script>
 
-        <!-- lato font -->
-        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'/>
-    </h:head>
-
-    <!-- navbar -->
-    <h:panelGroup layout="block"  id="menu-navbar">
-        <ui:insert  name="menu-navbar" >
-            <ui:include src="menu-navbar.xhtml" />
-        </ui:insert>
-    </h:panelGroup>
-    <!-- end navbar -->
-
-    <!-- sidebar -->
-    <h:panelGroup layout="block"  id="menu-sidebar">
-        <ui:insert name="menu-sidebar" >
-            <ui:include src="menu-sidebar.xhtml" />
-        </ui:insert>
-    </h:panelGroup>
-    <!-- end sidebar -->
-
-    <!-- main container -->
-    <h:panelGroup layout="block" styleClass="content">
-        <!-- settings changer -->
-        <h:panelGroup layout="block" styleClass="container-fluid">
-            <ui:insert>
-                <ui:include src="form-notificacao-captacao-aba-captacao.xhtml" />
-            </ui:insert>
-        </h:panelGroup>
-    </h:panelGroup>
-    <!-- end main container -->
-
-    <h:body>
-        <!-- scripts -->
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="theme.js" />
-        <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
-        <!-- end scripts -->
-    </h:body>
-</html>
+</ui:composition>

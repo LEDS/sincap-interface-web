@@ -1,420 +1,285 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
-        <title>#{msg['notificacao.step2.tab1.title']}</title>
-        <!-- meta -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['notificacao.step2.tab1.title']}
+    </ui:define>
+    <!--Fim título da página-->
+    <!-- main container -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
 
-        <!-- bootstrap -->
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+                        <h2>${msg['notificacao.msg.etapa.entrevista']}</h2>
+                        <br/>
 
-        <!-- libraries -->
-        <h:outputStylesheet library="css/lib" name="bootstrap-wysihtml5.css" />
-        <h:outputStylesheet library="css/lib" name="uniform.default.css" />
-        <h:outputStylesheet library="css/lib" name="select2.css" />
-        <h:outputStylesheet library="css/lib" name="bootstrap.datepicker.css" />
-        <h:outputStylesheet library="css/lib" name="font-awesome.css" />
-        <h:outputStylesheet library="css/lib" name="bootstrap.datepicker.css" />
-
-        <!-- global styles -->
-        <h:outputStylesheet library="css" name="layout.css" />
-        <h:outputStylesheet library="css" name="elements.css" />
-        <h:outputStylesheet library="css" name="icons.css" />
-
-        <!-- this page specific styles -->
-        <h:outputStylesheet library="css/compiled" name="form-wizard.css" />
-        <h:outputStylesheet library="css/compiled" name="form-showcase.css" />
-
-        <!-- open sans font -->
-        <link
-            href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-            rel='stylesheet' type='text/css' />
-
-        <!--[if lt IE 9]>
-                      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-                    <![endif] -->
-
-    </h:head>
-    <h:body>
-        <!-- navbar -->
-        <div class="navbar navbar-inverse">
-            <ui:insert  name="menu-navbar" >
-                <ui:include src="menu-navbar.xhtml" />
-            </ui:insert>
-        </div>
-        <!-- end navbar -->
-
-        <!-- sidebar -->
-        <div id="sidebar-nav">
-            <ui:insert name="menu-sidebar" >
-                <ui:include src="menu-sidebar.xhtml" />
-            </ui:insert>
-        </div>
-        <!-- end sidebar -->
-
-        <!-- main container -->
-        <div class="content">
-
-            <div class="container-fluid">
-                <div id="pad-wrapper">
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <div id="fuelux-wizard" class="wizard row-fluid">
-                                
-                                <h2>${msg['notificacao.msg.etapa.entrevista']}</h2>
-                                
-                                <!-- mensagem de erro -->
-                                <center>
-                                    <h:panelGroup rendered="#{not empty displayError}">
-                                        <div class="span12">
-                                            <div class="alert alert-error" style="display:#{displayError}">
-                                                <i class="icon-remove-sign"></i>
-                                                Erro, todos os campos devem ser preenchidos.
-                                            </div>
-                                        </div>
-                                    </h:panelGroup>
-                                </center>
-                                <center>
-                                    <div>
-                                        <h:panelGroup rendered="#{not empty displaySuccess}">
-                                            <div class="alert alert-success" style="display:#{displaySuccess}">
-                                                <i class="icon-ok-sign"></i>
-                                                Notificação salva com sucesso.
-                                            </div>
-                                        </h:panelGroup>
-                                    </div>
-                                </center>
+                        <!-- mensagem de erro -->
+                        <h:panelGroup rendered="#{not empty displayError}">
+                            <div class="span12">
+                                <div class="alert alert-error" style="display:#{displayError}">
+                                    <i class="icon-remove-sign"></i>
+                                    Erro, todos os campos devem ser preenchidos.
+                                </div>
                             </div>
-                            <div class="step-content">    
-                                <form id="notifEntrevista" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.adicionar}" method="post">
-                                    <div class="step-pane active" id="step1">
-                                        <div class="tab-content">
-                                            
-                                                <ui:insert name="notificacao-entrevista">
-                                                    <ui:include src="form-entrevista-nao-realizada.xhtml" />
-                                                </ui:insert>
-                                            
-                                        </div>
-                                        <button type="submit" class="btn-glow success btn-finish">
-                                            ${msg['geral.button.analisado']}
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                        </h:panelGroup>
+                        <div>
+                            <h:panelGroup rendered="#{not empty displaySuccess}">
+                                <div class="alert alert-success" style="display:#{displaySuccess}">
+                                    <i class="icon-ok-sign"></i>
+                                    Notificação salva com sucesso.
+                                </div>
+                            </h:panelGroup>
                         </div>
+                    </div>
+                    <div class="step-content">
+                        <form id="notifEntrevista" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.adicionar}" method="post">
+                            <div class="step-pane active" id="step1">
+                                <div class="tab-content">
+
+                                    <ui:insert name="notificacao-entrevista">
+                                        <ui:include src="form-entrevista-nao-realizada.xhtml" />
+                                    </ui:insert>
+
+                                </div>
+                                <button type="submit" class="btn-glow success btn-finish">
+                                    ${msg['geral.button.analisado']}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- end main container -->
-        <!-- scripts for this page -->
-
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="theme.js" />
-        <h:outputScript library="js" name="fuelux.wizard.js" />	
-        <h:outputScript library="js" name="sincaplib.js" />
-        <h:outputScript library="js" name="jquery.mask.min.js" />
-        <h:outputScript library="js" name="jquery.validate.min.js" />
-
-
         <script type="text/javascript">
-            $(function() {
-                var $wizard = $('#fuelux-wizard'),
-                        $btnPrev = $('.wizard-actions .btn-prev'),
-                        $btnNext = $('.wizard-actions .btn-next'),
-                        $btnFinish = $(".wizard-actions .btn-finish");
+        $(function() {
+            var $wizard = $('#fuelux-wizard'),
+                $btnPrev = $('.wizard-actions .btn-prev'),
+                $btnNext = $('.wizard-actions .btn-next'),
+                $btnFinish = $(".wizard-actions .btn-finish");
 
-                $wizard.wizard().on('finished', function(e) {
-                    // wizard complete code
-                }).on("changed", function(e) {
-                    var step = $wizard.wizard("selectedItem");
-                    // reset states
-                    $btnNext.removeAttr("disabled");
-                    $btnPrev.removeAttr("disabled");
-                    $btnNext.show();
-                    $btnFinish.hide();
+            $wizard.wizard().on('finished', function(e) {
+                // wizard complete code
+            }).on("changed", function(e) {
+                var step = $wizard.wizard("selectedItem");
+                // reset states
+                $btnNext.removeAttr("disabled");
+                $btnPrev.removeAttr("disabled");
+                $btnNext.show();
+                $btnFinish.hide();
 
-                    if (step.step === 1) {
-                        $btnPrev.attr("disabled", "disabled");
-                    } else if (step.step === 3) {
-                        $btnNext.hide();
-                        $btnFinish.show();
-                    }
-                });
-            });
-
-            $(document).ready(function() {
-                $('.dataEntrevista').mask('00/00/0000', {
-                    reverse: true
-                });
-                $('.horaEntrevista').mask('00:00', {
-                    reverse: true
-                });
-                $('.rgResponsavel').mask('0.000.000', {
-                    reverse: true
-                });
-                $('.cepResponsavel').mask('00000-000', {
-                    reverse: true
-                });
-                $('.telefone1Responsavel').mask('(00)0000-0000', {
-                    reverse: true
-                });
-                $('.telefone2Responsavel').mask('(00)0000-0000', {
-                    reverse: true
-                });
-                $('.cpfTestemunha1').mask('000.000.000-00', {
-                    reverse: true
-                });
-                $('.cpfTestemunha2').mask('000.000.000-00', {
-                    reverse: true
-                });
-            });
-
-            //Validando os dados do formulario
-            $("#notifEntrevista").validate({
-                rules: {
-                    
-                    nomePaciente: {
-                        required: true
-                    },
-                    notificacaoProtocolo: {
-                        required: true
-                    },
-                    entrevistaRealizada:{
-                        required: true
-                    },
-                    problemasEstruturais:{
-                        required: true
-                    },
-                    doacaoAutorizada:{
-                        required: true
-                    },
-                    dataEntrevista: {
-                        required: true
-                    },
-                    horaEntrevista: {
-                        required: true
-                    },
-                    recusaFamiliar:{
-                        required: true
-                    },
-                    
-                    //Dados do Responsavel Legal
-                    nomeResponsavel:{
-                        required: true
-                    },
-                    rgResponsavel:{
-                        required: true
-                    }, 
-                    parentescoResponsavel:{
-                        required: true
-                    },
-                    estadoCivilResponsavel:{
-                        required: true
-                    },
-                    telefone1Responsavel: {
-                        required: true
-                    },
-                    telefone2Responsavel: {
-                        required: true
-                    },
-                    profissaoResponsavel: {
-                        required: true
-                    },
-                    cepResponsavel: {
-                        required: true
-                    },
-                    nacionalidadeResponsavel: {
-                        required: true
-                    },
-                    ufResponsavel: {
-                        required: true
-                    },
-                    cidadeResponsavel: {
-                        required: true
-                    },
-                    bairroResponsavel: {
-                        required: true
-                    },
-                    logradouroResponsavel: {
-                        required: true
-                    },
-                    numeroResponsavel: {
-                        required: true
-                    },
-                    //Dados 1° testemunha
-                    nomeTestemunha1: {
-                        required: true
-                    },
-                    cpfTestemunha1: {
-                        required: true
-                    },
-                     //Dados 2° testemunha
-                    nomeTestemunha2: {
-                        required: true
-                    },
-                    cpfTestemunha2: {
-                        required: true
-                    },
-                    
-                },
-                messages: {
-                     
-                     nomePaciente: {
-                        required: "Por favor, insira o nome do paciente"
-                    },
-                    notificacaoProtocolo: {
-                        required: "Por favor, insira o numero de protocolo do paciente"
-                    },
-                    entrevistaRealizada:{
-                        required: "Por favor, selecione uma opcao"
-                    },
-                    problemasEstruturais:{
-                        required: "Por favor, selecione  o problema estrutural do responsavel"
-                    },
-                    doacaoAutorizada:{
-                        required: "Por favor, selecione uma opcao"
-                    },
-                    recusaFamiliar:{
-                        required: "Por favor, selecione uma recusaFamiliar"
-                    },
-                    dataEntrevista: {
-                        required: "Por favor, insira a data de entrevista do responsavel"
-                    },
-                    horaEntrevista: {
-                        required: "Por favor, insira a hora da entrevista do responsavel"
-                    },
-                    
-                    //Dados do Responsavel Legal
-                    nomeResponsavel:{
-                        required: "Por favor, insira o nome do responsavel"
-                    },
-                    rgResponsavel:{
-                        required: "Por favor, insira o rg do responsavel"
-                    }, 
-                    parentescoResponsavel:{
-                        required: "Por favor, insira o parentesco do responsavel"
-                    },
-                    estadoCivilResponsavel:{
-                        required: "Por favor, insira o estao civil do responsavel"
-                    },
-                    telefone1Responsavel: {
-                        required: "Por favor, insira o telefone1 do responsavel"
-                    },
-                    telefone2Responsavel: {
-                        required: "Por favor, insira o telefone2 do responsavel"
-                    },
-                    profissaoResponsavel: {
-                        required: "Por favor, insira a profissao do responsavel"
-                    },
-                    cepResponsavel: {
-                        required: "Por favor, insira o cep do responsavel"
-                    },
-                    nacionalidadeResponsavel: {
-                        required: "Por favor, insira a nacionalidade do responsavel"
-                    },
-                    ufResponsavel: {
-                        required: "Por favor, selecione o uf do responsavel"
-                    },
-                    cidadeResponsavel: {
-                        required: "Por favor, selecione a cidade do responsavel"
-                    },
-                    bairroResponsavel: {
-                        required: "Por favor, selecione o bairro do responsavel"
-                    },
-                    logradouroResponsavel: {
-                        required: "Por favor, insira o logradouro do responsavel"
-                    },
-                    numeroResponsavel: {
-                        required: "Por favor, insira o numero do responsavel"
-                    },
-                    //Dados 1° testemunha
-                    nomeTestemunha1: {
-                        required: "Por favor, insira o nome da primeira testemunha"
-                    },
-                    cpfTestemunha1: {
-                        required: "Por favor, insira o cpf da primeira testemunha"
-                    },
-                     //Dados 2° testemunha
-                    nomeTestemunha2: {
-                        required: "Por favor, insira o nome da segunga testemunha"
-                    },
-                    cpfTestemunha2: {
-                        required: "Por favor, insira o cpf da segunda testemunha"
-                    },
-                    
-                },
-                submitHandler: function(form) {
-                    form.submit();
+                if (step.step === 1) {
+                    $btnPrev.attr("disabled", "disabled");
+                } else if (step.step === 3) {
+                    $btnNext.hide();
+                    $btnFinish.show();
                 }
             });
+        });
+
+        $(document).ready(function() {
+            $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
+            $('.horaEntrevista').inputmask('hh:mm');
+            $('.rgResponsavel').inputmask({
+            	mask: ['9.999.999-aa', '99.999.999-aa'],
+            	placeholder: "_"
+        	});
+            $('.cepResponsavel').inputmask('99999-999');
+            $('.telefone1Responsavel').inputmask({
+                mask: ["(99)9999-9999", "(99)99999-9999"]
+            });
+            $('.telefone2Responsavel').inputmask({
+                mask: ["(99)9999-9999", "(99)99999-9999"]
+            });
+            $('.cpfTestemunha1').inputmask('999.999.999-99');
+            $('.cpfTestemunha2').inputmask('999.999.999-99');
+        });
+
+         //Validando os dados do formulario
+        $("#notifEntrevista").validate({
+            rules: {
+
+                nomePaciente: {
+                    required: true
+                },
+                notificacaoProtocolo: {
+                    required: true
+                },
+                entrevistaRealizada: {
+                    required: true
+                },
+                problemasEstruturais: {
+                    required: true
+                },
+                doacaoAutorizada: {
+                    required: true
+                },
+                dataEntrevista: {
+                    required: true
+                },
+                horaEntrevista: {
+                    required: true
+                },
+                recusaFamiliar: {
+                    required: true
+                },
+
+                //Dados do Responsavel Legal
+                nomeResponsavel: {
+                    required: true
+                },
+                rgResponsavel: {
+                    required: true
+                },
+                parentescoResponsavel: {
+                    required: true
+                },
+                estadoCivilResponsavel: {
+                    required: true
+                },
+                telefone1Responsavel: {
+                    required: true
+                },
+                telefone2Responsavel: {
+                    required: true
+                },
+                profissaoResponsavel: {
+                    required: true
+                },
+                cepResponsavel: {
+                    required: true
+                },
+                nacionalidadeResponsavel: {
+                    required: true
+                },
+                ufResponsavel: {
+                    required: true
+                },
+                cidadeResponsavel: {
+                    required: true
+                },
+                bairroResponsavel: {
+                    required: true
+                },
+                logradouroResponsavel: {
+                    required: true
+                },
+                numeroResponsavel: {
+                    required: true
+                },
+                //Dados 1° testemunha
+                nomeTestemunha1: {
+                    required: true
+                },
+                cpfTestemunha1: {
+                    required: true
+                },
+                //Dados 2° testemunha
+                nomeTestemunha2: {
+                    required: true
+                },
+                cpfTestemunha2: {
+                    required: true
+                },
+
+            },
+            messages: {
+
+                nomePaciente: {
+                    required: "Por favor, insira o nome do paciente"
+                },
+                notificacaoProtocolo: {
+                    required: "Por favor, insira o numero de protocolo do paciente"
+                },
+                entrevistaRealizada: {
+                    required: "Por favor, selecione uma opcao"
+                },
+                problemasEstruturais: {
+                    required: "Por favor, selecione  o problema estrutural do responsavel"
+                },
+                doacaoAutorizada: {
+                    required: "Por favor, selecione uma opcao"
+                },
+                recusaFamiliar: {
+                    required: "Por favor, selecione uma recusaFamiliar"
+                },
+                dataEntrevista: {
+                    required: "Por favor, insira a data de entrevista do responsavel"
+                },
+                horaEntrevista: {
+                    required: "Por favor, insira a hora da entrevista do responsavel"
+                },
+
+                //Dados do Responsavel Legal
+                nomeResponsavel: {
+                    required: "Por favor, insira o nome do responsavel"
+                },
+                rgResponsavel: {
+                    required: "Por favor, insira o rg do responsavel"
+                },
+                parentescoResponsavel: {
+                    required: "Por favor, insira o parentesco do responsavel"
+                },
+                estadoCivilResponsavel: {
+                    required: "Por favor, insira o estao civil do responsavel"
+                },
+                telefone1Responsavel: {
+                    required: "Por favor, insira o telefone1 do responsavel"
+                },
+                telefone2Responsavel: {
+                    required: "Por favor, insira o telefone2 do responsavel"
+                },
+                profissaoResponsavel: {
+                    required: "Por favor, insira a profissao do responsavel"
+                },
+                cepResponsavel: {
+                    required: "Por favor, insira o cep do responsavel"
+                },
+                nacionalidadeResponsavel: {
+                    required: "Por favor, insira a nacionalidade do responsavel"
+                },
+                ufResponsavel: {
+                    required: "Por favor, selecione o uf do responsavel"
+                },
+                cidadeResponsavel: {
+                    required: "Por favor, selecione a cidade do responsavel"
+                },
+                bairroResponsavel: {
+                    required: "Por favor, selecione o bairro do responsavel"
+                },
+                logradouroResponsavel: {
+                    required: "Por favor, insira o logradouro do responsavel"
+                },
+                numeroResponsavel: {
+                    required: "Por favor, insira o numero do responsavel"
+                },
+                //Dados 1° testemunha
+                nomeTestemunha1: {
+                    required: "Por favor, insira o nome da primeira testemunha"
+                },
+                cpfTestemunha1: {
+                    required: "Por favor, insira o cpf da primeira testemunha"
+                },
+                //Dados 2° testemunha
+                nomeTestemunha2: {
+                    required: "Por favor, insira o nome da segunga testemunha"
+                },
+                cpfTestemunha2: {
+                    required: "Por favor, insira o cpf da segunda testemunha"
+                },
+
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
         </script>
-    </h:body>
-</html>
-
-<!--$(document).ready(function() {
-                $('data').mask('00/00/0000', {
-                    reverse: true
-                });
-            });
-
-            //Validando os dados do formulario
-            $("#notifObito").validate({
-                rules: {
-                    nomePaciente: {
-                        required: true,
-                    },
-                },
-                messages: {
-                    nomePaciente: {
-                        required: "Por favor, entre com o nome do paciente.",
-                    },
-                },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });-->
-
-
-
-<!-- $(function() {
-                var $wizard = $('#fuelux-wizard'),
-                        $btnPrev = $('.wizard-actions .btn-prev'),
-                        $btnNext = $('.wizard-actions .btn-next'),
-                        $btnFinish = $(".wizard-actions .btn-finish");
-
-                $wizard.wizard().on('finished', function(e) {
-                    // wizard complete code
-                }).on("changed", function(e) {
-                    var step = $wizard.wizard("selectedItem");
-                    // reset states
-                    $btnNext.removeAttr("disabled");
-                    $btnPrev.removeAttr("disabled");
-                    $btnNext.show();
-                    $btnFinish.hide();
-
-                    if (step.step === 1) {
-                        $btnPrev.attr("disabled", "disabled");
-                    } else if (step.step === 3) {
-                        $btnNext.hide();
-                        $btnFinish.show();
-                    }
-                });
-
-                $btnPrev.on('click', function() {
-                    $wizard.wizard('previous');
-                });
-                $btnNext.on('click', function() {
-                    $wizard.wizard('next');
-                });
-            });-->
+    </ui:define>
+    <!-- end main container -->
+</ui:composition>

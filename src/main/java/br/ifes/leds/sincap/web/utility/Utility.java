@@ -9,8 +9,8 @@ import org.springframework.ui.ModelMap;
 
 import br.ifes.leds.reuse.endereco.cdp.Bairro;
 import br.ifes.leds.reuse.endereco.cdp.Cidade;
-import br.ifes.leds.reuse.endereco.cdp.Endereco;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
+import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 
 public enum Utility {
@@ -21,12 +21,12 @@ public enum Utility {
         return INSTANCE;
     }
 
-    public void preencherEndereco(Endereco endereco, ModelMap model,
+    public void preencherEndereco(EnderecoDTO endereco, ModelMap model,
             AplEndereco aplEndereco) {
         preencherEstados(model, aplEndereco);
         try {
-            preencherCidades(endereco.getEstado().getId(), model, aplEndereco);
-            preencherBairros(endereco.getCidade().getId(), model, aplEndereco);
+            preencherCidades(endereco.getEstado(), model, aplEndereco);
+            preencherBairros(endereco.getCidade(), model, aplEndereco);
         } catch (NullPointerException e) {
         }
 

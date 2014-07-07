@@ -5,16 +5,18 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-
+import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.AtualizacaoEstadoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.EntrevistaDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
-import javax.faces.bean.SessionScoped;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.ifes.leds.sincap.web.utility.Utility;
 
+import javax.faces.bean.SessionScoped;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,7 +33,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class NotificacaoEntrevistaController {
 
     @Autowired
+    private AplEndereco aplEndereco;
+    @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
+    @Autowired
+    private br.ifes.leds.reuse.utility.Utility utilityEntities;
+    private Utility utility = Utility.getInstance();
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadListObitoAguardandoEntrevista() {
@@ -39,13 +46,16 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormEntrevista(@ModelAttribute Long idProcessoNotificacao, ModelMap model) {
+    public String loadFormEntrevista(ModelMap model) { // @ModelAttribute Long
+                                                       // idProcessoNotificacao,
         try {
-            ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(idProcessoNotificacao);
             EntrevistaDTO novaEntrevista = new EntrevistaDTO();
-            pnDTO.setEntrevista(novaEntrevista);
-
-            model.addAttribute("processoNotificacaoDTO", pnDTO);
+            utility.preencherEstados(model, aplEndereco);
+            // ProcessoNotificacaoDTO pnDTO =
+            // aplProcessoNotificacao.obter(idProcessoNotificacao);
+            // pnDTO.setEntrevista(novaEntrevista);
+            //
+            // model.addAttribute("processoNotificacaoDTO", pnDTO);
 
         } catch (Exception e) {
 
@@ -55,24 +65,28 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String cadastrarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+    public String cadastrarEntrevista(
+            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
         try {
-            modificaEstadoAtual(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
+            modificaEstadoAtual(processoNotificacaoDTO,
+                    EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
 
             aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
 
         } catch (ViolacaoDeRIException e) {
-            
+
         }
 
         return "entrevista";
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR, method = RequestMethod.GET)
-    public String loadAnalisaNotificacaoEntrevista(@ModelAttribute Long id, ModelMap model) {
+    public String loadAnalisaNotificacaoEntrevista(@ModelAttribute Long id,
+            ModelMap model) {
         try {
             ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(id);
-            modificaEstadoAtual(pnDTO, EstadoNotificacaoEnum.EMANALISEENTREVISTA);
+            modificaEstadoAtual(pnDTO,
+                    EstadoNotificacaoEnum.EMANALISEENTREVISTA);
             aplProcessoNotificacao.salvarEntrevista(pnDTO);
 
             model.addAttribute("processoNotificacaoDTO", pnDTO);
@@ -82,21 +96,29 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
-        return finalizarAnaliseEntrevista(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
+    public String recusarEntrevista(
+            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+        return finalizarAnaliseEntrevista(processoNotificacaoDTO,
+                EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
     }
 
     @RequestMapping(value = ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
-        return finalizarAnaliseEntrevista(processoNotificacaoDTO, EstadoNotificacaoEnum.AGUARDANDOCAPTACAO);
+    public String confirmarEntrevista(
+            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+        return finalizarAnaliseEntrevista(processoNotificacaoDTO,
+                EstadoNotificacaoEnum.AGUARDANDOCAPTACAO);
     }
 
     @RequestMapping(value = ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarEntrevista(@ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
-        return finalizarAnaliseEntrevista(processoNotificacaoDTO, EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
+    public String arquivarEntrevista(
+            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+        return finalizarAnaliseEntrevista(processoNotificacaoDTO,
+                EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
     }
-    
-    private String finalizarAnaliseEntrevista(ProcessoNotificacaoDTO processoNotificacaoDTO, EstadoNotificacaoEnum ESTADO){
+
+    private String finalizarAnaliseEntrevista(
+            ProcessoNotificacaoDTO processoNotificacaoDTO,
+            EstadoNotificacaoEnum ESTADO) {
         modificaEstadoAtual(processoNotificacaoDTO, ESTADO);
         try {
             aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
@@ -104,10 +126,12 @@ public class NotificacaoEntrevistaController {
         }
         return "analise-entrevista";
     }
-    
-    private void modificaEstadoAtual(ProcessoNotificacaoDTO pnDTO, EstadoNotificacaoEnum ESTADO) {
+
+    private void modificaEstadoAtual(ProcessoNotificacaoDTO pnDTO,
+            EstadoNotificacaoEnum ESTADO) {
         AtualizacaoEstadoDTO atualizacaoEstado = new AtualizacaoEstadoDTO();
         atualizacaoEstado.setEstadoNotificacao(ESTADO);
-        atualizacaoEstado.setFuncionario(pnDTO.getEntrevista().getFuncionario());
+        atualizacaoEstado
+                .setFuncionario(pnDTO.getEntrevista().getFuncionario());
     }
 }
