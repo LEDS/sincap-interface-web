@@ -2,15 +2,20 @@ function setNome(elemento, nome) {
     $(elemento).prop("name", nome);
 }
 
-function fadeComponent(componentToVerify, componentToFade)
+function fadeComponent(componentToVerify, componentToFadeYes,componentToFadeNo)
 {
     
     var val = $('[name="'+componentToVerify+'"]');
     if ($(val[0]).is(":checked"))
     {
-        $("#"+componentToFade).fadeIn();
-    }else
-        $("#"+componentToFade).fadeOut();
+        $("#"+componentToFadeYes).fadeIn();
+        $("#"+componentToFadeNo).fadeOut();
+        
+    }else{
+        $("#"+componentToFadeNo).fadeIn();
+        $("#"+componentToFadeYes).fadeOut();
+    }
+        
 }
 
 
