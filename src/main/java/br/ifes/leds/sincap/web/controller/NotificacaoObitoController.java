@@ -92,8 +92,7 @@ public class NotificacaoObitoController {
             @RequestParam("dataNascimento") String dataNascimento,
             @RequestParam("dataInternacao") String dataInternacao,
             @RequestParam("dataObito") String dataObito,
-            @RequestParam("horarioObito") String horarioObito)
-            throws ParseException {
+            @RequestParam("horarioObito") String horarioObito) {
 
         try {
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
@@ -108,7 +107,7 @@ public class NotificacaoObitoController {
                     .getPaciente()
                     .setDataInternacao(
                             utilityEntities.stringToCalendar(dataInternacao));
-            aplProcessoNotificacao.salvarNovaNotificacao(processo);
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ParseException | ViolacaoDeRIException e) {
             loadFormNovaNotificacao(model);
         }
@@ -125,7 +124,7 @@ public class NotificacaoObitoController {
 
     private List<SelectItem> getListaCausaNDoacaoSelectItem() {
         List<CausaNaoDoacaoDTO> listaCausas = aplCadastroInterno
-                .obterTodosCausaNaoDoacao();
+                .obterCausaNaoDoacaoContraIndMedica();
         List<SelectItem> listaCausasSelIt = new ArrayList<>();
 
         for (CausaNaoDoacaoDTO causa : listaCausas) {

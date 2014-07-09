@@ -12,6 +12,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.EntrevistaDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
 
 import javax.faces.bean.SessionScoped;
@@ -36,6 +37,8 @@ public class NotificacaoEntrevistaController {
     private AplEndereco aplEndereco;
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
+    @Autowired
+    private UsuarioSessao usuarioSessao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
     private Utility utility = Utility.getInstance();
@@ -71,7 +74,7 @@ public class NotificacaoEntrevistaController {
             modificaEstadoAtual(processoNotificacaoDTO,
                     EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
 
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
+            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO, usuarioSessao.getIdUsuario());
 
         } catch (ViolacaoDeRIException e) {
 
@@ -87,7 +90,7 @@ public class NotificacaoEntrevistaController {
             ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(id);
             modificaEstadoAtual(pnDTO,
                     EstadoNotificacaoEnum.EMANALISEENTREVISTA);
-            aplProcessoNotificacao.salvarEntrevista(pnDTO);
+            aplProcessoNotificacao.salvarEntrevista(pnDTO, usuarioSessao.getIdUsuario());
 
             model.addAttribute("processoNotificacaoDTO", pnDTO);
         } catch (ViolacaoDeRIException e) {
@@ -121,7 +124,7 @@ public class NotificacaoEntrevistaController {
             EstadoNotificacaoEnum ESTADO) {
         modificaEstadoAtual(processoNotificacaoDTO, ESTADO);
         try {
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO);
+            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO, usuarioSessao.getIdUsuario());
         } catch (ViolacaoDeRIException e) {
         }
         return "analise-entrevista";
