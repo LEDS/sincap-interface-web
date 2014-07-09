@@ -8,25 +8,25 @@
     <h:panelGroup layout="block" styleClass="row-fluid">
         <h:panelGroup layout="block" styleClass="span12">   
             <h:panelGroup styleClass="row-fluid form-wrapper">
-                <h:dataTable id="table1" value="#{listaNotificacoesForm}" var="notificacao"
+                <h:dataTable id="table1" value="#{listaProcessosNotificacao}" var="notificacao"
                              rows="#{quantidade}" styleClass="table table-hover table-striped">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Protocolo" />
                         </f:facet>
-                        #{notificacao.protocolo}
+                        #{notificacao.codigo}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Paciente" />
                         </f:facet>
-                        #{notificacao.paciente}
+                        #{notificacao.obito.paciente.nome}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Data do Óbito" />
                         </f:facet>
-                        <h:outputText value="#{notificacao.dataObito}">
+                        <h:outputText value="#{notificacao.obito.dataObito.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h:column>
@@ -34,15 +34,15 @@
                         <f:facet name="header">
                             <h:outputText value="Hora do Óbito" />
                         </f:facet>
-                        <h:outputText value="#{notificacao.horaObito}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <h:outputText value="#{notificacao.obito.dataObito.time}">
+                            <f:convertDateTime pattern="HH:mm" />
                         </h:outputText>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Data da Notificação" />
                         </f:facet>
-                        <h:outputText value="#{notificacao.dataNotificacao}">
+                        <h:outputText value="#{notificacao.dataAbertura.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h:column>
@@ -50,27 +50,17 @@
                         <f:facet name="header">
                             <h:outputText value="Hora da Notificação" />
                         </f:facet>
-                        <h:outputText value="#{notificacao.horaNotificacao}">
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                        <h:outputText value="#{notificacao.dataAbertura.time}">
+                            <f:convertDateTime pattern="HH:mm" />
                         </h:outputText>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Notificar Entrevista" />
                         </f:facet>
-                        <form id="formulario-notificar-entrevista-${h.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.adicionar}" method="post">
-                            <input type="hidden" name="id" value="${h.id}" />
-                            <a id="submit-notificar-entrevista-${h.id}" href="#">
-                                <center>
-                                    <i class="icon-edit"></i>
-                                </center>
-                            </a>
-                            <!-- Link dando submit no form com JQuery -->
-                            <script>
-                                $(submit-notificar-entrevista-${h.id}).click(function() {
-                                    $(formulario-notificar-entrevista-${h.id}).submit();
-                                });
-                            </script>
+                        <form id="formulario-notificar-entrevista-${notificacao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.adicionar}" method="post">
+                            <input type="hidden" name="id" value="${notificacao.id}" />
+                            <button type="submit"><i class="icon-edit"></i></button>
                         </form>
                     </h:column>
                 </h:dataTable>

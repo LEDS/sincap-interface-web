@@ -8,7 +8,6 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.AtualizacaoEstadoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
@@ -28,6 +27,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
@@ -51,18 +51,21 @@ public class NotificacaoEntrevistaController {
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(method = RequestMethod.GET)
-    public String loadListObitoAguardandoEntrevista() {
+    public String loadListObitoAguardandoEntrevista(ModelMap model) {
+        List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
+        model.addAttribute("listaProcessosNotificacao", processos);
         return "entrevista";
     }
 
-    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormEntrevista(ModelMap model) {
+    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.POST)
+    public String loadFormEntrevista(ModelMap model, @RequestParam("id") Long id) {
         try {
-            ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
+            ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
 
             utility.preencherEstados(model, aplEndereco);
             model.addAttribute("processo", processo);
-            model.addAttribute("listaCausaNaoDoacao", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
             model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
             model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
 
@@ -77,8 +80,6 @@ public class NotificacaoEntrevistaController {
     public String salvarEntrevista(ModelMap model,
             @ModelAttribute ProcessoNotificacaoDTO processo) {
         try {
-//            modificaEstadoAtual(processo,
-//                    EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
@@ -94,8 +95,6 @@ public class NotificacaoEntrevistaController {
             ModelMap model) {
         try {
             ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(id);
-            modificaEstadoAtual(pnDTO,
-                    EstadoNotificacaoEnum.EMANALISEENTREVISTA);
             aplProcessoNotificacao.salvarEntrevista(pnDTO, usuarioSessao.getIdUsuario());
 
             model.addAttribute("processoNotificacaoDTO", pnDTO);
@@ -126,22 +125,12 @@ public class NotificacaoEntrevistaController {
     }
 
     private String finalizarAnaliseEntrevista(
-            ProcessoNotificacaoDTO processoNotificacaoDTO,
-            EstadoNotificacaoEnum ESTADO) {
-        modificaEstadoAtual(processoNotificacaoDTO, ESTADO);
+            ProcessoNotificacaoDTO processoNotificacaoDTO, EstadoNotificacaoEnum ESTADO) {
         try {
             aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO, usuarioSessao.getIdUsuario());
         } catch (ViolacaoDeRIException e) {
         }
         return "analise-entrevista";
-    }
-
-    private void modificaEstadoAtual(ProcessoNotificacaoDTO pnDTO,
-            EstadoNotificacaoEnum ESTADO) {
-        AtualizacaoEstadoDTO atualizacaoEstado = new AtualizacaoEstadoDTO();
-        atualizacaoEstado.setEstadoNotificacao(ESTADO);
-        atualizacaoEstado
-                .setFuncionario(pnDTO.getEntrevista().getFuncionario());
     }
 
     private List<SelectItem> getListaCausaNDoacaoSelectItem(TipoNaoDoacao tipo) {

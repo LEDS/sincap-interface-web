@@ -9,9 +9,9 @@
 
     <h:panelGrid id="entrevista" columns="2" style=" width:40%">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-        <h:inputText style="width:100%" id="nomePaciente" value="#{processo.entrevista.responsavel.nome}" />
+        <h:outputLabel style="width:100%" id="nomePaciente" value="#{processo.entrevista.responsavel.nome}" />
         <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
-        <h:inputText style="width:100%" id="notificacaoProtocolo" value="#{processo.codigo}" />
+        <h:outputLabel style="width:100%" id="notificacaoProtocolo" value="#{processo.codigo}" />
 
         <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
         <h:selectOneRadio style="padding-left:20%; width:100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
@@ -32,7 +32,7 @@
                              styleClass="dropdown">
                 <f:selectItem itemValue=""
                               itemLabel="#{msg['entrevista.dropdown.problemasEstruturais']}" />
-                <f:selectItems value="#{listaCausaNaoDoacao}" />
+                <f:selectItems value="#{listaAspectoEstrutural}" />
             </h:selectOneMenu>
         </h:panelGrid>
     </div>
@@ -58,7 +58,7 @@
                                  styleClass="select2" >
                     <f:selectItem itemValue=""
                                   itemLabel="#{msg['entrevista.dropdown.recusaFamiliar']}" />
-                    <f:selectItems value="#{listaCausaNaoDoacao}" />
+                    <f:selectItems value="#{listaRecusaFamiliar}" />
                 </h:selectOneMenu>
                 <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
                 <h:inputText style="width: 100%" class="dataEntrevista" id="dataEntrevista" value="#{processo.entrevista.dataEntrevista}" />
