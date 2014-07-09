@@ -108,7 +108,7 @@ public class NotificacaoObitoController {
                     .getPaciente()
                     .setDataInternacao(
                             utilityEntities.stringToCalendar(dataInternacao));
-            aplProcessoNotificacao.salvarNovaNotificacao(processo);
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ParseException | ViolacaoDeRIException e) {
             loadFormNovaNotificacao(model);
         }
