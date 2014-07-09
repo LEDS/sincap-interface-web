@@ -2,6 +2,18 @@ function setNome(elemento, nome) {
     $(elemento).prop("name", nome);
 }
 
+function fadeComponent(componentToVerify, componentToFade)
+{
+    
+    var val = $('[name="'+componentToVerify+'"]');
+    if ($(val[0]).is(":checked"))
+    {
+        $("#"+componentToFade).fadeIn();
+    }else
+        $("#"+componentToFade).fadeOut();
+}
+
+
 function setNomeVarios(nomeAtributo) {
     for (var i = 1; i < arguments.length; i++) {
         var id = $(arguments[i]).prop("id");
