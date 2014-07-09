@@ -12,6 +12,8 @@ import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 
 public enum Utility {
 
@@ -78,5 +80,27 @@ public enum Utility {
         }
 
         model.addAttribute("listaBairroItem", listaBairroItem);
+    }
+    
+    public List<SelectItem> getParentescoSelectItem() {
+        List<SelectItem> parentescos = new ArrayList<>();
+        
+        for (Parentesco parentesco : Parentesco.values()) {
+            parentescos
+                    .add(new SelectItem(parentesco, parentesco.name()));
+        }
+
+        return parentescos;
+    }
+    
+    public List<SelectItem> getEstadoCivilSelectItem() {
+        List<SelectItem> estadosCivis = new ArrayList<>();
+        
+        for (EstadoCivil estadoCivil : EstadoCivil.values()) {
+            estadosCivis
+                    .add(new SelectItem(estadoCivil, estadoCivil.name()));
+        }
+
+        return estadosCivis;
     }
 }

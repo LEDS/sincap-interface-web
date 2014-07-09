@@ -39,17 +39,16 @@
                         </div>
                     </div>
                     <div class="step-content">
-                        <form id="notifEntrevista" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.adicionar}" method="post">
+                        <form id="notifEntrevista" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.salvar}" method="post">
                             <div class="step-pane active" id="step1">
                                 <div class="tab-content">
 
                                     <ui:insert name="notificacao-entrevista">
                                         <ui:include src="form-entrevista-nao-realizada.xhtml" />
                                     </ui:insert>
-
                                 </div>
                                 <button type="submit" class="btn-glow success btn-finish">
-                                    ${msg['geral.button.analisado']}
+                                    ${msg['geral.button.sa']}
                                 </button>
                             </div>
                         </form>
@@ -91,14 +90,10 @@
             	placeholder: "_"
         	});
             $('.cepResponsavel').inputmask('99999-999');
-            $('.telefone1Responsavel').inputmask({
+            $('.tel').inputmask({
                 mask: ["(99)9999-9999", "(99)99999-9999"]
             });
-            $('.telefone2Responsavel').inputmask({
-                mask: ["(99)9999-9999", "(99)99999-9999"]
-            });
-            $('.cpfTestemunha1').inputmask('999.999.999-99');
-            $('.cpfTestemunha2').inputmask('999.999.999-99');
+            $('.cpf').inputmask('999.999.999-99');
         });
 
          //Validando os dados do formulario

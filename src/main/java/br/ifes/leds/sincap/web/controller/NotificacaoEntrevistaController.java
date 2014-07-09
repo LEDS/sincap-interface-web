@@ -7,15 +7,20 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.AtualizacaoEstadoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.EntrevistaDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DTO.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +46,8 @@ public class NotificacaoEntrevistaController {
     private UsuarioSessao usuarioSessao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
+    @Autowired
+    private AplCadastroInterno aplCadastroInterno;
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(method = RequestMethod.GET)
@@ -49,16 +56,15 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormEntrevista(ModelMap model) { // @ModelAttribute Long
-                                                       // idProcessoNotificacao,
+    public String loadFormEntrevista(ModelMap model) {
         try {
-            EntrevistaDTO novaEntrevista = new EntrevistaDTO();
+            ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
+
             utility.preencherEstados(model, aplEndereco);
-            // ProcessoNotificacaoDTO pnDTO =
-            // aplProcessoNotificacao.obter(idProcessoNotificacao);
-            // pnDTO.setEntrevista(novaEntrevista);
-            //
-            // model.addAttribute("processoNotificacaoDTO", pnDTO);
+            model.addAttribute("processo", processo);
+            model.addAttribute("listaCausaNaoDoacao", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
+            model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
 
         } catch (Exception e) {
 
@@ -68,19 +74,19 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String cadastrarEntrevista(
-            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
+    public String salvarEntrevista(ModelMap model,
+            @ModelAttribute ProcessoNotificacaoDTO processo) {
         try {
-            modificaEstadoAtual(processoNotificacaoDTO,
-                    EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
-
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO, usuarioSessao.getIdUsuario());
+//            modificaEstadoAtual(processo,
+//                    EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
+            processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
+            aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
         } catch (ViolacaoDeRIException e) {
 
         }
 
-        return "entrevista";
+        return "form-entrevista";
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR, method = RequestMethod.GET)
@@ -136,5 +142,18 @@ public class NotificacaoEntrevistaController {
         atualizacaoEstado.setEstadoNotificacao(ESTADO);
         atualizacaoEstado
                 .setFuncionario(pnDTO.getEntrevista().getFuncionario());
+    }
+
+    private List<SelectItem> getListaCausaNDoacaoSelectItem(TipoNaoDoacao tipo) {
+        List<CausaNaoDoacaoDTO> listaCausas = aplCadastroInterno
+                .obterCausaNaoDoacao(tipo);
+        List<SelectItem> listaCausasSelIt = new ArrayList<>();
+
+        for (CausaNaoDoacaoDTO causa : listaCausas) {
+            listaCausasSelIt
+                    .add(new SelectItem(causa.getId(), causa.getNome()));
+        }
+
+        return listaCausasSelIt;
     }
 }
