@@ -12,18 +12,21 @@
     <ui:define name="#{sects.content}">
 
         <!-- Notificações com óbito pendente de análise -->
-        <ui:include src="/WEB-INF/components/lista-notificacoes.xhtml">
-            <ui:param name="notificacoes" value="#{notificacoesObitoAnalisePendente}" />
+        <br/><h2>Análise de Óbito Pendente</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-processos-analisar-obito.xhtml">
+            <ui:param name="processos" value="#{processosObitoAnalisePendente}" />
         </ui:include>
 
+        <br/><h2>Análise de Entrevista Pendente</h2><br/>
         <!-- Notificações com entrevista pendente de análise -->
-        <ui:include src="/WEB-INF/components/lista-notificacoes.xhtml">
-            <ui:param name="notificacoes" value="#{notificacoesEntrevistaAnalisePendente}" />
+        <ui:include src="/WEB-INF/components/lista-processos.xhtml">
+            <ui:param name="processos" value="#{processosEntrevistaAnalisePendente}" />
         </ui:include>
 
+        <br/><h2>Análise de Captação Pendente</h2><br/>
         <!-- Notificações com captação pendente de análise -->
-        <ui:include src="/WEB-INF/components/lista-notificacoes.xhtml">
-            <ui:param name="notificacoes" value="#{notificacoesCaptacoesAnalisePendente}" />
+        <ui:include src="/WEB-INF/components/lista-processos.xhtml">
+            <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
         </ui:include>
 
     </ui:define>
