@@ -5,8 +5,6 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.bean.SessionScoped;

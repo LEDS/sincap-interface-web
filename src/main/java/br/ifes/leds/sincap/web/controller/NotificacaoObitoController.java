@@ -190,7 +190,7 @@ public class NotificacaoObitoController {
 
         // Confirmar a análise do óbito.
         // FIXME: Substituir a constante pelo verdadeiro id do funcionário.
-        aplProcessoNotificacao.validarAnaliseObito(processo, 1L);
+        aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
     }

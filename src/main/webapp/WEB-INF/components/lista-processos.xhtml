@@ -34,7 +34,7 @@
                             <h:outputText value="Data do Óbito" />
                         </f:facet>
 
-                        <h:outputText value="#{processo.obito.dataObito}">
+                        <h:outputText value="#{processo.obito.dataObito.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h:column>
@@ -45,7 +45,7 @@
                             <h:outputText value="Paciente" />
                         </f:facet>
 
-                        <h:outputText value="#{processo.obito.paciente}" />
+                        <h:outputText value="#{processo.obito.paciente.nome}" />
                     </h:column>
 
 
@@ -55,7 +55,7 @@
                             <h:outputText value="Hospital" />
                         </f:facet>
 
-                        <h:outputText value="#{processo.obito.hospital}" />
+                        <h:outputText value="#{processo.obito.hospital.nome}" />
                     </h:column>
 
                     <!-- Notificador -->
@@ -64,7 +64,7 @@
                             <h:outputText value="Notificador" />
                         </f:facet>
 
-                        <h:outputText value="#{processo.obito.notificador}" />
+                        <h:outputText value="#{processo.notificador.nome}" />
                     </h:column>
 
                     <!-- Detalhes -->
@@ -75,7 +75,7 @@
 
                         <a
                             href="http://${request.serverName}:${request.serverPort}${request.contextPath}/processo/visualizar/#{processo.codigo}">
-                            <i class="icon-file"></i>
+                            <button type="submit"><i class="icon-edit"></i></button>
                         </a>
                     </h:column>
                 </h:dataTable>
