@@ -5,25 +5,60 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import javax.faces.bean.SessionScoped;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+
 /**
+ * Controla os eventos da página principal.
  *
- * @author 20121bsi0252
+ * @author Lucas Possatti
  */
 @Controller
 @RequestMapping(ContextUrls.INDEX)
 @SessionScoped
 public class IndexController {
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String loadForm() {
+    @Autowired
+    AplProcessoNotificacao aplProcessoNotificacao;
 
+    /**
+     * Exibe a página principal.
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(method = RequestMethod.GET)
+    public String index(ModelMap model) {
+        // Puxa os três tipos de notificações corretamente da apl.
+        List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
+        List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
+        List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO);
+
+        // Adiciona as três listas de notificações à página.
+        model.addAttribute("processosObitoAnalisePendente",
+                processosObitoAnalisePendente);
+        model.addAttribute("processosEntrevistaAnalisePendente",
+                processosEntrevistaAnalisePendente);
+        model.addAttribute("processosCaptacoesAnalisePendente",
+                processosCaptacoesAnalisePendente);
+
+        // Chama a página.
         return "index";
     }
-
 }
