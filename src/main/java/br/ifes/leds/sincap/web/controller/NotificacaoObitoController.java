@@ -148,9 +148,50 @@ public class NotificacaoObitoController {
         return listaSetorString;
     }
 
-    @RequestMapping(value = ContextUrls.APP_ANALISAR, method = RequestMethod.GET)
-    public String loadAnalisaNotificacaoObito() {
+    /**
+     * Fornece a página para análise do óbito
+     *
+     * @param model
+     * @param idProcesso
+     *            ID do ProcessoNotificacao
+     * @return
+     */
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
+    public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
+        // Pega a notificação do banco.
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        // Preenche os endereços.
+        utility.preencherEndereco(processo.getObito().getPaciente()
+                .getEndereco(), model, aplEndereco);
+        preencherSetorCausaNDoacao(model);
+
+        // Adiciona o processo ao modelo da página.
+        model.addAttribute("processo", processo);
+
         return "analise-obito";
     }
 
+    /**
+     * Confirma a análise do óbito.
+     *
+     * @param model
+     * @param idProcesso
+     *            ID do ProcessoNotificacao
+     * @return
+     */
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR
+            + "/{idProcesso}", method = RequestMethod.GET)
+    public String confirmarAnaliseObito(ModelMap model, @PathVariable Long idProcesso) {
+        // Pega a notificação do banco.
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        // Confirmar a análise do óbito.
+        // FIXME: Substituir a constante pelo verdadeiro id do funcionário.
+        aplProcessoNotificacao.validarAnaliseObito(processo, 1L);
+
+        return "redirect:" + ContextUrls.INDEX;
+    }
 }

@@ -6,7 +6,7 @@
             <h:panelGroup styleClass="row-fluid form-wrapper">
 
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="listaNotificacoes" value="#{notificacoes}" var="notificacao" rows="#{quantidade}"
+                <h:dataTable id="listaNotificacoes" value="#{processos}" var="processo" rows="#{quantidade}"
                     styleClass="table table-hover table-striped">
                     <!-- Protocolo -->
                     <h:column>
@@ -14,7 +14,7 @@
                             <h:outputText value="Protocolo" />
                         </f:facet>
 
-                        #{notificacao.protocolo}
+                        <h:outputText value="#{processo.codigo}" />
                     </h:column>
 
                     <!-- Data de Notificação -->
@@ -23,7 +23,7 @@
                             <h:outputText value="Data de Notificação" />
                         </f:facet>
 
-                        <h:outputText value="#{notificacao.dataNotificacao}">
+                        <h:outputText value="#{processo.dataAbertura.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h:column>
@@ -34,7 +34,7 @@
                             <h:outputText value="Data do Óbito" />
                         </f:facet>
 
-                        <h:outputText value="#{notificacao.dataObito}">
+                        <h:outputText value="#{processo.obito.dataObito}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                         </h:outputText>
                     </h:column>
@@ -44,18 +44,37 @@
                         <f:facet name="header">
                             <h:outputText value="Paciente" />
                         </f:facet>
-                        
-                        #{notificacao.paciente}
+
+                        <h:outputText value="#{processo.obito.paciente}" />
                     </h:column>
 
-                    <!-- Resumo -->
+
+                    <!-- Hospital -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Resumo" />
+                            <h:outputText value="Hospital" />
+                        </f:facet>
+
+                        <h:outputText value="#{processo.obito.hospital}" />
+                    </h:column>
+
+                    <!-- Notificador -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Notificador" />
+                        </f:facet>
+
+                        <h:outputText value="#{processo.obito.notificador}" />
+                    </h:column>
+
+                    <!-- Detalhes -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Detalhes" />
                         </f:facet>
 
                         <a
-                            href="http://${request.serverName}:${request.serverPort}${request.contextPath}/notificacao/visualizar/#{notificacao.idNotificacao}">
+                            href="http://${request.serverName}:${request.serverPort}${request.contextPath}/processo/visualizar/#{processo.codigo}">
                             <i class="icon-file"></i>
                         </a>
                     </h:column>
