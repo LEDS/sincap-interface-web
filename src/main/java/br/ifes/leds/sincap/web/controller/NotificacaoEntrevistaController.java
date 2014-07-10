@@ -15,12 +15,6 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,6 +22,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -78,16 +80,27 @@ public class NotificacaoEntrevistaController {
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarEntrevista(ModelMap model,
-            @ModelAttribute ProcessoNotificacaoDTO processo) {
+                                   @ModelAttribute ProcessoNotificacaoDTO processo,
+                                   @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
+                                   @RequestParam("dataDeAbertura") String dataAbertura) throws ParseException {
         try {
-            processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
+            setUpProcesso(processo, doacaoAutorizada, dataAbertura);
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
         } catch (ViolacaoDeRIException e) {
 
         }
 
-        return "form-entrevista";
+        return "redirect:" + ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
+    }
+
+    private void setUpProcesso(ProcessoNotificacaoDTO processo, boolean doacaoAutorizada, String dataAbertura) throws ParseException {
+        Calendar dataAberturaCalendar = Calendar.getInstance();
+        dataAberturaCalendar.setTime((new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dataAbertura)));
+
+        processo.setDataAbertura(dataAberturaCalendar);
+        processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
+        processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR, method = RequestMethod.GET)
