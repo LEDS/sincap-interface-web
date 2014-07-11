@@ -79,7 +79,19 @@
                 mask: ["(99)9999-9999", "(99)99999-9999"]
             });
             $('.cpf').inputmask('999.999.999-99');
+            setRadioButtonFalse('entrevistaRealizada', function () {
+                fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
+            });
+            setRadioButtonFalse('doacaoAutorizada', function () {
+                fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
+            });
         });
+
+        function setRadioButtonFalse(radioButtonName, triggerFunction) {
+            var radioEntrevistaRealizada = $('[name="' + radioButtonName + '"]').filter('[value=false]');
+            radioEntrevistaRealizada.prop('checked', true);
+            triggerFunction();
+        }
 
         $('[name="entrevistaRealizada"]').click(function() {
             fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
