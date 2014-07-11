@@ -65,9 +65,9 @@ public class SignInController {
 
         } catch (Exception e) {
 
-            model.addAttribute("usuario", usuarioDto);
+            model.addAttribute("mensagem", "Usuário ou senha incorretos.");
 
-            return "redirect:/mensagem/erroLogin";
+            return "signin";
         }
 
     }
