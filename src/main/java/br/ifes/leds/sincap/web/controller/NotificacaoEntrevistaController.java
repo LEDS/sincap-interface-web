@@ -91,7 +91,7 @@ public class NotificacaoEntrevistaController {
 
         }
 
-        return "redirect:" + ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
+        return "redirect:" + ContextUrls.INDEX;
     }
 
     private void setUpProcesso(ProcessoNotificacaoDTO processo, boolean doacaoAutorizada, String dataAbertura) throws ParseException {
