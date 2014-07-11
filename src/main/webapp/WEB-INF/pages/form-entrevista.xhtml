@@ -93,8 +93,20 @@
             triggerFunction();
         }
 
+        function changeNameAttribute(radioButtonVet, selectItem1, selectItem2, name) {
+            if ($(radioButtonVet).filter('[value=true]').is(":checked")) {
+                $(selectItem1).prop('name', '');
+                $(selectItem2).prop('name', name);
+            } else {
+                $(selectItem1).prop('name', name);
+                $(selectItem2).prop('name', '');
+            }
+        }
+
         $('[name="entrevistaRealizada"]').click(function() {
             fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
+
+            changeNameAttribute(this, "#causaNaoDoacao", "#recusaFamiliar", 'causaNaoDoacao');
         });
 
         $('[name="doacaoAutorizada"]').click(function(){

@@ -161,22 +161,21 @@
         </h:panelGroup>
     </h:panelGrid>
     <script type="text/javascript">
-        $(document).ready(
-                function() {
-                    // Dados do responsável
-                    setNomeVarios('entrevista.responsavel', nome, rg,
-                            parentesco, estadoCivil, numero, numero2, profissao, nacionalidade);
-                    // Telefones do responsável
-                    setNomeVarios('entrevista.responsavel.telefone', numero);
-                    $("#numero2").prop("name", "entrevista.responsavel.telefone2.numero");
-                    // Endereço do responsável
-                    setNomeVarios('entrevista.responsavel.endereco', estado, cidade, bairro, logradouro, cep);
-                    $("#numeroEndereco").prop("name", "entrevista.responsavel.endereco.numero");
-                    // Testemunhas
-                    $("#nomeTestemunha1").prop("name", "entrevista.testemunha1.nome");
-                    $("#cpfTestemunha1").prop("name", "entrevista.testemunha1.cpf");
-                    $("#nomeTestemunha2").prop("name", "entrevista.testemunha2.nome");
-                    $("#cpfTestemunha2").prop("name", "entrevista.testemunha2.cpf");
-                });
+        $(document).ready(function () {
+            // Dados do responsável
+            setNomeVarios('entrevista.responsavel', nome, rg,
+                    parentesco, estadoCivil, numero, numero2, profissao, nacionalidade);
+            // Telefones do responsável
+            setNomeVarios('entrevista.responsavel.telefone', numero);
+            $("#numero2").prop("name", "entrevista.responsavel.telefone2.numero");
+            // Endereço do responsável
+            setNomeVarios('entrevista.responsavel.endereco', estado, cidade, bairro, logradouro, cep);
+            $("#numeroEndereco").prop("name", "entrevista.responsavel.endereco.numero");
+            // Testemunhas
+            $("#nomeTestemunha1").prop("name", "entrevista.testemunha1.nome");
+            $("#cpfTestemunha1").prop("name", "entrevista.testemunha1.cpf");
+            $("#nomeTestemunha2").prop("name", "entrevista.testemunha2.nome");
+            $("#cpfTestemunha2").prop("name", "entrevista.testemunha2.cpf");
+        });
     </script>
 </ui:composition>
