@@ -1,105 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/form.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:head>
-        <!-- title -->
-        <title>#{msg['analise.entrevista.titulo']}</title>
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['analise.obito.titulo']}
+    </ui:define>
+    <!-- Fim do Título -->
 
-        <!-- meta -->
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h:outputLabel>${msg['analise.entrevista.titulo']} - Página em Construção</h:outputLabel>
 
-        <!-- bootstrap -->
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-responsive.css" />
-        <h:outputStylesheet library="css/bootstrap" name="bootstrap-overrides.css" />
+                    <p>Nessa tela os dados serão analisados e será dado o aval para continuar o Processo de Notificação. Caso haja algum erro na
+                        notificação a mesma pode ser recusa, ou caso esteja tudo certo para finalizar, ela também pode ser arquivada.</p>
 
-        <!-- libraries -->
-        <h:outputStylesheet library="css/lib" name="jquery-ui-1.10.2.custom.css" />
-        <h:outputStylesheet library="css/lib" name="font-awesome.css" />	
+                    <h3>ID</h3>
+                    <p>#{processo.id}</p>
+                    <h3>Codigo:</h3>
+                    <p>#{processo.codigo}</p>
+                    <h3>Paciente:</h3>
+                    <p>#{processo.obito.paciente.nome}</p>
 
-        <!-- global styles -->
-        <h:outputStylesheet library="css" name="layout.css" />
-        <h:outputStylesheet library="css" name="elements.css" />
-        <h:outputStylesheet library="css" name="icons.css" />
+                    <h:panelGroup layout="block" id="content">
+                        <a id="confirmar" class="btn-flat success"
+                            href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}/#{processo.id}">
+                            ${msg['analise.confirmar']} </a>
 
-        <!-- this page specific styles -->    
-        <h:outputStylesheet library="css/compiled" name="index.css" />
+                        <a id="recusar" class="btn-flat inverse"
+                            href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.recusar}/#{processo.id}">
+                            ${msg['analise.recusar']} </a>
 
-        <!-- open sans font -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'/>
-
-        <!-- lato font -->
-        <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'/>
-    </h:head>
-
-    <!-- navbar -->
-    <h:panelGroup layout="block"  id="menu-navbar">
-        <ui:insert  name="menu-navbar" >
-            <ui:include src="menu-navbar.xhtml" />
-        </ui:insert>
-    </h:panelGroup>
-    <!-- end navbar -->
-
-    <!-- sidebar -->
-    <h:panelGroup layout="block"  id="menu-sidebar">
-        <ui:insert name="menu-sidebar" >
-            <ui:include src="menu-sidebar.xhtml" />
-        </ui:insert>
-    </h:panelGroup>
-    <!-- end sidebar -->
-
-    <!-- main container -->
-    <h:panelGroup layout="block" styleClass="content">
-        <div class="container-fluid">
-            <div id="pad-wrapper">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <h:outputLabel>${msg['analise.entrevista.titulo']} - Página em Construção</h:outputLabel>
-
-                        <p>
-                            Nessa tela os dados serão analisados e será dado o aval
-                            para continuar o Processo de Notificação.
-                            Caso haja algum erro na notificação a mesma pode ser recusa, 
-                            ou caso esteja tudo certo para finalizar, ela também pode ser arquivada.
-                        </p>
-
-                        <form id="analisaObito" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}" method="post">
-
-                            <h:panelGroup layout="block"  id="content">
-                                <button type="submit" class="btn-glow success btn-finish">
-                                    ${msg['analise.confirmar']}
-                                </button>
-
-                                <a id="recusado" class="btn-glow inverse btn-finish"
-                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.recusar}">
-                                    ${msg['analise.recusar']}
-                                </a>
-
-                                <a id="arquivar" class="btn-glow primary btn-finish"
-                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.arquivar}">
-                                    ${msg['analise.arquivar']}
-                                </a>
-                            </h:panelGroup>
-                        </form>
-                    </div>
+                        <a id="arquivar" class="btn-flat primary"
+                            href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.arquivar}/#{processo.id}">
+                            ${msg['analise.arquivar']} </a>
+                    </h:panelGroup>
                 </div>
             </div>
         </div>
-    </h:panelGroup>
-    <!-- end main container -->
+    </ui:define>
+    <!-- Fim do conteúdo -->
 
-    <h:body>
-        <!-- scripts -->
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="theme.js" />
-        <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
-        <!-- end scripts -->
-    </h:body>
-</html>
+</ui:composition>
