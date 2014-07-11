@@ -149,7 +149,7 @@ public class NotificacaoObitoController {
     }
 
     /**
-     * Fornece a página para análise do óbito
+     * Fornece a página para análise.
      *
      * @param model
      * @param idProcesso
@@ -174,7 +174,7 @@ public class NotificacaoObitoController {
     }
 
     /**
-     * Confirma a análise do óbito.
+     * Confirma a análise.
      *
      * @param model
      * @param idProcesso
@@ -189,7 +189,6 @@ public class NotificacaoObitoController {
                 .obter(idProcesso);
 
         // Confirmar a análise do óbito.
-        // FIXME: Substituir a constante pelo verdadeiro id do funcionário.
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
