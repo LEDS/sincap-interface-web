@@ -26,11 +26,11 @@
                     <p>#{processo.obito.paciente.nome}</p>
 
                     <h:panelGroup layout="block" id="content">
-                        <a id="recusado" class="btn-flat success"
+                        <a id="confirmar" class="btn-flat success"
                             href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.confirmar}/#{processo.id}">
                             ${msg['analise.confirmar']} </a>
 
-                        <a id="recusado" class="btn-flat inverse"
+                        <a id="recusar" class="btn-flat inverse"
                             href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.recusar}/#{processo.id}">
                             ${msg['analise.recusar']} </a>
 
