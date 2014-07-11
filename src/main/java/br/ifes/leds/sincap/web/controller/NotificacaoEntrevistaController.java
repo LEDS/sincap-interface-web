@@ -18,10 +18,7 @@ import br.ifes.leds.sincap.web.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
@@ -103,19 +100,6 @@ public class NotificacaoEntrevistaController {
         processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
     }
 
-    @RequestMapping(value = ContextUrls.APP_ANALISAR, method = RequestMethod.GET)
-    public String loadAnalisaNotificacaoEntrevista(@ModelAttribute Long id,
-            ModelMap model) {
-        try {
-            ProcessoNotificacaoDTO pnDTO = aplProcessoNotificacao.obter(id);
-            aplProcessoNotificacao.salvarEntrevista(pnDTO, usuarioSessao.getIdUsuario());
-
-            model.addAttribute("processoNotificacaoDTO", pnDTO);
-        } catch (ViolacaoDeRIException e) {
-        }
-        return "analise-entrevista";
-    }
-
     @RequestMapping(value = ContextUrls.RECUSAR, method = RequestMethod.POST)
     public String recusarEntrevista(
             @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
@@ -157,5 +141,46 @@ public class NotificacaoEntrevistaController {
         }
 
         return listaCausasSelIt;
+    }
+
+    /**
+     * Fornece a página para análise.
+     *
+     * @param model
+     * @param idProcesso
+     *            ID do ProcessoNotificacao
+     * @return
+     */
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
+    public String analisar(ModelMap model, @PathVariable Long idProcesso) {
+        // Pega o processo do banco.
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        // Adiciona o processo ao modelo da página.
+        model.addAttribute("processo", processo);
+
+        return "analise-entrevista";
+    }
+
+    /**
+     * Confirma a análise.
+     *
+     * @param model
+     * @param idProcesso
+     *            ID do ProcessoNotificacao
+     * @return
+     */
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR
+            + "/{idProcesso}", method = RequestMethod.GET)
+    public String confirmarAnalise(ModelMap model, @PathVariable Long idProcesso) {
+        // Pega a notificação do banco.
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        // Confirmar a análise do óbito.
+        aplProcessoNotificacao.validarAnaliseEntrevista(processo, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + ContextUrls.INDEX;
     }
 }
