@@ -1,165 +1,184 @@
 <ui:composition
-        
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
-    <h:head><h:outputStylesheet library="css" name="grids.css" /></h:head>
-    <h:panelGrid id="entrevista" columns="1" style=" width:55%">
-        <h:panelGrid class="grid-form" columns="2">
-            <h:outputLabel class="grid-form-label" value="#{msg['obito.paciente.nome']}"/>
-            <h:outputLabel id="nomePaciente" value="#{processo.obito.paciente.nome}" />
-            <h:outputLabel class="grid-form-label" value="#{msg['notificacao.protocolo']}"/>
-            <h:outputLabel id="notificacaoProtocolo" value="#{processo.codigo}" />
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 
-            <h:outputLabel class="grid-form-label" value="#{msg['entrevista.radioButton.realizada']}" />
-            <h:panelGroup  class="grid-form-radio"  layout="block">
-                <h:selectOneRadio style="width: 100%" id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
-                                  styleClass="radio">
-                    <f:selectItem itemValue="true"
-                                  itemLabel="#{msg['entrevista.radioButton.realizada.sim']}"  />
-                    <f:selectItem itemValue="false"
-                                  itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
-                </h:selectOneRadio>
-            </h:panelGroup>
-        </h:panelGrid>
+    <h:outputStylesheet library="css" name="grids.css" />
 
-        <h:panelGrid class="grid-form" columns="2" id="divEntrevistaNaoRealizada" >
-            <h:outputLabel class="grid-form-label" style="width: 80px" value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
-            <h:panelGroup layout="block">
-                <h:selectOneMenu class="grid-form-dropdown" id="causaNaoDoacao" value="#{processo.causaNaoDoacao}"
+    <br/>
+    <h:panelGroup id="entrevista" layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+            <h:inputText readonly="true" id="nomePaciente" value="#{processo.obito.paciente.nome}" />
+        </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+            <h:inputText readonly="true" id="notificacaoProtocolo" value="#{processo.codigo}" />
+        </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
+            <h:selectOneRadio id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
+                              styleClass="radio">
+                <f:selectItem itemValue="true"
+                              itemLabel="#{msg['entrevista.radioButton.realizada.sim']}"  />
+                <f:selectItem itemValue="false"
+                              itemLabel="#{msg['entrevista.radioButton.realizada.nao']}" />
+            </h:selectOneRadio>
+
+        </h:panelGroup>
+
+
+        <h:panelGroup styleClass="control-group" id="divEntrevistaNaoRealizada" >
+            <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+            <h:panelGroup styleClass="span2" layout="block">
+                <h:selectOneMenu id="causaNaoDoacao" value="#{processo.causaNaoDoacao}"
                                  styleClass="dropdown">
                     <f:selectItem itemValue=""
                                   itemLabel="#{msg['entrevista.dropdown.problemasEstruturais']}" />
                     <f:selectItems value="#{listaAspectoEstrutural}" />
                 </h:selectOneMenu>
             </h:panelGroup>
-        </h:panelGrid>
+        </h:panelGroup>
 
         <h:panelGroup id="divEntrevistaRealizada" layout="block">
-            <h:panelGrid class="grid-form" columns="2" >
-                <h:outputLabel class="grid-form-label" style="width: 32px" value="#{msg['entrevista.radioButton.doacaoAutorizada']}" />
-                <h:panelGroup class="grid-form-radio" layout="block">
-                    <h:selectOneRadio  id="doacaoAutorizada" style="width: 100%"
-                                      value="#{processo.entrevista.doacaoAutorizada}"
-                                      styleClass="radio">
-                        <f:selectItem itemValue="true"
-                                      itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}" />
-                        <f:selectItem itemValue="false"
-                                      itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}"/>
-                    </h:selectOneRadio>
-                </h:panelGroup>
-            </h:panelGrid>
+            <h:panelGroup styleClass="control-group" layout="block">
+                <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}" />
+                <h:selectOneRadio  id="doacaoAutorizada" value="#{processo.entrevista.doacaoAutorizada}"
+                                   styleClass="radio">
+                    <f:selectItem itemValue="true"
+                                  itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}" />
+                    <f:selectItem itemValue="false"
+                                  itemLabel="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}"/>
+                </h:selectOneRadio>
+            </h:panelGroup>
 
-            <h:panelGrid class="grid-form" id="divDoacaoNaoAutorizada" columns="2">
-                <h:outputLabel class="grid-form-label" style="width: 70px" value="#{msg['entrevista.dropdown.recusaFamiliar']}" />
-                <h:selectOneMenu class="grid-form-dropdown"  id="recusaFamiliar" value="#{processo.causaNaoDoacao}"
-                                 styleClass="select2" >
+            <h:panelGroup id="divDoacaoNaoAutorizada" layout="block" styleClass="control-group">
+                <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}" />
+                <h:selectOneMenu  id="recusaFamiliar" value="#{processo.causaNaoDoacao}"
+                                  styleClass="dropdown" >
                     <f:selectItem itemValue=""
                                   itemLabel="#{msg['entrevista.dropdown.recusaFamiliar']}" />
                     <f:selectItems value="#{listaRecusaFamiliar}" />
                 </h:selectOneMenu>
-            </h:panelGrid>
+            </h:panelGroup>
 
-            <h:panelGrid class="grid-form" columns="2">
-                <h:outputLabel style="width: 100px" value="#{msg['entrevista.text.dtEntrevista']}"/>
-                <h:inputText style="width: 70%" class="dataEntrevista" id="dataEntrevista" value="#{processo.entrevista.dataEntrevista}" />
+            <h:panelGroup layout="block" styleClass="control-group">
+                <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
+                <h:inputText class="dataEntrevista" id="dataEntrevista" value="#{processo.entrevista.dataEntrevista}" />
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="control-group">
+                <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
+                <h:inputText class="horaEntrevista" id="horaEntrevista" value="#{processo.entrevista.horaEntrevista}" />
+            </h:panelGroup>
 
-                <h:outputLabel style="width: 100px" value="#{msg['entrevista.text.hrEntrevista']}"/>
-                <h:inputText style="width: 70%" class="horaEntrevista" id="horaEntrevista" value="#{processo.entrevista.horaEntrevista}" />
-            </h:panelGrid>
 
             <h:panelGroup id="divDoacaoAutorizada" layout="block">
                 <br /><h:outputLabel><b>${msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
-                <h:panelGrid class="grid-form" columns="2">
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
-                    <h:inputText style="width: 70%" id="nome" value="#{processo.entrevista.responsavel.nomeResponsavel}" />
+                    <h:inputText id="nome" value="#{processo.entrevista.responsavel.nomeResponsavel}" />
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
-                    <h:inputText style="width: 70%" class="rg" id="rg" value="#{processo.entrevista.responsavel.documentoSocial}" />
-
+                    <h:inputText class="rg" id="rg" value="#{processo.entrevista.responsavel.documentoSocial}" />
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
-                    <h:selectOneMenu class="grid-form-dropdown" id="parentesco" value="#{processo.entrevista.responsavel.parentesco}"
-                                     styleClass="select2" >
+                    <h:selectOneMenu id="parentesco" value="#{processo.entrevista.responsavel.parentesco}"
+                                     styleClass="dropdown" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.parentesco']}" />
                         <f:selectItems value="#{listaParentescos}" />
                     </h:selectOneMenu>
-
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
-                    <h:selectOneMenu  class="grid-form-dropdown" id="estadoCivil" value="#{processo.entrevista.responsavel.estadoCivil}"
+                    <h:selectOneMenu  id="estadoCivil" value="#{processo.entrevista.responsavel.estadoCivil}"
                                       styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.estadoCivil']}" />
                         <f:selectItems value="#{listaEstadosCivis}" />
                     </h:selectOneMenu>
-
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
-                    <h:inputText style="width: 70%" class="tel" id="numero" value="#{processo.entrevista.responsavel.telefone.numero}"/>
-
+                    <h:inputText class="tel" id="numero" value="#{processo.entrevista.responsavel.telefone.numero}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
-                    <h:inputText style="width: 70%" class="tel" id="numero2" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
-
+                    <h:inputText class="tel" id="numero2" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
-                    <h:inputText style="width: 70%" id="profissao" value="#{processo.entrevista.responsavel.profissao}"/>
-
+                    <h:inputText id="profissao" value="#{processo.entrevista.responsavel.profissao}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
-                    <h:inputText style="width: 70%" class="cep" id="cep" value="#{processo.entrevista.responsavel.endereco.cep}"/>
-
+                    <h:inputText class="cep" id="cep" value="#{processo.entrevista.responsavel.endereco.cep}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
-                    <h:inputText style="width: 70%" id="nacionalidade" value="#{processo.entrevista.responsavel.nacionalidade}"/>
-
+                    <h:inputText id="nacionalidade" value="#{processo.entrevista.responsavel.nacionalidade}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
-                    <h:selectOneMenu class="grid-form-dropdown" id="estado" value="#{processo.entrevista.responsavel.endereco.estado}" onchange="ajaxGetMunicipios(estado, cidade)"
+                    <h:selectOneMenu id="estado" value="#{processo.entrevista.responsavel.endereco.estado}" onchange="ajaxGetMunicipios(estado, cidade)"
                                      styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.uf']}" />
                         <f:selectItems value="#{listaEstadoItem}" />
                     </h:selectOneMenu>
-
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
-                    <h:selectOneMenu class="grid-form-dropdown" id="cidade" value="#{processo.entrevista.responsavel.endereco.cidade}" onchange="ajaxGetBairros(cidade, bairro)"
+                    <h:selectOneMenu id="cidade" value="#{processo.entrevista.responsavel.endereco.cidade}" onchange="ajaxGetBairros(cidade, bairro)"
                                      styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.cidade']}" />
                         <f:selectItems value="#{listaCidadeItem}" />
                     </h:selectOneMenu>
-
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
-                    <h:selectOneMenu class="grid-form-dropdown" id="bairro" value="#{processo.entrevista.responsavel.endereco.cidade}"
+                    <h:selectOneMenu id="bairro" value="#{processo.entrevista.responsavel.endereco.cidade}"
                                      styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.bairro']}" />
                         <f:selectItems value="#{listaBairroItem}" />
                     </h:selectOneMenu>
-
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
-                    <h:inputText style="width: 70%" id="logradouro" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
-
+                    <h:inputText id="logradouro" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
-                    <h:inputText style="width: 70%" id="numeroEndereco" value="#{processo.entrevista.responsavel.endereco.numero}"/>
-                </h:panelGrid>
+                    <h:inputText id="numeroEndereco" value="#{processo.entrevista.responsavel.endereco.numero}"/>
+                </h:panelGroup>
 
                 <br/><h:outputLabel><b>${msg['entrevista.text.testemunha1']}</b></h:outputLabel>
-                <h:panelGrid class="grid-form" columns="2">
-                    <h:outputLabel class="grid-form-label" style="width: 90px" value="#{msg['entrevista.text.testemunha1.nome']}"/>
-                    <h:inputText style="width: 70%" id="nomeTestemunha1" value="#{processo.entrevista.testemunha1.nome}"/>
-
-                    <h:outputLabel class="grid-form-label" style="width: 90px" value="#{msg['entrevista.text.testemunha1.cpf']}"/>
-                    <h:inputText style="width: 70%" class="cpf" id="cpfTestemunha1" value="#{processo.entrevista.testemunha1.cpf}"/>
-                </h:panelGrid>
+                <h:panelGroup layout="block" styleClass="control-group">
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+                    <h:inputText id="nomeTestemunha1" value="#{processo.entrevista.testemunha1.nome}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
+                    <h:inputText class="cpf" id="cpfTestemunha1" value="#{processo.entrevista.testemunha1.cpf}"/>
+                </h:panelGroup>
 
                 <br/><h:outputLabel><b>${msg['entrevista.text.testemunha2']}</b></h:outputLabel>
-                <h:panelGrid class="grid-form" columns="2">
-                    <h:outputLabel class="grid-form-label" style="width: 90px" value="#{msg['entrevista.text.testemunha2.nome']}"/>
-                    <h:inputText style="width: 70%" id="nomeTestemunha2" value="#{eprocesso.entrevista.testemunha2.nome}"/>
-
-                    <h:outputLabel class="grid-form-label" style="width: 90px" value="#{msg['entrevista.text.testemunha1.cpf']}"/>
-                    <h:inputText style="width: 70%" class="cpf" id="cpfTestemunha2" value="#{processo.entrevista.testemunha2.cpf}"/>
-                </h:panelGrid>
+                <h:panelGroup layout="block" styleClass="control-group">
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}"/>
+                    <h:inputText id="nomeTestemunha2" value="#{eprocesso.entrevista.testemunha2.nome}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="control-group">
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
+                    <h:inputText class="cpf" id="cpfTestemunha2" value="#{processo.entrevista.testemunha2.cpf}"/>
+                </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
-    </h:panelGrid>
+    </h:panelGroup>
     <script type="text/javascript">
         $(document).ready(function () {
             // Dados do responsável

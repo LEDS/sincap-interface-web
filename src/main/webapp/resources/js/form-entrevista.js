@@ -1,4 +1,15 @@
 $(document).ready(function() {
+    definirMascaras();
+    setRadioButtonFalse('entrevistaRealizada', function () {
+        fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
+    });
+    setRadioButtonFalse('doacaoAutorizada', function () {
+        fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
+    });
+    definirEstilo();
+});
+
+function definirMascaras() {
     $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
     $('.horaEntrevista').inputmask('hh:mm');
     $('.rg').inputmask({
@@ -10,13 +21,15 @@ $(document).ready(function() {
         mask: ["(99)9999-9999", "(99)99999-9999"]
     });
     $('.cpf').inputmask('999.999.999-99');
-    setRadioButtonFalse('entrevistaRealizada', function () {
-        fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-    });
-    setRadioButtonFalse('doacaoAutorizada', function () {
-        fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
-    });
-});
+}
+
+function definirEstilo() {
+    $(".control-group > label").addClass("control-label");
+    $(".control-group > input").wrap("<div class='controls'></div>");
+    $(".control-group > table").wrap("<div class='span3' style='padding-left: 1em'></div>");
+    $(".control-group > select").wrap("<div class='span2'></div>");
+    $("br + label").css("padding-bottom", "1em");
+}
 
 function setRadioButtonFalse(radioButtonName, triggerFunction) {
     var radioEntrevistaRealizada = $('[name="' + radioButtonName + '"]').filter('[value=false]');

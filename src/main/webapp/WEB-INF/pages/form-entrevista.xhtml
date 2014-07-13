@@ -12,61 +12,54 @@
     <!--Fim título da página-->
     <!-- main container -->
     <ui:define name="#{sects.content}">
-        <div id="pad-wrapper">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div id="fuelux-wizard" class="wizard row-fluid">
+        <br/>
+        <h2>${msg['notificacao.msg.etapa.entrevista']}</h2>
+        <br/>
 
-                        <h2>${msg['notificacao.msg.etapa.entrevista']}</h2>
-                        <br/>
-
-                        <!-- mensagem de erro -->
-                        <h:panelGroup rendered="#{not empty displayError}">
-                            <div class="span12">
-                                <div class="alert alert-error" style="display:#{displayError}">
-                                    <i class="icon-remove-sign"></i>
-                                    Erro, todos os campos devem ser preenchidos.
-                                </div>
-                            </div>
-                        </h:panelGroup>
-                        <div>
-                            <h:panelGroup rendered="#{not empty displaySuccess}">
-                                <div class="alert alert-success" style="display:#{displaySuccess}">
-                                    <i class="icon-ok-sign"></i>
-                                    Notificação salva com sucesso.
-                                </div>
-                            </h:panelGroup>
-                        </div>
-                    </div>
-                    <div class="step-content">
-                        <form id="notifEntrevista" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.salvar}" method="post">
-                            <div class="step-pane active" id="step1">
-                                <div class="tab-content">
-
-                                    <ui:insert name="notificacao-entrevista">
-                                        <ui:include src="form-entrevista-nao-realizada.xhtml" />
-                                    </ui:insert>
-                                </div>
-
-                                <!-- Para manter os objetos quando buscar do banco de dados. -->
-                                <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-                                <input type="hidden" id="codigo" name="codigo" value="#{processo.codigo}"/>
-                                <input type="hidden" id="idNotificador" name="notificador" value="#{processo.notificador}"/>
-                                <input type="hidden" id="idObito" name="obito.id" value="#{processo.obito.id}"/>
-                                <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
-                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                                </h:inputHidden>
-
-                                <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
-                                    ${msg['geral.button.salvar']}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+        <!-- mensagem de erro -->
+        <h:panelGroup rendered="#{not empty displayError}">
+            <div class="span12">
+                <div class="alert alert-error" style="display:#{displayError}">
+                    <i class="icon-remove-sign"></i>
+                    Erro, todos os campos devem ser preenchidos.
                 </div>
             </div>
+        </h:panelGroup>
+        <div>
+            <h:panelGroup rendered="#{not empty displaySuccess}">
+                <div class="alert alert-success" style="display:#{displaySuccess}">
+                    <i class="icon-ok-sign"></i>
+                    Notificação salva com sucesso.
+                </div>
+            </h:panelGroup>
         </div>
-        <h:outputScript library="js" name="form-entrevista.min.js" />
+        <div class="step-content">
+            <form id="notifEntrevista" class="form-horizontal" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.salvar}" method="post">
+                <div class="step-pane active" id="step1">
+                    <div class="tab-content">
+
+                        <ui:insert name="notificacao-entrevista">
+                            <ui:include src="form-entrevista-nao-realizada.xhtml" />
+                        </ui:insert>
+                    </div>
+
+                    <!-- Para manter os objetos quando buscar do banco de dados. -->
+                    <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+                    <input type="hidden" id="codigo" name="codigo" value="#{processo.codigo}"/>
+                    <input type="hidden" id="idNotificador" name="notificador" value="#{processo.notificador}"/>
+                    <input type="hidden" id="idObito" name="obito.id" value="#{processo.obito.id}"/>
+                    <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </h:inputHidden>
+
+                    <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
+                        ${msg['geral.button.salvar']}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <h:outputScript library="js" name="form-entrevista.js" />
     </ui:define>
     <!-- end main container -->
 </ui:composition>
