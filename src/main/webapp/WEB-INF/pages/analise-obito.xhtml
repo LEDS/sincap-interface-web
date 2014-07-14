@@ -31,11 +31,11 @@
                             ${msg['analise.confirmar']} </a>
 
                         <a id="recusar" class="btn-flat inverse"
-                            href="#">
+                           href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.recusar}/#{processo.id}">
                             ${msg['analise.recusar']} </a>
 
                         <a id="arquivar" class="btn-flat primary"
-                            href="#">
+                           href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.arquivar}/#{processo.id}">
                             ${msg['analise.arquivar']} </a>
                     </h:panelGroup>
                 </div>
