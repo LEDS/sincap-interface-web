@@ -193,4 +193,46 @@ public class NotificacaoObitoController {
 
         return "redirect:" + ContextUrls.INDEX;
     }
+    
+    /**
+     * Recusa a análise.
+     *
+     * @param model
+     * @param idProcesso
+     *            ID do ProcessoNotificacao
+     * @return
+     */
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR
+            + "/{idProcesso}", method = RequestMethod.GET)
+    public String recusarAnaliseObito(ModelMap model, @PathVariable Long idProcesso) {
+        // Pega a notificação do banco.
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        // Recusar a notificação do óbito.
+        aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + ContextUrls.INDEX;
+    }
+    
+    /**
+     * Arquiva a notificação na fase de análise.
+     *                                                                                                                                                                                                                                                                                                                                              
+     * @param model
+     * @param idProcesso
+     *            ID do ProcessoNotificacao
+     * @return
+     */
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR
+            + "/{idProcesso}", method = RequestMethod.GET)
+    public String arquivarAnaliseObito(ModelMap model, @PathVariable Long idProcesso) {
+        // Pega a notificação do banco.
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        // Recusar a notificação do óbito.
+        aplProcessoNotificacao.arquivarProcesso(processo, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + ContextUrls.INDEX;
+    }
 }
