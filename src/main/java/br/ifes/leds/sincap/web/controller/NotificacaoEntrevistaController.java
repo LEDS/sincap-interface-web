@@ -79,9 +79,13 @@ public class NotificacaoEntrevistaController {
     public String salvarEntrevista(ModelMap model,
                                    @ModelAttribute ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
-                                   @RequestParam("dataDeAbertura") String dataAbertura) throws ParseException {
+                                   @RequestParam("dataDeAbertura") String dataAbertura,
+                                   @RequestParam("dataEntrevista") String dataEntrevista,
+                                   @RequestParam("horaEntrevista") String horaEntrevista) throws ParseException {
         try {
             setUpProcesso(processo, doacaoAutorizada, dataAbertura);
+            Calendar dataEntrevistaCalendar = utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista);
+            processo.getEntrevista().setDataEntrevista(dataEntrevistaCalendar); //Seta a dataEntrevista que estava nula
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
         } catch (ViolacaoDeRIException e) {
