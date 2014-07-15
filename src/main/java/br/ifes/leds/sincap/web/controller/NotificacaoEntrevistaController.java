@@ -84,8 +84,12 @@ public class NotificacaoEntrevistaController {
                                    @RequestParam("horaEntrevista") String horaEntrevista) throws ParseException {
         try {
             setUpProcesso(processo, doacaoAutorizada, dataAbertura);
-            Calendar dataEntrevistaCalendar = utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista);
-            processo.getEntrevista().setDataEntrevista(dataEntrevistaCalendar); //Seta a dataEntrevista que estava nula
+            try {
+                Calendar dataEntrevistaCalendar = utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista);
+                processo.getEntrevista().setDataEntrevista(dataEntrevistaCalendar); //Seta a dataEntrevista que estava nula
+            } catch (ParseException e) {
+
+            }
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
         } catch (ViolacaoDeRIException e) {
