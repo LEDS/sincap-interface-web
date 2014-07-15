@@ -12,6 +12,7 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
+        <h:outputStylesheet library="css" name="grids.css" />
         <div id="pad-wrapper">
             <div class="row-fluid">
                 <div class="span12">
@@ -20,12 +21,9 @@
                         <h2>${msg['notificacao.msg.etapa.obito']}</h2>
                         <br/>
 
-                        <!-- mensagem de erro -->
-
-
                     </div>
                     <div class="step-content">
-                        <form id="processo" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.salvar}" method="post">
+                        <form id="processo" class="form-horizontal" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.salvar}" method="post">
                             <div class="step-pane active" id="step1">
                                 <div class="row-fluid form-wrapper">
                                     <ul class="nav nav-tabs">
@@ -65,7 +63,7 @@
                 </div>
             </div>
         </div>
-        <h:outputScript library="js" name="form-notificacao-obito.min.js" />
+        <h:outputScript library="js" name="form-notificacao-obito.js" />
     </ui:define>
     <!-- Fim do conteúdo -->
 

@@ -2,6 +2,12 @@ function setNome(elemento, nome) {
     $(elemento).prop("name", nome);
 }
 
+function setRadioButtonFalse(radioButtonName, triggerFunction) {
+    var radioEntrevistaRealizada = $('[name="' + radioButtonName + '"]').filter('[value=false]');
+    radioEntrevistaRealizada.prop('checked', true);
+    triggerFunction();
+}
+
 function fadeComponent(componentToVerify, componentToFadeYes,componentToFadeNo)
 {
     
@@ -251,77 +257,10 @@ function ajaxGetNovasNotificacoes() {
 
 }
 
-function mascaraData(id) {
-    var data = document.getElementById(id).value;
-    if (data.length == 2) {
-        data = data + '/';
-        document.getElementById(id).value = data;
-        return true;
-    }
-    if (data.length == 5) {
-        data = data + '/';
-        document.getElementById(id).value = data;
-        return true;
-    }
-}
-
-function validarData(id) {
-    var data = document.getElementById(id).value;
-    var dia = data.substring(0, 2);
-    var mes = data.substring(3, 5);
-    var ano = data.substring(6, 10);
-    if (data == '' || (data.length == 10 && dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && ano >= 0 && ano <= 9999)) {
-        return true;
-    } else {
-        alert("Data inválida!");
-        document.getElementById(id).value = '';
-        return false;
-    }
-}
-
-function mascaraHora(id) {
-    var data = document.getElementById(id).value;
-    if (data.length == 2) {
-        data = data + ':';
-        document.getElementById(id).value = data;
-        return true;
-    }
-}
-
-function validarHora(id) {
-    var data = document.getElementById(id).value;
-    var hora = data.substring(0, 2);
-    var minuto = data.substring(3, 5);
-    if (data == '' || (data.length == 5 && hora >= 0 && hora <= 24 && minuto >= 0 && minuto <= 59)) {
-        return true;
-    } else {
-        alert("Hora inválida!");
-        document.getElementById(id).value = '';
-        return false;
-    }
-}
-
-function mascaraTelefone(id) {
-    var data = document.getElementById(id).value;
-    if (data.length == 2) {
-        data = '(' + data + ')';
-        document.getElementById(id).value = data;
-        return true;
-    }
-    if (data.length == 8) {
-        data = data + '-';
-        document.getElementById(id).value = data;
-        return true;
-    }
-}
-
-function botaoDesabilitado() {
-    var login = document.getElementById('username').value;
-    var senha = document.getElementById('password').value;
-    var hospital = document.getElementById('hospital').value;
-    var botao = document.getElementById('botaoLogin');
-    if (login != '' && senha != '' && hospital != '')
-        botao.disabled = false;
-    else
-        botao.disabled = true;
+function definirEstilo() {
+    $(".control-group > label").addClass("control-label");
+    $(".control-group > input").wrap("<div class='controls'></div>");
+    $(".control-group > table").wrap("<div class='span3' style='padding-left: 1em'></div>");
+    $(".control-group > select").wrap("<div class='span2'></div>");
+    $("br + label").css("padding-bottom", "1em");
 }

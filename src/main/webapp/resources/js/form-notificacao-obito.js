@@ -1,28 +1,3 @@
-$(function() {
-    var $wizard = $('#fuelux-wizard'),
-        $btnPrev = $('.wizard-actions .btn-prev'),
-        $btnNext = $('.wizard-actions .btn-next'),
-        $btnFinish = $(".wizard-actions .btn-finish");
-
-    $wizard.wizard().on('finished', function(e) {
-        // wizard complete code
-    }).on("changed", function(e) {
-        var step = $wizard.wizard("selectedItem");
-        // reset states
-        $btnNext.removeAttr("disabled");
-        $btnPrev.removeAttr("disabled");
-        $btnNext.show();
-        $btnFinish.hide();
-
-        if (step.step === 1) {
-            $btnPrev.attr("disabled", "disabled");
-        } else if (step.step === 3) {
-            $btnNext.hide();
-            $btnFinish.show();
-        }
-    });
-});
-
 $(document).ready(function() {
     $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
     $('.tel').inputmask({
@@ -32,6 +7,10 @@ $(document).ready(function() {
     $('.cpf').inputmask('999.999.999-99');
     $('.cep').mask('99999-999');
 });
+
+$('#aptoDoacao').click(function () {
+    fadeComponent("obito.aptoDoacao", "", "divCausaNaoDoacao");
+})
 
  //Validando os dados do formulario
 $("#processo").validate({

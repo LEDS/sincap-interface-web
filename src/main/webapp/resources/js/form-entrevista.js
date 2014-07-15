@@ -23,20 +23,6 @@ function definirMascaras() {
     $('.cpf').inputmask('999.999.999-99');
 }
 
-function definirEstilo() {
-    $(".control-group > label").addClass("control-label");
-    $(".control-group > input").wrap("<div class='controls'></div>");
-    $(".control-group > table").wrap("<div class='span3' style='padding-left: 1em'></div>");
-    $(".control-group > select").wrap("<div class='span2'></div>");
-    $("br + label").css("padding-bottom", "1em");
-}
-
-function setRadioButtonFalse(radioButtonName, triggerFunction) {
-    var radioEntrevistaRealizada = $('[name="' + radioButtonName + '"]').filter('[value=false]');
-    radioEntrevistaRealizada.prop('checked', true);
-    triggerFunction();
-}
-
 function changeNameAttribute(radioButtonVet, selectItem1, selectItem2, name) {
     if ($(radioButtonVet).filter('[value=true]').is(":checked")) {
         $(selectItem1).prop('name', '');
