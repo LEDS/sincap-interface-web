@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ui:composition template="/WEB-INF/templates/form.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
@@ -47,14 +46,6 @@
                                     </div>
                                 </div>
                                 <input id="id" name="id" type="hidden" value="#{processo.id}" />
-                                <input id="idObito" name="obito.id" type="hidden" value="#{processo.obito.id}" />
-                                <input id="idPaciente" name="obito.paciente.id" type="hidden" value="#{processo.obito.paciente.id}" />
-                                <input id="idPrimeiraCausaMortis" name="obito.primeiraCausaMortis.id" type="hidden" value="#{processo.obito.primeiraCausaMortis.id}" />
-                                <input id="idSegundaCausaMortis" name="obito.segundaCausaMortis.id" type="hidden" value="#{processo.obito.segundaCausaMortis.id}" />
-                                <input id="idTerceiraCausaMortis" name="obito.terceiraCausaMortis.id" type="hidden" value="#{processo.obito.terceiraCausaMortis.id}" />
-                                <input id="idQuartaCausaMortis" name="obito.quartaCausaMortis.id" type="hidden" value="#{processo.obito.quartaCausaMortis.id}" />
-                                <input id="idEntrevista" name="entrevista.id" type="hidden" value="#{processo.entrevista.id}" />
-                                <input id="idCausaNaoDoacao" name="causaNaoDoacao" type="hidden" value="#{processo.causaNaoDoacao}" />
                                 <button type="submit" class="btn-glow success btn-finish">
                                     ${msg['obito.button.finalizar']}</button>
                             </div>
