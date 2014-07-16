@@ -259,8 +259,9 @@ function ajaxGetNovasNotificacoes() {
 
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
+    $(".control-group > input").addClass("span3 inline-input");
     $(".control-group > input").wrap("<div class='controls'></div>");
     $(".control-group > table").wrap("<div class='span3' style='padding-left: 1em'></div>");
-    $(".control-group > select").wrap("<div class='span2'></div>");
+    $(".control-group > select").wrap("<div class='span3'></div>");
     $("br + label").css("padding-bottom", "1em");
 }
