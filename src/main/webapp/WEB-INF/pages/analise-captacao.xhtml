@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/form.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['analise.obito.titulo']}
+    </ui:define>
+    <!-- Fim do Título -->
+
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h:outputLabel>${msg['analise.captacao.titulo']} - Página em Construção</h:outputLabel>
+
+                    <!-- Se a captação foi realizada -->
+                    <h:panelGroup rendered="#{processo.captacao.captacaoRealizada}">
+                        As córneas foram captadas.
+
+                        <h3>Data e hora da Captação:</h3>
+                        <h:outputText value="#{processo.captacao.dataCaptacao.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                        </h:outputText>
+
+
+                        <h3>Comentários:</h3>
+                        <p>#{processo.captacao.comentario}</p>
+
+                    </h:panelGroup>
+
+                    <!-- Se a captação não foi realizada -->
+                    <h:panelGroup rendered="#{not processo.captacao.captacaoRealizada}">
+                        As córneas não foram captadas.
+
+                        <h3>Motivo de não captação:</h3>
+                        <!--<h:outputText>#{processo.captacao.}</h:outputText>-->
+
+                        <h3>Comentários:</h3>
+                        <p>#{processo.captacao.comentario}</p>
+
+                    </h:panelGroup>
+
+                    <h3>ID</h3>
+
+                    <p>#{processo.id}</p>
+
+                    <h3>Codigo:</h3>
+
+                    <p>#{processo.codigo}</p>
+
+                    <h3>Paciente:</h3>
+
+                    <p>#{processo.obito.paciente.nome}</p>
+
+                    <h:panelGroup layout="block" id="content">
+                        <a id="confirmar" class="btn-flat success"
+                           href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}/#{processo.id}">
+                            ${msg['analise.confirmarEArquivar']} </a>
+
+                        <a id="recusar" class="btn-flat inverse"
+                           href="#">
+                            ${msg['analise.recusar']} </a>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+    <!-- Fim do conteúdo -->
+
+</ui:composition>
