@@ -1,48 +1,48 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
-    
-	<h:panelGroup layout="block" styleClass="navbar navbar-inverse">
-		<h:panelGroup layout="block" styleClass="navbar-inner">
-        
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGroup layout="block" styleClass="navbar navbar-inverse">
+        <h:panelGroup layout="block" styleClass="navbar-inner">
+
             <h:commandButton type="button" styleClass="btn btn-navbar visible-phone" id="menu-toggler">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </h:commandButton>
-            
-            <a class="brand" href="#"><h:graphicImage library="img" name="logo.png" class="logo" /></a>
-            
-            <ul class="nav pull-right">                
+
+            <!-- Logo do sincap -->
+            <a class="brand"
+               href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.index}">
+                <h:graphicImage library="img" name="logo.png" class="logo"/>
+            </a>
+
+            <!-- Elementos a direita -->
+            <ul class="nav pull-right">
+                <!-- Search Bar -->
                 <li class="hidden-phone">
                     <input class="search" type="text" />
                 </li>
 
-              	<li class="settings hidden-phone">
-                    <a href="#" role="button">
-                        <i class="icon-cog"></i>
+                <!-- Entrar no administrativo -->
+                <li class="settings hidden-phone">
+                    <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}"
+                       role="button">
+                        <i class="icon-cog" />
                     </a>
                 </li>
-              
+
+                <!-- Logout -->
                 <li class="settings hidden-phone">
                     <a href="${request.contextPath}" role="button">
-                        <i class="icon-share-alt"></i>
+                        <i class="icon-share-alt" />
                     </a>
                 </li>
             </ul>
         </h:panelGroup>
     </h:panelGroup>
-    <h:outputScript library="js" name="sincaplib.js" />
-    <h:outputScript library="js" name="jquery-1.11.1.min.js" />
-    <script type="text/javascript">
-       
-        $(document).ready(function()
-        {
-            ajaxGetNovasNotificacoes();
-            setInterval(ajaxGetNovasNotificacoes, 5000);
-        });
-    </script>      
-     
+
+    <h:outputScript library="js" name="sincaplib.js"/>
+
 </ui:composition>
