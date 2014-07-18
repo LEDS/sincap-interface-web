@@ -35,9 +35,11 @@ public class ContextUrls {
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
     public static final String APP_ANALISAR = "/analisar";
     public static final String APP_ENDERECO = "/endereco";
+    public static final String APP_CAUSA_NAO_DOACAO = "/causa-nao-doacao";
     /**
      * Métodos
      */
+    public static final String VISUALIZAR = "/visualizar";
     public static final String EDITAR = "/editar";
     public static final String APAGAR = "/apagar";
     public static final String ADICIONAR = "/adicionar";
@@ -70,9 +72,11 @@ public class ContextUrls {
     String app_notificacao_entrevista = APP_NOTIFICACAO_ENTREVISTA;
     String app_analisar = APP_ANALISAR;
     String app_endereco = APP_ENDERECO;
+    String app_causa_nao_doacao = APP_CAUSA_NAO_DOACAO;
     /**
      * Métodos
      */
+    String visualizar = VISUALIZAR;
     String editar = EDITAR;
     String apagar = APAGAR;
     String adicionar = ADICIONAR;
