@@ -65,6 +65,8 @@ public class SignInController {
 
         } catch (Exception e) {
 
+            usuarioDto.setPassword("");
+            model.addAttribute("usuario", usuarioDto);
             model.addAttribute("mensagem", "Usuário ou senha incorretos.");
 
             return "signin";

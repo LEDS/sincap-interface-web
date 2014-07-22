@@ -17,6 +17,14 @@ function setNames() {
     $("select").each(replaceFunction);
 }
 
+function focus(selector, next) {
+    $(selector).keypress(function (event) {
+        if(event.key == "Tab") {
+            $(next).focus();
+        }
+    });
+}
+
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
     $(".control-group > input").addClass("span3 inline-input");
