@@ -1,53 +1,49 @@
-<ui:composition 
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:panelGrid id="pad-wrapper" styleClass="form-page">
-        <h:panelGrid styleClass="row-fluid form-wrapper">
-            <h:panelGrid styleClass="span8 column">
-                <h:panelGrid columns="2" styleClass="field-box">
-                    <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}" />
-                    <h:selectOneRadio layout="lineDirection">
-                        <f:selectItem itemValue="SIM" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.sim']}" />
-                        <f:selectItem itemValue="NAO" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.nao']}" />
-                    </h:selectOneRadio>
-                </h:panelGrid>
+    <h:panelGrid layout="block" styleClass="row-fluid">
+        <h:panelGrid layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}"/>
+            <h:selectOneRadio layout="lineDirection">
+                <f:selectItem itemValue="SIM" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.sim']}"/>
+                <f:selectItem itemValue="NAO" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.nao']}"/>
+            </h:selectOneRadio>
+        </h:panelGrid>
 
-                <!--TODO: Inserir id e value-->
-                <!--Motivo da não captação - BEGIN-->
-                <h:panelGrid columns="2" styleClass="field-box">
-                    <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}" />
-                    <h:selectOneMenu class="ui-select">
-                        <f:selectItem itemValue="" itemLabel="#{msg['captacao.selectOneMenu.label']}"/>
-                        <f:selectItem itemValue="Aspecto Logistico I"/>
-                        <f:selectItem itemValue="Aspecto Logistico II"/>
-                        <f:selectItem itemValue="Aspecto Logistico III"/>
-                        <f:selectItem itemValue="Aspecto Logistico IV"/>
-                        <f:selectItem itemValue="Aspecto Logistico V"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
-                <!--Motivo da não captação - END-->
+        <!--TODO: Inserir id e value-->
+        <!--Motivo da não captação - BEGIN-->
+        <h:panelGrid layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}"/>
+            <h:selectOneMenu class="ui-select">
+                <f:selectItem itemValue="" itemLabel="#{msg['captacao.selectOneMenu.label']}"/>
+                <f:selectItem itemValue="Aspecto Logistico I"/>
+                <f:selectItem itemValue="Aspecto Logistico II"/>
+                <f:selectItem itemValue="Aspecto Logistico III"/>
+                <f:selectItem itemValue="Aspecto Logistico IV"/>
+                <f:selectItem itemValue="Aspecto Logistico V"/>
+            </h:selectOneMenu>
+        </h:panelGrid>
+        <!--Motivo da não captação - END-->
 
-                <!--TODO: Inserir id e value; E aplicar a mascara-->
-                <h:panelGrid columns="2" styleClass="field-box">
-                    <h:outputLabel value="#{msg['captacao.text.data']}" />
-                    <h:inputText class="data"/>
-                </h:panelGrid>
+        <!--TODO: Inserir id e value; E aplicar a mascara-->
+        <h:panelGrid layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['captacao.text.data']}"/>
+            <h:inputText class="data"/>
+        </h:panelGrid>
 
-                <!--TODO: Inserir id e value; E aplicar a mascara-->
-                <h:panelGrid columns="2" styleClass="field-box">
-                    <h:outputLabel value="#{msg['captacao.text.hora']}" />
-                    <h:inputText class="hora"/>
-                </h:panelGrid>
+        <!--TODO: Inserir id e value; E aplicar a mascara-->
+        <h:panelGrid layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['captacao.text.hora']}"/>
+            <h:inputText class="hora"/>
+        </h:panelGrid>
 
-                <!--TODO: Inserir id e value-->
-                <h:panelGrid styleClass="field-box">
-                    <h:outputLabel value="#{msg['captacao.text.comentarios']}" />
-                    <h:inputTextarea class="span8" style="margin: 0px 0px 10px; width: 450px; height: 100px;" rows="5"/>
-                </h:panelGrid>
-            </h:panelGrid>
+        <!--TODO: Inserir id e value-->
+        <h:panelGrid layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['captacao.text.comentarios']}"/>
+            <h:inputTextarea class="span8" style="margin: 0px 0px 10px; width: 450px; height: 100px;" rows="5"/>
         </h:panelGrid>
     </h:panelGrid>
 </ui:composition>

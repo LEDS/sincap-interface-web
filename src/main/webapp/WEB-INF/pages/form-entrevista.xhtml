@@ -16,23 +16,6 @@
         <h2>${msg['notificacao.msg.etapa.entrevista']}</h2>
         <br/>
 
-        <!-- mensagem de erro -->
-        <h:panelGroup rendered="#{not empty displayError}">
-            <div class="span12">
-                <div class="alert alert-error" style="display:#{displayError}">
-                    <i class="icon-remove-sign"></i>
-                    Erro, todos os campos devem ser preenchidos.
-                </div>
-            </div>
-        </h:panelGroup>
-        <div>
-            <h:panelGroup rendered="#{not empty displaySuccess}">
-                <div class="alert alert-success" style="display:#{displaySuccess}">
-                    <i class="icon-ok-sign"></i>
-                    Notificação salva com sucesso.
-                </div>
-            </h:panelGroup>
-        </div>
         <div class="step-content">
             <form id="notifEntrevista" class="form-horizontal" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.salvar}" method="post">
                 <div class="step-pane active" id="step1">
