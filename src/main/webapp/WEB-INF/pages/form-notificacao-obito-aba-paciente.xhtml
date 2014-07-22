@@ -6,7 +6,7 @@
     <h:panelGroup layout="block" styleClass="row-fluid">
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-            <h:inputText id="nome" value="#{processo.obito.paciente.nome}"/>
+            <h:inputText id="obito-paciente-nome" value="#{processo.obito.paciente.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
@@ -23,17 +23,17 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.docSocial']}"/>
-            <h:inputText id="documentoSocial" class="rg" value="#{processo.obito.paciente.documentoSocial}"/>
+            <h:inputText id="obito-paciente-documentoSocial" class="rg" value="#{processo.obito.paciente.documentoSocial}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.telefone']}"/>
-            <h:inputText class="tel" id="numero" value="#{processo.obito.paciente.telefone.numero}"/>
+            <h:inputText class="tel" id="obito-paciente-telefone-numero" value="#{processo.obito.paciente.telefone.numero}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
-            <h:selectOneRadio id="sexo" value="#{processo.obito.paciente.sexo}" styleClass="radio">
+            <h:selectOneRadio id="obito-paciente-sexo" value="#{processo.obito.paciente.sexo}" styleClass="radio">
                 <f:selectItem itemValue="MASCULINO" itemLabel="#{msg['paciente.radioButton.sexo.masc']}"/>
                 <f:selectItem itemValue="FEMININO" itemLabel="#{msg['paciente.radioButton.sexo.fem']}"/>
             </h:selectOneRadio>
@@ -41,33 +41,33 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.numeroSUS']}"/>
-            <h:inputText id="numeroSUS" value="#{processo.obito.paciente.numeroSUS}"/>
+            <h:inputText id="obito-paciente-numeroSUS" value="#{processo.obito.paciente.numeroSUS}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.profissao']}"/>
-            <h:inputText id="profissao" value="#{processo.obito.paciente.profissao}"/>
+            <h:inputText id="obito-paciente-profissao" value="#{processo.obito.paciente.profissao}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}"/>
-            <h:inputText id="nacionalidade" value="#{processo.obito.paciente.nacionalidade}"/>
+            <h:inputText id="obito-paciente-nacionalidade" value="#{processo.obito.paciente.nacionalidade}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.prontuario']}"/>
-            <h:inputText id="numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}"/>
+            <h:inputText id="obito-paciente-numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.mae']}"/>
-            <h:inputText id="nomeMae" value="#{processo.obito.paciente.nomeMae}"/>
+            <h:inputText id="obito-paciente-nomeMae" value="#{processo.obito.paciente.nomeMae}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}"/>
-            <h:selectOneMenu id="estado" value="#{processo.obito.paciente.endereco.estado}" styleClass="select2"
-                             onchange="ajaxGetMunicipios(estado, cidade)">
+            <h:selectOneMenu id="obito-paciente-endereco-estado" value="#{processo.obito.paciente.endereco.estado}" styleClass="select2"
+                             onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.uf.escolha']}"/>
                 <f:selectItems value="#{listaEstadoItem}"/>
             </h:selectOneMenu>
@@ -75,8 +75,8 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}"/>
-            <h:selectOneMenu id="cidade" value="#{processo.obito.paciente.endereco.cidade}" class="ui-select"
-                             onchange="ajaxGetBairros(cidade, bairro)">
+            <h:selectOneMenu id="obito-paciente-endereco-cidade" value="#{processo.obito.paciente.endereco.cidade}" class="ui-select"
+                             onchange="ajaxGetBairros('#obito-paciente-endereco-cidade', '#obito-paciente-endereco-bairro')">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.cidade']}"/>
                 <f:selectItems value="#{listaCidadeItem}"/>
             </h:selectOneMenu>
@@ -84,7 +84,7 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}"/>
-            <h:selectOneMenu id="bairro" value="#{processo.obito.paciente.endereco.bairro}" class="ui-select">
+            <h:selectOneMenu id="obito-paciente-endereco-bairro" value="#{processo.obito.paciente.endereco.bairro}" class="ui-select">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.bairro']}"/>
                 <f:selectItems value="#{listaBairroItem}"/>
             </h:selectOneMenu>
@@ -92,12 +92,12 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.cep']}"/>
-            <h:inputText id="cep" class="cep" value="#{processo.obito.paciente.endereco.cep}"/>
+            <h:inputText id="obito-paciente-endereco-cep" class="cep" value="#{processo.obito.paciente.endereco.cep}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.logradouro']}"/>
-            <h:inputText id="logradouro" value="#{processo.obito.paciente.endereco.logradouro}"/>
+            <h:inputText id="obito-paciente-endereco-logradouro" value="#{processo.obito.paciente.endereco.logradouro}"/>
         </h:panelGroup>
 
     </h:panelGroup>
@@ -105,13 +105,6 @@
         $(document).ready(
                 function () {
                     definirEstilo();
-                    $('[name="sexo"]').prop("name", "obito.paciente.sexo");
-                    setNomeVarios('obito.paciente.telefone', numero);
-                    setNomeVarios('obito.paciente', nome, documentoSocial,
-                            numeroSUS, profissao, nacionalidade,
-                            numeroProntuario, nomeMae);
-                    setNomeVarios('obito.paciente.endereco', estado, cidade,
-                            bairro, cep, logradouro);
                 });
     </script>
 </ui:composition>
