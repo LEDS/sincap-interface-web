@@ -12,3 +12,7 @@ glassfish-web.xml
 
 # Qualquer tipo de log
 *.log
+
+# Arquivos de configuração do IntelliJ
+.idea/
+SincapEntities.iml
