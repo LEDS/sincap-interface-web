@@ -16,7 +16,7 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}"/>
-            <h:selectOneMenu id="setor" value="#{processo.obito.setor}" class="ui-select">
+            <h:selectOneMenu id="obito-setor" value="#{processo.obito.setor}" class="ui-select">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.obito.dropDown.setor.escolha']}"/>
                 <f:selectItems value="#{listaSetor}"/>
             </h:selectOneMenu>
@@ -24,27 +24,27 @@
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.obito.motivos1']}"/>
-            <h:inputText id="primeiraCausaMortis" value="#{processo.obito.primeiraCausaMortis.nome}"/>
+            <h:inputText id="obito-primeiraCausaMortis" value="#{processo.obito.primeiraCausaMortis.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.obito.motivos2']}"/>
-            <h:inputText id="segundaCausaMortis" value="#{processo.obito.segundaCausaMortis.nome}"/>
+            <h:inputText id="obito-segundaCausaMortis" value="#{processo.obito.segundaCausaMortis.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
-            <h:inputText id="terceiraCausaMortis" value="#{processo.obito.terceiraCausaMortis.nome}"/>
+            <h:inputText id="obito-terceiraCausaMortis" value="#{processo.obito.terceiraCausaMortis.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
-            <h:inputText id="quartaCausaMortis" value="#{processo.obito.quartaCausaMortis.nome}"/>
+            <h:inputText id="obito-quartaCausaMortis" value="#{processo.obito.quartaCausaMortis.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}"/>
-            <h:selectOneRadio id="aptoDoacao" value="#{processo.obito.aptoDoacao}"
+            <h:selectOneRadio id="obito-aptoDoacao" value="#{processo.obito.aptoDoacao}"
                               styleClass="radio">
                 <f:selectItem itemValue="true" itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.apto']}"/>
                 <f:selectItem itemValue="false" itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.inapto']}"/>
@@ -60,15 +60,4 @@
         </h:panelGroup>
 
     </h:panelGroup>
-    <script>
-        $(document).ready(
-                function () {
-                    $('[name="aptoDoacao"]').prop("name", "obito.aptoDoacao");
-                    setNomeVarios('obito', setor,
-                            primeiraCausaMortis,
-                            segundaCausaMortis,
-                            terceiraCausaMortis,
-                            quartaCausaMortis);
-                });
-    </script>
 </ui:composition>
