@@ -14,6 +14,7 @@ import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 
 public enum Utility {
 
@@ -102,5 +103,16 @@ public enum Utility {
         }
 
         return estadosCivis;
+    }
+    
+    public List<SelectItem> getTipoNaoDoacaoSelectItem() {
+        List<SelectItem> tiposNaoDoacao = new ArrayList<>();
+        
+        for (TipoNaoDoacao tipoNaoDoacao : TipoNaoDoacao.values()) {
+            tiposNaoDoacao
+                    .add(new SelectItem(tipoNaoDoacao, tipoNaoDoacao.name()));
+        }
+
+        return tiposNaoDoacao;
     }
 }
