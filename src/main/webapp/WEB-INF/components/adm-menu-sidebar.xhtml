@@ -1,0 +1,27 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGroup layout="block" id="sidebar-nav">
+        <ul id="dashboard-menu">
+
+            <!-- Menu da Causa de Não Doação -->
+            <li>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-edit"></i>
+                    <span>#{msg['sidebar.adm.nao-doacao']}</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_causa_nao_doacao}${contextUrls.adicionar}">#{msg['sidebar.geral.cadastrar']}</a>
+                        <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_causa_nao_doacao}${contextUrls.visualizar}">#{msg['sidebar.geral.visualizar']}</a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </h:panelGroup>
+
+</ui:composition>

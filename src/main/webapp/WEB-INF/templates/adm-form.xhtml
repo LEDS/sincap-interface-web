@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/adm.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Substitui os scripts que serão usados -->
+    <ui:define name="#{sects.scripts}">
+        <h:outputScript library="js" name="fuelux.wizard.js"/>
+        <h:outputScript library="js" name="sincaplib.js"/>
+        <h:outputScript library="js" name="jquery.mask.min.js"/>
+        <h:outputScript library="js" name="jquery.inputmask.js"/>
+        <h:outputScript library="js" name="jquery.inputmask-multi.js"/>
+        <h:outputScript library="js" name="jquery.inputmask.date.extensions.js"/>
+        <h:outputScript library="js" name="jquery.validate.min.js"/>
+    </ui:define>
+
+</ui:composition>
