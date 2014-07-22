@@ -16,3 +16,6 @@ glassfish-web.xml
 # Arquivos de configuração do IntelliJ
 .idea/
 SincapInterfaceWeb.iml
+
+# Arquivos de configuração do NetBeans
+nbactions.xml
