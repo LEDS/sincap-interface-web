@@ -28,34 +28,36 @@
                             <div class="step-pane active">
                                 <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
                             </div>
+                            <h:inputHidden id="id" value="#{id}"/>
+                            <button type="submit"
+                                    class="btn-glow success btn-finish">
+                                ${msg['obito.button.finalizar']}</button>
                         </form>
                     </div>
                 </div>
             </div>
-
-            <h:inputHidden id="id" value="#{id}"/>
-            <button type="submit"
-                    class="btn-glow success btn-finish">
-                ${msg['obito.button.finalizar']}</button>
         </div>
     </div>
+    <h:outputScript library="js" name="form-notificacao-captacao.js" />
 </ui:define>
 
-<!-- scripts -->
+<!-- scripts
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <h:outputScript library="js" name="bootstrap.min.js"/>
 <h:outputScript library="js" name="theme.js"/>
 <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js"/>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.data').mask('00/00/0000', {
-            reverse: true
+    $(document).ready(function() {
+        $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
+        $('.tel').inputmask({
+            mask: ["(99)9999-9999", "(99)99999-9999"]
         });
-        $('.hora').mask('00:00', {
-            reverse: true
-        });
+        $('.hora').inputmask('hh:mm');
+        $('.cpf').inputmask('999.999.999-99');
+        $('.cep').mask('99999-999');
     });
+
 
     //Validando os dados do formulario
     $("#processoCaptacao")
@@ -199,6 +201,6 @@
                     form.submit();
                 }
             });
-</script>
+</script>-->
 
 </ui:composition>

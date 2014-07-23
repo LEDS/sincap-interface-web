@@ -31,19 +31,20 @@
         <!--TODO: Inserir id e value; E aplicar a mascara-->
         <h:panelGrid layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['captacao.text.data']}"/>
-            <h:inputText class="data"/>
+            <h:inputText class="data" id="dataCaptacao" value="#{dataCaptacao}"/>
         </h:panelGrid>
 
         <!--TODO: Inserir id e value; E aplicar a mascara-->
         <h:panelGrid layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['captacao.text.hora']}"/>
-            <h:inputText class="hora"/>
+            <h:inputText class="hora" id="horarioCaptacao" value="#{horarioCaptacao}"/>
         </h:panelGrid>
 
         <!--TODO: Inserir id e value-->
         <h:panelGrid layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['captacao.text.comentarios']}"/>
-            <h:inputTextarea class="span8" style="margin: 0px 0px 10px; width: 450px; height: 100px;" rows="5"/>
+            <h:inputTextarea id="captacao-comentario" class="span8" value="#{processo.captacao.comentario}"
+                             style="margin: 0px 0px 10px; width: 450px; height: 100px;" rows="5"/>
         </h:panelGrid>
     </h:panelGrid>
 </ui:composition>

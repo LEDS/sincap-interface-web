@@ -10,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -24,6 +25,8 @@ public class NotificacaoCaptacaoController {
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private UsuarioSessao usuarioSessao;
+    @Autowired
+    private br.ifes.leds.reuse.utility.Utility utilityEntities;
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadListEntrevistaAguardandoCaptacao(ModelMap model) {
@@ -48,7 +51,12 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarEntrevista(ModelMap model, @ModelAttribute ProcessoNotificacaoDTO processo) {
+    public String salvarCaptacao(ModelMap model,
+                                 @ModelAttribute ProcessoNotificacaoDTO processo,
+                                 @RequestParam("dataCaptacao") String dataCaptacao,
+                                 @RequestParam("horarioCaptacao") String horarioCaptacao) throws ParseException {
+
+        processo.getCaptacao().setDataCaptacao(utilityEntities.stringToCalendar(dataCaptacao, horarioCaptacao));
 
         aplProcessoNotificacao.salvarCaptacao(processo, usuarioSessao.getIdUsuario());
         return "redirect:" + ContextUrls.INDEX;
