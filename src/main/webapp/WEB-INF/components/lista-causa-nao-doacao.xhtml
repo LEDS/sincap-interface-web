@@ -24,9 +24,9 @@
                     </h:column>
                     <!-- Botões -->
                     <h:column>
-                        <!--                        <f:facet name="header">
-                                                    <h:outputText value="Editar Causa" />
-                                                </f:facet>-->
+                            <!-- <f:facet name="header">
+                                <h:outputText value="Editar Causa" />
+                            </f:facet>-->
 
                         <form id="formulario-causa-nao-doacao-${causa.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_causa_nao_doacao}${contextUrls.adicionar}" method="post">
                             <input type="hidden" name="id" value="${causa.id}" />

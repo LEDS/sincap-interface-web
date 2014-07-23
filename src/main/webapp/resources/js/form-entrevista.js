@@ -7,6 +7,9 @@ $(document).ready(function() {
         fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
     });
     definirEstilo();
+    focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
+    focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
+    focus('#entrevista-responsavel-rg', '#entrevista-responsavel-parentesco');
 });
 
 function definirMascaras() {
