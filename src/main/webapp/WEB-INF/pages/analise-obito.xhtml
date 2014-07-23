@@ -1,47 +1,66 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/form.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets">
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h ="http://java.sun.com/jsf/html"
+                xmlns:ui ="http://java.sun.com/jsf/facelets">
 
-    <!-- Título da página -->
+
     <ui:define name="#{sects.title}">
-        #{msg['analise.obito.titulo']}
+        #{msg['busca-notificacao.title']}
     </ui:define>
-    <!-- Fim do Título -->
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
+        <h:outputStylesheet library="css" name="grids.css" />
         <div id="pad-wrapper">
             <div class="row-fluid">
                 <div class="span12">
-                    <h:outputLabel>${msg['analise.obito.titulo']} - Página em Construção</h:outputLabel>
+                    <div id="fuelux-wizard" class="wizard row-fluid">
 
-                    <p>Nessa tela os dados serão analisados e será dado o aval para continuar o Processo de Notificação. Caso haja algum erro na
-                        notificação a mesma pode ser recusa, ou caso esteja tudo certo para finalizar, ela também pode ser arquivada.</p>
+                        <h2>${msg['notificacao.msg.etapa.obito']}</h2>
+                        <br/>
 
-                    <h3>ID</h3>
-                    <p>#{processo.id}</p>
-                    <h3>Codigo:</h3>
-                    <p>#{processo.codigo}</p>
-                    <h3>Paciente:</h3>
-                    <p>#{processo.obito.paciente.nome}</p>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-pane active" id="step1">
 
-                    <h:panelGroup layout="block" id="content">
-                        <a id="confirmar" class="btn-flat success"
-                            href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.confirmar}/#{processo.id}">
-                            ${msg['analise.confirmar']} </a>
 
-                        <a id="recusar" class="btn-flat inverse"
-                           href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.recusar}/#{processo.id}">
-                            ${msg['analise.recusar']} </a>
+                            <div class="tab-content">
 
-                        <a id="arquivar" class="btn-flat primary"
-                           href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.arquivar}/#{processo.id}">
-                            ${msg['analise.arquivar']} </a>
-                    </h:panelGroup>
+                                    <ui:insert name="notificacao-obito-aba-paciente">
+                                        <ui:include src="form-notificacao-obito-aba-paciente-preenchida.xhtml" />
+                                    </ui:insert>
+
+
+                                    <!--<ui:insert name="notificacao-obito-aba-obito">
+                                        <ui:include src="form-notificacao-obito-aba-obito-preenchida.xhtml" />
+                                    </ui:insert>-->
+
+                            </div>
+                            <h:panelGroup layout="block" id="content">
+                                <a id="confirmar" class="btn-flat success"
+                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.confirmar}/#{processo.id}">
+                                    ${msg['analise.confirmar']} </a>
+
+                                <a id="recusar" class="btn-flat inverse"
+                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.recusar}/#{processo.id}">
+                                    ${msg['analise.recusar']} </a>
+
+                                <a id="arquivar" class="btn-flat primary"
+                                   href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}${contextUrls.arquivar}/#{processo.id}">
+                                    ${msg['analise.arquivar']} </a>
+                            </h:panelGroup>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <h:outputScript library="js" name="form-notificacao-obito.js" />
     </ui:define>
     <!-- Fim do conteúdo -->
 
 </ui:composition>
+
+
+

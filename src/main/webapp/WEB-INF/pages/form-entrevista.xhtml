@@ -45,9 +45,7 @@
 
                     <!-- Para manter os objetos quando buscar do banco de dados. -->
                     <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-                    <input type="hidden" id="codigo" name="codigo" value="#{processo.codigo}"/>
-                    <input type="hidden" id="idNotificador" name="notificador" value="#{processo.notificador}"/>
-                    <input type="hidden" id="idObito" name="obito.id" value="#{processo.obito.id}"/>
+                    <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
                     <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
                         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                     </h:inputHidden>

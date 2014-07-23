@@ -10,11 +10,11 @@
     <h:panelGroup id="entrevista" layout="block" styleClass="row-fluid">
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-            <h:inputText readonly="true" id="nomePaciente" value="#{processo.obito.paciente.nome}" />
+            <h:inputText readonly="true" id="paciente-nome" value="#{processo.obito.paciente.nome}" />
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
-            <h:inputText readonly="true" id="notificacaoProtocolo" value="#{processo.codigo}" />
+            <h:inputText readonly="true" id="codigo" value="#{processo.codigo}" />
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
@@ -77,15 +77,15 @@
                 <br /><h:outputLabel><b>${msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
-                    <h:inputText id="nome" value="#{processo.entrevista.responsavel.nomeResponsavel}" />
+                    <h:inputText id="entrevista-responsavel-nome" value="#{processo.entrevista.responsavel.nomeResponsavel}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
-                    <h:inputText class="rg" id="rg" value="#{processo.entrevista.responsavel.documentoSocial}" />
+                    <h:inputText class="rg" id="entrevista-responsavel-rg" value="#{processo.entrevista.responsavel.documentoSocial}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
-                    <h:selectOneMenu id="parentesco" value="#{processo.entrevista.responsavel.parentesco}"
+                    <h:selectOneMenu id="entrevista-responsavel-parentesco" value="#{processo.entrevista.responsavel.parentesco}"
                                      styleClass="dropdown" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.parentesco']}" />
@@ -94,7 +94,7 @@
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
-                    <h:selectOneMenu  id="estadoCivil" value="#{processo.entrevista.responsavel.estadoCivil}"
+                    <h:selectOneMenu  id="entrevista-responsavel-estadoCivil" value="#{processo.entrevista.responsavel.estadoCivil}"
                                       styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.estadoCivil']}" />
@@ -103,27 +103,28 @@
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
-                    <h:inputText class="tel" id="numero" value="#{processo.entrevista.responsavel.telefone.numero}"/>
+                    <h:inputText class="tel" id="entrevista-responsavel-telefone-numero" value="#{processo.entrevista.responsavel.telefone.numero}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
-                    <h:inputText class="tel" id="numero2" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
+                    <h:inputText class="tel" id="entrevista-responsavel-telefone2-numero" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
-                    <h:inputText id="profissao" value="#{processo.entrevista.responsavel.profissao}"/>
+                    <h:inputText id="entrevista-responsavel-profissao" value="#{processo.entrevista.responsavel.profissao}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
-                    <h:inputText class="cep" id="cep" value="#{processo.entrevista.responsavel.endereco.cep}"/>
+                    <h:inputText class="cep" id="entrevista-responsavel-endereco-cep" value="#{processo.entrevista.responsavel.endereco.cep}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
-                    <h:inputText id="nacionalidade" value="#{processo.entrevista.responsavel.nacionalidade}"/>
+                    <h:inputText id="entrevista-responsavel-nacionalidade" value="#{processo.entrevista.responsavel.nacionalidade}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
-                    <h:selectOneMenu id="estado" value="#{processo.entrevista.responsavel.endereco.estado}" onchange="ajaxGetMunicipios(estado, cidade)"
+                    <h:selectOneMenu id="entrevista-responsavel-endereco-estado" value="#{processo.entrevista.responsavel.endereco.estado}"
+                                     onchange="ajaxGetMunicipios('#entrevista-responsavel-endereco-estado', '#entrevista-responsavel-endereco-cidade')"
                                      styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.uf']}" />
@@ -132,7 +133,8 @@
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
-                    <h:selectOneMenu id="cidade" value="#{processo.entrevista.responsavel.endereco.cidade}" onchange="ajaxGetBairros(cidade, bairro)"
+                    <h:selectOneMenu id="entrevista-responsavel-endereco-cidade" value="#{processo.entrevista.responsavel.endereco.cidade}"
+                                     onchange="ajaxGetBairros('#entrevista-responsavel-endereco-cidade', '#entrevista-responsavel-endereco-bairro')"
                                      styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.cidade']}" />
@@ -141,7 +143,7 @@
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
-                    <h:selectOneMenu id="bairro" value="#{processo.entrevista.responsavel.endereco.cidade}"
+                    <h:selectOneMenu id="entrevista-responsavel-endereco-bairro" value="#{processo.entrevista.responsavel.endereco.cidade}"
                                      styleClass="select2" >
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.bairro']}" />
@@ -150,51 +152,33 @@
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
-                    <h:inputText id="logradouro" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
+                    <h:inputText id="entrevista-responsavel-endereco-logradouro" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
-                    <h:inputText id="numeroEndereco" value="#{processo.entrevista.responsavel.endereco.numero}"/>
+                    <h:inputText id="entrevista-responsavel-endereco-numero" value="#{processo.entrevista.responsavel.endereco.numero}"/>
                 </h:panelGroup>
 
                 <br/><h:outputLabel><b>${msg['entrevista.text.testemunha1']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
-                    <h:inputText id="nomeTestemunha1" value="#{processo.entrevista.testemunha1.nome}"/>
+                    <h:inputText id="entrevista-testemunha1-nome" value="#{processo.entrevista.testemunha1.nome}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
-                    <h:inputText class="cpf" id="cpfTestemunha1" value="#{processo.entrevista.testemunha1.cpf}"/>
+                    <h:inputText class="cpf" id="entrevista-testemunha1-cpf" value="#{processo.entrevista.testemunha1.cpf}"/>
                 </h:panelGroup>
 
                 <br/><h:outputLabel><b>${msg['entrevista.text.testemunha2']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}"/>
-                    <h:inputText id="nomeTestemunha2" value="#{eprocesso.entrevista.testemunha2.nome}"/>
+                    <h:inputText id="entrevista-testemunha2-nome" value="#{eprocesso.entrevista.testemunha2.nome}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
-                    <h:inputText class="cpf" id="cpfTestemunha2" value="#{processo.entrevista.testemunha2.cpf}"/>
+                    <h:inputText class="cpf" id="entrevista-testemunha2-cpf" value="#{processo.entrevista.testemunha2.cpf}"/>
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // Dados do responsável
-            setNomeVarios('entrevista.responsavel', nome, rg,
-                    parentesco, estadoCivil, numero, numero2, profissao, nacionalidade);
-            // Telefones do responsável
-            setNomeVarios('entrevista.responsavel.telefone', numero);
-            $("#numero2").prop("name", "entrevista.responsavel.telefone2.numero");
-            // Endereço do responsável
-            setNomeVarios('entrevista.responsavel.endereco', estado, cidade, bairro, logradouro, cep);
-            $("#numeroEndereco").prop("name", "entrevista.responsavel.endereco.numero");
-            // Testemunhas
-            $("#nomeTestemunha1").prop("name", "entrevista.testemunha1.nome");
-            $("#cpfTestemunha1").prop("name", "entrevista.testemunha1.cpf");
-            $("#nomeTestemunha2").prop("name", "entrevista.testemunha2.nome");
-            $("#cpfTestemunha2").prop("name", "entrevista.testemunha2.cpf");
-        });
-    </script>
 </ui:composition>

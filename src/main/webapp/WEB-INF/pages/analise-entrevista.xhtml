@@ -15,6 +15,10 @@
                 <div class="span12">
                     <h:outputLabel>${msg['analise.entrevista.titulo']} - Página em Construção</h:outputLabel>
 
+                    <ui:insert>
+                        <ui:include src="form-entrevista-nao-realizada.xhtml" />
+                    </ui:insert>
+
                     <p>Nessa tela os dados serão analisados e será dado o aval para continuar o Processo de Notificação. Caso haja algum erro na
                         notificação a mesma pode ser recusa, ou caso esteja tudo certo para finalizar, ela também pode ser arquivada.</p>
 
