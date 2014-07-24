@@ -167,8 +167,9 @@ public class NotificacaoEntrevistaController {
 
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
+        model.addAttribute("captacao", true);
 
-        return "analise-entrevista";
+        return "analise-processo-notificacao";
     }
 
     /**

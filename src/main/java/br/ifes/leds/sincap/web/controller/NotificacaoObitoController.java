@@ -169,8 +169,9 @@ public class NotificacaoObitoController {
 
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
+        model.addAttribute("obito", true);
 
-        return "analise-obito";
+        return "analise-processo-notificacao";
     }
 
     /**
