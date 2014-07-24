@@ -8,11 +8,27 @@ $(document).ready(function() {
     $('.cep').mask('99999-999');
 });
 
-$('#aptoDoacao').click(function () {
+$('#aptoDoacao').click(function() {
     fadeComponent("obito.aptoDoacao", "", "divCausaNaoDoacao");
 })
 
- //Validando os dados do formulario
+$("#form-setor").validate({
+    rules: {
+        'nome': {
+            required: true
+        }
+    },
+    messages: {
+        'nome': {
+            required: "Por favor, insira o nome"
+        }
+    },
+    submitHandler: function(form) {
+        form.submit();
+    }
+});
+
+//Validando os dados do formulario
 $("#processo").validate({
     rules: {
         //Notificacao de Obito aba Paciente
