@@ -78,9 +78,11 @@
                         <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
                             Próximo <i class="icon-chevron-right"></i>
                         </button>
-                        <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
-                            #{msg['analise.arquivar']}
-                        </button>
+                        <h:panelGroup rendered="#{!obito}">
+                            <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
+                                #{msg['analise.arquivar']}
+                            </button>
+                        </h:panelGroup>
                         <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
                             #{msg['analise.recusar']}
                         </button>
