@@ -7,17 +7,11 @@
         <ul id="dashboard-menu">
 
             <!-- Menu da Causa de Não Doação -->
-            <li> 
-                <a class="dropdown-toggle" href="http://${request.serverName}:${request.serverPort}${request.contextPath}">
-                    <i class="icon-edit">   </i>
+            <li>
+                <a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_causa_nao_doacao}">
+                    <i class="icon-edit" />
                     <span>#{msg['sidebar.adm.nao-doacao']}</span>
-                    <i class="icon-chevron-down"></i>
                 </a>
-                
-                <ul class="submenu">
-                    <li><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_causa_nao_doacao}">Consultar</a></li>
-                    <li><a href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_causa_nao_doacao}${contextUrls.adicionar}">Adicionar</a></li>
-                </ul>
             </li>
         </ul>
     </h:panelGroup>

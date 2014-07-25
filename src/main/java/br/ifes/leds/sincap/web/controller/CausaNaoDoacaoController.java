@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author aleao
  */
 @Controller
-@RequestMapping(ContextUrls.APP_CAUSA_NAO_DOACAO)
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_CAUSA_NAO_DOACAO)
 @SessionScoped
 public class CausaNaoDoacaoController {
     @Autowired
