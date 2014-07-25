@@ -1,0 +1,49 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <!-- main container -->
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">   
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+                <h:dataTable id="setores-table" value="#{listaSetores}" var="setor"
+                             rows="#{quantidade}" styleClass="table table-hover table-striped">
+                    <div class="control-group">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nome" />
+                            </f:facet>
+                            #{setor.nome}
+                        </h:column>
+                        <!-- Botões -->
+                        <!--                    TODO-->
+                        <h:column class="">
+                            <f:facet name="header">
+                                <h:outputText value="Ação" />
+                            </f:facet>
+                            <form name="list-form-setor" id="list-form-setor" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_setor}" 
+                                  method="post">
+                                <input type="hidden" id="setorId" name="id" value="${setor.id}" />
+                                <!--                                <input type="hidden" name="setorNome" value=""-->
+                                <h:panelGroup layout="block" rendered="#{!setor.usado}">
+                                    <button class="btn-flat danger" type="submit"><i class="icon-remove" style=""></i> Excluir </button>
+                                </h:panelGroup>
+                            </form>
+                        </h:column>
+                    </div>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+    <script>
+        function envio(event) {
+            var resposta = confirm("Tem certeza que deseja excluir o setor ?");
+            if (!resposta) {
+                event.preventDefault();
+            }
+        }
+        $("#list-form-setor").submit(envio);
+    </script>
+</ui:composition>

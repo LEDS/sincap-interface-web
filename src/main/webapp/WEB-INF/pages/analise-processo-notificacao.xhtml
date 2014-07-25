@@ -1,0 +1,188 @@
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['analise.obito.titulo']}
+    </ui:define>
+    <!-- Fim do Título -->
+
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <!-- <div class="row-fluid head">
+                <div class="span12">
+                    <h4>Form wizard</h4>
+                </div>
+            </div> -->
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
+                        <ul class="wizard-steps">
+                            <li data-target="#step1" class="active">
+                                <span class="step">1</span>
+                                <span class="title">Dados do <br/> óbito</span>
+                            </li>
+                            <h:panelGroup layout="block" rendered="#{entrevista || captacao}">
+                                <li data-target="#step2">
+                                    <span class="step">2</span>
+                                    <span class="title">Dados da <br/> entrevista</span>
+                                </li>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" rendered="#{captacao}">
+                                <li data-target="#step3">
+                                    <span class="step">3</span>
+                                    <span class="title">Dados da <br/>captação</span>
+                                </li>
+                            </h:panelGroup>
+                        </ul>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-pane active" id="step1">
+                            <div class="row-fluid form-wrapper">
+                                <div class="span8">
+                                    <form class="inline-input">
+                                        <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-pane" id="step2">
+                            <div class="row-fluid form-wrapper">
+                                <div class="span8">
+                                    <form class="inline-input">
+                                        <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-pane" id="step3">
+                            <div class="row-fluid form-wrapper">
+                                <div class="span8">
+                                    <form class="inline-input">
+                                        <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wizard-actions">
+                        <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
+                            <i class="icon-chevron-left"></i> Anterior
+                        </button>
+                        <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
+                            Próximo <i class="icon-chevron-right"></i>
+                        </button>
+                        <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
+                            ${msg['analise.arquivar']}
+                        </button>
+                        <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
+                            ${msg['analise.recusar']}
+                        </button>
+                        <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
+                            ${msg['analise.confirmar']}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="form-analise" hidden="hidden" method="post">
+            <input hidden="hidden" id="id" name="id" value="#{processo.id}"/>
+        </form>
+
+        <h:panelGroup rendered="#{obito}">
+            <input type="hidden" class="url"
+                   value="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{entrevista}">
+            <input type="hidden" class="url"
+                   value="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{captacao}">
+            <input type="hidden" class="url"
+                   value="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_captacao}${contextUrls.app_analisar}"/>
+        </h:panelGroup>
+
+        <script type="text/javascript">
+            var nSteps = 1;
+
+            if (#{!entrevista &amp;&amp; captacao}) {
+                nSteps = 3;
+            } else if (#{entrevista &amp;&amp; !captacao}) {
+                nSteps = 2;
+            }
+
+            if (nSteps === 1) {
+                var $btnNext = $('.wizard-actions .btn-next'),
+                        $btnFinish = $(".wizard-actions .btn-finish");
+
+                $btnNext.hide();
+                $btnFinish.show();
+            }
+
+            function sendPost(url) {
+                var form = $("#form-analise").prop("action", url);
+                form.submit();
+            }
+
+            $("#btn-arquivar").click(function () {
+                var url = $(".url").val() + "#{contextUrls.arquivar}";
+                sendPost(url);
+            });
+            $("#btn-recusar").click(function () {
+                var url = $(".url").val() + "#{contextUrls.recusar}";
+                sendPost(url);
+            });
+            $("#btn-confirmar").click(function () {
+                var url = $(".url").val() + "#{contextUrls.confirmar}";
+                sendPost(url);
+            });
+
+            thisDocument = $(document).keypress(function (event) {
+                if (event.key == "Right") {
+                    $("#btn-next").click();
+                } else if (event.key == "Left") {
+                    $("#btn-prev").click();
+                }
+            });
+
+            $(function () {
+                var $wizard = $('#fuelux-wizard'),
+                        $btnPrev = $('.wizard-actions .btn-prev'),
+                        $btnNext = $('.wizard-actions .btn-next'),
+                        $btnFinish = $(".wizard-actions .btn-finish");
+
+                $wizard.wizard().on('finished', function (e) {
+                    // wizard complete code
+                }).on("changed", function (e) {
+                    var step = $wizard.wizard("selectedItem");
+                    // reset states
+                    $btnNext.removeAttr("disabled");
+                    $btnPrev.removeAttr("disabled");
+                    $btnNext.show();
+                    $btnFinish.hide();
+
+                    if (step.step === 1) {
+                        $btnPrev.attr("disabled", "disabled");
+                    } else if (step.step === nSteps) {
+                        $btnNext.hide();
+                        $btnFinish.show();
+                    }
+                });
+
+                $btnPrev.on('click', function () {
+                    $wizard.wizard('previous');
+                });
+                $btnNext.on('click', function () {
+                    $wizard.wizard('next');
+                });
+            });
+        </script>
+    </ui:define>
+    <!-- Fim do conteúdo -->
+
+</ui:composition>

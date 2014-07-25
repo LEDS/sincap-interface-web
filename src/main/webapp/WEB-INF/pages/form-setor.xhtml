@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['setor.title']}
+    </ui:define>
+
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
+
+                        <h2>${msg['setor.title']}</h2>
+                        <br/>
+
+                        <div class="step-content">
+                            <form id="form-setor" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_setor}${contextUrls.salvar}"
+                                  method="post">
+                                <div class="control-group">
+                                    <h:outputLabel value="#{msg['setor.text.nome']}" />
+                                    <h:inputText id="nome" class="nome" value="#{setor.nome}"/>
+                                </div>
+                                <button  type="submit" class="btn-flat success btn-finish">
+                                    ${msg['causa-nao-doacao.salvar']}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            });
+            //Validando os dados do formulario
+            $("#form-setor")
+                    .validate(
+                            {
+                                rules: {
+                                    'nome': {
+                                        required: true
+                                    }
+                                },
+                                messages: {
+                                    'nome': {
+                                        required: "Por favor, insira o nome"
+                                    }
+                                },
+                                submitHandler: function(form) {
+                                    form.submit();
+                                }
+                            }
+                    );
+        </script>
+    </ui:define>
+</ui:composition>
