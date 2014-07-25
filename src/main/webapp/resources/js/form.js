@@ -15,6 +15,7 @@ function setNames() {
 
     $("input").each(replaceFunction);
     $("select").each(replaceFunction);
+    $("textarea").each(replaceFunction);
 }
 
 function focus(selector, next) {
