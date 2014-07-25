@@ -2,6 +2,7 @@
 <ui:composition template="/WEB-INF/templates/form.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <!-- Título da página -->
@@ -28,7 +29,13 @@
                             <div class="step-pane active">
                                 <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
                             </div>
-                            <h:inputHidden id="id" value="#{id}"/>
+
+                            <!-- Para manter os objetos quando buscar do banco de dados. -->
+                            <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+                            <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
+                            <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
+                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                            </h:inputHidden>
                             <button type="submit"
                                     class="btn-glow success btn-finish">
                                 ${msg['obito.button.finalizar']}</button>

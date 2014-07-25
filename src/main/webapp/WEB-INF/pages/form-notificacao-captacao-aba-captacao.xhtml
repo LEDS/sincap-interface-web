@@ -5,11 +5,21 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:panelGrid layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+            <h:inputText readonly="true" id="paciente-nome" value="#{processo.obito.paciente.nome}" />
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="control-group">
+            <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+            <h:inputText readonly="true" id="codigo" value="#{processo.codigo}" />
+        </h:panelGroup>
+
         <h:panelGrid layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}"/>
-            <h:selectOneRadio layout="lineDirection">
-                <f:selectItem itemValue="SIM" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.sim']}"/>
-                <f:selectItem itemValue="NAO" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.nao']}"/>
+            <h:selectOneRadio id="captacaoRealizada" value="#{processo.captacao.captacaoRealizada}" styleClass="select2">
+                <f:selectItem itemValue="true" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.sim']}"/>
+                <f:selectItem itemValue="false" itemLabel="#{msg['captacao.radioButton.corneasCaptadas.nao']}"/>
             </h:selectOneRadio>
         </h:panelGrid>
 
@@ -17,13 +27,9 @@
         <!--Motivo da não captação - BEGIN-->
         <h:panelGrid layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}"/>
-            <h:selectOneMenu class="ui-select">
-                <f:selectItem itemValue="" itemLabel="#{msg['captacao.selectOneMenu.label']}"/>
-                <f:selectItem itemValue="Aspecto Logistico I"/>
-                <f:selectItem itemValue="Aspecto Logistico II"/>
-                <f:selectItem itemValue="Aspecto Logistico III"/>
-                <f:selectItem itemValue="Aspecto Logistico IV"/>
-                <f:selectItem itemValue="Aspecto Logistico V"/>
+            <h:selectOneMenu class="ui-select" value="#{processo.causaNaoDoacao}">
+                <f:selectItem itemLabel="#{msg['captacao.selectOneMenu.label']}" styleClass="dropdown"/>
+                <f:selectItems value="#{listaProblemasLogisticos}"/>
             </h:selectOneMenu>
         </h:panelGrid>
         <!--Motivo da não captação - END-->
