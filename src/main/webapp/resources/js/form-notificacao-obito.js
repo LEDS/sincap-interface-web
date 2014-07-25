@@ -90,12 +90,6 @@ $("#processo").validate({
         'obito.segundaCausaMortis': {
             required: true
         },
-        'obito.terceiraCausaMortis': {
-            required: true
-        },
-        'obito.quartaCausaMortis': {
-            required: true
-        },
         'obito.aptoDoacao': {
             required: true
         }
@@ -157,12 +151,6 @@ $("#processo").validate({
         },
         'obito.segundaCausaMortis': {
             required: "Por favor, insira segundo motivo do obito"
-        },
-        'obito.terceiraCausaMortis': {
-            required: "Por favor, insira terceiro motivo do obito"
-        },
-        'obito.quartaCausaMortis': {
-            required: "Por favor, insira quarto motivo do obito"
         },
         'obito.aptoDoacao': {
             required: "Por favor, selecione o estado do paciente"
