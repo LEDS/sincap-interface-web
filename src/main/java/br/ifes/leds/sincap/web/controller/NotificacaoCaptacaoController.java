@@ -64,11 +64,11 @@ public class NotificacaoCaptacaoController {
                                  @RequestParam("captacaoRealizada") boolean captacaoRealizada,
                                  @RequestParam("dataCaptacao") String dataCaptacao,
                                  @RequestParam("horarioCaptacao") String horarioCaptacao) throws ParseException {
-
+        //Processo de notificacao vem incompleto, logo, ele deve ser buscado novamente
         processo.getCaptacao().setDataCaptacao(utilityEntities.stringToCalendar(dataCaptacao, horarioCaptacao));
         processo.getCaptacao().setCaptacaoRealizada(captacaoRealizada);
 
-        aplProcessoNotificacao.salvarCaptacao(processo, usuarioSessao.getIdUsuario());
+        aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), usuarioSessao.getIdUsuario());
         return "redirect:" + ContextUrls.INDEX;
     }
 

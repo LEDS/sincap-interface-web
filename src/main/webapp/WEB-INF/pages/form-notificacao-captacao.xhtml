@@ -32,10 +32,11 @@
 
                             <!-- Para manter os objetos quando buscar do banco de dados. -->
                             <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-                            <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
-                            <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
-                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                            </h:inputHidden>
+                            <!--<input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>-->
+                            <!--<h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">-->
+                                <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />-->
+                            <!--</h:inputHidden>-->
+
                             <button type="submit"
                                     class="btn-glow success btn-finish">
                                 ${msg['obito.button.finalizar']}</button>

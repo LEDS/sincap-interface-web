@@ -6,24 +6,19 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.UsuarioDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplPrincipal;
 import br.ifes.leds.sincap.web.model.Mensagem;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
- *
  * @author 20102bsi0553
  */
 @Controller
@@ -48,7 +43,7 @@ public class SignInController {
 
     @RequestMapping(value = "/autenticar", method = RequestMethod.POST)
     public String autenticar(@ModelAttribute UsuarioDTO usuarioDto,
-            ModelMap model) {
+                             ModelMap model) {
 
         try {
 
@@ -73,7 +68,7 @@ public class SignInController {
         }
 
     }
-    
+
     @RequestMapping(value = "/getHospitais", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<List<Mensagem>> getHospitais(@RequestBody String cpf) {
@@ -87,17 +82,17 @@ public class SignInController {
 
             for (InstituicaoNotificadora instituicaoNotificadora : setInstituicoesNotificadoras) {
                 mensagem = new Mensagem();
-                
+
                 mensagem.setDado(instituicaoNotificadora.getNome());
                 mensagem.setId(instituicaoNotificadora.getId().toString());
 
                 listaMensagem.add(mensagem);
             }
 
-        }catch(Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        
+
         return new ResponseEntity<List<Mensagem>>(listaMensagem, HttpStatus.OK);
     }
 }
