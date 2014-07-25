@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/form.xhtml"
+<ui:composition template="/WEB-INF/templates/adm.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                >
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
@@ -17,6 +15,18 @@
             <br/>
             <h2>${msg['causa-nao-doacao.visualizar']}</h2>
             <br/>
+
+            <!-- Bloco de filtros -->
+            <div class="row filter-block">
+                <div class="pull-right">
+                    <!-- Botão de nova causa -->
+                    <a class="btn-flat pull-right success new-product add-user"
+                       href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_causa_nao_doacao}${contextUrls.adicionar}">
+                        #{msg['causa-nao-doacao.nova-causa']}
+                    </a>
+                </div>
+            </div>
+
             <br/>
             <ui:include src="/WEB-INF/components/lista-causa-nao-doacao.xhtml" />
         </h:panelGroup>
