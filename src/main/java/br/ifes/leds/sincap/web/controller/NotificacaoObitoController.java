@@ -1,30 +1,25 @@
 package br.ifes.leds.sincap.web.controller;
 
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
+
+import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -159,13 +154,7 @@ public class NotificacaoObitoController {
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
-        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
-                .obter(idProcesso);
-
-        // Preenche os endereços.
-        utility.preencherEndereco(processo.getObito().getPaciente()
-                .getEndereco(), model, aplEndereco);
-        preencherSetorCausaNDoacao(model);
+        ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
 
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
@@ -182,9 +171,8 @@ public class NotificacaoObitoController {
      *            ID do ProcessoNotificacao
      * @return
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR
-            + "/{idProcesso}", method = RequestMethod.GET)
-    public String confirmarAnaliseObito(ModelMap model, @PathVariable Long idProcesso) {
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
+    public String confirmarAnaliseObito(ModelMap model, @RequestParam("id") long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
@@ -203,9 +191,9 @@ public class NotificacaoObitoController {
      *            ID do ProcessoNotificacao
      * @return
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR
-            + "/{idProcesso}", method = RequestMethod.GET)
-    public String recusarAnaliseObito(ModelMap model, @PathVariable Long idProcesso) {
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
+    public String recusarAnaliseObito(ModelMap model, @RequestParam
+            ("id")Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
@@ -224,9 +212,8 @@ public class NotificacaoObitoController {
      *            ID do ProcessoNotificacao
      * @return
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR
-            + "/{idProcesso}", method = RequestMethod.GET)
-    public String arquivarAnaliseObito(ModelMap model, @PathVariable Long idProcesso) {
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
+    public String arquivarAnaliseObito(ModelMap model, @RequestParam ("id")Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);

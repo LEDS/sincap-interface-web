@@ -36,12 +36,10 @@ $("#processo").validate({
             required: true
         },
         dataNascimento: {
-            required: true,
-            date: true
+            required: true
         },
         dataInternacao: {
-            required: true,
-            date: true
+            required: true
         },
         'obito.paciente.documentoSocial': {
             required: true
@@ -77,8 +75,7 @@ $("#processo").validate({
         },
         // Notificacao de Obito aba Obito
         dataObito: {
-            required: true,
-            date: true
+            required: true
         },
         horarioObito: {
             required: true,

@@ -2,7 +2,7 @@
         xmlns="http://www.w3.org/1999/xhtml"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:f="http://java.sun.com/jsf/core"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+        xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://java.sun.com/jsp/jstl/core">
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
@@ -17,7 +17,7 @@
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}"/>
-        <h:inputText readonly="true" class="data" styleClass="span8"
+        <h:inputText readonly="true" styleClass="span8"
                      value="#{processo.obito.paciente.dataInternacao.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
@@ -28,7 +28,7 @@
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.telefone']}"/>
-        <h:inputText readonly="true" class="tel" styleClass="span8" value="#{processo.obito.paciente.telefone.numero}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.telefone.numero}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
@@ -56,15 +56,15 @@
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}"/>
-        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.estado}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.estado.nome}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}"/>
-        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.cidade}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.cidade.nome}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}"/>
-        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.bairro}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.bairro.nome}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.cep']}"/>
@@ -78,54 +78,50 @@
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.data']}"/>
-        <h:inputText styleClass="span8" value="#{dataObito}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </h:inputText>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.horario']}"/>
-        <h:inputText styleClass="span8" value="#{horaObito}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
+            <f:convertDateTime pattern="HH:mm"/>
+        </h:inputText>
     </div>
+
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}"/>
-        <h:selectOneMenu value="#{processo.obito.setor}" class="ui-select">
-            <f:selectItem itemValue="" itemLabel="#{msg['obito.obito.dropDown.setor.escolha']}"/>
-            <f:selectItems value="#{listaSetor}"/>
-        </h:selectOneMenu>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.setor.nome}" />
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.motivos1']}"/>
-        <h:inputText styleClass="span8" value="#{processo.obito.primeiraCausaMortis.nome}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.primeiraCausaMortis.nome}"/>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.motivos2']}"/>
-        <h:inputText styleClass="span8" value="#{processo.obito.segundaCausaMortis.nome}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.segundaCausaMortis.nome}"/>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
-        <h:inputText styleClass="span8" value="#{processo.obito.terceiraCausaMortis.nome}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.terceiraCausaMortis.nome}"/>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
-        <h:inputText styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}"/>
-        <h:selectOneRadio value="#{processo.obito.aptoDoacao}"
-                >
-            <f:selectItem itemValue="true" itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.apto']}"/>
-            <f:selectItem itemValue="false" itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.inapto']}"/>
-        </h:selectOneRadio>
+        <h:inputText readonly="true" styleClass="span8" rendered="#{processo.obito.aptoDoacao}" value="Apto"/>
+        <h:inputText readonly="true" styleClass="span8" rendered="#{!processo.obito.aptoDoacao}" value="Inapto"/>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
-        <h:selectOneMenu value="#{processo.causaNaoDoacao}" styleClass="select2">
-            <f:selectItem itemValue="" itemLabel="#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}"/>
-            <f:selectItems value="#{listaCausaNaoDoacao}"/>
-        </h:selectOneMenu>
+        <h:inputText readonly="true" value="#{processo.causaNaoDoacao}" styleClass="span8"/>
     </div>
 </ui:composition>
