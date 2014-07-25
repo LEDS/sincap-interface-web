@@ -1,12 +1,5 @@
 package br.ifes.leds.sincap.web.utility;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.model.SelectItem;
-
-import org.springframework.ui.ModelMap;
-
 import br.ifes.leds.reuse.endereco.cdp.Bairro;
 import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
@@ -15,6 +8,11 @@ import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
+import org.springframework.ui.ModelMap;
+
+import javax.faces.model.SelectItem;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum Utility {
 

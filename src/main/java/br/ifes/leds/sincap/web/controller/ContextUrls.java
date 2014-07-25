@@ -1,8 +1,9 @@
 package br.ifes.leds.sincap.web.controller;
 
+import lombok.Getter;
+
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import lombok.Getter;
 
 /**
  *

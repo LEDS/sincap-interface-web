@@ -5,19 +5,17 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import java.util.List;
-
-import javax.faces.bean.SessionScoped;
-
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import javax.faces.bean.SessionScoped;
+import java.util.List;
 
 /**
  * Controla os eventos da página principal.

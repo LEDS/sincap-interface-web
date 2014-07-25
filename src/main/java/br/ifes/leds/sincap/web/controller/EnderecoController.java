@@ -1,10 +1,9 @@
 package br.ifes.leds.sincap.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.bean.SessionScoped;
-
+import br.ifes.leds.reuse.endereco.cdp.Bairro;
+import br.ifes.leds.reuse.endereco.cdp.Cidade;
+import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.sincap.web.model.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.ifes.leds.reuse.endereco.cdp.Bairro;
-import br.ifes.leds.reuse.endereco.cdp.Cidade;
-import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
-import br.ifes.leds.sincap.web.model.Mensagem;
+import javax.faces.bean.SessionScoped;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(ContextUrls.APP_ENDERECO)

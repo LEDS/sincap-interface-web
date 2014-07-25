@@ -10,16 +10,16 @@ import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.SetorEmUsoException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
 import br.ifes.leds.sincap.web.utility.Utility;
-import java.util.List;
-import javax.faces.bean.SessionScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.faces.bean.SessionScoped;
+import java.util.List;
 
 /**
  *
