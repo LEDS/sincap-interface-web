@@ -3,6 +3,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <!--@elvariable id="captacao" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Captacao"-->
+
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
         #{msg['analise.obito.titulo']}
@@ -77,13 +79,13 @@
                             Próximo <i class="icon-chevron-right"></i>
                         </button>
                         <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
-                            ${msg['analise.arquivar']}
+                            #{msg['analise.arquivar']}
                         </button>
                         <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
-                            ${msg['analise.recusar']}
+                            #{msg['analise.recusar']}
                         </button>
                         <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
-                            ${msg['analise.confirmar']}
+                            #{msg['analise.confirmar']}
                         </button>
                     </div>
                 </div>
@@ -96,15 +98,15 @@
 
         <h:panelGroup rendered="#{obito}">
             <input type="hidden" class="url"
-                   value="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.app_analisar}"/>
+                   value="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.app_analisar}"/>
         </h:panelGroup>
         <h:panelGroup rendered="#{entrevista}">
             <input type="hidden" class="url"
-                   value="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}"/>
+                   value="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.app_analisar}"/>
         </h:panelGroup>
         <h:panelGroup rendered="#{captacao}">
             <input type="hidden" class="url"
-                   value="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_captacao}${contextUrls.app_analisar}"/>
+                   value="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.app_analisar}"/>
         </h:panelGroup>
 
         <script type="text/javascript">

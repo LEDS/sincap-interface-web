@@ -8,10 +8,11 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
@@ -29,7 +30,6 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- *
  * @author Breno Grillo
  */
 @Controller
@@ -108,34 +108,20 @@ public class NotificacaoEntrevistaController {
         processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
     }
 
-    @RequestMapping(value = ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarEntrevista(
-            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
-        return finalizarAnaliseEntrevista(processoNotificacaoDTO,
-                EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
+    public String recusarEntrevista(@RequestParam("id") Long idProcesso) {
+
+        aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + ContextUrls.INDEX;
     }
 
-    @RequestMapping(value = ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarEntrevista(
-            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
-        return finalizarAnaliseEntrevista(processoNotificacaoDTO,
-                EstadoNotificacaoEnum.AGUARDANDOCAPTACAO);
-    }
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
+    public String arquivarEntrevista(@RequestParam("id") Long idProcesso) {
 
-    @RequestMapping(value = ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarEntrevista(
-            @ModelAttribute ProcessoNotificacaoDTO processoNotificacaoDTO) {
-        return finalizarAnaliseEntrevista(processoNotificacaoDTO,
-                EstadoNotificacaoEnum.NOTIFICACAOARQUIVADA);
-    }
+        aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
 
-    private String finalizarAnaliseEntrevista(
-            ProcessoNotificacaoDTO processoNotificacaoDTO, EstadoNotificacaoEnum ESTADO) {
-        try {
-            aplProcessoNotificacao.salvarEntrevista(processoNotificacaoDTO, usuarioSessao.getIdUsuario());
-        } catch (ViolacaoDeRIException e) {
-        }
-        return "analise-entrevista";
+        return "redirect:" + ContextUrls.INDEX;
     }
 
     private List<SelectItem> getListaCausaNDoacaoSelectItem(TipoNaoDoacao tipo) {
@@ -155,19 +141,17 @@ public class NotificacaoEntrevistaController {
      * Fornece a página para análise.
      *
      * @param model
-     * @param idProcesso
-     *            ID do ProcessoNotificacao
+     * @param idProcesso ID do ProcessoNotificacao
      * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
         // Pega o processo do banco.
-        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
-                .obter(idProcesso);
+        ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
 
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
-        model.addAttribute("captacao", true);
+        model.addAttribute("entrevista", true);
 
         return "analise-processo-notificacao";
     }
@@ -175,20 +159,13 @@ public class NotificacaoEntrevistaController {
     /**
      * Confirma a análise.
      *
-     * @param model
-     * @param idProcesso
-     *            ID do ProcessoNotificacao
+     * @param idProcesso ID do ProcessoNotificacao
      * @return
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR
-            + "/{idProcesso}", method = RequestMethod.GET)
-    public String confirmarAnalise(ModelMap model, @PathVariable Long idProcesso) {
-        // Pega a notificação do banco.
-        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
-                .obter(idProcesso);
-
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
+    public String confirmarAnalise(@RequestParam("id") Long idProcesso) {
         // Confirmar a análise do óbito.
-        aplProcessoNotificacao.validarAnaliseEntrevista(processo, usuarioSessao.getIdUsuario());
+        aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
     }

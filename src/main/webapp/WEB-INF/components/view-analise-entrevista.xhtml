@@ -4,20 +4,110 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
+
+    <h:panelGroup styleClass="field-box" rendered="#{processo.causaNaoDoacao != null}">
+        <label>#{msg['entrevista.dropdown.problemasEstruturais']}</label>
+        <h:inputText styleClass="span8" readonly="true"
+                     value="#{processo.causaNaoDoacao.nome}, tipo #{processo.causaNaoDoacao.tipoNaoDoacao}"/>
+    </h:panelGroup>
+
     <div class="field-box">
-        <label>Address:</label>
-        <input class="span8" type="text"/>
+        <label>#{msg['entrevista.radioButton.doacaoAutorizada']}</label>
+        <h:inputText styleClass="span8" readonly="true" value="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}"
+                     rendered="#{processo.entrevista.doacaoAutorizada}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}"
+                     rendered="#{!processo.entrevista.doacaoAutorizada}"/>
     </div>
     <div class="field-box">
-        <label>City:</label>
-        <input class="span8" type="text"/>
+        <label>#{msg['entrevista.text.dtEntrevista']}</label>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.dataEntrevista.time}">
+            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+        </h:inputText>
+    </div>
+
+    <br/><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
+
+    <div class="field-box">
+        <label>#{msg['responsavel.text.nome']}</label>
+        <input type="text" class="span8" readonly="readonly" value="#{processo.entrevista.responsavel.nome}"/>
     </div>
     <div class="field-box">
-        <label>Postal/ZIP code:</label>
-        <input class="span8" type="text"/>
+        <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.documentoSocial}"/>
     </div>
     <div class="field-box">
-        <label>Country:</label>
-        <input class="span8" type="text"/>
+        <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.parentesco}"/>
     </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.estadoCivil}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.telefone.numero}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.profissao}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.nacionalidade}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
+        <h:inputText styleClass="span8" readonly="true"
+                     value="#{processo.entrevista.responsavel.endereco.estado.nome}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
+        <h:inputText styleClass="span8" readonly="true"
+                     value="#{processo.entrevista.responsavel.endereco.cidade.nome}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
+        <h:inputText styleClass="span8" readonly="true"
+                     value="#{processo.entrevista.responsavel.endereco.bairro.nome}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.endereco.numero}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.endereco.cep}"/>
+    </div>
+
+    <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha1']}</b></h:outputLabel>
+
+    <div class="field-box">
+        <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.nome}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.cpf}"/>
+    </div>
+
+    <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha2']}</b></h:outputLabel>
+
+    <div class="field-box">
+        <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.nome}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.cpf}"/>
+    </div>
+
 </ui:composition>
