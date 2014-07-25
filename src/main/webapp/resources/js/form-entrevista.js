@@ -9,7 +9,7 @@ $(document).ready(function() {
     definirEstilo();
     focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
     focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
-    focus('#entrevista-responsavel-rg', '#entrevista-responsavel-parentesco');
+    focus('#entrevista-responsavel-documentoSocial', '#entrevista-responsavel-parentesco');
 });
 
 function definirMascaras() {

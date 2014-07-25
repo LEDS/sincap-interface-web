@@ -6,6 +6,15 @@
 
     <h:outputStylesheet library="css" name="grids.css" />
 
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
+    <!--@elvariable id="listaAspectoEstrutural" type="java.util.List"-->
+    <!--@elvariable id="listaRecusaFamiliar" type="java.util.List"-->
+    <!--@elvariable id="listaParentescos" type="java.util.List"-->
+    <!--@elvariable id="listaEstadosCivis" type="java.util.List"-->
+    <!--@elvariable id="listaCidadeItem" type="java.util.List"-->
+    <!--@elvariable id="listaEstadoItem" type="java.util.List"-->
+    <!--@elvariable id="listaBairroItem" type="java.util.List"-->
+
     <br/>
     <h:panelGroup id="entrevista" layout="block" styleClass="row-fluid">
         <h:panelGroup layout="block" styleClass="control-group">
@@ -18,7 +27,7 @@
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="control-group">
             <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
-            <h:selectOneRadio id="entrevistaRealizada" value="#{entrevistaForm.entrevistaRealizada}"
+            <h:selectOneRadio id="entrevistaRealizada"
                               styleClass="radio">
                 <f:selectItem itemValue="true"
                               itemLabel="#{msg['entrevista.radioButton.realizada.sim']}"  />
@@ -65,23 +74,27 @@
 
             <h:panelGroup layout="block" styleClass="control-group">
                 <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
-                <h:inputText class="dataEntrevista" id="dataEntrevista" value="#{processo.entrevista.dataEntrevista}" />
+                <h:inputText class="dataEntrevista" id="dataEntrevista" value="#{processo.entrevista.dataEntrevista.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="control-group">
                 <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
-                <h:inputText class="horaEntrevista" id="horaEntrevista" value="#{processo.entrevista.horaEntrevista}" />
+                <h:inputText class="horaEntrevista" id="horaEntrevista" value="#{processo.entrevista.dataEntrevista.time}">
+                    <f:convertDateTime pattern="HH:mm"/>
+                </h:inputText>
             </h:panelGroup>
 
 
             <h:panelGroup id="divDoacaoAutorizada" layout="block">
-                <br /><h:outputLabel><b>${msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
+                <br /><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
-                    <h:inputText id="entrevista-responsavel-nome" value="#{processo.entrevista.responsavel.nomeResponsavel}" />
+                    <h:inputText id="entrevista-responsavel-nome" value="#{processo.entrevista.responsavel.nome}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
-                    <h:inputText class="rg" id="entrevista-responsavel-rg" value="#{processo.entrevista.responsavel.documentoSocial}" />
+                    <h:inputText class="rg" id="entrevista-responsavel-documentoSocial" value="#{processo.entrevista.responsavel.documentoSocial}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
@@ -159,7 +172,7 @@
                     <h:inputText id="entrevista-responsavel-endereco-numero" value="#{processo.entrevista.responsavel.endereco.numero}"/>
                 </h:panelGroup>
 
-                <br/><h:outputLabel><b>${msg['entrevista.text.testemunha1']}</b></h:outputLabel>
+                <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha1']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
                     <h:inputText id="entrevista-testemunha1-nome" value="#{processo.entrevista.testemunha1.nome}"/>
@@ -169,10 +182,10 @@
                     <h:inputText class="cpf" id="entrevista-testemunha1-cpf" value="#{processo.entrevista.testemunha1.cpf}"/>
                 </h:panelGroup>
 
-                <br/><h:outputLabel><b>${msg['entrevista.text.testemunha2']}</b></h:outputLabel>
+                <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha2']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}"/>
-                    <h:inputText id="entrevista-testemunha2-nome" value="#{eprocesso.entrevista.testemunha2.nome}"/>
+                    <h:inputText id="entrevista-testemunha2-nome" value="#{processo.entrevista.testemunha2.nome}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="control-group">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha1.cpf']}"/>
