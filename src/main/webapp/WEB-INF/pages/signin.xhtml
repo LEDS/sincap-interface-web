@@ -49,7 +49,7 @@
                 <h6>Log in</h6>
 
                 <form id="signInForm"
-                      action="http://${request.serverName}:${request.serverPort}${request.contextPath}/autenticar"
+                      action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/autenticar"
                       method="post">
 
                     <input id="username" name="username" class="span12" type="text" placeholder="CPF"
@@ -80,7 +80,7 @@
 
             <h:panelGroup layout="block" rendered="#{not empty mensagem}">
                 <div class="alert alert-error">
-                    <i class="icon-remove-sign"/> ${mensagem}
+                    <i class="icon-remove-sign"/> #{mensagem}
                 </div>
             </h:panelGroup>
 

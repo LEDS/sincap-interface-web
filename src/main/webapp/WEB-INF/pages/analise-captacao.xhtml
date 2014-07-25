@@ -14,7 +14,7 @@
         <div id="pad-wrapper">
             <div class="row-fluid">
                 <div class="span12">
-                    <h:outputLabel>${msg['analise.captacao.titulo']} - Página em Construção</h:outputLabel>
+                    <h:outputLabel>#{msg['analise.captacao.titulo']} - Página em Construção</h:outputLabel>
 
                     <!-- Se a captação foi realizada -->
                     <h:panelGroup rendered="#{processo.captacao.captacaoRealizada}">
@@ -57,12 +57,12 @@
 
                     <h:panelGroup layout="block" id="content">
                         <a id="confirmar" class="btn-flat success"
-                           href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.app_analisar}${contextUrls.confirmar}/#{processo.id}">
-                            ${msg['analise.confirmarEArquivar']} </a>
+                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.app_analisar}#{contextUrls.confirmar}/#{processo.id}">
+                            #{msg['analise.confirmarEArquivar']} </a>
 
                         <a id="recusar" class="btn-flat inverse"
                            href="#">
-                            ${msg['analise.recusar']} </a>
+                            #{msg['analise.recusar']} </a>
                     </h:panelGroup>
                 </div>
             </div>

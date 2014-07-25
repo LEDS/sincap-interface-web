@@ -17,21 +17,21 @@
             <div class="span12">
                 <div id="fuelux-wizard" class="wizard row-fluid">
 
-                    <h2>${msg['notificacao.msg.etapa.obito']}</h2>
+                    <h2>#{msg['notificacao.msg.etapa.obito']}</h2>
                     <br/>
 
                 </div>
                 <div class="step-content">
                     <form id="processo" class="form-horizontal"
-                          action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_obito}${contextUrls.salvar}"
+                          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
                           method="post">
                         <div class="step-pane active" id="step1">
                             <div class="row-fluid form-wrapper">
                                 <ul class="nav nav-tabs">
                                     <li class="active"><a href="#abaPaciente"
-                                                          data-toggle="tab">${msg['paciente.aba.text.titulo']}</a>
+                                                          data-toggle="tab">#{msg['paciente.aba.text.titulo']}</a>
                                     </li>
-                                    <li><a href="#abaObito" data-toggle="tab">${msg['obito.aba.text.titulo']}</a>
+                                    <li><a href="#abaObito" data-toggle="tab">#{msg['obito.aba.text.titulo']}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -50,7 +50,7 @@
                             </div>
                             <input id="id" name="id" type="hidden" value="#{processo.id}"/>
                             <button type="submit" class="btn-glow success btn-finish">
-                                ${msg['obito.button.finalizar']}</button>
+                                #{msg['obito.button.finalizar']}</button>
                         </div>
                     </form>
                 </div>

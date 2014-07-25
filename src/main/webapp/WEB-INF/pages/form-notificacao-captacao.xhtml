@@ -2,7 +2,6 @@
 <ui:composition template="/WEB-INF/templates/form.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <!-- Título da página -->
@@ -19,12 +18,12 @@
             <div class="span12">
                 <div id="fuelux-wizard" class="wizard row-fluid">
 
-                    <h2>${msg['notificacao.msg.etapa.captacao']}</h2>
+                    <h2>#{msg['notificacao.msg.etapa.captacao']}</h2>
                     <br/>
 
                     <div class="step-content">
                         <form id="processoCaptacao" class="form-horizontal"
-                              action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_captacao}${contextUrls.salvar}"
+                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
                               method="post">
                             <div class="step-pane active">
                                 <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
@@ -39,7 +38,7 @@
 
                             <button type="submit"
                                     class="btn-glow success btn-finish">
-                                ${msg['obito.button.finalizar']}</button>
+                                #{msg['obito.button.finalizar']}</button>
                         </form>
                     </div>
                 </div>

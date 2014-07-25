@@ -13,11 +13,11 @@
     <!-- main container -->
     <ui:define name="#{sects.content}">
         <br/>
-        <h2>${msg['notificacao.msg.etapa.entrevista']}</h2>
+        <h2>#{msg['notificacao.msg.etapa.entrevista']}</h2>
         <br/>
 
         <div class="step-content">
-            <form id="notifEntrevista" class="form-horizontal" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_entrevista}${contextUrls.salvar}" method="post">
+            <form id="notifEntrevista" class="form-horizontal" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
                 <div class="step-pane active" id="step1">
                     <div class="tab-content">
 
@@ -34,7 +34,7 @@
                     </h:inputHidden>
 
                     <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
-                        ${msg['geral.button.salvar']}
+                        #{msg['geral.button.salvar']}
                     </button>
                 </div>
             </form>

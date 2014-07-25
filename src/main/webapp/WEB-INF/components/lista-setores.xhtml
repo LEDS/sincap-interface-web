@@ -23,9 +23,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Ação" />
                             </f:facet>
-                            <form name="list-form-setor" id="list-form-setor" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_setor}" 
+                            <form name="list-form-setor" id="list-form-setor" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_setor}"
                                   method="post">
-                                <input type="hidden" id="setorId" name="id" value="${setor.id}" />
+                                <input type="hidden" id="setorId" name="id" value="#{setor.id}" />
                                 <!--                                <input type="hidden" name="setorNome" value=""-->
                                 <h:panelGroup layout="block" rendered="#{!setor.usado}">
                                     <button class="btn-flat danger" type="submit"><i class="icon-remove" style=""></i> Excluir </button>

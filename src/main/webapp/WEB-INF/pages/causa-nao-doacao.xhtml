@@ -13,7 +13,7 @@
     <ui:define name="#{sects.content}"> 
         <h:panelGroup layout="block" styleClass="container-fluid">
             <br/>
-            <h2>${msg['causa-nao-doacao.visualizar']}</h2>
+            <h2>#{msg['causa-nao-doacao.visualizar']}</h2>
             <br/>
 
             <!-- Bloco de filtros -->
@@ -21,7 +21,7 @@
                 <div class="pull-right">
                     <!-- Botão de nova causa -->
                     <a class="btn-flat pull-right success new-product add-user"
-                       href="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.admin}${contextUrls.app_causa_nao_doacao}${contextUrls.adicionar}">
+                       href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.adicionar}">
                         #{msg['causa-nao-doacao.nova-causa']}
                     </a>
                 </div>

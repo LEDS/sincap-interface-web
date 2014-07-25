@@ -58,8 +58,8 @@
                         <f:facet name="header">
                             <h:outputText value="Notificar Captação" />
                         </f:facet>
-                        <form id="formulario-notificar-entrevista-${notificacao.id}" action="http://${request.serverName}:${request.serverPort}${request.contextPath}${contextUrls.app_notificacao_captacao}${contextUrls.adicionar}" method="post">
-                            <input type="hidden" name="id" value="${notificacao.id}" />
+                        <form id="formulario-notificar-entrevista-#{notificacao.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.adicionar}" method="post">
+                            <input type="hidden" name="id" value="#{notificacao.id}" />
                             <button type="submit"><i class="icon-edit"></i></button>
                         </form>
                     </h:column>
