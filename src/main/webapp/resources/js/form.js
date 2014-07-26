@@ -26,6 +26,18 @@ function focus(selector, next) {
     });
 }
 
+function fieldBoxValidator(error, element) {
+    var $element = $(element);
+    var $parent = $element.parent(".field-box")
+    if (!$parent.hasClass("error")) {
+        $parent.addClass("error");
+        $parent.append("<span class='alert-msg'></span>");
+        var $span = $parent.find("span");
+        $span.append("<i class='icon-remove-sign' />");
+        $span.append(error.text());
+    }
+}
+
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
     $(".control-group > input").addClass("span3 inline-input");

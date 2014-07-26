@@ -1,4 +1,44 @@
-$(document).ready(function() {
+$(function () {
+    var $wizard = $('#fuelux-wizard'),
+        $btnPrev = $('.wizard-actions .btn-prev'),
+        $btnNext = $('.wizard-actions .btn-next'),
+        $btnFinish = $(".wizard-actions .btn-finish");
+
+    $wizard.wizard().on('finished', function (e) {
+        // wizard complete code
+        console.log("finish");
+    }).on("changed", function (e) {
+        var step = $wizard.wizard("selectedItem");
+        // reset states
+        $btnNext.removeAttr("disabled");
+        $btnPrev.removeAttr("disabled");
+        $btnNext.show();
+        $btnFinish.hide();
+
+        if (step.step === 1) {
+            $btnPrev.attr("disabled", "disabled");
+        } else if (step.step === 2) {
+            $btnNext.hide();
+            $btnFinish.show();
+        }
+    });
+
+    $btnPrev.on('click', function () {
+        $wizard.wizard('previous');
+    });
+    $btnNext.on('click', function () {
+        $wizard.wizard('next');
+    });
+});
+
+$(".wizard-actions .btn-finish").click(function () {
+    var processo = $("#processo");
+    if (processo.valid()) {
+        processo.submit();
+    }
+});
+
+$(document).ready(function () {
     $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
     $('.tel').inputmask({
         mask: ["(99)9999-9999", "(99)99999-9999"]
@@ -8,7 +48,7 @@ $(document).ready(function() {
     $('.cep').mask('99999-999');
 });
 
-$('#aptoDoacao').click(function() {
+$('#aptoDoacao').click(function () {
     fadeComponent("obito.aptoDoacao", "", "divCausaNaoDoacao");
 })
 
@@ -23,13 +63,15 @@ $("#form-setor").validate({
             required: "Por favor, insira o nome"
         }
     },
-    submitHandler: function(form) {
+    submitHandler: function (form) {
         form.submit();
     }
 });
 
 //Validando os dados do formulario
 $("#processo").validate({
+    ignore: [],
+    errorPlacement: fieldBoxValidator,
     rules: {
         //Notificacao de Obito aba Paciente
         'obito.paciente.nome': {
@@ -156,7 +198,7 @@ $("#processo").validate({
             required: "Por favor, selecione o estado do paciente"
         }
     },
-    submitHandler: function(form) {
+    submitHandler: function (form) {
         form.submit();
     }
 });
