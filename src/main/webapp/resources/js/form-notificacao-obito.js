@@ -71,7 +71,8 @@ $("#form-setor").validate({
 //Validando os dados do formulario
 $("#processo").validate({
     ignore: [],
-    errorPlacement: fieldBoxValidator,
+    errorPlacement: fieldBoxValidatorError,
+    success: fieldBoxValidatorSuccess,
     rules: {
         //Notificacao de Obito aba Paciente
         'obito.paciente.nome': {
