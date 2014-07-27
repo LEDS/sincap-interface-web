@@ -47,6 +47,7 @@ $('[name="doacaoAutorizada"]').click(function(){
 });
 
 $("#notifEntrevista").validate({
+    errorPlacement: fieldBoxValidatorError,
     rules: {
         entrevistaRealizada: {
             required: true

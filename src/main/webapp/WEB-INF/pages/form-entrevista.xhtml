@@ -20,10 +20,7 @@
         <form id="notifEntrevista" class="form-horizontal" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
             <div class="step-pane active" id="step1">
                 <div class="tab-content">
-
-                    <ui:insert name="notificacao-entrevista">
-                        <ui:include src="form-entrevista-nao-realizada.xhtml" />
-                    </ui:insert>
+                    <ui:include src="form-entrevista-nao-realizada.xhtml"/>
                 </div>
 
                 <!-- Para manter os objetos quando buscar do banco de dados. -->
