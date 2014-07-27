@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <ui:composition template="/WEB-INF/templates/form.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
         >
 
@@ -10,14 +8,12 @@
         #{msg['notificacao.step2.tab1.title']}
     </ui:define>
 
+    <ui:define name="#{sects.formHeader}">
+        #{msg['entrevista.obito-aguardando-entrevista']}
+    </ui:define>
+
     <!-- Conteúdo da página -->
-    <ui:define name="#{sects.content}">
-        <h:panelGroup layout="block" styleClass="container-fluid">
-            <br/>
-            <h2>#{msg['entrevista.obito-aguardando-entrevista']}</h2>
-            <br/>
-            <br/>
-            <ui:include src="/WEB-INF/components/lista-obito-aguardando-entrevista.xhtml" />
-        </h:panelGroup>
+    <ui:define name="#{sects.formContent}">
+        <ui:include src="/WEB-INF/components/lista-obito-aguardando-entrevista.xhtml"/>
     </ui:define>
 </ui:composition>
