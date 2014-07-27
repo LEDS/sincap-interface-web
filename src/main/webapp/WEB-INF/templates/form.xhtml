@@ -4,6 +4,20 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <!-- Cabeçalho da formulário. Ex.: Notificação de óbito -->
+            <h2><ui:insert name="#{sects.formHeader}"/></h2><br/>
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- Conteúdo do formulário -->
+                    <ui:insert name="#{sects.formContent}" />
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
     <!-- Substitui os scripts que serão usados -->
     <ui:define name="#{sects.scripts}">
         <h:outputScript library="js" name="fuelux.wizard.js"/>
