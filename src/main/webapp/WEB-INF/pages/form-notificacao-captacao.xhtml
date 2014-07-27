@@ -14,11 +14,14 @@
 </ui:define>
 
 <ui:define name="#{sects.formContent}">
-    <form id="processoCaptacao" class="form-horizontal"
+    <form id="processoCaptacao" class="span8"
           action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
           method="post">
-        <div class="step-pane active">
-            <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
+        <br/>
+        <div class="form-wrapper inline-input">
+            <div class="form-horizontal">
+                <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
+            </div>
         </div>
 
         <!-- Para manter os objetos quando buscar do banco de dados. -->

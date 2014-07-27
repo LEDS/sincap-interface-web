@@ -42,10 +42,17 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
-        <h:selectOneRadio id="obito-paciente-sexo" value="#{processo.obito.paciente.sexo}" styleClass="radio span8">
-            <f:selectItem itemValue="MASCULINO" itemLabel="#{msg['paciente.radioButton.sexo.masc']}"/>
-            <f:selectItem itemValue="FEMININO" itemLabel="#{msg['paciente.radioButton.sexo.fem']}"/>
-        </h:selectOneRadio>
+        <div class="span8">
+            <label class="radio">
+                <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:0" value="MASCULINO"
+                       checked="true"/>
+                #{msg['paciente.radioButton.sexo.masc']}
+            </label>
+            <label class="radio">
+                <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:1" value="FEMININO"/>
+                #{msg['paciente.radioButton.sexo.fem']}
+            </label>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">

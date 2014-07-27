@@ -53,11 +53,17 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}"/>
-        <h:selectOneRadio id="obito-aptoDoacao" value="#{processo.obito.aptoDoacao}"
-                          styleClass="radio span8">
-            <f:selectItem itemValue="true" itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.apto']}"/>
-            <f:selectItem itemValue="false" itemLabel="#{msg['obito.obito.radioButton.contraIndicacao.inapto']}"/>
-        </h:selectOneRadio>
+        <div class="span8">
+            <label class="radio">
+                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:0" value="true"
+                       checked="true"/>
+                #{msg['obito.obito.radioButton.contraIndicacao.apto']}
+            </label>
+            <label class="radio">
+                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:1" value="false"/>
+                #{msg['obito.obito.radioButton.contraIndicacao.inapto']}
+            </label>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup id="divCausaNaoDoacao" layout="block" styleClass="field-box">
