@@ -24,6 +24,7 @@
         <!-- libraries -->
         <h:outputStylesheet library="css" name="lib/jquery-ui-1.10.2.custom.css" />
         <h:outputStylesheet library="css" name="lib/font-awesome.css" />
+        <h:outputStylesheet library="css" name="lib/select2.css" />
 
         <!-- global styles -->
         <h:outputStylesheet library="css" name="layout.css" />
@@ -39,7 +40,12 @@
         <!-- lato font -->
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'/>
 
+        <!-- scripts -->
         <h:outputScript library="js" name="jquery-1.11.1.min.js" />
+        <h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="theme.js" />
+        <!-- end scripts -->
     </h:head>
     <h:body>
 
@@ -72,14 +78,13 @@
                     <h:panelGroup layout="block"  id="content">
 
                         <!-- scripts inserts -->
-                        <ui:insert name="#{sects.scripts}" >
-                            <!-- Aqui entram os includes de scripts na página -->
-                        </ui:insert>
+                        <!-- Aqui entram os includes de scripts na página -->
+                        <ui:insert name="#{sects.scripts}"/>
                         <!-- end scripts inserts -->
 
-                        <ui:insert name="#{sects.content}" >
-                            <!-- Aqui entra o conteúdo da página -->
-                        </ui:insert>
+                        <!-- Aqui entra o conteúdo da página -->
+                        <ui:insert name="#{sects.content}"/>
+
                     </h:panelGroup>
                     <!-- end content wrapper -->
 
@@ -87,11 +92,5 @@
             </h:panelGroup>
             <!-- end main container -->
         </h:panelGroup>
-		<!-- scripts -->
-		<h:outputScript library="js" name="bootstrap.min.js" />
-        <h:outputScript library="js" name="theme.js" />
-		<h:outputScript library="js" name="jquery-ui-1.10.2.custom.min.js" />
-		<!-- end scripts -->
-
     </h:body>
 </html>
