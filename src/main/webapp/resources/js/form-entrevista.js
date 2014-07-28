@@ -15,10 +15,6 @@ $(document).ready(function() {
 function definirMascaras() {
     $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
     $('.horaEntrevista').inputmask('hh:mm');
-    $('.rg').inputmask({
-        mask: ['9.999.999-aa', '99.999.999-aa'],
-        placeholder: "_"
-    });
     $('.cep').inputmask('99999-999');
     $('.tel').inputmask({
         mask: ["(99)9999-9999", "(99)99999-9999"]
@@ -194,14 +190,14 @@ $("#notifEntrevista").validate({
             required: "Por favor, insira o nome da primeira testemunha"
         },
         'entrevista.testemunha1.cpf': {
-            required: "Por favor, insira o cpf da primeira testemunha"
+            required: "Por favor, insira o documentoSocial da primeira testemunha"
         },
         //Dados 2° testemunha
         'entrevista.testemunha2.nome': {
             required: "Por favor, insira o nome da segunga testemunha"
         },
         'entrevista.testemunha2.cpf': {
-            required: "Por favor, insira o cpf da segunda testemunha"
+            required: "Por favor, insira o documentoSocial da segunda testemunha"
         }
     },
     submitHandler: function (form) {
