@@ -11,81 +11,82 @@
     </ui:define>
     <!-- Fim do Título -->
 
+    <ui:define name="#{sects.formHeader}">
+        Análise de
+        <h:outputText value="Óbito" rendered="#{obito}"/>
+        <h:outputText value="Entrevista" rendered="#{entrevista}"/>
+        <h:outputText value="Captacao" rendered="#{captacao}"/>
+    </ui:define>
+
     <!-- Conteúdo da página -->
-    <ui:define name="#{sects.content}">
-        <div id="pad-wrapper">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div id="fuelux-wizard" class="wizard row-fluid">
-                        <ul class="wizard-steps">
-                            <li data-target="#step1" class="active">
-                                <span class="step">1</span>
-                                <span class="title">Dados do <br/> óbito</span>
-                            </li>
-                            <h:panelGroup layout="block" rendered="#{entrevista || captacao}">
-                                <li data-target="#step2">
-                                    <span class="step">2</span>
-                                    <span class="title">Dados da <br/> entrevista</span>
-                                </li>
-                            </h:panelGroup>
-                            <h:panelGroup layout="block" rendered="#{captacao}">
-                                <li data-target="#step3">
-                                    <span class="step">3</span>
-                                    <span class="title">Dados da <br/>captação</span>
-                                </li>
-                            </h:panelGroup>
-                        </ul>
-                    </div>
-                    <div class="step-content">
-                        <div class="step-pane active" id="step1">
-                            <div class="row-fluid form-wrapper">
-                                <div class="span8">
-                                    <form class="inline-input">
-                                        <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="step-pane" id="step2">
-                            <div class="row-fluid form-wrapper">
-                                <div class="span8">
-                                    <form class="inline-input">
-                                        <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="step-pane" id="step3">
-                            <div class="row-fluid form-wrapper">
-                                <div class="span8">
-                                    <form class="inline-input">
-                                        <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wizard-actions">
-                        <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
-                            <i class="icon-chevron-left"></i> Anterior
-                        </button>
-                        <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
-                            Próximo <i class="icon-chevron-right"></i>
-                        </button>
-                        <h:panelGroup rendered="#{!obito}">
-                            <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
-                                #{msg['analise.arquivar']}
-                            </button>
-                        </h:panelGroup>
-                        <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
-                            #{msg['analise.recusar']}
-                        </button>
-                        <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
-                            #{msg['analise.confirmar']}
-                        </button>
+    <ui:define name="#{sects.formContent}">
+        <div id="fuelux-wizard" class="wizard row-fluid">
+            <ul class="wizard-steps">
+                <li data-target="#step1" class="active">
+                    <span class="step">1</span>
+                    <span class="title">Dados do <br/> óbito</span>
+                </li>
+                <h:panelGroup layout="block" rendered="#{entrevista || captacao}">
+                    <li data-target="#step2">
+                        <span class="step">2</span>
+                        <span class="title">Dados da <br/> entrevista</span>
+                    </li>
+                </h:panelGroup>
+                <h:panelGroup layout="block" rendered="#{captacao}">
+                    <li data-target="#step3">
+                        <span class="step">3</span>
+                        <span class="title">Dados da <br/>captação</span>
+                    </li>
+                </h:panelGroup>
+            </ul>
+        </div>
+        <div class="step-content">
+            <div class="step-pane active" id="step1">
+                <div class="row-fluid form-wrapper">
+                    <div class="span8">
+                        <form class="inline-input">
+                            <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
+                        </form>
                     </div>
                 </div>
             </div>
+            <div class="step-pane" id="step2">
+                <div class="row-fluid form-wrapper">
+                    <div class="span8">
+                        <form class="inline-input">
+                            <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="step-pane" id="step3">
+                <div class="row-fluid form-wrapper">
+                    <div class="span8">
+                        <form class="inline-input">
+                            <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wizard-actions">
+            <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
+                <i class="icon-chevron-left"></i> Anterior
+            </button>
+            <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
+                Próximo <i class="icon-chevron-right"></i>
+            </button>
+            <h:panelGroup rendered="#{!obito}">
+                <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
+                    #{msg['analise.arquivar']}
+                </button>
+            </h:panelGroup>
+            <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
+                #{msg['analise.recusar']}
+            </button>
+            <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
+                #{msg['analise.confirmar']}
+            </button>
         </div>
 
         <form id="form-analise" hidden="hidden" method="post">
@@ -108,9 +109,9 @@
         <script type="text/javascript">
             var nSteps = 1;
 
-            if (#{!entrevista &amp;&amp; captacao}) {
+            if ("#{!entrevista &amp;&amp; captacao}" == "true") {
                 nSteps = 3;
-            } else if (#{entrevista &amp;&amp; !captacao}) {
+            } else if ("#{entrevista &amp;&amp; !captacao}" == "true") {
                 nSteps = 2;
             }
 

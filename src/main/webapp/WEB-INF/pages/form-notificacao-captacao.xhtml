@@ -4,49 +4,44 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+<ui:param name="captacao" value="true"/>
+
 <!-- Título da página -->
 <ui:define name="#{sects.title}">
     #{msg['captacao.title']}
 </ui:define>
 
-<!-- Conteúdo da página -->
-<ui:define name="#{sects.content}">
-    <h:outputStylesheet library="css" name="grids.css"/>
+<ui:define name="#{sects.formHeader}">
+    #{msg['notificacao.msg.etapa.captacao']}
+</ui:define>
 
-    <div id="pad-wrapper">
-        <div class="row-fluid">
-            <div class="span12">
-                <div id="fuelux-wizard" class="wizard row-fluid">
-
-                    <h2>#{msg['notificacao.msg.etapa.captacao']}</h2>
-                    <br/>
-
-                    <div class="step-content">
-                        <form id="processoCaptacao" class="form-horizontal"
-                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
-                              method="post">
-                            <div class="step-pane active">
-                                <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
-                            </div>
-
-                            <!-- Para manter os objetos quando buscar do banco de dados. -->
-                            <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-                            <!--<input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>-->
-                            <!--<h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">-->
-                                <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />-->
-                            <!--</h:inputHidden>-->
-
-                            <button type="submit"
-                                    class="btn-glow success btn-finish">
-                                #{msg['obito.button.finalizar']}</button>
-                        </form>
-                    </div>
-                </div>
+<ui:define name="#{sects.formContent}">
+    <form id="processoCaptacao" class="span8"
+          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
+          method="post">
+        <br/>
+        <div class="form-wrapper inline-input">
+            <div class="form-horizontal">
+                <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
             </div>
         </div>
-    </div>
-    <h:outputScript library="js" name="form-notificacao-captacao.js" />
+
+        <!-- Para manter os objetos quando buscar do banco de dados. -->
+        <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+        <!--<input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>-->
+        <!--<h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">-->
+        <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />-->
+        <!--</h:inputHidden>-->
+
+        <button type="submit"
+                class="btn-glow success btn-finish">
+            #{msg['obito.button.finalizar']}</button>
+    </form>
+
+    <h:outputScript library="js" name="form-notificacao-captacao.js"/>
 </ui:define>
+
+<!-- Conteúdo da página -->
 
 <!-- scripts
 <script src="http://code.jquery.com/jquery-latest.js"></script>

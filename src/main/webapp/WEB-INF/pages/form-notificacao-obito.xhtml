@@ -4,65 +4,65 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <ui:param name="obito" value="true"/>
+
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
         #{msg['busca-notificacao.title']}
     </ui:define>
 
+    <ui:define name="#{sects.formHeader}">
+        #{msg['notificacao.msg.etapa.obito']}
+    </ui:define>
+
     <!-- Conteúdo da página -->
-    <ui:define name="#{sects.content}">
-        <div id="pad-wrapper">
-            <div class="row-fluid">
-                <div class="span12">
-                    <div id="fuelux-wizard" class="wizard row-fluid">
-                        <ul class="wizard-steps">
-                            <li data-target="#step1" class="active">
-                                <span class="step">1</span>
-                                <span class="title">#{msg['paciente.aba.text.titulo']}</span>
-                            </li>
-                            <li data-target="#step2">
-                                <span class="step">2</span>
-                                <span class="title">#{msg['obito.aba.text.titulo']}</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="step-content">
-                        <form id="processo" class="form-horizontal"
-                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
-                              method="post">
-                            <div class="step-pane active" id="step1">
-                                <div class="row-fluid form-wrapper">
-                                    <div class="span8">
-                                        <div class="inline-input">
-                                            <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
-                                        </div>
-                                    </div>
-                                </div>
+    <ui:define name="#{sects.formContent}">
+        <div id="fuelux-wizard" class="wizard row-fluid">
+            <ul class="wizard-steps">
+                <li data-target="#step1" class="active">
+                    <span class="step">1</span>
+                    <span class="title">#{msg['paciente.aba.text.titulo']}</span>
+                </li>
+                <li data-target="#step2">
+                    <span class="step">2</span>
+                    <span class="title">#{msg['obito.aba.text.titulo']}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="step-content">
+            <form id="processo" class="form-horizontal"
+                  action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
+                  method="post">
+                <div class="step-pane active" id="step1">
+                    <div class="row-fluid form-wrapper">
+                        <div class="span8">
+                            <div class="inline-input">
+                                <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
                             </div>
-                            <div class="step-pane" id="step2">
-                                <div class="row-fluid form-wrapper">
-                                    <div class="span8">
-                                        <div class="inline-input">
-                                            <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="wizard-actions">
-                        <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
-                            <i class="icon-chevron-left"></i> Anterior
-                        </button>
-                        <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
-                            Próximo <i class="icon-chevron-right"></i>
-                        </button>
-                        <button type="button" class="btn-flat success btn-finish">
-                            #{msg['obito.button.finalizar']}
-                        </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="step-pane" id="step2">
+                    <div class="row-fluid form-wrapper">
+                        <div class="span8">
+                            <div class="inline-input">
+                                <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="wizard-actions">
+            <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
+                <i class="icon-chevron-left"></i> Anterior
+            </button>
+            <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
+                Próximo <i class="icon-chevron-right"></i>
+            </button>
+            <button type="button" class="btn-flat success btn-finish">
+                #{msg['obito.button.finalizar']}
+            </button>
         </div>
 
         <h:outputScript library="js" name="form-notificacao-obito.js"/>

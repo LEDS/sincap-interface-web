@@ -5,42 +5,42 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <ui:param name="entrevista" value="true"/>
+
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
         #{msg['notificacao.step2.tab1.title']}
     </ui:define>
     <!--Fim título da página-->
-    <!-- main container -->
-    <ui:define name="#{sects.content}">
-        <br/>
-        <h2>#{msg['notificacao.msg.etapa.entrevista']}</h2>
-        <br/>
 
-        <div class="step-content">
-            <form id="notifEntrevista" class="form-horizontal" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
-                <div class="step-pane active" id="step1">
-                    <div class="tab-content">
+    <ui:define name="#{sects.formHeader}">
+        #{msg['notificacao.msg.etapa.entrevista']}
+    </ui:define>
 
-                        <ui:insert name="notificacao-entrevista">
-                            <ui:include src="form-entrevista-nao-realizada.xhtml" />
-                        </ui:insert>
-                    </div>
-
-                    <!-- Para manter os objetos quando buscar do banco de dados. -->
-                    <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-                    <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
-                    <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                    </h:inputHidden>
-
-                    <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
-                        #{msg['geral.button.salvar']}
-                    </button>
+    <!-- Formulário de entrevista -->
+    <ui:define name="#{sects.formContent}">
+        <form id="notifEntrevista" class="form-horizontal" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
+            <div class="step-pane active" id="step1">
+                <div class="tab-content">
+                    <ui:include src="form-entrevista-nao-realizada.xhtml"/>
                 </div>
-            </form>
-        </div>
+
+                <!-- Para manter os objetos quando buscar do banco de dados. -->
+                <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+                <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
+                <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                </h:inputHidden>
+
+                <br/>
+                <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
+                    #{msg['geral.button.salvar']}
+                </button>
+            </div>
+        </form>
 
         <h:outputScript library="js" name="form-entrevista.js" />
     </ui:define>
-    <!-- end main container -->
+
+
 </ui:composition>

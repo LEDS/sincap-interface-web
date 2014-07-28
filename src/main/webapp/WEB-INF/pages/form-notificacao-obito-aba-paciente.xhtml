@@ -4,6 +4,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
+    <!--@elvariable id="listaEstadoItem" type="java.util.List"-->
+    <!--@elvariable id="listaCidadeItem" type="java.util.List"-->
+    <!--@elvariable id="listaBairroItem" type="java.util.List"-->
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
@@ -27,7 +30,8 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.docSocial']}"/>
-        <h:inputText id="obito-paciente-documentoSocial" styleClass="rg span8" value="#{processo.obito.paciente.documentoSocial}"/>
+        <h:inputText id="obito-paciente-documentoSocial" styleClass="rg span8"
+                     value="#{processo.obito.paciente.documentoSocial}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
@@ -38,10 +42,17 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
-        <h:selectOneRadio id="obito-paciente-sexo" value="#{processo.obito.paciente.sexo}" styleClass="radio span8">
-            <f:selectItem itemValue="MASCULINO" itemLabel="#{msg['paciente.radioButton.sexo.masc']}"/>
-            <f:selectItem itemValue="FEMININO" itemLabel="#{msg['paciente.radioButton.sexo.fem']}"/>
-        </h:selectOneRadio>
+        <div class="span8">
+            <label class="radio">
+                <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:0" value="MASCULINO"
+                       checked="true"/>
+                #{msg['paciente.radioButton.sexo.masc']}
+            </label>
+            <label class="radio">
+                <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:1" value="FEMININO"/>
+                #{msg['paciente.radioButton.sexo.fem']}
+            </label>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
@@ -56,12 +67,14 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}"/>
-        <h:inputText id="obito-paciente-nacionalidade" styleClass="span8" value="#{processo.obito.paciente.nacionalidade}"/>
+        <h:inputText id="obito-paciente-nacionalidade" styleClass="span8"
+                     value="#{processo.obito.paciente.nacionalidade}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.prontuario']}"/>
-        <h:inputText id="obito-paciente-numeroProntuario" styleClass="span8" value="#{processo.obito.paciente.numeroProntuario}"/>
+        <h:inputText id="obito-paciente-numeroProntuario" styleClass="span8"
+                     value="#{processo.obito.paciente.numeroProntuario}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
@@ -71,7 +84,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}"/>
-        <div class="ui-select">
+        <div class="ui-select span5">
             <h:selectOneMenu id="obito-paciente-endereco-estado" value="#{processo.obito.paciente.endereco.estado}"
                              onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.uf.escolha']}"/>
@@ -82,7 +95,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}"/>
-        <div class="ui-select">
+        <div class="ui-select span5">
             <h:selectOneMenu id="obito-paciente-endereco-cidade" value="#{processo.obito.paciente.endereco.cidade}"
                              onchange="ajaxGetBairros('#obito-paciente-endereco-cidade', '#obito-paciente-endereco-bairro')">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.cidade']}"/>
@@ -93,7 +106,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}"/>
-        <div class="ui-select">
+        <div class="ui-select span5">
             <h:selectOneMenu id="obito-paciente-endereco-bairro" value="#{processo.obito.paciente.endereco.bairro}"
                              class="ui-select">
                 <f:selectItem itemValue="" itemLabel="#{msg['obito.paciente.dropDown.bairro']}"/>
@@ -104,22 +117,21 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.cep']}"/>
-        <h:inputText id="obito-paciente-endereco-cep" styleClass="cep span8" value="#{processo.obito.paciente.endereco.cep}"/>
+        <h:inputText id="obito-paciente-endereco-cep" styleClass="cep span8"
+                     value="#{processo.obito.paciente.endereco.cep}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.logradouro']}"/>
-        <h:inputText id="obito-paciente-endereco-logradouro" styleClass="span8" value="#{processo.obito.paciente.endereco.logradouro}"/>
+        <h:inputText id="obito-paciente-endereco-logradouro" styleClass="span8"
+                     value="#{processo.obito.paciente.endereco.logradouro}"/>
     </h:panelGroup>
 
 
     <script type="text/javascript">
-        $(document).ready(
-                function () {
-                    focus('#obito-paciente-telefone-numero', '#obito-paciente-sexo:0');
-                });
+        focus('#obito-paciente-telefone-numero', "#obito-paciente-sexo\\:0");
         $("#obito-paciente-endereco-logradouro").keypress(function (event) {
-            if(event.key == "Tab") {
+            if (event.key == "Tab") {
                 $("#btn-next").click();
                 $("#dataObito").focus();
             }

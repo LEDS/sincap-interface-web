@@ -4,6 +4,7 @@
 
 $(document).ready(function () {
     setNames();
+    $("input:checkbox, input:radio").uniform();
 });
 
 function setNames() {
