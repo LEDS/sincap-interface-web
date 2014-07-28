@@ -47,7 +47,7 @@ public class CausaNaoDoacaoController {
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarNovoRegistro(ModelMap model, @ModelAttribute CausaNaoDoacao causaNaoDoacao){
         aplCausaNaoDoacao.cadastrar(causaNaoDoacao);
-        return "causa-nao-doacao";
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_CAUSA_NAO_DOACAO;
     }
     
     @RequestMapping(value = ContextUrls.EDITAR+"/{idCausaNaoDoacao}" ,method = RequestMethod.GET)

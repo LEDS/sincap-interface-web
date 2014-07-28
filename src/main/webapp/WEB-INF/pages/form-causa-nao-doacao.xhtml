@@ -20,7 +20,7 @@
                         <br/>
 
                         <div class="step-content">
-                            <form id="form-causa-nao-doacao" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_causa_nao_doacao}#{contextUrls.salvar}"
+                            <form id="form-causa-nao-doacao" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.salvar}"
                                   method="post">
                                 <h:outputLabel value="#{msg['causa-nao-doacao.nome']}" />
                                 <h:inputText id="nome" value="#{causa.nome}" />
