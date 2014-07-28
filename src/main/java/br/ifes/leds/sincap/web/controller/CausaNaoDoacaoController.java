@@ -53,7 +53,8 @@ public class CausaNaoDoacaoController {
     @RequestMapping(value = ContextUrls.EDITAR+"/{idCausaNaoDoacao}" ,method = RequestMethod.GET)
     public String preencherCausaNaoDoacao(ModelMap model, @PathVariable Long idCausaNaoDoacao){
         CausaNaoDoacao causa = aplCausaNaoDoacao.obter(idCausaNaoDoacao);
-        model.addAttribute("causaNaoDoacao", causa);
+        model.addAttribute("listaTiposNaoDoacao", utilityWeb.getTipoNaoDoacaoSelectItem());
+        model.addAttribute("causa", causa);
         return "form-causa-nao-doacao";
     }
     
