@@ -58,6 +58,11 @@ public class CausaNaoDoacaoController {
         return "form-causa-nao-doacao";
     }
     
-    
+    @RequestMapping(value = ContextUrls.APAGAR +"/{idCausaNaoDoacao}", method = RequestMethod.POST)
+    public String apagarNovoRegistro(ModelMap model, @PathVariable Long idCausaNaoDoacao){
+        CausaNaoDoacao causa = aplCausaNaoDoacao.obter(idCausaNaoDoacao);
+        aplCausaNaoDoacao.excluir(causa);
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_CAUSA_NAO_DOACAO;
+    }
 
 }
