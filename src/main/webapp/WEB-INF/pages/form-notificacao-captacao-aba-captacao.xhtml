@@ -3,10 +3,12 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-        <input type="text" autofocus="true" class="span8" readonly="true" id="paciente-nome" value="#{processo.obito.paciente.nome}"/>
+        <input type="text" autofocus="true" class="span8" readonly="true" id="paciente-nome"
+               value="#{processo.obito.paciente.nome}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
@@ -15,8 +17,7 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}"/>
-
+        <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}*"/>
         <div class="span8">
             <label class="radio">
                 <input type="radio" name="captacaoRealizada" id="captacaoRealizada:0" value="true"
@@ -32,10 +33,11 @@
 
     <!--TODO: Inserir id e value-->
     <!--Motivo da não captação - BEGIN-->
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}"/>
+    <h:panelGroup layout="block" id="divCorneasNaoCaptadas" styleClass="field-box">
+        <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}*"/>
+
         <div class="ui-select span5">
-            <h:selectOneMenu value="#{processo.causaNaoDoacao}">
+            <h:selectOneMenu id="causaNaoDoacao" value="#{processo.causaNaoDoacao}">
                 <f:selectItem itemLabel="#{msg['captacao.selectOneMenu.label']}"/>
                 <f:selectItems value="#{listaProblemasLogisticos}"/>
             </h:selectOneMenu>
@@ -44,15 +46,17 @@
     <!--Motivo da não captação - END-->
 
     <!--TODO: Inserir id e value; E aplicar a mascara-->
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.data']}"/>
-        <h:inputText styleClass="data span8" id="dataCaptacao" value="#{dataCaptacao}"/>
-    </h:panelGroup>
+    <h:panelGroup layout="block" id="divCorneasCaptadas" styleClass="field-box">
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['captacao.text.data']}*"/>
+            <h:inputText styleClass="data span8" id="dataCaptacao" value="#{dataCaptacao}"/>
+        </h:panelGroup>
 
-    <!--TODO: Inserir id e value; E aplicar a mascara-->
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.hora']}"/>
-        <h:inputText styleClass="hora span8" id="horarioCaptacao" value="#{horarioCaptacao}"/>
+        <!--TODO: Inserir id e value; E aplicar a mascara-->
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['captacao.text.hora']}*"/>
+            <h:inputText styleClass="hora span8" id="horarioCaptacao" value="#{horarioCaptacao}"/>
+        </h:panelGroup>
     </h:panelGroup>
 
     <!--TODO: Inserir id e value-->

@@ -46,11 +46,16 @@ $(document).ready(function () {
     $('.hora').inputmask('hh:mm');
     $('.cpf').inputmask('999.999.999-99');
     $('.cep').mask('99999-999');
+    $("#divCausaNaoDoacao").fadeOut();
 });
 
-$('#aptoDoacao').click(function () {
-    fadeComponent("obito.aptoDoacao", "", "divCausaNaoDoacao");
-})
+$('#obito-aptoDoacao\\:0').click(function () {
+    $("#divCausaNaoDoacao").fadeOut();
+});
+$('#obito-aptoDoacao\\:1').click(function () {
+    $("#divCausaNaoDoacao").fadeIn();
+    $("#causaNaoDoacao").prop("value", "");
+});
 
 $("#form-setor").validate({
     rules: {

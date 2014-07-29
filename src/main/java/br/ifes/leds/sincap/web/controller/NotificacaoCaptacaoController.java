@@ -2,6 +2,7 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
@@ -65,7 +66,12 @@ public class NotificacaoCaptacaoController {
                                  @RequestParam("dataCaptacao") String dataCaptacao,
                                  @RequestParam("horarioCaptacao") String horarioCaptacao) throws ParseException {
         //Processo de notificacao vem incompleto, logo, ele deve ser buscado novamente
-        processo.getCaptacao().setDataCaptacao(utilityEntities.stringToCalendar(dataCaptacao, horarioCaptacao));
+        try {
+            processo.getCaptacao().setDataCaptacao(utilityEntities.stringToCalendar(dataCaptacao, horarioCaptacao));
+        } catch (ParseException e) {
+            processo.getCaptacao().setDataCaptacao(null);
+        }
+
         processo.getCaptacao().setCaptacaoRealizada(captacaoRealizada);
 
         aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), usuarioSessao.getIdUsuario());
@@ -82,13 +88,30 @@ public class NotificacaoCaptacaoController {
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
         // Pega o processo do banco.
-        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
-                .obter(idProcesso);
+        ProcessoNotificacao processo = aplProcessoNotificacao
+                .getProcessoNotificacao(idProcesso);
 
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
+        model.addAttribute("captacao", true);
 
-        return "analise-captacao";
+        return "analise-processo-notificacao";
+    }
+
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
+    public String recusarCaptacao(@RequestParam("id") Long idProcesso) {
+
+        aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + ContextUrls.INDEX;
+    }
+
+    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
+    public String confirmarCaptacao(@RequestParam("id") Long idProcesso) {
+
+        aplProcessoNotificacao.confirmarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + ContextUrls.INDEX;
     }
 
     private List<SelectItem> getListaProblemaLogisticoSelectItem(TipoNaoDoacao tipo) {

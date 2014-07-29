@@ -18,15 +18,15 @@
     <br/>
     <h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+            <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
             <h:inputText readonly="true" styleClass="span8" id="paciente-nome" value="#{processo.obito.paciente.nome}" />
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+            <h:outputLabel value="#{msg['notificacao.protocolo']}*"/>
             <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}" />
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}" />
+            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}*" />
             <div class="span8">
                 <label class="radio">
                     <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:0" value="true"/>
@@ -41,7 +41,7 @@
 
 
         <h:panelGroup styleClass="field-box" id="divEntrevistaNaoRealizada" >
-            <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}" />
+            <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}*" />
             <div class="ui-select span5">
                 <h:selectOneMenu id="causaNaoDoacao" value="#{processo.causaNaoDoacao}">
                     <f:selectItem itemValue=""
@@ -53,7 +53,7 @@
 
         <h:panelGroup id="divEntrevistaRealizada" layout="block">
             <h:panelGroup styleClass="field-box" layout="block">
-                <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}" />
+                <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}*" />
                 <div class="span8">
                     <label class="radio">
                         <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:0" value="true"/>
@@ -67,7 +67,7 @@
             </h:panelGroup>
 
             <h:panelGroup id="divDoacaoNaoAutorizada" layout="block" styleClass="field-box">
-                <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}" />
+                <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}*" />
                 <div class="ui-select span5">
                     <h:selectOneMenu id="recusaFamiliar" value="#{processo.causaNaoDoacao}"
                                      styleClass="dropdown">
@@ -79,13 +79,13 @@
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
-                <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}"/>
+                <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}*"/>
                 <h:inputText styleClass="dataEntrevista span8" id="dataEntrevista" value="#{processo.entrevista.dataEntrevista.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="field-box">
-                <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}"/>
+                <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}*"/>
                 <h:inputText styleClass="horaEntrevista span8" id="horaEntrevista" value="#{processo.entrevista.dataEntrevista.time}">
                     <f:convertDateTime pattern="HH:mm"/>
                 </h:inputText>
@@ -95,15 +95,15 @@
             <h:panelGroup id="divDoacaoAutorizada" layout="block">
                 <br /><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.nome']}*"/>
                     <h:inputText id="entrevista-responsavel-nome" styleClass="span8" value="#{processo.entrevista.responsavel.nome}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.rg']}*"/>
                     <h:inputText id="entrevista-responsavel-documentoSocial" styleClass="span8" value="#{processo.entrevista.responsavel.documentoSocial}" />
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
+                    <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}*"/>
                     <div class="ui-select span5">
                         <h:selectOneMenu id="entrevista-responsavel-parentesco" value="#{processo.entrevista.responsavel.parentesco}">
                             <f:selectItem itemValue=""
@@ -113,7 +113,7 @@
                     </div>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
+                    <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}*"/>
                     <div class="ui-select span5">
                         <h:selectOneMenu id="entrevista-responsavel-estadoCivil"
                                          value="#{processo.entrevista.responsavel.estadoCivil}">
@@ -124,27 +124,27 @@
                     </div>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.telefone1']}*"/>
                     <h:inputText styleClass="tel span8" id="entrevista-responsavel-telefone-numero" value="#{processo.entrevista.responsavel.telefone.numero}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.telefone2']}*"/>
                     <h:inputText styleClass="tel span8" id="entrevista-responsavel-telefone2-numero" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.profissao']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-profissao" value="#{processo.entrevista.responsavel.profissao}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
                     <h:inputText styleClass="cep span8" id="entrevista-responsavel-endereco-cep" value="#{processo.entrevista.responsavel.endereco.cep}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-nacionalidade" value="#{processo.entrevista.responsavel.nacionalidade}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
+                    <h:outputLabel value="#{msg['responsavel.dropdown.uf']}*"/>
                     <div class="ui-select span5">
                         <h:selectOneMenu id="entrevista-responsavel-endereco-estado" value="#{processo.entrevista.responsavel.endereco.estado}"
                                          onchange="ajaxGetMunicipios('#entrevista-responsavel-endereco-estado', '#entrevista-responsavel-endereco-cidade')">
@@ -155,7 +155,7 @@
                     </div>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
+                    <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}*"/>
                     <div class="ui-select span5">
                         <h:selectOneMenu id="entrevista-responsavel-endereco-cidade" value="#{processo.entrevista.responsavel.endereco.cidade}"
                                          onchange="ajaxGetBairros('#entrevista-responsavel-endereco-cidade', '#entrevista-responsavel-endereco-bairro')">
@@ -166,7 +166,7 @@
                     </div>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
+                    <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}*"/>
                     <div class="ui-select span5">
                         <h:selectOneMenu id="entrevista-responsavel-endereco-bairro" value="#{processo.entrevista.responsavel.endereco.cidade}">
                             <f:selectItem itemValue=""
@@ -176,31 +176,31 @@
                     </div>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.logradouro']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-endereco-logradouro" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
+                    <h:outputLabel value="#{msg['responsavel.text.numero']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-endereco-numero" value="#{processo.entrevista.responsavel.endereco.numero}"/>
                 </h:panelGroup>
 
                 <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha1']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-testemunha1-nome" value="#{processo.entrevista.testemunha1.nome}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.documentoSocial']}"/>
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.documentoSocial']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-testemunha1-documentoSocial" value="#{processo.entrevista.testemunha1.documentoSocial}"/>
                 </h:panelGroup>
 
                 <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha2']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}"/>
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha2.nome']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-testemunha2-nome" value="#{processo.entrevista.testemunha2.nome}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.documentoSocial']}"/>
+                    <h:outputLabel value="#{msg['entrevista.text.testemunha1.documentoSocial']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-testemunha2-documentoSocial" value="#{processo.entrevista.testemunha2.documentoSocial}"/>
                 </h:panelGroup>
             </h:panelGroup>

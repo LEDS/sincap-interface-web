@@ -1,35 +1,28 @@
 <ui:composition
         xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:ui="http://java.sun.com/jsf/facelets">
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core">
+
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
+
+    <h:panelGroup layout="block" rendered="#{processo.captacao.captacaoRealizada}" styleClass="field-box">
+        <label>Data e hora da Captação</label>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.captacao.dataCaptacao.time}">
+            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+        </h:inputText>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" rendered="#{not processo.captacao.captacaoRealizada}" styleClass="field-box">
+        <label>Problema Logístico</label>
+        <h:inputText readonly="true" value="#{processo.causaNaoDoacao.nome}"/>
+    </h:panelGroup>
 
     <div class="field-box">
-        <label>Username:</label>
-        <input class="span8" type="text"/>
-    </div>
-    <div class="field-box">
-        <label>Photo:</label>
-        <input type="file"/>
-    </div>
-    <div class="field-box">
-        <label>App name:</label>
-        <input class="span8" type="text"/>
-    </div>
-    <div class="field-box">
-        <label>Time zone:</label>
-        <select>
-            <option value="Hawaii">(GMT-10:00) Hawaii</option>
-            <option value="Alaska">(GMT-09:00) Alaska</option>
-            <option value="Pacific Time (US &amp; Canada)">(GMT-08:00) Pacific Time (US &amp; Canada)</option>
-            <option value="Arizona">(GMT-07:00) Arizona</option>
-            <option value="Mountain Time (US &amp; Canada)">(GMT-07:00) Mountain Time (US &amp; Canada)</option>
-            <option value="Central Time (US &amp; Canada)">(GMT-06:00) Central Time (US &amp; Canada)</option>
-            <option value="Eastern Time (US &amp; Canada)">(GMT-05:00) Eastern Time (US &amp; Canada)</option>
-            <option value="Indiana (East)">(GMT-05:00) Indiana (East)</option>
-            <option value="" disabled="disabled">-------------</option>
-            <option value="American Samoa">(GMT-11:00) American Samoa</option>
-            <option value="International Date Line West">(GMT-11:00) International Date Line West</option>
-            <option value="Midway Island">(GMT-11:00) Midway Island</option>
-        </select>
+        <label>Comentários</label>
+        <textarea rows="4" readonly="readonly" class="span8">
+            #{processo.captacao.comentario}
+        </textarea>
     </div>
 
 </ui:composition>

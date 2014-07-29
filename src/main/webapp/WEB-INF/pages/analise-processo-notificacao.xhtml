@@ -76,7 +76,7 @@
             <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
                 Próximo <i class="icon-chevron-right"></i>
             </button>
-            <h:panelGroup rendered="#{!obito}">
+            <h:panelGroup rendered="#{entrevista}">
                 <button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">
                     #{msg['analise.arquivar']}
                 </button>
@@ -109,9 +109,9 @@
         <script type="text/javascript">
             var nSteps = 1;
 
-            if ("#{!entrevista &amp;&amp; captacao}" == "true") {
+            if ("#{!entrevista and captacao}" == "true") {
                 nSteps = 3;
-            } else if ("#{entrevista &amp;&amp; !captacao}" == "true") {
+            } else if ("#{entrevista and !captacao}" == "true") {
                 nSteps = 2;
             }
 
