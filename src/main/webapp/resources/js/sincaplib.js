@@ -1,3 +1,5 @@
+var sincapApp = angular.module('sincapApp', []);
+
 function setNome(elemento, nome) {
     $(elemento).prop("name", nome);
 }
