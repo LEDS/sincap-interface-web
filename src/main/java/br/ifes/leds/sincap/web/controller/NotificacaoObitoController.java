@@ -11,6 +11,8 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -128,6 +132,40 @@ public class NotificacaoObitoController {
         }
 
         return listaCausasSelIt;
+    }
+
+    @RequestMapping(value = ContextUrls.GET_CONTRA_INDICACAO, method = RequestMethod.GET)
+    public ResponseEntity<List<Map<String, String>>> getContraIndicacoesMedicas() {
+        List<Map<String, String>> contraIndicacoes = new ArrayList<>();
+
+        for (CausaNaoDoacaoDTO c : aplCadastroInterno
+                .obterCausaNaoDoacaoContraIndMedica()) {
+            Map<String, String> setor = new HashMap<>();
+
+            setor.put("id", c.getId().toString());
+            setor.put("nome", c.getNome());
+
+            contraIndicacoes.add(setor);
+        }
+
+        return new ResponseEntity<List<Map<String, String>>>(contraIndicacoes, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = ContextUrls.GET_SETORES, method = RequestMethod.GET)
+    public ResponseEntity<List<Map<String, String>>> getSetores() {
+        List<Map<String, String>> setores = new ArrayList<>();
+
+        for (SetorDTO s : aplCadastroInterno
+                     .obterSetorPorHospital(usuarioSessao.getIdHospital())) {
+            Map<String, String> setor = new HashMap<>();
+
+            setor.put("id", s.getId().toString());
+            setor.put("nome", s.getNome());
+
+            setores.add(setor);
+        }
+
+        return new ResponseEntity<List<Map<String, String>>>(setores, HttpStatus.OK);
     }
 
     private List<SelectItem> getListaSetoresSelectItem() {

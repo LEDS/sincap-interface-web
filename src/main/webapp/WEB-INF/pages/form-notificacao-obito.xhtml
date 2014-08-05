@@ -36,7 +36,7 @@
                 <div class="step-pane active" id="step1">
                     <div class="row-fluid form-wrapper">
                         <div class="span8">
-                            <div class="inline-input">
+                            <div class="inline-input" ng-controller="EnderecoCtrl">
                                 <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                 <div class="step-pane" id="step2">
                     <div class="row-fluid form-wrapper">
                         <div class="span8">
-                            <div class="inline-input">
+                            <div class="inline-input" ng-controller="ObitoCtrl">
                                 <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
                             </div>
                         </div>

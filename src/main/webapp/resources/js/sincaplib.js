@@ -1,4 +1,31 @@
-var sincapApp = angular.module('sincapApp', []);
+var sincapApp = angular.module('sincapApp', ['ui.event']);
+
+sincapApp.controller('ObitoCtrl', function ($scope, $http) {
+    $http.get("http://" + location.host + "/sincap/obito/getSetores").success(function (data) {
+        $scope.setores = data;
+    });
+    $http.get("http://" + location.host + "/sincap/obito/getContraIndicacoesMedicas").success(function (data) {
+        $scope.contraIndicacoes = data;
+    });
+});
+
+sincapApp.controller('EnderecoCtrl', function ($scope, $http) {
+    $http.get("http://" + location.host + "/sincap/endereco/getEstados").success(function (data) {
+        $scope.estados = data;
+    });
+
+    $scope.getMunicipios = function (event) {
+        $http.post("http://" + location.host + "/sincap/endereco/getMunicipios", event.target.value).success(function (data) {
+            $scope.municipios = data;
+        });
+    };
+
+    $scope.getBairros = function (event) {
+        $http.post("http://" + location.host + "/sincap/endereco/getBairros", event.target.value).success(function (data) {
+            $scope.bairros = data;
+        });
+    }
+});
 
 function setNome(elemento, nome) {
     $(elemento).prop("name", nome);

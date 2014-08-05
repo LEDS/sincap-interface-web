@@ -50,6 +50,9 @@ public class ContextUrls {
     public static final String ARQUIVAR = "/arquivar";
     public static final String GET_MUNICIPIOS = "/getMunicipios";
     public static final String GET_BAIRROS = "/getBairros";
+    public static final String GET_ESTADOS = "/getEstados";
+    public static final String GET_SETORES = "/getSetores";
+    public static final String GET_CONTRA_INDICACAO = "/getContraIndicacoesMedicas";
 
     /**
      * Subsistemas
@@ -87,4 +90,7 @@ public class ContextUrls {
     String arquivar = ARQUIVAR;
     String get_municipios = GET_MUNICIPIOS;
     String get_bairros = GET_BAIRROS;
+    String get_estados = GET_ESTADOS;
+    String get_setores = GET_SETORES;
+    String get_contra_indicacao = GET_CONTRA_INDICACAO;
 }

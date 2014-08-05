@@ -23,12 +23,11 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}*"/>
-        <div class="ui-select span5">
-            <h:selectOneMenu id="obito-setor" value="#{processo.obito.setor}">
-                <f:selectItem itemValue="" itemLabel="#{msg['obito.obito.dropDown.setor.escolha']}"/>
-                <f:selectItems value="#{listaSetor}"/>
-            </h:selectOneMenu>
-        </div>
+        <select style="width:250px" class="select2" id="obito-setor"
+                name="obito-setor">
+            <option></option>
+            <option ng-repeat="setor in setores" value="{{setor.id}}">{{setor.nome}}</option>
+        </select>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
@@ -56,24 +55,30 @@
         <div class="span8">
             <label class="radio">
                 <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:0" value="true"
-                       checked="true"/>
+                       checked="" ng-model="apto"/>
                 #{msg['obito.obito.radioButton.contraIndicacao.apto']}
             </label>
             <label class="radio">
-                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:1" value="false"/>
+                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:1" value="false" ng-model="apto"/>
                 #{msg['obito.obito.radioButton.contraIndicacao.inapto']}
             </label>
         </div>
     </h:panelGroup>
 
-    <h:panelGroup id="divCausaNaoDoacao" layout="block" styleClass="field-box">
+    <div id="divCausaNaoDoacao" class="field-box" ng-hide="apto == 'true'">
         <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
-        <div class="ui-select span5">
-            <h:selectOneMenu id="causaNaoDoacao" value="#{processo.causaNaoDoacao}">
-                <f:selectItem itemValue="" itemLabel="#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}"/>
-                <f:selectItems value="#{listaCausaNaoDoacao}"/>
-            </h:selectOneMenu>
-        </div>
-    </h:panelGroup>
-
+        <select style="width:250px" class="select2" id="causaNaoDoacao"
+                name="causaNaoDoacao">
+            <option></option>
+            <option ng-repeat="ci in contraIndicacoes" value="{{ci.id}}">{{ci.nome}}</option>
+        </select>
+    </div>
+    <script>
+        $('#obito-setor').select2({
+            placeholder: "#{msg['obito.obito.dropDown.setor.escolha']}"
+        });
+        $('#causaNaoDoacao').select2({
+            placeholder: "#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}"
+        });
+    </script>
 </ui:composition>

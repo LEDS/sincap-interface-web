@@ -2,6 +2,7 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.reuse.endereco.cdp.Bairro;
 import br.ifes.leds.reuse.endereco.cdp.Cidade;
+import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.web.model.Mensagem;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(ContextUrls.APP_ENDERECO)
@@ -24,6 +27,21 @@ public class EnderecoController {
 
     @Autowired
     private AplEndereco aplEndereco;
+
+    @RequestMapping(value = ContextUrls.GET_ESTADOS, method = RequestMethod.GET)
+    public ResponseEntity<List<Map<String, String>>> getEstados() {
+        List<Map<String, String>> estados = new ArrayList<>();
+
+        for (Estado e: aplEndereco.obterEstadosPorNomePais("Brasil")) {
+            Map<String, String> estado = new HashMap<>();
+            estado.put("id", e.getId().toString());
+            estado.put("nome", e.getNome());
+            estado.put("sigla", e.getSigla());
+            estados.add(estado);
+        }
+
+        return new ResponseEntity<List<Map<String, String>>>(estados, HttpStatus.OK);
+    }
 
     @RequestMapping(value = ContextUrls.GET_MUNICIPIOS, method = RequestMethod.POST)
     @ResponseBody
