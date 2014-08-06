@@ -31,6 +31,12 @@
             <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
         </ui:include>
 
+        <br/><h2>Notificações Aguardando Arquivamento</h2><br/>
+        <!-- Notificações aguardando o arquivamento -->
+        <ui:include src="/WEB-INF/components/lista-processos-aguardando-arquivamento.xhtml">
+            <ui:param name="processos" value="#{processosAguardandoArquivamento}" />
+        </ui:include>
+
     </ui:define>
     <!-- Fim do conteúdo -->
 
