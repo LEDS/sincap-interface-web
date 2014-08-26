@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,8 +42,6 @@ public class NotificacaoEntrevistaController {
     private AplEndereco aplEndereco;
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
-    @Autowired
-    private UsuarioSessao usuarioSessao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
     @Autowired
@@ -76,14 +75,15 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarEntrevista(ModelMap model,
+    public String salvarEntrevista(HttpSession session,
                                    @ModelAttribute ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
                                    @RequestParam("dataDeAbertura") String dataAbertura,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
                                    @RequestParam("horaEntrevista") String horaEntrevista) throws ParseException {
         try {
-            setUpProcesso(processo, doacaoAutorizada, dataAbertura);
+            UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+            setUpProcesso(processo, doacaoAutorizada, dataAbertura, usuarioSessao);
             try {
                 Calendar dataEntrevistaCalendar = utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista);
                 processo.getEntrevista().setDataEntrevista(dataEntrevistaCalendar); //Seta a dataEntrevista que estava nula
@@ -99,7 +99,7 @@ public class NotificacaoEntrevistaController {
         return "redirect:" + ContextUrls.INDEX;
     }
 
-    private void setUpProcesso(ProcessoNotificacaoDTO processo, boolean doacaoAutorizada, String dataAbertura) throws ParseException {
+    private void setUpProcesso(ProcessoNotificacaoDTO processo, boolean doacaoAutorizada, String dataAbertura, UsuarioSessao usuarioSessao) throws ParseException {
         Calendar dataAberturaCalendar = Calendar.getInstance();
         dataAberturaCalendar.setTime((new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dataAbertura)));
 
@@ -109,16 +109,16 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarEntrevista(@RequestParam("id") Long idProcesso) {
-
+    public String recusarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarEntrevista(@RequestParam("id") Long idProcesso) {
-
+    public String arquivarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
@@ -163,7 +163,8 @@ public class NotificacaoEntrevistaController {
      * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarAnalise(@RequestParam("id") Long idProcesso) {
+    public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 

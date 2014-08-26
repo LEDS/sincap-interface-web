@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +32,6 @@ public class NotificacaoCaptacaoController {
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     AplCadastroInterno aplCadastroInterno;
-    @Autowired
-    private UsuarioSessao usuarioSessao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
 
@@ -60,7 +59,7 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarCaptacao(ModelMap model,
+    public String salvarCaptacao(HttpSession session,
                                  @ModelAttribute ProcessoNotificacaoDTO processo,
                                  @RequestParam("captacaoRealizada") boolean captacaoRealizada,
                                  @RequestParam("dataCaptacao") String dataCaptacao,
@@ -74,7 +73,7 @@ public class NotificacaoCaptacaoController {
 
         processo.getCaptacao().setCaptacaoRealizada(captacaoRealizada);
 
-        aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), usuarioSessao.getIdUsuario());
+        aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), ((UsuarioSessao) session.getAttribute("user")).getIdUsuario());
         return "redirect:" + ContextUrls.INDEX;
     }
 
@@ -99,16 +98,16 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarCaptacao(@RequestParam("id") Long idProcesso) {
-
+    public String recusarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarCaptacao(@RequestParam("id") Long idProcesso) {
-
+    public String confirmarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.confirmarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
