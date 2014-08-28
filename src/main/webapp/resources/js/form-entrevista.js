@@ -1,16 +1,18 @@
-$(document).ready(function() {
+function init () {
     definirMascaras();
-    setRadioButtonFalse('entrevistaRealizada', function () {
+//    if (document.getElementById('entrevistaRealizada:1').checked) {
         fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-    });
-    setRadioButtonFalse('doacaoAutorizada', function () {
+//    }
+//    if (document.getElementById('doacaoAutorizada:1').checked) {
         fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
-    });
+//    }
     definirEstilo();
     focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
     focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
     focus('#entrevista-responsavel-documentoSocial', '#entrevista-responsavel-parentesco');
-});
+}
+
+init();
 
 function definirMascaras() {
     $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -103,12 +105,6 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.endereco.bairro': {
             required: true
         },
-        'entrevista.responsavel.endereco.logradouro': {
-            required: true
-        },
-        'entrevista.responsavel.endereco.numero': {
-            required: true
-        },
         //Dados 1° testemunha
         'entrevista.testemunha1.nome': {
             required: true
@@ -180,12 +176,6 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.endereco.bairro': {
             required: "Por favor, selecione o bairro do responsavel"
         },
-        'entrevista.responsavel.endereco.logradouro': {
-            required: "Por favor, insira o logradouro do responsavel"
-        },
-        'entrevista.responsavel.endereco.numero': {
-            required: "Por favor, insira o numero do responsavel"
-        },
         //Dados 1° testemunha
         'entrevista.testemunha1.nome': {
             required: "Por favor, insira o nome da primeira testemunha"
@@ -205,3 +195,10 @@ $("#notifEntrevista").validate({
         form.submit();
     }
 });
+
+//function showAllFields(){
+//    $("#divEntrevistaRealizada").fadeIn();
+//    $("#divEntrevistaNaoRealizada").fadeIn();
+//    $("#divDoacaoAutorizada").fadeIn();
+//    $("#divDoacaoNaoAutorizada").fadeIn();
+//}

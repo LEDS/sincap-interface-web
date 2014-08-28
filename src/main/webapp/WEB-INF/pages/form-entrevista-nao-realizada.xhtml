@@ -29,11 +29,11 @@
             <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}*" />
             <div class="span8">
                 <label class="radio">
-                    <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:0" value="true"/>
+                    <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:0" value="true" checked="#{entrevistaRealizada eq true? 'checked':''}"/>
                     #{msg['entrevista.radioButton.realizada.sim']}
                 </label>
                 <label class="radio">
-                    <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:1" value="false" checked="true"/>
+                    <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:1" value="false" checked="#{not entrevistaRealizada eq true? 'checked':''}"/>
                     #{msg['entrevista.radioButton.realizada.nao']}
                 </label>
             </div>
@@ -56,11 +56,11 @@
                 <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}*" />
                 <div class="span8">
                     <label class="radio">
-                        <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:0" value="true"/>
+                        <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:0" value="true" checked="#{doacaoAutorizada eq true? 'checked':''}"/>
                         #{msg['entrevista.radioButton.doacaoAutorizada.sim']}
                     </label>
                     <label class="radio">
-                        <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:1" value="false" checked="true"/>
+                        <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:1" value="false" checked="#{not doacaoAutorizada eq true? 'checked':''}"/>
                         #{msg['entrevista.radioButton.doacaoAutorizada.nao']}
                     </label>
                 </div>
@@ -176,11 +176,11 @@
                     </div>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.logradouro']}*"/>
+                    <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-endereco-logradouro" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['responsavel.text.numero']}*"/>
+                    <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-endereco-numero" value="#{processo.entrevista.responsavel.endereco.numero}"/>
                 </h:panelGroup>
 

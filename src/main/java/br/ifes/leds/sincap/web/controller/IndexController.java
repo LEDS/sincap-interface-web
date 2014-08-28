@@ -38,9 +38,11 @@ public class IndexController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
-        // Puxa os três tipos de notificações corretamente da apl.
+        // Puxa os tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
+        List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOENTREVISTA);
         List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
         List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
@@ -49,9 +51,11 @@ public class IndexController {
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOARQUIVAMENTO);
 
 
-        // Adiciona as três listas de notificações à página.
+        // Adiciona as listas de notificações à página.
         model.addAttribute("processosObitoAnalisePendente",
                 processosObitoAnalisePendente);
+        model.addAttribute("processosEntrevistaAguardandoCorrecao",
+                processosEntrevistaAguardandoCorrecao);
         model.addAttribute("processosEntrevistaAnalisePendente",
                 processosEntrevistaAnalisePendente);
         model.addAttribute("processosCaptacoesAnalisePendente",

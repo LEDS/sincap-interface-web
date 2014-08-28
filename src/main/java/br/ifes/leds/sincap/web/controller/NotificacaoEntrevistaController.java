@@ -8,6 +8,7 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
@@ -79,17 +80,19 @@ public class NotificacaoEntrevistaController {
     public String salvarEntrevista(ModelMap model,
                                    @ModelAttribute ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
-                                   @RequestParam("dataDeAbertura") String dataAbertura,
+                                   @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
                                    @RequestParam("horaEntrevista") String horaEntrevista) throws ParseException {
         try {
-            setUpProcesso(processo, doacaoAutorizada, dataAbertura);
-            try {
-                Calendar dataEntrevistaCalendar = utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista);
-                processo.getEntrevista().setDataEntrevista(dataEntrevistaCalendar); //Seta a dataEntrevista que estava nula
-            } catch (ParseException e) {
-
+            if(entrevistaRealizada){
+                if(!dataEntrevista.trim().isEmpty() || !horaEntrevista.trim().isEmpty()) {
+                    processo.getEntrevista().setDataEntrevista(utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista));
+                }
             }
+
+            processo.getEntrevista().setEntrevistaRealizada(entrevistaRealizada);
+            processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
+            processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
         } catch (ViolacaoDeRIException e) {
@@ -99,13 +102,32 @@ public class NotificacaoEntrevistaController {
         return "redirect:" + ContextUrls.INDEX;
     }
 
-    private void setUpProcesso(ProcessoNotificacaoDTO processo, boolean doacaoAutorizada, String dataAbertura) throws ParseException {
-        Calendar dataAberturaCalendar = Calendar.getInstance();
-        dataAberturaCalendar.setTime((new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(dataAbertura)));
+    @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
+    public String editarNotificacaoEntrevista(ModelMap model,
+                                         @PathVariable Long idProcesso) {
 
-        processo.setDataAbertura(dataAberturaCalendar);
-        processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
-        processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao
+                .obter(idProcesso);
+
+        utility.preencherEstados(model, aplEndereco);
+        model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
+        model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
+        model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
+        model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
+        model.addAttribute("processo", processo);
+
+        if(processo.getEntrevista().isEntrevistaRealizada()){
+            model.addAttribute("dataEntrevista", processo.getEntrevista().getDataEntrevista());
+            model.addAttribute("horaEntrevista", processo.getEntrevista().getDataEntrevista());
+
+            utility.preencherEndereco(processo.getObito().getPaciente()
+                    .getEndereco(), model, aplEndereco);
+        }
+
+        model.addAttribute("entrevistaRealizada", processo.getEntrevista().isEntrevistaRealizada());
+        model.addAttribute("doacaoAutorizada", processo.getEntrevista().isDoacaoAutorizada());
+
+        return "form-entrevista";
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
