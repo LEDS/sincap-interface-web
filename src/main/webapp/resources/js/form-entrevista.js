@@ -1,11 +1,7 @@
 function init () {
     definirMascaras();
-//    if (document.getElementById('entrevistaRealizada:1').checked) {
-        fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-//    }
-//    if (document.getElementById('doacaoAutorizada:1').checked) {
-        fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
-//    }
+    fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
+    fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
     definirEstilo();
     focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
     focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
