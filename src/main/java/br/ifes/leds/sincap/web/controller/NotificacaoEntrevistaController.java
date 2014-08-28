@@ -79,9 +79,13 @@ public class NotificacaoEntrevistaController {
     public String salvarEntrevista(ModelMap model,
                                    @ModelAttribute ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
+                                   @RequestParam("doacaoAutorizada") boolean entrevistaRealizada,
                                    @RequestParam("dataDeAbertura") String dataAbertura,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
-                                   @RequestParam("horaEntrevista") String horaEntrevista) throws ParseException {
+                                   @RequestParam("horaEntrevista") String horaEntrevista,
+                                   HttpSession session) throws ParseException {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
         try {
             if(entrevistaRealizada){
                 if(!dataEntrevista.trim().isEmpty() || !horaEntrevista.trim().isEmpty()) {
