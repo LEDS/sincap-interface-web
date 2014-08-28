@@ -41,6 +41,8 @@ public class IndexController {
         // Puxa os tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
+        List<ProcessoNotificacao> processosObitoAguardandoCorrecao = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOOBITO);
         List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOENTREVISTA);
         List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
@@ -54,6 +56,8 @@ public class IndexController {
         // Adiciona as listas de notificações à página.
         model.addAttribute("processosObitoAnalisePendente",
                 processosObitoAnalisePendente);
+        model.addAttribute("processosObitoAguardandoCorrecao",
+                processosObitoAguardandoCorrecao);
         model.addAttribute("processosEntrevistaAguardandoCorrecao",
                 processosEntrevistaAguardandoCorrecao);
         model.addAttribute("processosEntrevistaAnalisePendente",

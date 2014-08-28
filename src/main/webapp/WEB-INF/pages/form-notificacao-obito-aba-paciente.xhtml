@@ -84,11 +84,16 @@
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}*"/>
-        <select style="width:250px" class="select2" id="obito-paciente-endereco-estado"
+        <select style="width:250px" id="obito-paciente-endereco-estado" 
                 name="obito-paciente-endereco-estado"
+                ui-select2="ui-select2"
+                ng-model="select2"
+                data-placeholder="#{msg['obito.paciente.dropDown.uf.escolha']}"
                 ui-event="{change : 'getMunicipios($event)'}">
             <option></option>
-            <option ng-repeat="estado in estados" value="{{estado.id}}">{{estado.nome}}</option>
+            <option ng-repeat="estado in estados" 
+                    ng-selected="{{estado.id}} == #{processo.obito.paciente.endereco.estado}" 
+                    value="{{estado.id}}">{{estado.nome}}</option>
         </select>
     </div>
 
@@ -127,19 +132,19 @@
     <script type="text/javascript">
         focus('#obito-paciente-telefone-numero', "#obito-paciente-sexo\\:0");
         $("#obito-paciente-endereco-logradouro").keypress(function (event) {
-            if (event.key == "Tab") {
+            if (event.key === "Tab") {
                 $("#btn-next").click();
                 $("#dataObito").focus();
             }
         });
-        $("#obito-paciente-endereco-estado").select2({
-            placeholder: '#{msg['obito.paciente.dropDown.uf.escolha']}'
-        });
-        $("#obito-paciente-endereco-cidade").select2({
-            placeholder: '#{msg['obito.paciente.dropDown.cidade']}'
-        });
-        $("#obito-paciente-endereco-bairro").select2({
-            placeholder: '#{msg['obito.paciente.dropDown.bairro']}'
-        });
+//        $("#obito-paciente-endereco-estado").select2({
+//            placeholder: '#{msg['obito.paciente.dropDown.uf.escolha']}'
+//        });
+//        $("#obito-paciente-endereco-cidade").select2({
+//            placeholder: '#{msg['obito.paciente.dropDown.cidade']}'
+//        });
+//        $("#obito-paciente-endereco-bairro").select2({
+//            placeholder: '#{msg['obito.paciente.dropDown.bairro']}'
+//        });
     </script>
 </ui:composition>

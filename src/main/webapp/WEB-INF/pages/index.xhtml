@@ -19,6 +19,12 @@
             <ui:param name="processos" value="#{processosObitoAnalisePendente}" />
         </ui:include>
 
+        <!-- Notificações com óbito aguardando correção -->
+        <br/><h2>Óbito aguardando correção</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-processos-corrigir-obito.xhtml">
+            <ui:param name="processos" value="#{processosObitoAguardandoCorrecao}" />
+        </ui:include>
+        
         <br/><h2>Entrevista Aguardando Correção</h2><br/>
         <!-- Notificações com entrevista pendente de análise -->
         <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-correcao.xhtml">

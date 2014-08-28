@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -28,11 +29,14 @@ public class SignInController {
 
     @Autowired
     AplPrincipal aplPrincipal;
-    @Autowired
-    UsuarioSessao usuarioSessao;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String loadForm(ModelMap model) {
+    public String loadForm(ModelMap model, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(usuarioSessao != null) {
+            return "redirect:/index";
+        }
 
         UsuarioDTO usuario = new UsuarioDTO();
 
@@ -43,17 +47,18 @@ public class SignInController {
 
     @RequestMapping(value = "/autenticar", method = RequestMethod.POST)
     public String autenticar(@ModelAttribute UsuarioDTO usuarioDto,
-                             ModelMap model) {
+                             ModelMap model, HttpSession session) {
 
         try {
-
             Funcionario usuarioLogado = aplPrincipal.validarLogin(usuarioDto.getUsername(), usuarioDto.getPassword());
+            UsuarioSessao usuarioSessao = new UsuarioSessao();
 
             //Guardando os dados do usuario da sessao
             usuarioSessao.setIdHospital(usuarioDto.getHospital());
             usuarioSessao.setIdUsuario(usuarioLogado.getId());
             usuarioSessao.setCpfUsuario(usuarioLogado.getCpf());
             usuarioSessao.setNome(usuarioLogado.getNome());
+            session.setAttribute("user", usuarioSessao);
             model.addAttribute("usuario", usuarioLogado);
 
             return "redirect:/index";

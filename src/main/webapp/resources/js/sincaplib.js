@@ -1,4 +1,4 @@
-var sincapApp = angular.module('sincapApp', ['ui.event']);
+var sincapApp = angular.module('sincapApp', ['ui.event', 'ui.select2']);
 
 sincapApp.controller('ObitoCtrl', function ($scope, $http) {
     $http.get("http://" + location.host + "/sincap/obito/getSetores").success(function (data) {
@@ -24,7 +24,7 @@ sincapApp.controller('EnderecoCtrl', function ($scope, $http) {
         $http.post("http://" + location.host + "/sincap/endereco/getBairros", event.target.value).success(function (data) {
             $scope.bairros = data;
         });
-    }
+    };
 });
 
 function setNome(elemento, nome) {

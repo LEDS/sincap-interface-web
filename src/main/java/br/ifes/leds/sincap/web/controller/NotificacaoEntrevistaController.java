@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,8 +43,6 @@ public class NotificacaoEntrevistaController {
     private AplEndereco aplEndereco;
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
-    @Autowired
-    private UsuarioSessao usuarioSessao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
     @Autowired
@@ -80,7 +79,7 @@ public class NotificacaoEntrevistaController {
     public String salvarEntrevista(ModelMap model,
                                    @ModelAttribute ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
-                                   @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
+                                   @RequestParam("dataDeAbertura") String dataAbertura,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
                                    @RequestParam("horaEntrevista") String horaEntrevista) throws ParseException {
         try {
@@ -131,16 +130,16 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarEntrevista(@RequestParam("id") Long idProcesso) {
-
+    public String recusarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarEntrevista(@RequestParam("id") Long idProcesso) {
-
+    public String arquivarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + ContextUrls.INDEX;
@@ -185,7 +184,8 @@ public class NotificacaoEntrevistaController {
      * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarAnalise(@RequestParam("id") Long idProcesso) {
+    public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
