@@ -37,6 +37,7 @@ public class ContextUrls {
     public static final String APP_ANALISAR = "/analisar";
     public static final String APP_ENDERECO = "/endereco";
     public static final String APP_CAUSA_NAO_DOACAO = "/causa-nao-doacao";
+    public static final String APP_FUNCIONARIO = "/funcionario";
     /**
      * Métodos
      */
@@ -77,6 +78,7 @@ public class ContextUrls {
     String app_analisar = APP_ANALISAR;
     String app_endereco = APP_ENDERECO;
     String app_causa_nao_doacao = APP_CAUSA_NAO_DOACAO;
+    String app_funcionario = APP_FUNCIONARIO;
     /**
      * Métodos
      */
