@@ -67,6 +67,7 @@ public class FuncionarioController {
     public String cadastrarNotificador(ModelMap model) {
         String titulo = "funcionario.cadastro.notificador";
         model.addAttribute("titulo", titulo);
+        utility.preencherEstados(model, aplEndereco);
         return "form-cadastro-notificador";
     }
 
@@ -80,6 +81,7 @@ public class FuncionarioController {
     public String cadastrarCaptador(ModelMap model) {
         String titulo = "funcionario.cadastro.captador";
         model.addAttribute("titulo", titulo);
+        utility.preencherEstados(model, aplEndereco);
         return "form-cadastro-captador";
     }
 
