@@ -1,7 +1,7 @@
 function init () {
     definirMascaras();
     fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-    fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
+    fadeComponent('doacaoAutorizada', '', 'divDoacaoNaoAutorizada');
     definirEstilo();
     focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
     focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
@@ -32,12 +32,10 @@ function changeNameAttribute(radioButtonVet, selectItem1, selectItem2, name) {
 
 $('[name="entrevistaRealizada"]').click(function() {
     fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-
-    changeNameAttribute(this, "#causaNaoDoacao", "#recusaFamiliar", 'causaNaoDoacao');
 });
 
 $('[name="doacaoAutorizada"]').click(function(){
-    fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
+    fadeComponent('doacaoAutorizada', '', 'divDoacaoNaoAutorizada');
 });
 
 $("#notifEntrevista").validate({
@@ -191,10 +189,3 @@ $("#notifEntrevista").validate({
         form.submit();
     }
 });
-
-//function showAllFields(){
-//    $("#divEntrevistaRealizada").fadeIn();
-//    $("#divEntrevistaNaoRealizada").fadeIn();
-//    $("#divDoacaoAutorizada").fadeIn();
-//    $("#divDoacaoNaoAutorizada").fadeIn();
-//}

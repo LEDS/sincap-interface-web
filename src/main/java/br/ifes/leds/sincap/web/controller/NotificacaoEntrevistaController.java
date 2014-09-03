@@ -67,6 +67,8 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
             model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
             model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
+            model.addAttribute("recusaFamiliar", new Long(0));
+            model.addAttribute("problemasEstruturais", new Long(0));
 
         } catch (Exception e) {
 
@@ -77,20 +79,26 @@ public class NotificacaoEntrevistaController {
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarEntrevista(ModelMap model,
-                                   @ModelAttribute ProcessoNotificacaoDTO processo,
+                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
-                                   @RequestParam("doacaoAutorizada") boolean entrevistaRealizada,
-                                   @RequestParam("dataDeAbertura") String dataAbertura,
+                                   @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
                                    @RequestParam("horaEntrevista") String horaEntrevista,
+                                   @RequestParam("recusaFamiliar") Long recusaFamiliar,
+                                   @RequestParam("problemasEstruturais") Long problemasEstruturais,
                                    HttpSession session) throws ParseException {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         try {
             if(entrevistaRealizada){
-                if(!dataEntrevista.trim().isEmpty() || !horaEntrevista.trim().isEmpty()) {
-                    processo.getEntrevista().setDataEntrevista(utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista));
-                }
+                processo.setCausaNaoDoacao(recusaFamiliar);
+            }
+            else{
+                processo.setCausaNaoDoacao(problemasEstruturais);
+            }
+
+            if(!dataEntrevista.trim().isEmpty() || !horaEntrevista.trim().isEmpty()) {
+                processo.getEntrevista().setDataEntrevista(utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista));
             }
 
             processo.getEntrevista().setEntrevistaRealizada(entrevistaRealizada);
@@ -112,20 +120,19 @@ public class NotificacaoEntrevistaController {
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
 
-        utility.preencherEstados(model, aplEndereco);
+        model.addAttribute("dataEntrevista", processo.getEntrevista().getDataEntrevista());
+        model.addAttribute("horaEntrevista", processo.getEntrevista().getDataEntrevista());
+
+        utility.preencherEndereco(processo.getObito().getPaciente()
+                .getEndereco(), model, aplEndereco);
+
         model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
         model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
         model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
         model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
+        model.addAttribute("recusaFamiliar", processo.getCausaNaoDoacao());
+        model.addAttribute("problemasEstruturais", processo.getCausaNaoDoacao());
         model.addAttribute("processo", processo);
-
-        if(processo.getEntrevista().isEntrevistaRealizada()){
-            model.addAttribute("dataEntrevista", processo.getEntrevista().getDataEntrevista());
-            model.addAttribute("horaEntrevista", processo.getEntrevista().getDataEntrevista());
-
-            utility.preencherEndereco(processo.getObito().getPaciente()
-                    .getEndereco(), model, aplEndereco);
-        }
 
         model.addAttribute("entrevistaRealizada", processo.getEntrevista().isEntrevistaRealizada());
         model.addAttribute("doacaoAutorizada", processo.getEntrevista().isDoacaoAutorizada());
