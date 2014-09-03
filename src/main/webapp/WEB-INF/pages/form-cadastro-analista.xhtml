@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/adm-form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Título da página -->
+<ui:define name="#{sects.title}">
+    #{msg['causa-nao-doacao.titulo']}
+</ui:define>
+
+<!-- Conteúdo da página -->
+<ui:define name="#{sects.content}">
+    <div id="pad-wrapper">
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="fuelux-wizard" class="wizard row-fluid">
+
+                    <h2>#{msg[titulo]}</h2>
+                    <br/>
+
+                    <div class="step-content">
+                        <form id="form-cadastro-analista"
+                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_analista}"
+                              method="post">
+
+                            <h:inputHidden id="id" value="#{analistaCNCDO.id}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.nome']}"/>
+                            <h:inputText id="nome" value="#{analistaCNCDO.nome}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.senha']}"/>
+                            <h:inputText id="senha" value="#{analistaCNCDO.senha}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.cpf']}"/>
+                            <h:inputText id="cpf" value="#{analistaCNCDO.cpf}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
+                            <h:inputText id="documentoSocial" value="#{analistaCNCDO.documentoSocial}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.email']}"/>
+                            <h:inputText id="email" value="#{analistaCNCDO.email}"/>
+
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.analista.dropDown.uf']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="analistaCNCDO-endereco-estado"
+                                                     value="#{analistaCNCDO.endereco.estado}"
+                                                     onchange="ajaxGetMunicipios('#analistaCNCDO-endereco-estado', '#analistaCNCDO-endereco-cidade')">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.analista.dropDown.uf']}"/>
+                                        <f:selectItems value="#{listaEstadoItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.analista.dropDown.cidade']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="analistaCNCDO-endereco-cidade"
+                                                     value="#{analistaCNCDO.endereco.cidade}"
+                                                     onchange="ajaxGetBairros('#analistaCNCDO-endereco-cidade', '#analistaCNCDO-endereco-bairro')">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.analista.dropDown.cidade']}"/>
+                                        <f:selectItems value="#{listaCidadeItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.analista.dropDown.bairro']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="analistaCNCDO-endereco-bairro"
+                                                     value="#{analistaCNCDO.endereco.cidade}">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.analista.dropDown.bairro']}"/>
+                                        <f:selectItems value="#{listaBairroItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                            <h:inputText id="analistaCNCDO-endereco-logradrouro" value="#{analistaCNCDO.endereco.logradouro}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                            <h:inputText id="analistaCNCDO-endereco-numero" value="#{analistaCNCDO.endereco.numero}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                            <h:inputText id="analistaCNCDO-endereco-complemento" value="#{analistaCNCDO.endereco.complemento}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                            <h:inputText id="analistaCNCDO-endereco-cep" value="#{analistaCNCDO.endereco.cep}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.telefone.ddd']}"/>
+                            <h:inputText id="analistaCNCDO-telefone-ddd" value="#{analistaCNCDO.telefone.telefone.ddd}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.telefone.numero']}"/>
+                            <h:inputText id="analistaCNCDO-telefone-numero" value="#{analistaCNCDO.telefone.telefone.numero}"/>
+
+                            <br></br><br></br>
+                            <button type="submit" class="btn-glow success btn-finish">
+                                #{msg['funcionario.salvar']}
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ui:define>
+
+<!-- scripts -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.data').mask('00/00/0000', {
+            reverse: true
+        });
+        $('.hora').mask('00:00', {
+            reverse: true
+        });
+    });
+
+    //Validando os dados do formulario
+    $("#processoCaptacao")
+            .validate(
+            {
+                rules: {
+                    //Notificacao de Obito aba Paciente
+                    nomePaciente: {
+                        required: true
+                    },
+                    dataNascimentoPaciente: {
+                        required: true
+                    },
+                    dataInternacaoPaciente: {
+                        required: true
+                    },
+                    docSocialPaciente: {
+                        required: true
+                    },
+                    telefonePaciente: {
+                        required: true
+                    },
+                    sexoPaciente: {
+                        required: true
+                    },
+                    numeroSUS: {
+                        required: true
+                    },
+                    profissao: {
+                        required: true
+                    },
+                    nacionalidade: {
+                        required: true
+                    },
+                    numeroProntuario: {
+                        required: true
+                    },
+                    cidadePaciente: {
+                        required: true
+                    },
+                    bairroPaciente: {
+                        required: true
+                    },
+                    cepPaciente: {
+                        required: true
+                    },
+                    // Notificacao de Obito aba Obito
+                    dataObito: {
+                        required: true
+                    },
+                    horarioObito: {
+                        required: true
+                    },
+                    setorObito: {
+                        required: true
+                    },
+                    motivosObito1: {
+                        required: true
+                    },
+                    motivosObito2: {
+                        required: true
+                    },
+                    motivosObito3: {
+                        required: true
+                    },
+                    motivosObito4: {
+                        required: true
+                    },
+                    aptoDoacao: {
+                        required: true
+                    },
+                },
+                messages: {
+                    //Notificacao de Obito aba Paciente
+                    nomePaciente: {
+                        required: "Por favor, insira o nome do paciente"
+                    },
+                    dataNascimentoPaciente: {
+                        required: "Por favor, insira a data de nascimento do paciente"
+                    },
+                    dataInternacaoPaciente: {
+                        required: "Por favor, insira a data de internação do paciente"
+                    },
+                    docSocialPaciente: {
+                        required: "Por favor, insira um documento social do paciente"
+                    },
+                    telefonePaciente: {
+                        required: "Por favor, insira um telefone do paciente"
+                    },
+                    sexoPaciente: {
+                        required: "Por favor, selecione o sexo do paciente"
+                    },
+                    numeroSUS: {
+                        required: "Por favor, insira o número de SUS do paciente"
+                    },
+                    profissao: {
+                        required: "Por favor, insira a profissão do paciente"
+                    },
+                    nacionalidade: {
+                        required: "Por favor, insira a nascionalidade do paciente"
+                    },
+                    numeroProntuario: {
+                        required: "Por favor, insira o número do prontuário do paciente"
+                    },
+                    cidadePaciente: {
+                        required: "Por favor, insira a cidade do paciente"
+                    },
+                    bairroPaciente: {
+                        required: "Por favor, insira o bairro do paciente"
+                    },
+                    cepPaciente: {
+                        required: "Por favor, insira o cep do paciente"
+                    },
+                    //Notificacao de Obito aba Obito
+                    dataObito: {
+                        required: "Por favor, insira a data do óbito do paciente"
+                    },
+                    horarioObito: {
+                        required: "Por favor, insira o horário do óbito do paciente"
+                    },
+                    setorObito: {
+                        required: "Por favor, insira setor onde ocorreu o óbito"
+                    },
+                    motivosObito1: {
+                        required: "Por favor, insira primeiro motivo do obito"
+                    },
+                    motivosObito2: {
+                        required: "Por favor, insira segundo motivo do obito"
+                    },
+                    motivosObito3: {
+                        required: "Por favor, insira terceiro motivo do obito"
+                    },
+                    motivosObito4: {
+                        required: "Por favor, insira quarto motivo do obito"
+                    },
+                    aptoDoacao: {
+                        required: "Por favor, selecione o estado do paciente"
+                    },
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+</script>
+
+</ui:composition>
