@@ -23,17 +23,17 @@
                         #{captador.cpf}
                     </h:column>
                     <!-- Botões -->
-                    <!--<h:column>-->
-                        <!--<form style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.editar}/#{causa.id}" method="get">-->
-                            <!--<button type="submit"><i class="icon-edit"></i></button>-->
-                        <!--</form>-->
-                    <!--</h:column>-->
-                    <!---->
-                    <!--<h:column>-->
-                         <!--<form  style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.apagar}/#{causa.id}" method="post">-->
-                            <!--<button type="submit"><i class="icon-trash"></i></button>-->
-                        <!--</form>-->
-                    <!--</h:column>-->
+                    <h:column>
+                        <form style="width:0.5px;" id="formulario-cadastro-captador-#{captador.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_captador}/#{captador.id}" method="get">
+                            <button type="submit"><i class="icon-edit"></i></button>
+                        </form>
+                    </h:column>
+
+                    <h:column>
+                         <form  style="width:0.5px;" id="formulario-cadastro-captador-#{captador.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_captador}/#{captador.id}" method="post">
+                            <button type="submit"><i class="icon-trash"></i></button>
+                        </form>
+                    </h:column>
                     
                 </h:dataTable>
             </h:panelGroup>
