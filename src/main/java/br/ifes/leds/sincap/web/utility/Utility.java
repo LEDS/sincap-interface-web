@@ -5,6 +5,10 @@ import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
@@ -112,5 +116,37 @@ public enum Utility {
         }
 
         return tiposNaoDoacao;
+    }
+
+    public void getBancoOlhos(ModelMap model,AplBancoOlhos aplBancoOlhos) {
+
+        List<BancoOlhos> listaBancoOlhos;
+        List<SelectItem> listaBancoOlhosItem = new ArrayList<>();
+
+        listaBancoOlhos = aplBancoOlhos.obter();
+
+        for (BancoOlhos bancoOlhos : listaBancoOlhos) {
+            SelectItem bancoItem = new SelectItem(bancoOlhos.getId(),
+                    bancoOlhos.getNome());
+            listaBancoOlhosItem.add(bancoItem);
+        }
+
+        model.addAttribute("listaBancoOlhosItem", listaBancoOlhosItem);
+    }
+
+    public void getInstituicaoNotificadora(ModelMap model,AplInstituicaoNotificadora aplInstituicaoNotificadora) {
+
+        List<InstituicaoNotificadora> listaInstituicaoNotificadora;
+        List<SelectItem> listaInstituicaoNotificadoraItem = new ArrayList<>();
+
+        listaInstituicaoNotificadora = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+
+        for (InstituicaoNotificadora instituicaoNotificadora : listaInstituicaoNotificadora) {
+            SelectItem instituicaoNotificadoraItem = new SelectItem(instituicaoNotificadora.getId(),
+                    instituicaoNotificadora.getNome());
+            listaInstituicaoNotificadoraItem.add(instituicaoNotificadoraItem);
+        }
+
+        model.addAttribute("listaInstituicaoNotificadoraItem", listaInstituicaoNotificadoraItem);
     }
 }

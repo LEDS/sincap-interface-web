@@ -1,13 +1,13 @@
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.AnalistaCNCDO;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplAnalistaCNCDO;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCaptador;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplNotificador;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.*;
 import br.ifes.leds.sincap.web.utility.Utility;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,6 +36,12 @@ public class FuncionarioController {
     private AplCaptador aplCaptador;
     @Autowired
     private AplEndereco aplEndereco;
+    @Autowired
+    private AplBancoOlhos aplBancoOlhos;
+    @Autowired
+    private AplInstituicaoNotificadora aplInstituicaoNotificadora;
+    @Autowired
+    private Mapper mapper;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -69,7 +75,7 @@ public class FuncionarioController {
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
         String titulo = "funcionario.editar.analista";
         model.addAttribute("titulo",titulo);
-        utility.preencherEstados(model, aplEndereco);
+        utility.preencherEndereco(mapper.map(analista.getEndereco(), EnderecoDTO.class), model, aplEndereco);
         model.addAttribute("analist", analista);
         return "form-cadastro-analista";
     }
@@ -86,6 +92,7 @@ public class FuncionarioController {
         String titulo = "funcionario.cadastro.notificador";
         model.addAttribute("titulo", titulo);
         utility.preencherEstados(model, aplEndereco);
+        utility.getInstituicaoNotificadora(model, aplInstituicaoNotificadora);
         return "form-cadastro-notificador";
     }
 
@@ -101,7 +108,8 @@ public class FuncionarioController {
         String titulo = "funcionario.editar.notificador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
-        utility.preencherEstados(model, aplEndereco);
+        utility.preencherEndereco(mapper.map(notificador.getEndereco(), EnderecoDTO.class), model, aplEndereco);
+        utility.getInstituicaoNotificadora(model, aplInstituicaoNotificadora);
         return "form-cadastro-notificador";
     }
 
@@ -117,6 +125,7 @@ public class FuncionarioController {
         String titulo = "funcionario.cadastro.captador";
         model.addAttribute("titulo", titulo);
         utility.preencherEstados(model, aplEndereco);
+        utility.getBancoOlhos(model, aplBancoOlhos);
         return "form-cadastro-captador";
     }
 
@@ -132,7 +141,8 @@ public class FuncionarioController {
         String titulo = "funcionario.editar.captador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("captador", captador);
-        utility.preencherEstados(model, aplEndereco);
+        utility.preencherEndereco(mapper.map(captador.getEndereco(), EnderecoDTO.class), model, aplEndereco);
+        utility.getBancoOlhos(model, aplBancoOlhos);
         return "form-cadastro-captador";
     }
 

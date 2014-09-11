@@ -46,7 +46,7 @@
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="notificador-endereco-estado"
-                                                     value="#{notificador.endereco.estado}"
+                                                     value="#{notificador.endereco.estado.id}"
                                                      onchange="ajaxGetMunicipios('#notificador-endereco-estado', '#notificador-endereco-cidade')">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
@@ -61,7 +61,7 @@
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="notificador-endereco-cidade"
-                                                     value="#{notificador.endereco.cidade}"
+                                                     value="#{notificador.endereco.cidade.id}"
                                                      onchange="ajaxGetBairros('#notificador-endereco-cidade', '#notificador-endereco-bairro')">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
@@ -76,7 +76,7 @@
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="notificador-endereco-bairro"
-                                                     value="#{notificador.endereco.cidade}">
+                                                     value="#{notificador.endereco.bairro.id}">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
                                         <f:selectItems value="#{listaBairroItem}"/>
@@ -97,11 +97,24 @@
                             <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
                             <h:inputText id="endereco-cep" value="#{notificador.endereco.cep}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.telefone.ddd']}"/>
-                            <h:inputText id="telefone-ddd" value="#{notificador.telefone.ddd}"/>
-
-                            <h:outputLabel value="#{msg['funcionario.telefone.numero']}"/>
+                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
                             <h:inputText id="telefone-numero" value="#{notificador.telefone.numero}"/>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.instituicao']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="notificador-instituicoesNotificadoras"
+                                                     value="#{notificador.instituicoesNotificadoras}">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.captador.dropDown.instituicao']}"/>
+                                        <f:selectItems value="#{listaInstituicaoNotificadoraItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
 
                             <br></br><br></br>
                             <button type="submit" class="btn-glow success btn-finish">
