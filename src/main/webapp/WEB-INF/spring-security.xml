@@ -1,0 +1,32 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http auto-config="true">
+        <logout invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <form-login
+                default-target-url="/index"
+                login-page="/"
+                username-parameter="username"
+                password-parameter="password"/>
+        <intercept-url pattern="/index*" access="ROLE_USER"/>
+        <intercept-url pattern="/obito/**" access="ROLE_USER"/>
+        <intercept-url pattern="/entrevista/**" access="ROLE_USER"/>
+        <intercept-url pattern="/captacao/**" access="ROLE_USER"/>
+        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
+         <csrf/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="111.111.111-11" password="abc123" authorities="ROLE_USER, ROLE_ADMIN"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

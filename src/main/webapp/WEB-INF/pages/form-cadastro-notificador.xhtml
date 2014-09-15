@@ -26,6 +26,8 @@
 
                             <h:inputHidden id="id" value="#{notificador.id}"/>
 
+                            <h:inputHidden id="ativo" value="TRUE"/>
+
                             <h:outputLabel value="#{msg['funcionario.nome']}"/>
                             <h:inputText id="nome" value="#{notificador.nome}"/>
 
@@ -127,13 +129,8 @@
                 </div>
             </div>
         </div>
-
     </div>
-    <script>
-        $(".select2").select2({
-            placeholder: "Escolha as Instituições"
-        });
-    </script>
+    <h:outputScript library="js" name="form-cadastro-notificador.js"/>
 </ui:define>
 
 </ui:composition>

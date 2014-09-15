@@ -47,13 +47,13 @@ public class NotificacaoObitoController {
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormNovaNotificacao(ModelMap model, HttpSession session) {
-        ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
+    public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
+                                          @RequestParam(value = "sucessoObito", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         utility.preencherEstados(model, aplEndereco);
         preencherSetorCausaNDoacao(model, usuarioSessao);
-        model.addAttribute("processo", processo);
+        model.addAttribute("sucessoObito", sucessoObito);
 
         return "form-notificacao-obito";
     }
@@ -111,10 +111,10 @@ public class NotificacaoObitoController {
                             utilityEntities.stringToCalendar(dataInternacao));
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ParseException | ViolacaoDeRIException e) {
-            loadFormNovaNotificacao(model, session);
+            return "forward:" + ContextUrls.APP_NOTIFICACAO_OBITO + ContextUrls.ADICIONAR + "?sucessoObito=false";
         }
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
     }
 
     private void preencherSetorCausaNDoacao(ModelMap model, UsuarioSessao usuarioSessao) {
