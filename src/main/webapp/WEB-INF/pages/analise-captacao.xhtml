@@ -61,8 +61,8 @@
                             #{msg['analise.confirmarEArquivar']} </a>
 
                         <a id="recusar" class="btn-flat inverse"
-                           href="#">
-                            #{msg['analise.recusar']} </a>
+                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.app_analisar}#{contextUrls.recusar}/#{processo.id}">
+                           #{msg['analise.recusar']} </a>
                     </h:panelGroup>
                 </div>
             </div>

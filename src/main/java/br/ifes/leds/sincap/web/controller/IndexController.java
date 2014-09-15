@@ -47,6 +47,8 @@ public class IndexController {
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
         List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO);
+        List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOCAPTACACAO);
 
         // Adiciona as três listas de notificações à página.
         model.addAttribute("processosObitoAnalisePendente",
@@ -57,6 +59,8 @@ public class IndexController {
                 processosEntrevistaAnalisePendente);
         model.addAttribute("processosCaptacoesAnalisePendente",
                 processosCaptacoesAnalisePendente);
+        model.addAttribute("processosCaptacoesAguardandoCorrecao",
+                processosCaptacoesAguardandoCorrecao);
 
         // Chama a página.
         return "index";
