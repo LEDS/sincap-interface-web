@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
 import java.util.List;
@@ -37,8 +38,9 @@ public class IndexController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String index(ModelMap model) {
-        // Puxa os tipos de notificações corretamente da apl.
+    public String index(ModelMap model,
+                        @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito) {
+        // Puxa os três tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
         List<ProcessoNotificacao> processosObitoAguardandoCorrecao = aplProcessoNotificacao
@@ -49,11 +51,12 @@ public class IndexController {
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
         List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO);
+        List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOCAPTACACAO);
         List<ProcessoNotificacao> processosAguardandoArquivamento = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOARQUIVAMENTO);
 
-
-        // Adiciona as listas de notificações à página.
+        // Adiciona as três listas de notificações à página.
         model.addAttribute("processosObitoAnalisePendente",
                 processosObitoAnalisePendente);
         model.addAttribute("processosObitoAguardandoCorrecao",
@@ -64,8 +67,12 @@ public class IndexController {
                 processosEntrevistaAnalisePendente);
         model.addAttribute("processosCaptacoesAnalisePendente",
                 processosCaptacoesAnalisePendente);
+        model.addAttribute("processosCaptacoesAguardandoCorrecao",
+                processosCaptacoesAguardandoCorrecao);
         model.addAttribute("processosAguardandoArquivamento",
                 processosAguardandoArquivamento);
+
+        model.addAttribute("sucessoObito", sucessoObito);
 
         // Chama a página.
         return "index";

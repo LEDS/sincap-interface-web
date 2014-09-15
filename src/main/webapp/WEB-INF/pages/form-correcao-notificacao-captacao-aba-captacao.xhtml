@@ -1,0 +1,73 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
+
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+        <input type="text" autofocus="true" class="span8" readonly="true" id="paciente-nome"
+               value="#{processo.obito.paciente.nome}"/>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+        <h:inputText styleClass="span8" readonly="true" id="codigo" value="#{processo.codigo}"/>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}*"/>
+        <div class="span8">
+            <label class="radio">
+                <input type="radio" name="captacaoRealizada" id="captacaoRealizada:0" value="true"
+                       checked="true"/>
+                #{msg['captacao.radioButton.corneasCaptadas.sim']}
+            </label>
+            <label class="radio">
+                <input type="radio" name="captacaoRealizada" id="captacaoRealizada:1" value="false"/>
+                #{msg['captacao.radioButton.corneasCaptadas.nao']}
+            </label>
+        </div>
+    </h:panelGroup>
+
+    <!--TODO: Inserir id e value-->
+    <!--Motivo da não captação - BEGIN-->
+    <h:panelGroup layout="block" id="divCorneasNaoCaptadas" styleClass="field-box">
+        <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="causaNaoDoacao" value="#{processo.causaNaoDoacao}">
+                <f:selectItem itemLabel="#{msg['captacao.selectOneMenu.label']}"/>
+                <f:selectItems value="#{listaProblemasLogisticos}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+    <!--Motivo da não captação - END-->
+
+    <!--TODO: Inserir id e value; E aplicar a mascara-->
+    <h:panelGroup layout="block" id="divCorneasCaptadas" styleClass="field-box">
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['captacao.text.data']}"/>
+            <h:inputText id="dataCaptacao" styleClass="span8" value="#{processo.captacao.dataCaptacao.time}">
+                <f:convertDateTime pattern=" dd/MM/yyyy "/>
+            </h:inputText>
+        </h:panelGroup>
+
+        <!--TODO: Inserir id e value; E aplicar a mascara-->
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['captacao.text.hora']}"/>
+            <h:inputText id="horarioCaptacao" styleClass="span8" value="#{processo.captacao.dataCaptacao.time}">
+                <f:convertDateTime pattern=" HH:mm"/>
+            </h:inputText>
+        </h:panelGroup>
+    </h:panelGroup>
+
+    <!--TODO: Inserir id e value-->
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['captacao.text.comentarios']}"/>
+        <h:inputTextarea id="captacao-comentario" class="span8" value="#{processo.captacao.comentario}"
+                         style="margin: 0px 0px 10px; width: 450px; height: 100px;" rows="5"/>
+    </h:panelGroup>
+</ui:composition>
+
