@@ -15,13 +15,13 @@ sincapApp.controller('EnderecoCtrl', function ($scope, $http) {
     });
 
     $scope.getMunicipios = function (event) {
-        $http.post("http://" + location.host + "/sincap/endereco/getMunicipios", event.target.value).success(function (data) {
+        $http.get(location.origin + "/sincap/endereco/getMunicipios?estadoId=" + event.target.value).success(function (data) {
             $scope.municipios = data;
         });
     };
 
     $scope.getBairros = function (event) {
-        $http.post("http://" + location.host + "/sincap/endereco/getBairros", event.target.value).success(function (data) {
+        $http.get(location.origin + "/sincap/endereco/getBairros?cidadeId=" + event.target.value).success(function (data) {
             $scope.bairros = data;
         });
     };
@@ -66,11 +66,9 @@ function ajaxHideElement() {
     var val = $("#username").val();
 
     $.ajax({
-        type: "post",
-//		url: "http://localhost:8080/sincap/getHospitais",
-        url: "http://" + location.host + "/sincap/getHospitais",
+        type: "get",
+        url: location.origin + "/sincap/getHospitais?cpf=" + val,
         cache: false,
-        data: val,
         Accept: "application/json",
         contentType: "application/json",
         success: function(response) {
@@ -92,8 +90,8 @@ function ajaxHideElement() {
 
         },
         error: function(response, status, error) {
-            $('#result').html("");
-            $('#result').html('Status' + status + "Error: " + error);
+            var $result = $('#result').html("");
+            $result.html('Status' + status + "Error: " + error);
         }
     });
 }
@@ -104,11 +102,9 @@ function ajaxGetHospitais() {
     $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
 
     $.ajax({
-        type: "post",
-//		url: "http://localhost:8080/sincap/getHospitais",
-        url: "http://" + location.host + "/sincap/getHospitais",
+        type: "get",
+        url: location.origin + "/sincap/getHospitais?cpf=" + val,
         cache: false,
-        data: val,
         Accept: "application/json",
         contentType: "application/json",
         success: function(response) {
@@ -130,8 +126,8 @@ function ajaxGetHospitais() {
 
         },
         error: function(response, status, error) {
-            $('#result').html("");
-            $('#result').html('Status' + status + "Error: " + error);
+            var $result = $('#result').html("");
+            $result.html('Status' + status + "Error: " + error);
         }
     });
 }
@@ -141,11 +137,9 @@ function ajaxGetMunicipios(estado, municipio) {
     var val = $(estado).val();
     $(municipio).find('option').remove().end(); //limpa o combobox 'municipio'
     $.ajax({
-        type: "post",
-//		url: "http://localhost:8080/sincap/notificacao/getMunicipios",
-        url: "http://" + location.host + "/sincap/endereco/getMunicipios",
+        type: "get",
+        url: location.origin + "/sincap/endereco/getMunicipios?estadoId=" + val,
         cache: false,
-        data: val,
         Accept: "application/json",
         contentType: "application/json",
         success: function(response) {
@@ -167,8 +161,8 @@ function ajaxGetMunicipios(estado, municipio) {
 
         },
         error: function(response, status, error) {
-            $('#result').html("");
-            $('#result').html('Status' + status + "Error: " + error);
+            var $result = $('#result').html("");
+            $result.html('Status' + status + "Error: " + error);
         }
     });
 }
@@ -178,11 +172,9 @@ function ajaxGetBairros(idMunicipio, idBairro) {
     var val = $(idMunicipio).val();
     $(idBairro).find('option').remove().end(); //limpa o combobox 'bairro'
     $.ajax({
-        type: "post",
-//		url: "http://localhost:8080/sincap/notificacao/getBairros",
-        url: "http://" + location.host + "/sincap/endereco/getBairros",
+        type: "get",
+        url: location.origin + "/sincap/endereco/getBairros?cidadeId=" + val,
         cache: false,
-        data: val,
         Accept: "application/json",
         contentType: "application/json",
         success: function(response) {
@@ -204,8 +196,8 @@ function ajaxGetBairros(idMunicipio, idBairro) {
 
         },
         error: function(response, status, error) {
-            $('#result').html("");
-            $('#result').html('Status' + status + "Error: " + error);
+            var $result = $('#result').html("");
+            $result.html('Status' + status + "Error: " + error);
         }
     });
 }
