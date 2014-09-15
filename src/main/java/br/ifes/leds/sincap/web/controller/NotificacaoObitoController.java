@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 /**
  *
@@ -196,10 +197,11 @@ public class NotificacaoObitoController {
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
-
+        TimeZone timeZone = TimeZone.getDefault();
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("obito", true);
+        model.addAttribute("timeZone", timeZone);
 
         return "analise-processo-notificacao";
     }
