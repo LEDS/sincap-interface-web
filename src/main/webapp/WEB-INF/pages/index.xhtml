@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition template="/WEB-INF/templates/base.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition template="/WEB-INF/templates/base.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
@@ -12,7 +14,12 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
-
+        <h:panelGroup rendered="#{sucessoObito}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Obito salvo com sucesso!
+            </div>
+        </h:panelGroup>
         <!-- Notificações com óbito pendente de análise -->
         <br/><h2>Análise de Óbito Pendente</h2><br/>
         <ui:include src="/WEB-INF/components/lista-processos-analisar-obito.xhtml">
@@ -41,6 +48,10 @@
         <!-- Notificações com captação pendente de análise -->
         <ui:include src="/WEB-INF/components/lista-processos-analisar-captacao.xhtml">
             <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
+        </ui:include>
+        <br/><h2>Captação aguardando correção</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-processos-corrigir-captacao.xhtml">
+            <ui:param name="processos" value="#{processosCaptacoesAguardandoCorrecao}" />
         </ui:include>
 
         <br/><h2>Notificações Aguardando Arquivamento</h2><br/>

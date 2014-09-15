@@ -1,23 +1,22 @@
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.AnalistaCNCDO;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplAnalistaCNCDO;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCaptador;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplNotificador;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.*;
 import br.ifes.leds.sincap.web.utility.Utility;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by aleao on 25/08/14.
@@ -36,6 +35,13 @@ public class FuncionarioController {
     private AplCaptador aplCaptador;
     @Autowired
     private AplEndereco aplEndereco;
+    @Autowired
+    private AplBancoOlhos aplBancoOlhos;
+    @Autowired
+    private AplInstituicaoNotificadora aplInstituicaoNotificadora;
+    @Autowired
+    private Mapper mapper;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -69,7 +75,7 @@ public class FuncionarioController {
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
         String titulo = "funcionario.editar.analista";
         model.addAttribute("titulo",titulo);
-        utility.preencherEstados(model, aplEndereco);
+        utility.preencherEndereco(mapper.map(analista.getEndereco(), EnderecoDTO.class), model, aplEndereco);
         model.addAttribute("analist", analista);
         return "form-cadastro-analista";
     }
@@ -86,11 +92,19 @@ public class FuncionarioController {
         String titulo = "funcionario.cadastro.notificador";
         model.addAttribute("titulo", titulo);
         utility.preencherEstados(model, aplEndereco);
+        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        model.addAttribute("listaHospitais",listaHospitais);
         return "form-cadastro-notificador";
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_NOTIFICADOR, method = RequestMethod.POST)
-    public String salvarNotificador(ModelMap model, @ModelAttribute Notificador notificador) {
+    public String salvarNotificador(ModelMap model, @ModelAttribute Notificador notificador,
+                                    @RequestParam("hospitais") List<Long> hospitais) {
+        for (Long l:hospitais){
+            Set<InstituicaoNotificadora> setInstituicao = notificador.getInstituicoesNotificadoras();
+            setInstituicao.add(aplInstituicaoNotificadora.obter(l));
+            notificador.setInstituicoesNotificadoras(setInstituicao);
+        }
         aplNotificador.salvarNotificador(notificador);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
@@ -101,7 +115,9 @@ public class FuncionarioController {
         String titulo = "funcionario.editar.notificador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
-        utility.preencherEstados(model, aplEndereco);
+        utility.preencherEndereco(mapper.map(notificador.getEndereco(), EnderecoDTO.class), model, aplEndereco);
+        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        model.addAttribute("listaHospitais",listaHospitais);
         return "form-cadastro-notificador";
     }
 
@@ -117,6 +133,7 @@ public class FuncionarioController {
         String titulo = "funcionario.cadastro.captador";
         model.addAttribute("titulo", titulo);
         utility.preencherEstados(model, aplEndereco);
+        utility.getBancoOlhos(model, aplBancoOlhos);
         return "form-cadastro-captador";
     }
 
@@ -132,7 +149,8 @@ public class FuncionarioController {
         String titulo = "funcionario.editar.captador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("captador", captador);
-        utility.preencherEstados(model, aplEndereco);
+        utility.preencherEndereco(mapper.map(captador.getEndereco(), EnderecoDTO.class), model, aplEndereco);
+        utility.getBancoOlhos(model, aplBancoOlhos);
         return "form-cadastro-captador";
     }
 

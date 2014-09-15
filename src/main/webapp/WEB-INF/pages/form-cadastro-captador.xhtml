@@ -45,9 +45,9 @@
                                 <h:outputLabel value="#{msg['funcionario.captador.dropDown.uf']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="captador-endereco-estado"
-                                                     value="#{captador.endereco.estado}"
-                                                     onchange="ajaxGetMunicipios('#captador-endereco-estado', '#captador-endereco-cidade')">
+                                    <h:selectOneMenu id="endereco-estado-id"
+                                                     value="#{captador.endereco.estado.id}"
+                                                     onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.captador.dropDown.uf']}"/>
                                         <f:selectItems value="#{listaEstadoItem}"/>
@@ -60,9 +60,9 @@
                                 <h:outputLabel value="#{msg['funcionario.captador.dropDown.cidade']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="captador-endereco-cidade"
-                                                     value="#{captador.endereco.cidade}"
-                                                     onchange="ajaxGetBairros('#captador-endereco-cidade', '#captador-endereco-bairro')">
+                                    <h:selectOneMenu id="endereco-cidade-id"
+                                                     value="#{captador.endereco.cidade.id}"
+                                                     onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.captador.dropDown.cidade']}"/>
                                         <f:selectItems value="#{listaCidadeItem}"/>
@@ -75,8 +75,8 @@
                                 <h:outputLabel value="#{msg['funcionario.captador.dropDown.bairro']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="captador-endereco-bairro"
-                                                     value="#{captador.endereco.cidade}">
+                                    <h:selectOneMenu id="endereco-bairro-id"
+                                                     value="#{captador.endereco.bairro.id}">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.captador.dropDown.bairro']}"/>
                                         <f:selectItems value="#{listaBairroItem}"/>
@@ -97,12 +97,24 @@
                             <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
                             <h:inputText id="endereco-cep" value="#{captador.endereco.cep}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.telefone.ddd']}"/>
-                            <h:inputText id="telefone-ddd" value="#{captador.telefone.ddd}"/>
-
-                            <h:outputLabel value="#{msg['funcionario.telefone.numero']}"/>
+                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
                             <h:inputText id="telefone-numero" value="#{captador.telefone.numero}"/>
 
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.bancoolhos']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="captador-bancoOlhos"
+                                                     value="#{captador.bancoOlhos.id}">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.captador.dropDown.bancoolhos']}"/>
+                                        <f:selectItems value="#{listaBancoOlhosItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
                             <br></br><br></br>
                             <button type="submit" class="btn-glow success btn-finish">
                                 #{msg['funcionario.salvar']}

@@ -42,6 +42,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}*"/>
+
         <div class="span8">
             <label class="radio">
                 <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:0" value="MASCULINO"
@@ -84,37 +85,42 @@
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}*"/>
+
         <div class="ui-select span5">
-            <select id="obito-paciente-endereco-estado"
-                    name="obito-paciente-endereco-estado"
-                    ui-event="{change : 'getMunicipios($event)'}">
-                <option>#{msg['obito.paciente.dropDown.uf.escolha']}</option>
-                <option ng-repeat="estado in estados"
-                        value="{{estado.id}}">{{estado.nome}}</option>
-            </select>
+            <h:selectOneMenu
+                    id="obito-paciente-endereco-estado"
+                    value="#{processo.obito.paciente.endereco.estado}"
+                    onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
+                <f:selectItem itemLabel="#{msg['responsavel.dropdown.uf']}"/>
+                <f:selectItems value="#{listaEstadoItem}"/>
+            </h:selectOneMenu>
         </div>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}*"/>
+
         <div class="ui-select span5">
-            <select id="obito-paciente-endereco-cidade"
-                    name="obito-paciente-endereco-cidade"
-                    ui-event="{change : 'getBairros($event)'}">
-                <option>#{msg['obito.paciente.dropDown.cidade']}</option>
-                <option ng-repeat="municipio in municipios" value="{{municipio.id}}">{{municipio.dado}}</option>
-            </select>
+            <h:selectOneMenu
+                    id="obito-paciente-endereco-cidade"
+                    value="#{processo.obito.paciente.endereco.cidade}"
+                    onchange="ajaxGetBairros('#obito-paciente-endereco-cidade', '#obito-paciente-endereco-bairro')">
+                <f:selectItem itemLabel="#{msg['obito.paciente.dropDown.cidade']}"/>
+                <f:selectItems value="#{listaCidadeItem}"/>
+            </h:selectOneMenu>
         </div>
     </div>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}*"/>
+
         <div class="ui-select span5">
-            <select id="obito-paciente-endereco-bairro"
-                    name="obito-paciente-endereco-bairro">
-                <option>#{msg['obito.paciente.dropDown.bairro']}</option>
-                <option ng-repeat="bairro in bairros" value="{{bairro.id}}">{{bairro.dado}}</option>
-            </select>
+            <h:selectOneMenu
+                    id="obito-paciente-endereco-bairro"
+                    value="#{processo.obito.paciente.endereco.bairro}">
+                <f:selectItem itemLabel="#{msg['obito.paciente.dropDown.bairro']}"/>
+                <f:selectItems value="#{listaBairroItem}"/>
+            </h:selectOneMenu>
         </div>
     </h:panelGroup>
 
@@ -139,14 +145,5 @@
                 $("#dataObito").focus();
             }
         });
-//        $("#obito-paciente-endereco-estado").select2({
-//            placeholder: '#{msg['obito.paciente.dropDown.uf.escolha']}'
-//        });
-//        $("#obito-paciente-endereco-cidade").select2({
-//            placeholder: '#{msg['obito.paciente.dropDown.cidade']}'
-//        });
-//        $("#obito-paciente-endereco-bairro").select2({
-//            placeholder: '#{msg['obito.paciente.dropDown.bairro']}'
-//        });
     </script>
 </ui:composition>

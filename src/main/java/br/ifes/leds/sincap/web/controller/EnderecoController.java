@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ public class EnderecoController {
     public ResponseEntity<List<Map<String, String>>> getEstados() {
         List<Map<String, String>> estados = new ArrayList<>();
 
-        for (Estado e: aplEndereco.obterEstadosPorNomePais("Brasil")) {
+        for (Estado e : aplEndereco.obterEstadosPorNomePais("Brasil")) {
             Map<String, String> estado = new HashMap<>();
             estado.put("id", e.getId().toString());
             estado.put("nome", e.getNome());
@@ -40,15 +37,15 @@ public class EnderecoController {
             estados.add(estado);
         }
 
-        return new ResponseEntity<List<Map<String, String>>>(estados, HttpStatus.OK);
+        return new ResponseEntity<>(estados, HttpStatus.OK);
     }
 
-    @RequestMapping(value = ContextUrls.GET_MUNICIPIOS, method = RequestMethod.POST)
+    @RequestMapping(value = ContextUrls.GET_MUNICIPIOS, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Mensagem>> getMunicipios(
-            @RequestBody String estadoId) {
+            @RequestParam("estadoId") String estadoId) {
 
-        List<Mensagem> listaMensagemMunicipios = new ArrayList<Mensagem>();
+        List<Mensagem> listaMensagemMunicipios = new ArrayList<>();
 
         try {
 
@@ -66,21 +63,19 @@ public class EnderecoController {
             }
 
         } catch (Exception e) {
-
-            e.printStackTrace();
-            return new ResponseEntity<List<Mensagem>>(listaMensagemMunicipios,
+            return new ResponseEntity<>(listaMensagemMunicipios,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<List<Mensagem>>(listaMensagemMunicipios,
+        return new ResponseEntity<>(listaMensagemMunicipios,
                 HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/getBairros", method = RequestMethod.POST)
+    @RequestMapping(value = "/getBairros", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Mensagem>> getBairros(
-            @RequestBody String cidadeId) {
+            @RequestParam("cidadeId") String cidadeId) {
 
-        List<Mensagem> listaMensagemBairros = new ArrayList<Mensagem>();
+        List<Mensagem> listaMensagemBairros = new ArrayList<>();
 
         try {
 
@@ -98,13 +93,11 @@ public class EnderecoController {
             }
 
         } catch (Exception e) {
-
-            e.printStackTrace();
-            return new ResponseEntity<List<Mensagem>>(listaMensagemBairros,
+            return new ResponseEntity<>(listaMensagemBairros,
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        return new ResponseEntity<List<Mensagem>>(listaMensagemBairros,
+        return new ResponseEntity<>(listaMensagemBairros,
                 HttpStatus.OK);
 
     }

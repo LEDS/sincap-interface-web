@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -49,14 +50,14 @@
                 <h6>Log in</h6>
 
                 <form id="signInForm"
-                      action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/autenticar"
+                      action="autenticar"
+                      name="f"
                       method="post">
 
                     <input id="username" name="username" class="span12" type="text" placeholder="CPF"
-                           value="#{usuario.username}" onblur="ajaxGetHospitais();"
+                           onblur="ajaxGetHospitais();"
                            title="#{msg['login.text.usuario']}" autofocus="true" />
                     <input id="password" name="password" class="span12" type="password" placeholder="Senha"
-                           value="#{usuario.password}"
                            title="#{msg['login.text.senha']}"/>
 
                     <h:outputLabel value="Hospital"/>
@@ -74,6 +75,7 @@
                     <button id="botaoLogin" type="submit"
                             class="btn-glow primary login">#{msg['login.btn.entrar']}</button>
 
+                    <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
                 </form>
             </div>
@@ -107,15 +109,11 @@
             rules: {
                 username: {
                     required: true,
-                    minlength: 11,
-
+                    minlength: 11
                 },
                 password: {
                     required: true,
                     minlength: 5
-                },
-                hospital: {
-                    required: true,
                 }
             },
             messages: {
@@ -126,9 +124,6 @@
                 password: {
                     required: "Por favor, entre com a senha.",
                     minlength: "A sua senha deve ter pelo menos 5 números."
-                },
-                hospital: {
-                    required: "Para que os hospitais apareçam, digite um CPF cadastrado.",
                 }
             },
             submitHandler: function (form) {

@@ -45,9 +45,9 @@
                                 <h:outputLabel value="#{msg['funcionario.analista.dropDown.uf']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="analistaCNCDO-endereco-estado"
-                                                     value="#{analist.endereco.estado}"
-                                                     onchange="ajaxGetMunicipios('#analistaCNCDO-endereco-estado', '#analistaCNCDO-endereco-cidade')">
+                                    <h:selectOneMenu id="endereco-estado-id"
+                                                     value="#{analist.endereco.estado.id}"
+                                                     onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.analista.dropDown.uf']}"/>
                                         <f:selectItems value="#{listaEstadoItem}"/>
@@ -60,9 +60,9 @@
                                 <h:outputLabel value="#{msg['funcionario.analista.dropDown.cidade']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="analistaCNCDO-endereco-cidade"
-                                                     value="#{analist.endereco.cidade}"
-                                                     onchange="ajaxGetBairros('#analistaCNCDO-endereco-cidade', '#analistaCNCDO-endereco-bairro')">
+                                    <h:selectOneMenu id="endereco-cidade-id"
+                                                     value="#{analist.endereco.cidade.id}"
+                                                     onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.analista.dropDown.cidade']}"/>
                                         <f:selectItems value="#{listaCidadeItem}"/>
@@ -75,8 +75,8 @@
                                 <h:outputLabel value="#{msg['funcionario.analista.dropDown.bairro']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="analistaCNCDO-endereco-bairro"
-                                                     value="#{analist.endereco.cidade}">
+                                    <h:selectOneMenu id="endereco-bairro-id"
+                                                     value="#{analist.endereco.bairro.id}">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.analista.dropDown.bairro']}"/>
                                         <f:selectItems value="#{listaBairroItem}"/>
@@ -86,22 +86,19 @@
 
                             <br></br><br></br>
                             <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
-                            <h:inputText id="analistaCNCDO-endereco-logradrouro" value="#{analist.endereco.logradouro}"/>
+                            <h:inputText id="endereco-logradrouro" value="#{analist.endereco.logradouro}"/>
 
                             <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
-                            <h:inputText id="analistaCNCDO-endereco-numero" value="#{analist.endereco.numero}"/>
+                            <h:inputText id="endereco-numero" value="#{analist.endereco.numero}"/>
 
                             <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
-                            <h:inputText id="analistaCNCDO-endereco-complemento" value="#{analist.endereco.complemento}"/>
+                            <h:inputText id="endereco-complemento" value="#{analist.endereco.complemento}"/>
 
                             <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
-                            <h:inputText id="analistaCNCDO-endereco-cep" value="#{analist.endereco.cep}"/>
+                            <h:inputText id="endereco-cep" value="#{analist.endereco.cep}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.telefone.ddd']}"/>
-                            <h:inputText id="analist-telefone-ddd" value="#{analist.telefone.ddd}"/>
-
-                            <h:outputLabel value="#{msg['funcionario.telefone.numero']}"/>
-                            <h:inputText id="analistaCNCDO-telefone-numero" value="#{analist.telefone.numero}"/>
+                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
+                            <h:inputText id="telefone-numero" value="#{analist.telefone.numero}"/>
 
                             <br></br><br></br>
                             <button type="submit" class="btn-glow success btn-finish">
