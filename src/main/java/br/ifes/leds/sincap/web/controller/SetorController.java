@@ -26,7 +26,7 @@ import java.util.List;
  * @author 20112bsi0083
  */
 @Controller
-@RequestMapping(ContextUrls.APP_SETOR)
+@RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_SETOR)
 @SessionScoped
 public class SetorController {
      @Autowired
@@ -56,7 +56,7 @@ public class SetorController {
             
         }
         
-        return "redirect:"+ContextUrls.APP_SETOR;
+        return "redirect:"+ContextUrls.ADMIN+ContextUrls.APP_SETOR;
     }
     @RequestMapping(method = RequestMethod.POST)
     public String excluirSetor(ModelMap model, 
@@ -66,6 +66,6 @@ public class SetorController {
         }catch(SetorEmUsoException exception){
             //TODO
         }
-        return "redirect:"+ContextUrls.APP_SETOR;
+        return "redirect:"+ContextUrls.ADMIN+ContextUrls.APP_SETOR;
     }
 }
