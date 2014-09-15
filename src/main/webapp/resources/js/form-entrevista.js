@@ -1,16 +1,14 @@
-$(document).ready(function() {
+function init () {
     definirMascaras();
-    setRadioButtonFalse('entrevistaRealizada', function () {
-        fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-    });
-    setRadioButtonFalse('doacaoAutorizada', function () {
-        fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
-    });
+    fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
+    fadeComponent('doacaoAutorizada', '', 'divDoacaoNaoAutorizada');
     definirEstilo();
     focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
     focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
     focus('#entrevista-responsavel-documentoSocial', '#entrevista-responsavel-parentesco');
-});
+}
+
+init();
 
 function definirMascaras() {
     $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -34,12 +32,10 @@ function changeNameAttribute(radioButtonVet, selectItem1, selectItem2, name) {
 
 $('[name="entrevistaRealizada"]').click(function() {
     fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-
-    changeNameAttribute(this, "#causaNaoDoacao", "#recusaFamiliar", 'causaNaoDoacao');
 });
 
 $('[name="doacaoAutorizada"]').click(function(){
-    fadeComponent('doacaoAutorizada', 'divDoacaoAutorizada', 'divDoacaoNaoAutorizada');
+    fadeComponent('doacaoAutorizada', '', 'divDoacaoNaoAutorizada');
 });
 
 $("#notifEntrevista").validate({
@@ -101,12 +97,6 @@ $("#notifEntrevista").validate({
             required: true
         },
         'entrevista.responsavel.endereco.bairro': {
-            required: true
-        },
-        'entrevista.responsavel.endereco.logradouro': {
-            required: true
-        },
-        'entrevista.responsavel.endereco.numero': {
             required: true
         },
         //Dados 1° testemunha
@@ -179,12 +169,6 @@ $("#notifEntrevista").validate({
         },
         'entrevista.responsavel.endereco.bairro': {
             required: "Por favor, selecione o bairro do responsavel"
-        },
-        'entrevista.responsavel.endereco.logradouro': {
-            required: "Por favor, insira o logradouro do responsavel"
-        },
-        'entrevista.responsavel.endereco.numero': {
-            required: "Por favor, insira o numero do responsavel"
         },
         //Dados 1° testemunha
         'entrevista.testemunha1.nome': {

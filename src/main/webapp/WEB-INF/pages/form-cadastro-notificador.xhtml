@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/adm-form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:form="http://www.springframework.org/tags/form">
+
+<!-- Título da página -->
+<ui:define name="#{sects.title}">
+    #{msg['funcionario.cadastro.notificador']}
+</ui:define>
+
+<!-- Conteúdo da página -->
+<ui:define name="#{sects.content}">
+    <div id="pad-wrapper">
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="fuelux-wizard" class="wizard row-fluid">
+
+                    <h2>#{msg[titulo]}</h2>
+                    <br/>
+
+                    <div class="step-content">
+                        <form id="form-cadastro-notificador"
+                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_notificador}"
+                              method="post">
+
+                            <h:inputHidden id="id" value="#{notificador.id}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.nome']}"/>
+                            <h:inputText id="nome" value="#{notificador.nome}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.senha']}"/>
+                            <h:inputText id="senha" value="#{notificador.senha}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.cpf']}"/>
+                            <h:inputText id="cpf" value="#{notificador.cpf}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
+                            <h:inputText id="documentoSocial" value="#{notificador.documentoSocial}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.email']}"/>
+                            <h:inputText id="email" value="#{notificador.email}"/>
+
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.notificador.dropDown.uf']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="endereco-estado-id"
+                                                     value="#{notificador.endereco.estado.id}"
+                                                     onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
+                                        <f:selectItems value="#{listaEstadoItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="endereco-cidade-id"
+                                                     value="#{notificador.endereco.cidade.id}"
+                                                     onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+                                        <f:selectItems value="#{listaCidadeItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="endereco-bairro-id"
+                                                     value="#{notificador.endereco.bairro.id}">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+                                        <f:selectItems value="#{listaBairroItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                            <h:inputText id="endereco-logradrouro" value="#{notificador.endereco.logradouro}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                            <h:inputText id="endereco-numero" value="#{notificador.endereco.numero}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                            <h:inputText id="endereco-complemento" value="#{notificador.endereco.complemento}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                            <h:inputText id="endereco-cep" value="#{notificador.endereco.cep}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
+                            <h:inputText id="telefone-numero" value="#{notificador.telefone.numero}"/>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.instituicao']}"/>
+
+                                <div class="span5">
+                                    <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
+                                        <option>
+                                            <ui:repeat value="#{listaHospitais}" var="hospital" >
+                                                   <option value="#{hospital.id}">#{hospital.nome}</option>
+                                            </ui:repeat>
+                                        </option>
+                                    </select>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+
+                            <br></br><br></br>
+                            <button type="submit" class="btn-glow success btn-finish">
+                                #{msg['funcionario.salvar']}
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(".select2").select2({
+            placeholder: "Escolha as Instituições"
+        });
+    </script>
+</ui:define>
+
+</ui:composition>

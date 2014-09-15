@@ -43,24 +43,32 @@ public class IndexController {
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
         List<ProcessoNotificacao> processosObitoAguardandoCorrecao = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOOBITO);
+        List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOENTREVISTA);
         List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
         List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO);
         List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOCAPTACACAO);
+        List<ProcessoNotificacao> processosAguardandoArquivamento = aplProcessoNotificacao
+                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOARQUIVAMENTO);
 
         // Adiciona as três listas de notificações à página.
         model.addAttribute("processosObitoAnalisePendente",
                 processosObitoAnalisePendente);
         model.addAttribute("processosObitoAguardandoCorrecao",
                 processosObitoAguardandoCorrecao);
+        model.addAttribute("processosEntrevistaAguardandoCorrecao",
+                processosEntrevistaAguardandoCorrecao);
         model.addAttribute("processosEntrevistaAnalisePendente",
                 processosEntrevistaAnalisePendente);
         model.addAttribute("processosCaptacoesAnalisePendente",
                 processosCaptacoesAnalisePendente);
         model.addAttribute("processosCaptacoesAguardandoCorrecao",
                 processosCaptacoesAguardandoCorrecao);
+        model.addAttribute("processosAguardandoArquivamento",
+                processosAguardandoArquivamento);
 
         // Chama a página.
         return "index";

@@ -84,36 +84,38 @@
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}*"/>
-        <select style="width:250px" id="obito-paciente-endereco-estado" 
-                name="obito-paciente-endereco-estado"
-                ui-select2="ui-select2"
-                ng-model="select2"
-                data-placeholder="#{msg['obito.paciente.dropDown.uf.escolha']}"
-                ui-event="{change : 'getMunicipios($event)'}">
-            <option></option>
-            <option ng-repeat="estado in estados" 
-                    ng-selected="{{estado.id}} == #{processo.obito.paciente.endereco.estado}" 
-                    value="{{estado.id}}">{{estado.nome}}</option>
-        </select>
+        <div class="ui-select span5">
+            <select id="obito-paciente-endereco-estado"
+                    name="obito-paciente-endereco-estado"
+                    ui-event="{change : 'getMunicipios($event)'}">
+                <option>#{msg['obito.paciente.dropDown.uf.escolha']}</option>
+                <option ng-repeat="estado in estados"
+                        value="{{estado.id}}">{{estado.nome}}</option>
+            </select>
+        </div>
     </div>
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}*"/>
-        <select style="width:250px" class="select2" id="obito-paciente-endereco-cidade"
-                name="obito-paciente-endereco-cidade"
-                ui-event="{change : 'getBairros($event)'}">
-            <option></option>
-            <option ng-repeat="municipio in municipios" value="{{municipio.id}}">{{municipio.dado}}</option>
-        </select>
+        <div class="ui-select span5">
+            <select id="obito-paciente-endereco-cidade"
+                    name="obito-paciente-endereco-cidade"
+                    ui-event="{change : 'getBairros($event)'}">
+                <option>#{msg['obito.paciente.dropDown.cidade']}</option>
+                <option ng-repeat="municipio in municipios" value="{{municipio.id}}">{{municipio.dado}}</option>
+            </select>
+        </div>
     </div>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}*"/>
-        <select style="width:250px" class="select2" id="obito-paciente-endereco-bairro"
-                name="obito-paciente-endereco-bairro">
-            <option></option>
-            <option ng-repeat="bairro in bairros" value="{{bairro.id}}">{{bairro.dado}}</option>
-        </select>
+        <div class="ui-select span5">
+            <select id="obito-paciente-endereco-bairro"
+                    name="obito-paciente-endereco-bairro">
+                <option>#{msg['obito.paciente.dropDown.bairro']}</option>
+                <option ng-repeat="bairro in bairros" value="{{bairro.id}}">{{bairro.dado}}</option>
+            </select>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">

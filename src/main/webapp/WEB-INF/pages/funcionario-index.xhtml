@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/adm.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['index.title']}
+    </ui:define>
+    <!-- Fim do Título -->
+
+    <ui:param name="funcionario-index" value="true"/>
+
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+
+        <!-- Cadastro de Analista -->
+        <!-- Bloco de filtros -->
+        <div class="row filter-block">
+            <div class="pull-right">
+                <!-- Botão de nova causa -->
+                <a class="btn-flat pull-right success new-product add-user"
+                   href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_analista}">
+                    #{msg['causa-nao-doacao.nova-causa']}
+                </a>
+            </div>
+        </div>
+        <br/><h2>Cadastro de AnalistaCNCDO</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-funcionario-analista.xhtml">
+            <ui:param name="analista" value="#{analistas}" />
+        </ui:include>
+
+        <!-- Cadastro de Captador -->
+        <!-- Bloco de filtros -->
+        <div class="row filter-block">
+            <div class="pull-right">
+                <!-- Botão de nova causa -->
+                <a class="btn-flat pull-right success new-product add-user"
+                   href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_notificador}">
+                    #{msg['causa-nao-doacao.nova-causa']}
+                </a>
+            </div>
+        </div>
+        <br/><h2>Cadastro de Notificador</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-funcionario-notificador.xhtml">
+            <ui:param name="captador" value="#{captadores}" />
+        </ui:include>
+
+        <!-- Cadastro de Notificador -->
+        <!-- Bloco de filtros -->
+        <div class="row filter-block">
+            <div class="pull-right">
+                <!-- Botão de nova causa -->
+                <a class="btn-flat pull-right success new-product add-user"
+                   href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_captador}">
+                    #{msg['causa-nao-doacao.nova-causa']}
+                </a>
+            </div>
+        </div>
+        <br/><h2>Cadastro de Captador</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-funcionario-captador.xhtml">
+            <ui:param name="notificador" value="#{notificadores}" />
+        </ui:include>
+
+
+    </ui:define>
+    <!-- Fim do conteúdo -->
+
+</ui:composition>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,32 +42,32 @@ public class NotificacaoObitoController {
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
-    private UsuarioSessao usuarioSessao;
-    @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormNovaNotificacao(ModelMap model) {
+    public String loadFormNovaNotificacao(ModelMap model, HttpSession session) {
         ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         utility.preencherEstados(model, aplEndereco);
-        preencherSetorCausaNDoacao(model);
+        preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("processo", processo);
 
         return "form-notificacao-obito";
     }
 
     @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
-    public String editarNotificacaoObito(ModelMap model,
+    public String editarNotificacaoObito(ModelMap model, HttpSession session,
             @PathVariable Long idProcesso) {
 
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
 
         utility.preencherEndereco(processo.getObito().getPaciente()
                 .getEndereco(), model, aplEndereco);
-        preencherSetorCausaNDoacao(model);
+        preencherSetorCausaNDoacao(model, usuarioSessao);
 
         model.addAttribute("processo", processo);
         model.addAttribute(
@@ -86,7 +87,7 @@ public class NotificacaoObitoController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarFormNovaNotificacao(ModelMap model,
+    public String salvarFormNovaNotificacao(ModelMap model, HttpSession session,
             @ModelAttribute ProcessoNotificacaoDTO processo,
             @RequestParam("dataNascimento") String dataNascimento,
             @RequestParam("dataInternacao") String dataInternacao,
@@ -94,6 +95,7 @@ public class NotificacaoObitoController {
             @RequestParam("horarioObito") String horarioObito) {
 
         try {
+            UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
             processo.getObito().setDataObito(
@@ -108,15 +110,15 @@ public class NotificacaoObitoController {
                             utilityEntities.stringToCalendar(dataInternacao));
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ParseException | ViolacaoDeRIException e) {
-            loadFormNovaNotificacao(model);
+            loadFormNovaNotificacao(model, session);
         }
 
         return "redirect:" + ContextUrls.INDEX;
     }
 
-    private void preencherSetorCausaNDoacao(ModelMap model) {
+    private void preencherSetorCausaNDoacao(ModelMap model, UsuarioSessao usuarioSessao) {
 
-        model.addAttribute("listaSetor", getListaSetoresSelectItem());
+        model.addAttribute("listaSetor", getListaSetoresSelectItem(usuarioSessao));
         model.addAttribute("listaCausaNaoDoacao",
                 getListaCausaNDoacaoSelectItem());
     }
@@ -152,8 +154,9 @@ public class NotificacaoObitoController {
     }
 
     @RequestMapping(value = ContextUrls.GET_SETORES, method = RequestMethod.GET)
-    public ResponseEntity<List<Map<String, String>>> getSetores() {
+    public ResponseEntity<List<Map<String, String>>> getSetores(HttpSession session) {
         List<Map<String, String>> setores = new ArrayList<>();
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         for (SetorDTO s : aplCadastroInterno
                      .obterSetorPorHospital(usuarioSessao.getIdHospital())) {
@@ -168,7 +171,7 @@ public class NotificacaoObitoController {
         return new ResponseEntity<List<Map<String, String>>>(setores, HttpStatus.OK);
     }
 
-    private List<SelectItem> getListaSetoresSelectItem() {
+    private List<SelectItem> getListaSetoresSelectItem(UsuarioSessao usuarioSessao) {
         List<SetorDTO> listaSetor = aplCadastroInterno
                 .obterSetorPorHospital(usuarioSessao.getIdHospital());
 
@@ -204,13 +207,14 @@ public class NotificacaoObitoController {
     /**
      * Confirma a análise.
      *
-     * @param model
+     * @param session
      * @param idProcesso
      *            ID do ProcessoNotificacao
      * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
-    public String confirmarAnaliseObito(ModelMap model, @RequestParam("id") long idProcesso) {
+    public String confirmarAnaliseObito(HttpSession session, @RequestParam("id") long idProcesso) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
@@ -224,14 +228,15 @@ public class NotificacaoObitoController {
     /**
      * Recusa a análise.
      *
-     * @param model
+     * @param session
      * @param idProcesso
      *            ID do ProcessoNotificacao
      * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
-    public String recusarAnaliseObito(ModelMap model, @RequestParam
+    public String recusarAnaliseObito(HttpSession session, @RequestParam
             ("id")Long idProcesso) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
@@ -245,13 +250,14 @@ public class NotificacaoObitoController {
     /**
      * Arquiva a notificação na fase de análise.
      *                                                                                                                                                                                                                                                                                                                                              
-     * @param model
+     * @param session
      * @param idProcesso
      *            ID do ProcessoNotificacao
      * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarAnaliseObito(ModelMap model, @RequestParam ("id")Long idProcesso) {
+    public String arquivarAnaliseObito(HttpSession session, @RequestParam ("id")Long idProcesso) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);

@@ -1,0 +1,47 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <!-- main container -->
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">   
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+                <h:dataTable id="notificador-table" value="#{notificadores}" var="notificador"
+                             rows="#{quantidade}" styleClass="table table-hover table-striped">
+                    <h:column>
+                        <f:facet name="header" >
+                            <h:outputText value="Nome" />
+                        </f:facet>
+                        #{notificador.nome}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CPF" />
+                        </f:facet>
+                        #{notificador.cpf}
+                    </h:column>
+                    <!-- Botões -->
+                    <h:column>
+                        <form style="width:0.5px;" id="formulario-cadastro-notificador-#{notificador.id}"
+                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_notificador}/#{notificador.id}"
+                              method="get">
+                            <button type="submit"><i class="icon-edit"></i></button>
+                        </form>
+                    </h:column>
+
+                    <h:column>
+                        <form style="width:0.5px;" id="formulario-cadastro-notificador-#{notificador.id}"
+                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_notificador}/#{notificador.id}"
+                              method="post">
+                            <button type="submit"><i class="icon-trash"></i></button>
+                        </form>
+                    </h:column>
+                    
+                </h:dataTable>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+</ui:composition>

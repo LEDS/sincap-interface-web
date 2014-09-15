@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/adm-form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<!-- Título da página -->
+<ui:define name="#{sects.title}">
+    #{msg['funcionario.cadastro.captador']}
+</ui:define>
+
+<!-- Conteúdo da página -->
+<ui:define name="#{sects.content}">
+    <div id="pad-wrapper">
+        <div class="row-fluid">
+            <div class="span12">
+                <div id="fuelux-wizard" class="wizard row-fluid">
+
+                    <h2>#{msg[titulo]}</h2>
+                    <br/>
+
+                    <div class="step-content">
+                        <form id="form-cadastro-captador"
+                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_captador}"
+                              method="post">
+
+                            <h:inputHidden id="id" value="#{captador.id}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.nome']}"/>
+                            <h:inputText id="nome" value="#{captador.nome}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.senha']}"/>
+                            <h:inputText id="senha" value="#{captador.senha}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.cpf']}"/>
+                            <h:inputText id="cpf" value="#{captador.cpf}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
+                            <h:inputText id="documentoSocial" value="#{captador.documentoSocial}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.email']}"/>
+                            <h:inputText id="email" value="#{captador.email}"/>
+
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.uf']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="endereco-estado-id"
+                                                     value="#{captador.endereco.estado.id}"
+                                                     onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.captador.dropDown.uf']}"/>
+                                        <f:selectItems value="#{listaEstadoItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.cidade']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="endereco-cidade-id"
+                                                     value="#{captador.endereco.cidade.id}"
+                                                     onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.captador.dropDown.cidade']}"/>
+                                        <f:selectItems value="#{listaCidadeItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.bairro']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="endereco-bairro-id"
+                                                     value="#{captador.endereco.bairro.id}">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.captador.dropDown.bairro']}"/>
+                                        <f:selectItems value="#{listaBairroItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                            <h:inputText id="endereco-logradrouro" value="#{captador.endereco.logradouro}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                            <h:inputText id="endereco-numero" value="#{captador.endereco.numero}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                            <h:inputText id="endereco-complemento" value="#{captador.endereco.complemento}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                            <h:inputText id="endereco-cep" value="#{captador.endereco.cep}"/>
+
+                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
+                            <h:inputText id="telefone-numero" value="#{captador.telefone.numero}"/>
+
+                            <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.bancoolhos']}"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="captador-bancoOlhos"
+                                                     value="#{captador.bancoOlhos.id}">
+                                        <f:selectItem itemValue=""
+                                                      itemLabel="#{msg['funcionario.captador.dropDown.bancoolhos']}"/>
+                                        <f:selectItems value="#{listaBancoOlhosItem}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
+                            <br></br><br></br>
+                            <button type="submit" class="btn-glow success btn-finish">
+                                #{msg['funcionario.salvar']}
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ui:define>
+
+<!-- scripts -->
+
+</ui:composition>
