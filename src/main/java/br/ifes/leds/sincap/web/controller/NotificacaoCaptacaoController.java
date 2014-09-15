@@ -8,7 +8,6 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
-import com.sun.xml.internal.ws.resources.ModelerMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -107,12 +106,12 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = ContextUrls.CORRIGIR + "/{idProcesso}", method = RequestMethod.GET)
-    public String corrigirCaptacao(ModelMap model, @PathVariable Long idProcesso){
+    public String corrigirCaptacao(ModelMap model, @PathVariable Long idProcesso) {
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
 
         model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(TipoNaoDoacao.PROBLEMAS_LOGISTICOS));
-        model.addAttribute("processo",processo);
-        model.addAttribute("captacao",true);
+        model.addAttribute("processo", processo);
+        model.addAttribute("captacao", true);
 
         return "form-correcao-notificacao-captacao";
     }
