@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:param name="captacao" value="true"/>
+
+<!-- Título da página -->
+<ui:define name="#{sects.title}">
+    #{msg['captacao.title']}
+</ui:define>
+
+<ui:define name="#{sects.formHeader}">
+    #{msg['notificacao.msg.etapa.captacao']}
+</ui:define>
+
+<ui:define name="#{sects.formContent}">
+    <form id="processoCaptacao" class="span8"
+          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
+          method="post">
+        <br/>
+        <div class="form-wrapper inline-input">
+            <div class="form-horizontal">
+                <ui:include src="form-correcao-notificacao-captacao-aba-captacao.xhtml"/>
+            </div>
+        </div>
+
+        <!-- Para manter os objetos quando buscar do banco de dados. -->
+        <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+
+        <button type="submit"
+                class="btn-glow success btn-finish">
+            #{msg['obito.button.finalizar']}</button>
+    </form>
+
+    <h:outputScript library="js" name="form-notificacao-captacao.js"/>
+</ui:define>
+
+</ui:composition>

@@ -35,7 +35,6 @@ public class ContextUrls {
     public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
-    public static final String APP_ANALISAR = "/analisar";
     public static final String APP_ENDERECO = "/endereco";
     public static final String APP_CAUSA_NAO_DOACAO = "/causa-nao-doacao";
     public static final String APP_FUNCIONARIO = "/funcionario";
@@ -44,10 +43,12 @@ public class ContextUrls {
      */
     public static final String VISUALIZAR = "/visualizar";
     public static final String EDITAR = "/editar";
+    public static final String APP_ANALISAR = "/analisar";
     public static final String APAGAR = "/apagar";
     public static final String ADICIONAR = "/adicionar";
     public static final String SALVAR = "/salvar";
     public static final String CONFIRMAR = "/confirmar";
+    public static final String CORRIGIR = "/corrigir";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
     public static final String GET_MUNICIPIOS = "/getMunicipios";
@@ -77,7 +78,6 @@ public class ContextUrls {
     String app_notificacao_captacao = APP_NOTIFICACAO_CAPTACAO;
     String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
     String app_notificacao_entrevista = APP_NOTIFICACAO_ENTREVISTA;
-    String app_analisar = APP_ANALISAR;
     String app_endereco = APP_ENDERECO;
     String app_causa_nao_doacao = APP_CAUSA_NAO_DOACAO;
     String app_funcionario = APP_FUNCIONARIO;
@@ -86,10 +86,12 @@ public class ContextUrls {
      */
     String visualizar = VISUALIZAR;
     String editar = EDITAR;
+    String app_analisar = APP_ANALISAR;
     String apagar = APAGAR;
     String adicionar = ADICIONAR;
     String salvar = SALVAR;
     String confirmar = CONFIRMAR;
+    String corrigir = CORRIGIR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
     String get_municipios = GET_MUNICIPIOS;

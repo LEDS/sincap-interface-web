@@ -29,10 +29,20 @@
                 <!-- Para manter os objetos quando buscar do banco de dados. -->
                 <input type="hidden" id="id" name="id" value="#{processo.id}"/>
                 <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
+                <input type="hidden" id="entrevista-id" name="entrevista.id" value="#{processo.entrevista.id}"/>
+                <input type="hidden" id="causaNaoDoacao" name="causaNaoDoacao" value="#{processo.causaNaoDoacao}"/>
+                <input type="hidden" id="entrevista-responsavel-id" name="entrevista.responsavel.id" value="#{processo.entrevista.responsavel.id}"/>
+                <input type="hidden" id="entrevista-responsavel-telefone-id" name="entrevista.responsavel.telefone.id" value="#{processo.entrevista.responsavel.telefone.id}"/>
+                <input type="hidden" id="entrevista-responsavel-telefone2-id" name="entrevista.responsavel.telefone2.id" value="#{processo.entrevista.responsavel.telefone2.id}"/>
+                <input type="hidden" id="entrevista-responsavel-endereco-id" name="entrevista.responsavel.endereco.id" value="#{processo.entrevista.responsavel.endereco.id}"/>
+                <input type="hidden" id="entrevista-testemunha1-id" name="entrevista.testemunha1.id" value="#{processo.entrevista.testemunha1.id}"/>
+                <input type="hidden" id="entrevista-testemunha1-telefone-id" name="entrevista.testemunha1.telefone.id" value="#{processo.entrevista.testemunha1.telefone.id}"/>
+                <input type="hidden" id="entrevista-testemunha2-id" name="entrevista.testemunha2.id" value="#{processo.entrevista.testemunha2.id}"/>
+                <input type="hidden" id="entrevista-testemunha2-telefone-id" name="entrevista.testemunha2.telefone.id" value="#{processo.entrevista.testemunha2.telefone.id}"/>
+
                 <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                 </h:inputHidden>
-
                 <br/>
                 <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
                     #{msg['geral.button.salvar']}

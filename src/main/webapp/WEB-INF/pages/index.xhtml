@@ -42,6 +42,10 @@
         <ui:include src="/WEB-INF/components/lista-processos-analisar-captacao.xhtml">
             <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
         </ui:include>
+        <br/><h2>Captação aguardando correção</h2><br/>
+        <ui:include src="/WEB-INF/components/lista-processos-corrigir-captacao.xhtml">
+            <ui:param name="processos" value="#{processosCaptacoesAguardandoCorrecao}" />
+        </ui:include>
 
         <br/><h2>Notificações Aguardando Arquivamento</h2><br/>
         <!-- Notificações aguardando o arquivamento -->
