@@ -24,16 +24,19 @@
                               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_captador}"
                               method="post">
 
+
                             <h:inputHidden id="id" value="#{captador.id}"/>
 
+                            <h:inputHidden id="ativo" value="TRUE"/>
+
                             <h:outputLabel value="#{msg['funcionario.nome']}"/>
-                            <h:inputText id="nome" value="#{captador.nome}"/>
+                            <h:inputText id="nome"  value="#{captador.nome}"/>
 
                             <h:outputLabel value="#{msg['funcionario.senha']}"/>
                             <h:inputText id="senha" value="#{captador.senha}"/>
 
                             <h:outputLabel value="#{msg['funcionario.cpf']}"/>
-                            <h:inputText id="cpf" value="#{captador.cpf}"/>
+                            <h:inputText id="cpf"  type="text" value="#{captador.cpf}"/>
 
                             <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
                             <h:inputText id="documentoSocial" value="#{captador.documentoSocial}"/>
@@ -95,17 +98,17 @@
                             <h:inputText id="endereco-complemento" value="#{captador.endereco.complemento}"/>
 
                             <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
-                            <h:inputText id="endereco-cep" value="#{captador.endereco.cep}"/>
+                            <h:inputText id="endereco-cep"  value="#{captador.endereco.cep}"/>
 
                             <h:outputLabel value="#{msg['funcionario.telefone']}"/>
-                            <h:inputText id="telefone-numero" value="#{captador.telefone.numero}"/>
+                            <h:inputText id="telefone-numero" type="text" value="#{captador.telefone.numero}"/>
 
                             <br></br><br></br>
                             <h:panelGroup layout="block" styleClass="field-box">
                                 <h:outputLabel value="#{msg['funcionario.captador.dropDown.bancoolhos']}"/>
 
                                 <div class="ui-select span5">
-                                    <h:selectOneMenu id="captador-bancoOlhos"
+                                    <h:selectOneMenu id="bancoOlhos-id"
                                                      value="#{captador.bancoOlhos.id}">
                                         <f:selectItem itemValue=""
                                                       itemLabel="#{msg['funcionario.captador.dropDown.bancoolhos']}"/>
@@ -125,10 +128,7 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <h:outputScript library="js" name="form-cadastro-captador.js"/>
 </ui:define>
-
-<!-- scripts -->
-
 </ui:composition>

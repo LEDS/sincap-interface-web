@@ -43,7 +43,7 @@
         </div>
         <br/><h2>Cadastro de Notificador</h2><br/>
         <ui:include src="/WEB-INF/components/lista-funcionario-notificador.xhtml">
-            <ui:param name="captador" value="#{captadores}" />
+            <ui:param name="captador" value="#{notificadores}" />
         </ui:include>
 
         <!-- Cadastro de Notificador -->
@@ -59,7 +59,7 @@
         </div>
         <br/><h2>Cadastro de Captador</h2><br/>
         <ui:include src="/WEB-INF/components/lista-funcionario-captador.xhtml">
-            <ui:param name="notificador" value="#{notificadores}" />
+            <ui:param name="notificador" value="#{captadores}" />
         </ui:include>
 
 
