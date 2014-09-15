@@ -1,18 +1,25 @@
 var sincapApp = angular.module('sincapApp', ['ui.event', 'ui.select2']);
 
 sincapApp.controller('ObitoCtrl', function ($scope, $http) {
-    $http.get("http://" + location.host + "/sincap/obito/getSetores").success(function (data) {
-        $scope.setores = data;
-    });
-    $http.get("http://" + location.host + "/sincap/obito/getContraIndicacoesMedicas").success(function (data) {
-        $scope.contraIndicacoes = data;
-    });
+    $scope.getSetores = function () {
+        $http.get("http://" + location.host + "/sincap/obito/getSetores").success(function (data) {
+            $scope.setores = data;
+        });
+    };
+
+    $scope.getContraIndicacoesMedicas = function () {
+        $http.get("http://" + location.host + "/sincap/obito/getContraIndicacoesMedicas").success(function (data) {
+            $scope.contraIndicacoes = data;
+        });
+    };
 });
 
 sincapApp.controller('EnderecoCtrl', function ($scope, $http) {
-    $http.get("http://" + location.host + "/sincap/endereco/getEstados").success(function (data) {
-        $scope.estados = data;
-    });
+    $scope.getEstados = function () {
+        $http.get("http://" + location.host + "/sincap/endereco/getEstados").success(function (data) {
+            $scope.estados = data;
+        });
+    };
 
     $scope.getMunicipios = function (event) {
         $http.get(location.origin + "/sincap/endereco/getMunicipios?estadoId=" + event.target.value).success(function (data) {
@@ -37,20 +44,18 @@ function setRadioButtonFalse(radioButtonName, triggerFunction) {
     triggerFunction();
 }
 
-function fadeComponent(componentToVerify, componentToFadeYes,componentToFadeNo)
-{
-    
-    var val = $('[name="'+componentToVerify+'"]');
-    if ($(val[0]).is(":checked"))
-    {
-        $("#"+componentToFadeYes).fadeIn();
-        $("#"+componentToFadeNo).fadeOut();
-        
-    }else{
-        $("#"+componentToFadeNo).fadeIn();
-        $("#"+componentToFadeYes).fadeOut();
+function fadeComponent(componentToVerify, componentToFadeYes, componentToFadeNo) {
+
+    var val = $('[name="' + componentToVerify + '"]');
+    if ($(val[0]).is(":checked")) {
+        $("#" + componentToFadeYes).fadeIn();
+        $("#" + componentToFadeNo).fadeOut();
+
+    } else {
+        $("#" + componentToFadeNo).fadeIn();
+        $("#" + componentToFadeYes).fadeOut();
     }
-        
+
 }
 
 
@@ -71,15 +76,15 @@ function ajaxHideElement() {
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
-        success: function(response) {
+        success: function (response) {
 
             $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
             var id;
             var valor;
 
             /*'response' eh o retorno da funcao do controller*/
-            $.each(response, function(idx, obj) {
-                $.each(obj, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+            $.each(response, function (idx, obj) {
+                $.each(obj, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
                     if (key == "id")
                         id = value;
                     else
@@ -89,7 +94,7 @@ function ajaxHideElement() {
             });
 
         },
-        error: function(response, status, error) {
+        error: function (response, status, error) {
             var $result = $('#result').html("");
             $result.html('Status' + status + "Error: " + error);
         }
@@ -107,15 +112,15 @@ function ajaxGetHospitais() {
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
-        success: function(response) {
+        success: function (response) {
 
             $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
             var id;
             var valor;
 
             /*'response' eh o retorno da funcao do controller*/
-            $.each(response, function(idx, obj) {
-                $.each(obj, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+            $.each(response, function (idx, obj) {
+                $.each(obj, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
                     if (key == "id")
                         id = value;
                     else
@@ -125,7 +130,7 @@ function ajaxGetHospitais() {
             });
 
         },
-        error: function(response, status, error) {
+        error: function (response, status, error) {
             var $result = $('#result').html("");
             $result.html('Status' + status + "Error: " + error);
         }
@@ -142,15 +147,15 @@ function ajaxGetMunicipios(estado, municipio) {
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
-        success: function(response) {
+        success: function (response) {
 
             $(municipio).find('option').remove().end(); //limpa o combobox 'municipio'
             var id;
             var valor;
 
             /*'response' eh o retorno da funcao do controller*/
-            $.each(response, function(idx, obj) {
-                $.each(obj, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+            $.each(response, function (idx, obj) {
+                $.each(obj, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
                     if (key == "id")
                         id = value;
                     else
@@ -160,7 +165,7 @@ function ajaxGetMunicipios(estado, municipio) {
             });
 
         },
-        error: function(response, status, error) {
+        error: function (response, status, error) {
             var $result = $('#result').html("");
             $result.html('Status' + status + "Error: " + error);
         }
@@ -177,15 +182,15 @@ function ajaxGetBairros(idMunicipio, idBairro) {
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
-        success: function(response) {
+        success: function (response) {
 
             $(idBairro).find('option').remove().end(); //limpa o combobox 'bairro'
             var id;
             var valor;
 
             /*'response' eh o retorno da funcao do controller*/
-            $.each(response, function(idx, obj) {
-                $.each(obj, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+            $.each(response, function (idx, obj) {
+                $.each(obj, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
                     if (key == "id")
                         id = value;
                     else
@@ -195,7 +200,7 @@ function ajaxGetBairros(idMunicipio, idBairro) {
             });
 
         },
-        error: function(response, status, error) {
+        error: function (response, status, error) {
             var $result = $('#result').html("");
             $result.html('Status' + status + "Error: " + error);
         }
@@ -220,23 +225,23 @@ function ajaxGetNovasNotificacoes() {
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
-        success: function(response) {
+        success: function (response) {
             // Variável que conta o número de notificações.
             var quantasNotificacoes = 0;
 
             // Variável que agregará os vários itens do painel.
-            var itens = new Array();
+            var itens = [];
 
             var id;
             var codigo;
             var nomePaciente;
             var tempo;
-            $.each(response, function(idx, notificacao) {
+            $.each(response, function (idx, notificacao) {
                 // Para cada notificação, aumenta 1 no número de notificações.
                 quantasNotificacoes += 1;
 
                 // Pega os campos necessários da notificação.
-                $.each(notificacao, function(key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+                $.each(notificacao, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
                     if (key === "id")
                         id = value;
                     if (key === "codigo")
@@ -249,29 +254,29 @@ function ajaxGetNovasNotificacoes() {
 
                 // Acrescenta um item ao painel, com os dados da notificação.
                 itens[idx] =
-                        "<a href=\"" + aplicacao + "/notificacao/visualizar/" + id + "\" class=\"item\">"
-                        + "<i class=\"icon-download-alt\"></i>" + codigo + " " + nomePaciente
-                        + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
-                        + "</a>";
+                    "<a href=\"" + aplicacao + "/notificacao/visualizar/" + id + "\" class=\"item\">"
+                    + "<i class=\"icon-download-alt\"></i>" + codigo + " " + nomePaciente
+                    + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
+                    + "</a>";
             });
 
             // Atualiza o contador do número de novas notificações e o título do painel.
             $("#contador").html(quantasNotificacoes);
 
             // Anexa o cabeçalho do painel.
-            $("#painelNovasNotificacoes").append(
+            var $painelNovasNotificacoes = $("#painelNovasNotificacoes").append(
                     "<h3>Você tem " + quantasNotificacoes + " novas notificações</h3>");
 
             // Anexa os itens do painel.
-            $("#painelNovasNotificacoes").append(itens);
+            $painelNovasNotificacoes.append(itens);
 
             // Anexa o rodapé a lista.
-            $("#painelNovasNotificacoes").append(
+            $painelNovasNotificacoes.append(
                     "<div class=\"footer\">"
                     + "<a href=\"" + aplicacao + "/index" + "\" class=\"logout\">Ver todas as notificações</a>"
                     + "</div>");
         },
-        error: function(response, status, error) {
+        error: function (response, status, error) {
             //alert("Erro no javascript do painel de novas notificações");
         }
     });
@@ -280,8 +285,8 @@ function ajaxGetNovasNotificacoes() {
 
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
-    $(".control-group > input").addClass("span3 inline-input");
-    $(".control-group > input").wrap("<div class='controls'></div>");
+    var $control_group_input = $(".control-group > input").addClass("span3 inline-input");
+    $control_group_input.wrap("<div class='controls'></div>");
     $(".control-group > table").wrap("<div class='span3' style='padding-left: 1em'></div>");
     $(".control-group > select").wrap("<div class='span3'></div>");
     $("br + label").css("padding-bottom", "1em");
