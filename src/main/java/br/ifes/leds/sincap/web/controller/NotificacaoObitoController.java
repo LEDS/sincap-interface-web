@@ -10,7 +10,6 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDT
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 
 /**
  *
@@ -44,8 +47,6 @@ public class NotificacaoObitoController {
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
-    @Autowired
-    private Mapper mapper;
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
@@ -205,10 +206,11 @@ public class NotificacaoObitoController {
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
-
+        TimeZone timeZone = TimeZone.getDefault();
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("obito", true);
+        model.addAttribute("timeZone", timeZone);
 
         return "analise-processo-notificacao";
     }
