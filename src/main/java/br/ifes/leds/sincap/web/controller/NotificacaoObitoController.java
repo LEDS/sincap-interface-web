@@ -19,16 +19,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
-import javax.persistence.RollbackException;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  *
