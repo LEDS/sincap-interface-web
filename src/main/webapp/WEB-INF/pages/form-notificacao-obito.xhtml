@@ -20,7 +20,9 @@
         <h:panelGroup rendered="#{not sucessoObito and not empty sucessoObito}">
             <div class="alert alert-error">
                 <i class="icon-remove-sign"/>
-                Não foi possível salvar a notificação
+                <ui:repeat value="#{constraintViolations}" var="constraint">
+                    #{constraint.message}<br/>
+                </ui:repeat>
             </div>
         </h:panelGroup>
         <div id="fuelux-wizard" class="wizard row-fluid">

@@ -10,6 +10,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDT
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
+import javax.persistence.RollbackException;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -43,6 +44,8 @@ public class NotificacaoObitoController {
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
+    @Autowired
+    private Mapper mapper;
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
@@ -111,6 +114,12 @@ public class NotificacaoObitoController {
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ParseException | ViolacaoDeRIException e) {
             return "forward:" + ContextUrls.APP_NOTIFICACAO_OBITO + ContextUrls.ADICIONAR + "?sucessoObito=false";
+        } catch (ConstraintViolationException e) {
+            ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
+            e.getConstraintViolations().toArray(constraintViolations);
+            model.addAttribute("constraintViolations", constraintViolations);
+            model.addAttribute("sucessoObito", false);
+            return "form-notificacao-obito";
         }
 
         return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
