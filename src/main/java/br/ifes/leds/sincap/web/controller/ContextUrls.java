@@ -20,6 +20,7 @@ public class ContextUrls {
     public static final String INDEX = "/index";
     public static final String ADMIN = "/admin";
     public static final String RELATORIOS = "/relatorio";
+    public static final String REST = "/rest";
     /**
      * Aplicações (Controllers)
      */
@@ -41,6 +42,9 @@ public class ContextUrls {
     /**
      * Métodos
      */
+    public static final String AUTENTICAR = "/autenticar";
+    public static final String LOGOUT = "/logout";
+    public static final String GET_HOSPITAIS = "/getHospitais";
     public static final String VISUALIZAR = "/visualizar";
     public static final String EDITAR = "/editar";
     public static final String APP_ANALISAR = "/analisar";
