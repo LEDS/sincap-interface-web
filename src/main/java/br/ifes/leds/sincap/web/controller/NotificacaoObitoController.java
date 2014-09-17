@@ -99,11 +99,13 @@ public class NotificacaoObitoController {
         } catch (ConstraintViolationException e) {
             utilityWeb.addConstraintViolations(e, model);
             utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
+            preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
             addAttributesToModel(model, processo, dataNascimento, dataInternacao, dataObito);
             return "form-notificacao-obito";
         } catch (TransactionSystemException e) {
             utilityWeb.addConstraintViolations((ConstraintViolationException) e.getRootCause(), model);
             utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
+            preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
             addAttributesToModel(model, processo, dataNascimento, dataInternacao, dataObito);
             return "form-notificacao-obito";
         } catch (ParseException ignored) {
