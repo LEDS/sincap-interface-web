@@ -1,7 +1,6 @@
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
-import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
@@ -10,7 +9,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDT
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
-import br.ifes.leds.sincap.web.utility.Utility;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +42,15 @@ public class NotificacaoObitoController {
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
-    private Utility utility = Utility.getInstance();
+    @Autowired
+    private UtilityWeb utilityWeb;
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
                                           @RequestParam(value = "sucessoObito", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        utility.preencherEstados(model, aplEndereco);
+        utilityWeb.preencherEstados(model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("sucessoObito", sucessoObito);
 
@@ -66,8 +66,8 @@ public class NotificacaoObitoController {
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
 
-        utility.preencherEndereco(processo.getObito().getPaciente()
-                .getEndereco(), model, aplEndereco);
+        utilityWeb.preencherEndereco(processo.getObito().getPaciente()
+                .getEndereco(), model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
 
         model.addAttribute("processo", processo);

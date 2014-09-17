@@ -12,32 +12,31 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import javax.faces.model.SelectItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Utility {
+@Component
+public class UtilityWeb {
 
-    INSTANCE;
+    @Autowired
+    private AplEndereco aplEndereco;
 
-    public static Utility getInstance() {
-        return INSTANCE;
-    }
-
-    public void preencherEndereco(EnderecoDTO endereco, ModelMap model,
-            AplEndereco aplEndereco) {
-        preencherEstados(model, aplEndereco);
+    public void preencherEndereco(EnderecoDTO endereco, ModelMap model) {
+        preencherEstados(model);
         try {
-            preencherCidades(endereco.getEstado(), model, aplEndereco);
-            preencherBairros(endereco.getCidade(), model, aplEndereco);
-        } catch (NullPointerException e) {
+            preencherCidades(endereco.getEstado(), model);
+            preencherBairros(endereco.getCidade(), model);
+        } catch (NullPointerException ignored) {
         }
 
     }
 
-    public void preencherEstados(ModelMap model, AplEndereco aplEndereco) {
+    public void preencherEstados(ModelMap model) {
 
         List<Estado> listaEstados;
         List<SelectItem> listaEstadoItem = new ArrayList<>();
@@ -53,8 +52,7 @@ public enum Utility {
         model.addAttribute("listaEstadoItem", listaEstadoItem);
     }
 
-    public void preencherCidades(Long idEstado, ModelMap model,
-            AplEndereco aplEndereco) {
+    public void preencherCidades(Long idEstado, ModelMap model) {
         List<Cidade> listaCidades;
         List<SelectItem> listaCidadeItem = new ArrayList<>();
 
@@ -69,8 +67,7 @@ public enum Utility {
         model.addAttribute("listaCidadeItem", listaCidadeItem);
     }
 
-    public void preencherBairros(Long idCidade, ModelMap model,
-            AplEndereco aplEndereco) {
+    public void preencherBairros(Long idCidade, ModelMap model) {
         List<Bairro> listaBairros;
         List<SelectItem> listaBairroItem = new ArrayList<>();
 
