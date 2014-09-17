@@ -43,7 +43,7 @@ public class ContextUrls {
      * Métodos
      */
     public static final String AUTENTICAR = "/autenticar";
-    public static final String LOGOUT = "/logout";
+    public static final String LOGOUT = "logout";
     public static final String GET_HOSPITAIS = "/getHospitais";
     public static final String VISUALIZAR = "/visualizar";
     public static final String EDITAR = "/editar";
@@ -103,4 +103,5 @@ public class ContextUrls {
     String get_estados = GET_ESTADOS;
     String get_setores = GET_SETORES;
     String get_contra_indicacao = GET_CONTRA_INDICACAO;
+    String logout = LOGOUT;
 }
