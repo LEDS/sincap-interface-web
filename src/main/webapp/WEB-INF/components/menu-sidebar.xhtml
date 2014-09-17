@@ -16,12 +16,20 @@
                     <span>#{msg['sidebar.principal']}</span>
                 </a>
             </li>
-            <!--            <li>
-                            <a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}">
-                                <i class="icon-signal"></i>
-                                <span>#{msg['sidebar.relatorios']}</span>
-                            </a>
-                        </li>-->
+            <li class="#{relaotorio ? 'active':''}">
+               <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
+                   <h:panelGroup layout="block" class="arrow"/>
+                   <h:panelGroup layout="block" class="arrow_border"/>
+               </h:panelGroup>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-signal"></i>
+                    <span>#{msg['sidebar.relatorios']}</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul class="submenu">
+                    <li><a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}">Termo de doação</a></li>
+               </ul>
+           </li>
             <li class="#{obito ? 'active':''}">
                 <h:panelGroup layout="block" rendered="#{obito}" class="pointer">
                     <h:panelGroup layout="block" class="arrow"/>
