@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
 import java.util.List;
@@ -37,7 +38,8 @@ public class IndexController {
      * @return
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String index(ModelMap model) {
+    public String index(ModelMap model,
+                        @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito) {
         // Puxa os três tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
@@ -69,6 +71,8 @@ public class IndexController {
                 processosCaptacoesAguardandoCorrecao);
         model.addAttribute("processosAguardandoArquivamento",
                 processosAguardandoArquivamento);
+
+        model.addAttribute("sucessoObito", sucessoObito);
 
         // Chama a página.
         return "index";

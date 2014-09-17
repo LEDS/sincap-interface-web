@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -46,13 +45,13 @@ public class NotificacaoObitoController {
     private Utility utility = Utility.getInstance();
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
-    public String loadFormNovaNotificacao(ModelMap model, HttpSession session) {
-        ProcessoNotificacaoDTO processo = new ProcessoNotificacaoDTO();
+    public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
+                                          @RequestParam(value = "sucessoObito", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         utility.preencherEstados(model, aplEndereco);
         preencherSetorCausaNDoacao(model, usuarioSessao);
-        model.addAttribute("processo", processo);
+        model.addAttribute("sucessoObito", sucessoObito);
 
         return "form-notificacao-obito";
     }
@@ -109,11 +108,16 @@ public class NotificacaoObitoController {
                     .setDataInternacao(
                             utilityEntities.stringToCalendar(dataInternacao));
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
-        } catch (ParseException | ViolacaoDeRIException e) {
-            loadFormNovaNotificacao(model, session);
+        } catch (ConstraintViolationException e) {
+            ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
+            e.getConstraintViolations().toArray(constraintViolations);
+            model.addAttribute("constraintViolations", constraintViolations);
+            model.addAttribute("sucessoObito", false);
+            return "form-notificacao-obito";
+        } catch (ParseException ignored) {
         }
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
     }
 
     private void preencherSetorCausaNDoacao(ModelMap model, UsuarioSessao usuarioSessao) {
@@ -196,10 +200,11 @@ public class NotificacaoObitoController {
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
-
+        TimeZone timeZone = TimeZone.getDefault();
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("obito", true);
+        model.addAttribute("timeZone", timeZone);
 
         return "analise-processo-notificacao";
     }

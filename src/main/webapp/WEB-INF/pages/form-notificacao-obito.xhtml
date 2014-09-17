@@ -17,6 +17,14 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.formContent}">
+        <h:panelGroup rendered="#{not sucessoObito and not empty sucessoObito}">
+            <div class="alert alert-error">
+                <i class="icon-remove-sign"/>
+                <ui:repeat value="#{constraintViolations}" var="constraint">
+                    #{constraint.message}<br/>
+                </ui:repeat>
+            </div>
+        </h:panelGroup>
         <div id="fuelux-wizard" class="wizard row-fluid">
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
@@ -36,7 +44,7 @@
                 <div class="step-pane active" id="step1">
                     <div class="row-fluid form-wrapper">
                         <div class="span8">
-                            <div class="inline-input" ng-controller="EnderecoCtrl">
+                            <div class="inline-input">
                                 <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
                             </div>
                         </div>
@@ -45,20 +53,23 @@
                 <div class="step-pane" id="step2">
                     <div class="row-fluid form-wrapper">
                         <div class="span8">
-                            <div class="inline-input" ng-controller="ObitoCtrl">
+                            <div class="inline-input">
                                 <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
                             </div>
                         </div>
                     </div>
                 </div>
+                <input type="hidden" name="id" value="#{processo.id}" />
+                <input type="hidden" name="obito.id" value="#{processo.obito.id}" />
+                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             </form>
         </div>
         <div class="wizard-actions">
             <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
-                <i class="icon-chevron-left"></i> Anterior
+                <i class="icon-chevron-left"/> Anterior
             </button>
             <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
-                Próximo <i class="icon-chevron-right"></i>
+                Próximo <i class="icon-chevron-right"/>
             </button>
             <button type="button" class="btn-flat success btn-finish">
                 #{msg['obito.button.finalizar']}
