@@ -117,11 +117,6 @@ public class FuncionarioController {
         String titulo = "funcionario.editar.notificador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
-<<<<<<< HEAD
-=======
-        utilityWeb.preencherEndereco(mapper.map(notificador.getEndereco(), EnderecoDTO.class), model);
-        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
->>>>>>> 83d3ee0cd373567db4c819712f0e2164c1b9121a
         model.addAttribute("listaHospitais",listaHospitais);
         model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
         return "form-cadastro-notificador";
