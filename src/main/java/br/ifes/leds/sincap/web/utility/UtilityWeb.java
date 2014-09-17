@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import javax.faces.model.SelectItem;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,13 @@ public class UtilityWeb {
 
     @Autowired
     private AplEndereco aplEndereco;
+
+    public void addConstraintViolations(ConstraintViolationException e, ModelMap model) {
+        ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
+        e.getConstraintViolations().toArray(constraintViolations);
+        model.addAttribute("constraintViolations", constraintViolations);
+        model.addAttribute("erro", true);
+    }
 
     public void preencherEndereco(EnderecoDTO endereco, ModelMap model) {
         preencherEstados(model);
@@ -81,10 +90,10 @@ public class UtilityWeb {
 
         model.addAttribute("listaBairroItem", listaBairroItem);
     }
-    
+
     public List<SelectItem> getParentescoSelectItem() {
         List<SelectItem> parentescos = new ArrayList<>();
-        
+
         for (Parentesco parentesco : Parentesco.values()) {
             parentescos
                     .add(new SelectItem(parentesco, parentesco.name()));
@@ -92,10 +101,10 @@ public class UtilityWeb {
 
         return parentescos;
     }
-    
+
     public List<SelectItem> getEstadoCivilSelectItem() {
         List<SelectItem> estadosCivis = new ArrayList<>();
-        
+
         for (EstadoCivil estadoCivil : EstadoCivil.values()) {
             estadosCivis
                     .add(new SelectItem(estadoCivil, estadoCivil.name()));
@@ -103,10 +112,10 @@ public class UtilityWeb {
 
         return estadosCivis;
     }
-    
+
     public List<SelectItem> getTipoNaoDoacaoSelectItem() {
         List<SelectItem> tiposNaoDoacao = new ArrayList<>();
-        
+
         for (TipoNaoDoacao tipoNaoDoacao : TipoNaoDoacao.values()) {
             tiposNaoDoacao
                     .add(new SelectItem(tipoNaoDoacao, tipoNaoDoacao.name()));
@@ -115,7 +124,7 @@ public class UtilityWeb {
         return tiposNaoDoacao;
     }
 
-    public void getBancoOlhos(ModelMap model,AplBancoOlhos aplBancoOlhos) {
+    public void getBancoOlhos(ModelMap model, AplBancoOlhos aplBancoOlhos) {
 
         List<BancoOlhos> listaBancoOlhos;
         List<SelectItem> listaBancoOlhosItem = new ArrayList<>();
@@ -131,7 +140,8 @@ public class UtilityWeb {
         model.addAttribute("listaBancoOlhosItem", listaBancoOlhosItem);
     }
 
-    public void getInstituicaoNotificadora(ModelMap model,AplInstituicaoNotificadora aplInstituicaoNotificadora) {
+    @SuppressWarnings("unused")
+    public void getInstituicaoNotificadora(ModelMap model, AplInstituicaoNotificadora aplInstituicaoNotificadora) {
 
         List<InstituicaoNotificadora> listaInstituicaoNotificadora;
         List<SelectItem> listaInstituicaoNotificadoraItem = new ArrayList<>();
