@@ -26,6 +26,8 @@
 
                             <h:inputHidden id="id" value="#{analist.id}"/>
 
+                            <h:inputHidden id="ativo" value="TRUE"/>
+
                             <h:outputLabel value="#{msg['funcionario.nome']}"/>
                             <h:inputText id="nome" value="#{analist.nome}"/>
 
@@ -110,8 +112,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+    <h:outputScript library="js" name="form-cadastro-analista.js"/>
 </ui:define>
 
 <!-- scripts -->

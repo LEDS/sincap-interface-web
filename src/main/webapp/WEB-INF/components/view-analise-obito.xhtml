@@ -85,7 +85,7 @@
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.horario']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
-            <f:convertDateTime pattern="HH:mm"/>
+            <f:convertDateTime type="time" timeStyle="medium" timeZone="#{timeZone}"/>
         </h:inputText>
     </div>
 

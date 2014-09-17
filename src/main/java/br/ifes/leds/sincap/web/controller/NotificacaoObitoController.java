@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  *
@@ -111,6 +110,12 @@ public class NotificacaoObitoController {
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ParseException | ViolacaoDeRIException e) {
             return "forward:" + ContextUrls.APP_NOTIFICACAO_OBITO + ContextUrls.ADICIONAR + "?sucessoObito=false";
+        } catch (ConstraintViolationException e) {
+            ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
+            e.getConstraintViolations().toArray(constraintViolations);
+            model.addAttribute("constraintViolations", constraintViolations);
+            model.addAttribute("sucessoObito", false);
+            return "form-notificacao-obito";
         }
 
         return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
@@ -196,10 +201,11 @@ public class NotificacaoObitoController {
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
-
+        TimeZone timeZone = TimeZone.getDefault();
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("obito", true);
+        model.addAttribute("timeZone", timeZone);
 
         return "analise-processo-notificacao";
     }
