@@ -7,7 +7,7 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplCausaNaoDoacao;
-import br.ifes.leds.sincap.web.utility.Utility;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,7 +29,8 @@ import java.util.List;
 public class CausaNaoDoacaoController {
     @Autowired
     private AplCausaNaoDoacao aplCausaNaoDoacao;
-    Utility utilityWeb = Utility.INSTANCE;
+    @Autowired
+    private UtilityWeb utilityWeb;
     
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
