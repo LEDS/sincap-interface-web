@@ -17,7 +17,7 @@
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.horario']}*"/>
         <h:inputText styleClass="hora span8" id="horarioObito" value="#{processo.obito.dataObito.time}">
-            <f:convertDateTime pattern="HH:mm"/>
+            <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
         </h:inputText>
     </h:panelGroup>
 

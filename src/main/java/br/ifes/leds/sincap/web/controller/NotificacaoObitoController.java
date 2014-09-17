@@ -8,6 +8,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,7 @@ public class NotificacaoObitoController {
         return "form-notificacao-obito";
     }
 
+    @DefaultTimeZone
     @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
     public String editarNotificacaoObito(ModelMap model, HttpSession session,
             @PathVariable Long idProcesso) {
@@ -196,15 +198,14 @@ public class NotificacaoObitoController {
      *            ID do ProcessoNotificacao
      * @return
      */
+    @DefaultTimeZone
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
-        TimeZone timeZone = TimeZone.getDefault();
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("obito", true);
-        model.addAttribute("timeZone", timeZone);
 
         return "analise-processo-notificacao";
     }
