@@ -108,14 +108,13 @@ public class NotificacaoObitoController {
                     .setDataInternacao(
                             utilityEntities.stringToCalendar(dataInternacao));
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
-        } catch (ParseException | ViolacaoDeRIException e) {
-            return "forward:" + ContextUrls.APP_NOTIFICACAO_OBITO + ContextUrls.ADICIONAR + "?sucessoObito=false";
         } catch (ConstraintViolationException e) {
             ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
             e.getConstraintViolations().toArray(constraintViolations);
             model.addAttribute("constraintViolations", constraintViolations);
             model.addAttribute("sucessoObito", false);
             return "form-notificacao-obito";
+        } catch (ParseException ignored) {
         }
 
         return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
