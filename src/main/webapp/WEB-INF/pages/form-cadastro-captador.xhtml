@@ -25,6 +25,8 @@
                               method="post">
 
 
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
                             <h:inputHidden id="id" value="#{captador.id}"/>
 
                             <h:inputHidden id="ativo" value="TRUE"/>

@@ -24,6 +24,8 @@
                               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_analista}"
                               method="post">
 
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
                             <h:inputHidden id="id" value="#{analist.id}"/>
 
                             <h:inputHidden id="ativo" value="TRUE"/>
