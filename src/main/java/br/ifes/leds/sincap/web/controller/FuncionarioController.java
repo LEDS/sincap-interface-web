@@ -6,6 +6,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.AnalistaCNCDO;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.NotificadorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.*;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.dozer.Mapper;
@@ -15,8 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by aleao on 25/08/14.
@@ -94,7 +94,7 @@ public class FuncionarioController {
         model.addAttribute("titulo", titulo);
         utilityWeb.preencherEstados(model);
         List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        model.addAttribute("listaHospitais",listaHospitais);
+        model.addAttribute("listaHospitais", listaHospitais);
         return "form-cadastro-notificador";
     }
 
@@ -113,13 +113,24 @@ public class FuncionarioController {
     @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_NOTIFICADOR+"/{idNotificador}" ,method = RequestMethod.GET)
     public String editarNotificador(ModelMap model, @PathVariable Long idNotificador){
         Notificador notificador = aplNotificador.obterNotificador(idNotificador);
+        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         String titulo = "funcionario.editar.notificador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
-        utilityWeb.preencherEndereco(mapper.map(notificador.getEndereco(), EnderecoDTO.class), model);
-        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         model.addAttribute("listaHospitais",listaHospitais);
+        model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
         return "form-cadastro-notificador";
+    }
+
+    private Map<Long, Boolean> getLongBooleanMap(Notificador notificador, List<InstituicaoNotificadora> listaHospitais) {
+        Map<Long, Boolean> listaHospitaisNotificador = new HashMap<>();
+        for (InstituicaoNotificadora instituicao: listaHospitais) {
+            listaHospitaisNotificador.put(instituicao.getId(), Boolean.FALSE);
+        }
+        for (InstituicaoNotificadora instituicao: notificador.getInstituicoesNotificadoras()) {
+            listaHospitaisNotificador.put(instituicao.getId(), Boolean.TRUE);
+        }
+        return listaHospitaisNotificador;
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR +"/{idNotificador}", method = RequestMethod.POST)
