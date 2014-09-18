@@ -91,6 +91,7 @@
 
         <form id="form-analise" hidden="hidden" method="post">
             <input hidden="hidden" id="id" name="id" value="#{processo.id}"/>
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
         </form>
 
         <h:panelGroup rendered="#{obito}">

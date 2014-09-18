@@ -55,6 +55,7 @@ public class ContextUrls {
     public static final String CORRIGIR = "/corrigir";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
+    public static final String IMPRIMIR = "/imprimir";
     public static final String GET_MUNICIPIOS = "/getMunicipios";
     public static final String GET_BAIRROS = "/getBairros";
     public static final String GET_ESTADOS = "/getEstados";
@@ -98,6 +99,7 @@ public class ContextUrls {
     String corrigir = CORRIGIR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
+    String imprimir = IMPRIMIR;
     String get_municipios = GET_MUNICIPIOS;
     String get_bairros = GET_BAIRROS;
     String get_estados = GET_ESTADOS;
