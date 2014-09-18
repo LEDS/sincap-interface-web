@@ -43,7 +43,7 @@ public class SignInController {
     @RequestMapping(value = "autenticar", method = RequestMethod.POST)
     public String autenticar(HttpSession session,
                              @RequestParam("username") String username,
-                             @RequestParam("hospital") Long idHospital) {
+                             @RequestParam(value = "hospital", defaultValue = "") Long idHospital) {
 
         Funcionario func = aplPrincipal.validarLogin(username);
         UsuarioSessao usuarioSessao = new UsuarioSessao();

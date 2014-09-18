@@ -3,6 +3,12 @@
         xmlns:h="http://java.sun.com/jsf/html"
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <!--@elvariable id="index" type="java.lang.Boolean"-->
+    <!--@elvariable id="relatorio" type="java.lang.Boolean"-->
+    <!--@elvariable id="obito" type="java.lang.Boolean"-->
+    <!--@elvariable id="entrevista" type="java.lang.Boolean"-->
+    <!--@elvariable id="captacao" type="java.lang.Boolean"-->
+
     <h:panelGroup layout="block" id="sidebar-nav">
         <ul id="dashboard-menu">
 
@@ -12,68 +18,62 @@
                     <h:panelGroup layout="block" class="arrow_border"/>
                 </h:panelGroup>
                 <a href="#{request.contextPath}#{contextUrls.index}">
-                    <i class="icon-home"></i>
+                    <i class="icon-home"/>
                     <span>#{msg['sidebar.principal']}</span>
                 </a>
             </li>
-            <li class="#{relaotorio ? 'active':''}">
-               <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
-                   <h:panelGroup layout="block" class="arrow"/>
-                   <h:panelGroup layout="block" class="arrow_border"/>
-               </h:panelGroup>
-                <a class="dropdown-toggle" href="#">
-                    <i class="icon-signal"></i>
-                    <span>#{msg['sidebar.relatorios']}</span>
-                    <i class="icon-chevron-down"></i>
-                </a>
-                <ul class="submenu">
-                    <li><a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}">Termo de doação</a></li>
-               </ul>
-           </li>
-            <li class="#{obito ? 'active':''}">
-                <h:panelGroup layout="block" rendered="#{obito}" class="pointer">
-                    <h:panelGroup layout="block" class="arrow"/>
-                    <h:panelGroup layout="block" class="arrow_border"/>
-                </h:panelGroup>
-                <a href="#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.adicionar}">
-                    <i class="icon-edit"></i>
-                    <span>#{msg['sidebar.notificacao.notificar.Obito']}</span>
-                </a>
-            </li>
+            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_CAPTADOR')}">
+                <li class="#{relatorio ? 'active':''}">
+                    <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
+                        <h:panelGroup layout="block" class="arrow"/>
+                        <h:panelGroup layout="block" class="arrow_border"/>
+                    </h:panelGroup>
+                    <a class="dropdown-toggle" href="#">
+                        <i class="icon-signal"/>
+                        <span>#{msg['sidebar.relatorios']}</span>
+                        <i class="icon-chevron-down"/>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}">Termo de doação</a>
+                        </li>
+                    </ul>
+                </li>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
+                <li class="#{obito ? 'active':''}">
+                    <h:panelGroup layout="block" rendered="#{obito}" class="pointer">
+                        <h:panelGroup layout="block" class="arrow"/>
+                        <h:panelGroup layout="block" class="arrow_border"/>
+                    </h:panelGroup>
+                    <a href="#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.adicionar}">
+                        <i class="icon-edit"/>
+                        <span>#{msg['sidebar.notificacao.notificar.Obito']}</span>
+                    </a>
+                </li>
+            </h:panelGroup>
             <li class="#{entrevista ? 'active':''}">
                 <h:panelGroup layout="block" rendered="#{entrevista}" class="pointer">
                     <h:panelGroup layout="block" class="arrow"/>
                     <h:panelGroup layout="block" class="arrow_border"/>
                 </h:panelGroup>
                 <a href="#{request.contextPath}#{contextUrls.app_notificacao_entrevista}">
-                    <i class="icon-group"></i>
+                    <i class="icon-group"/>
                     <span>#{msg['sidebar.entrevista']}</span>
                 </a>
             </li>
-            <li class="#{captacao ? 'active':''}">
-                <h:panelGroup layout="block" rendered="#{captacao}" class="pointer">
-                    <h:panelGroup layout="block" class="arrow"/>
-                    <h:panelGroup layout="block" class="arrow_border"/>
-                </h:panelGroup>
-                <a href="#{request.contextPath}#{contextUrls.app_notificacao_captacao}">
-                    <i class="icon-user-md"></i>
-                    <span>#{msg['sidebar.notificacao.notificar.captacao']}</span>
-                </a>
-            </li>
-            <!--            <li>
-                            <a class="dropdown-toggle" href="#">
-                                <i class="icon-edit"></i>
-                                <span>#{msg['sidebar.notificacao.conlsutar']}</span>
-                                <i class="icon-chevron-down"></i>
-                            </a>
-                            <ul class="submenu">
-                                <li><a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.adicionar}">#{msg['sidebar.notificacao.notificar.Obito']}</a></li>
-                                <li><a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/notificacao/visualizar/arquivadas">#{msg['sidebar.notificacao.exibir']}</a></li>
-                                <li><a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/notificacao/visualizar/todas">#{msg['sidebar.notificacao.exibirtodas']}</a></li>
-                                <li><a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/notificacao/visualizar/busca">#{msg['sidebar.notificacao.buscar']}</a></li>
-                            </ul>
-                        </li>-->
-
+            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_NOTIFICADOR')}">
+                <li class="#{captacao ? 'active':''}">
+                    <h:panelGroup layout="block" rendered="#{captacao}" class="pointer">
+                        <h:panelGroup layout="block" class="arrow"/>
+                        <h:panelGroup layout="block" class="arrow_border"/>
+                    </h:panelGroup>
+                    <a href="#{request.contextPath}#{contextUrls.app_notificacao_captacao}">
+                        <i class="icon-user-md"/>
+                        <span>#{msg['sidebar.notificacao.notificar.captacao']}</span>
+                    </a>
+                </li>
+            </h:panelGroup>
         </ul>
     </h:panelGroup>
 

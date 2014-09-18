@@ -6,25 +6,29 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http auto-config="true">
+    <http auto-config="true" path-type="regex">
         <logout invalidate-session="true" delete-cookies="JSESSIONID"/>
         <form-login
                 default-target-url="/index"
                 login-page="/"
                 username-parameter="username"
                 password-parameter="password"/>
-        <intercept-url pattern="/index*" access="ROLE_USER"/>
-        <intercept-url pattern="/obito/**" access="ROLE_USER"/>
-        <intercept-url pattern="/entrevista/**" access="ROLE_USER"/>
-        <intercept-url pattern="/captacao/**" access="ROLE_USER"/>
-        <intercept-url pattern="/admin/**" access="ROLE_ADMIN"/>
-         <csrf/>
+        <intercept-url pattern="/index*" access="ROLE_ANALISTA, ROLE_CAPTADOR, ROLE_NOTIFICADOR"/>
+        <intercept-url pattern="/obito/*" access="ROLE_ANALISTA, ROLE_NOTIFICADOR"/>
+        <intercept-url pattern="/entrevista/*" access="ROLE_ANALISTA, ROLE_NOTIFICADOR, ROLE_CAPTADOR"/>
+        <intercept-url pattern="/captacao/*" access="ROLE_ANALISTA, ROLE_CAPTADOR"/>
+        <intercept-url pattern="/admin/*" access="ROLE_ANALISTA"/>
+        <intercept-url pattern="^.*analisar.*$" access="ROLE_ANALISTA"/>
+        <csrf/>
     </http>
 
     <authentication-manager>
         <authentication-provider>
             <user-service>
-                <user name="111.111.111-11" password="abc123" authorities="ROLE_USER, ROLE_ADMIN"/>
+                <user name="111.111.111-11" password="abc123" authorities="ROLE_NOTIFICADOR"/>
+                <user name="222.222.222-22" password="abc123" authorities="ROLE_CAPTADOR"/>
+                <user name="333.333.333-33" password="abc123" authorities="ROLE_ANALISTA"/>
+                <user name="555.555.555-55" password="abc123" authorities="ROLE_ANALISTA"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>
