@@ -5,7 +5,6 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
@@ -37,8 +36,6 @@ import java.util.List;
 public class NotificacaoEntrevistaController {
 
     @Autowired
-    private AplEndereco aplEndereco;
-    @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
@@ -65,10 +62,10 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
             model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
-            model.addAttribute("recusaFamiliar", new Long(0));
-            model.addAttribute("problemasEstruturais", new Long(0));
+            model.addAttribute("recusaFamiliar", (long) 0);
+            model.addAttribute("problemasEstruturais", (long) 0);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 
@@ -76,8 +73,7 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarEntrevista(ModelMap model,
-                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
+    public String salvarEntrevista(@ModelAttribute("processo") ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
                                    @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
@@ -104,7 +100,7 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
-        } catch (ViolacaoDeRIException e) {
+        } catch (ViolacaoDeRIException ignored) {
 
         }
 
@@ -170,9 +166,7 @@ public class NotificacaoEntrevistaController {
     /**
      * Fornece a página para análise.
      *
-     * @param model
      * @param idProcesso ID do ProcessoNotificacao
-     * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
@@ -190,7 +184,6 @@ public class NotificacaoEntrevistaController {
      * Confirma a análise.
      *
      * @param idProcesso ID do ProcessoNotificacao
-     * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
     public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session) {

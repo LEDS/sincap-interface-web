@@ -81,6 +81,7 @@ public class NotificacaoObitoController {
         return "form-notificacao-obito";
     }
 
+    @DefaultTimeZone
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarFormNovaNotificacao(ModelMap model, HttpSession session,
                                             @ModelAttribute ProcessoNotificacaoDTO processo,
@@ -97,21 +98,29 @@ public class NotificacaoObitoController {
             processo.getObito().getPaciente().setDataInternacao(utilityEntities.stringToCalendar(dataInternacao));
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } catch (ConstraintViolationException e) {
-            utilityWeb.addConstraintViolations(e, model);
-            utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
-            preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
-            addAttributesToModel(model, processo, dataNascimento, dataInternacao, dataObito);
+            setUpConstraintViolations(model, session, processo, dataNascimento, dataInternacao, dataObito, e);
             return "form-notificacao-obito";
         } catch (TransactionSystemException e) {
-            utilityWeb.addConstraintViolations((ConstraintViolationException) e.getRootCause(), model);
-            utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
-            preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
-            addAttributesToModel(model, processo, dataNascimento, dataInternacao, dataObito);
+            setUpConstraintViolations(model, session, processo, dataNascimento, dataInternacao, dataObito,
+                    (ConstraintViolationException) e.getRootCause());
             return "form-notificacao-obito";
         } catch (ParseException ignored) {
         }
 
         return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
+    }
+
+    private void setUpConstraintViolations(ModelMap model,
+                                           HttpSession session,
+                                           ProcessoNotificacaoDTO processo,
+                                           String dataNascimento,
+                                           String dataInternacao,
+                                           String dataObito,
+                                           ConstraintViolationException e) {
+        utilityWeb.addConstraintViolations(e, model);
+        utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
+        preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
+        addAttributesToModel(model, processo, dataNascimento, dataInternacao, dataObito);
     }
 
     private void addAttributesToModel(ModelMap model, ProcessoNotificacaoDTO processo, String dataNascimento, String dataInternacao, String dataObito) {
