@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>403</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="msapplication-TileColor" content="#5bc0de"/>
+    <meta name="msapplication-TileImage" content="assets/img/metis-tile.png"/>
+    <!-- Bootstrap -->
+    <h:outputStylesheet library="css" name="bootstrap/bootstrap3.min.css"/>
+    <!-- Font Awesome -->
+    <h:outputStylesheet library="css" name="lib/font-awesome4.min.css"/>
+    <!-- Metis core stylesheet -->
+    <h:outputStylesheet library="css" name="lib/403.min.css"/>
+</h:head>
+
+<body class="error">
+<div class="container">
+    <div class="col-lg-8 col-lg-offset-2 text-center">
+        <div class="logo">
+            <h1>403</h1>
+        </div>
+        <p class="lead text-muted">Opa, um erro aconteceu. Proibido!</p>
+
+        <br/>
+
+        <div class="col-lg-6 col-lg-offset-3">
+            <div class="btn-group btn-group-justified">
+                <a href="#" onclick="window.history.back()" class="btn btn-info">Página anterior</a>
+                <a href="#{request.contextPath}#{contextUrls.index}" class="btn btn-warning">Página principal</a>
+            </div>
+        </div>
+    </div>
+    <!-- /.col-lg-8 col-offset-2 -->
+</div>
+</body>
+</html>
