@@ -22,6 +22,9 @@ $("#form-cadastro-notificador").validate({
         },
         'telefone.numero':{
             required: true
+        },
+        'senha':{
+            required:true
         }
     },
     messages: {
@@ -36,6 +39,9 @@ $("#form-cadastro-notificador").validate({
         },
         'telefone.numero': {
             required: "Por favor, insira o telefone"
+        },
+        'senha':{
+            required: "Por favor informe a senha"
         }
     },
     submitHandler: function (form) {

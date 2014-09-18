@@ -21,11 +21,11 @@
         <div class="span8">
             <label class="radio">
                 <input type="radio" name="captacaoRealizada" id="captacaoRealizada:0" value="true"
-                       checked="true"/>
+                       checked="#{captacaoRealizada eq true? 'checked':''}"/>
                 #{msg['captacao.radioButton.corneasCaptadas.sim']}
             </label>
             <label class="radio">
-                <input type="radio" name="captacaoRealizada" id="captacaoRealizada:1" value="false"/>
+                <input type="radio" name="captacaoRealizada" id="captacaoRealizada:1" value="false" checked="#{not captacaoRealizada eq true? 'checked':''}"/>
                 #{msg['captacao.radioButton.corneasCaptadas.nao']}
             </label>
         </div>
