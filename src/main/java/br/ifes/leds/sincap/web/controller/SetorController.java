@@ -9,7 +9,7 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.SetorEmUsoException;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
-import br.ifes.leds.sincap.web.utility.Utility;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,9 +29,10 @@ import java.util.List;
 @RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_SETOR)
 @SessionScoped
 public class SetorController {
-     @Autowired
+    @Autowired
     private AplSetor aplSetor;
-    Utility utilityWeb = Utility.INSTANCE;
+    @Autowired
+    UtilityWeb utilityWeb;
     
     @RequestMapping(method = RequestMethod.GET)
     public String carregarLista(ModelMap model){

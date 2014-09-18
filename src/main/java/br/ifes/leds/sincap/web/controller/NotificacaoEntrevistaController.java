@@ -5,10 +5,8 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
@@ -16,7 +14,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
-import br.ifes.leds.sincap.web.utility.Utility;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,9 +24,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -40,14 +36,13 @@ import java.util.List;
 public class NotificacaoEntrevistaController {
 
     @Autowired
-    private AplEndereco aplEndereco;
-    @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
     @Autowired
     private AplCadastroInterno aplCadastroInterno;
-    private Utility utility = Utility.getInstance();
+    @Autowired
+    private UtilityWeb utilityWeb;
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadListObitoAguardandoEntrevista(ModelMap model) {
@@ -61,16 +56,16 @@ public class NotificacaoEntrevistaController {
         try {
             ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
 
-            utility.preencherEstados(model, aplEndereco);
+            utilityWeb.preencherEstados(model);
             model.addAttribute("processo", processo);
             model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
             model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
-            model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
-            model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
-            model.addAttribute("recusaFamiliar", new Long(0));
-            model.addAttribute("problemasEstruturais", new Long(0));
+            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
+            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
+            model.addAttribute("recusaFamiliar", (long) 0);
+            model.addAttribute("problemasEstruturais", (long) 0);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
 
@@ -78,8 +73,7 @@ public class NotificacaoEntrevistaController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarEntrevista(ModelMap model,
-                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
+    public String salvarEntrevista(@ModelAttribute("processo") ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
                                    @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
@@ -106,7 +100,7 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
-        } catch (ViolacaoDeRIException e) {
+        } catch (ViolacaoDeRIException ignored) {
 
         }
 
@@ -123,13 +117,13 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("dataEntrevista", processo.getEntrevista().getDataEntrevista());
         model.addAttribute("horaEntrevista", processo.getEntrevista().getDataEntrevista());
 
-        utility.preencherEndereco(processo.getObito().getPaciente()
-                .getEndereco(), model, aplEndereco);
+        utilityWeb.preencherEndereco(processo.getObito().getPaciente()
+                .getEndereco(), model);
 
         model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
         model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
-        model.addAttribute("listaParentescos", utility.getParentescoSelectItem());
-        model.addAttribute("listaEstadosCivis", utility.getEstadoCivilSelectItem());
+        model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
+        model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
         model.addAttribute("recusaFamiliar", processo.getCausaNaoDoacao());
         model.addAttribute("problemasEstruturais", processo.getCausaNaoDoacao());
         model.addAttribute("processo", processo);
@@ -172,9 +166,7 @@ public class NotificacaoEntrevistaController {
     /**
      * Fornece a página para análise.
      *
-     * @param model
      * @param idProcesso ID do ProcessoNotificacao
-     * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
@@ -192,7 +184,6 @@ public class NotificacaoEntrevistaController {
      * Confirma a análise.
      *
      * @param idProcesso ID do ProcessoNotificacao
-     * @return
      */
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
     public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session) {

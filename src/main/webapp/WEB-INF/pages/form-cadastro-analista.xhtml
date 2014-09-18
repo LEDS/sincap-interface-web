@@ -24,6 +24,8 @@
                               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_analista}"
                               method="post">
 
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
                             <h:inputHidden id="id" value="#{analist.id}"/>
 
                             <h:inputHidden id="ativo" value="TRUE"/>
@@ -32,7 +34,7 @@
                             <h:inputText id="nome" value="#{analist.nome}"/>
 
                             <h:outputLabel value="#{msg['funcionario.senha']}"/>
-                            <h:inputText id="senha" value="#{analist.senha}"/>
+                            <h:inputSecret id="senha"  value="#{analist.senha}"/>
 
                             <h:outputLabel value="#{msg['funcionario.cpf']}"/>
                             <h:inputText id="cpf" value="#{analist.cpf}"/>

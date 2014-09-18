@@ -58,9 +58,9 @@ public class SignInController {
         return "forward:/j_spring_security_check";
     }
 
-    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.LOGOUT, method = RequestMethod.POST)
     public String logout() {
-        return "redirect:/j_spring_security_logout";
+        return "forward:/j_spring_security_logout";
     }
 
     @RequestMapping(value = "/getHospitais", method = RequestMethod.GET)

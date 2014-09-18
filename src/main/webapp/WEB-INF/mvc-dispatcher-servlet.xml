@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-    <context:component-scan base-package="br.ifes.leds.sincap.web.controller,br.ifes.leds.sincap.web.service,br.ifes.leds.sincap.web.model,br.ifes.leds.sincap.web.utility" />
+    <context:component-scan base-package="br.ifes.leds.sincap.web.*" />
 
     <mvc:annotation-driven />
 	

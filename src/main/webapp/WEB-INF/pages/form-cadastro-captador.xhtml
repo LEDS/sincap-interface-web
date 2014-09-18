@@ -25,6 +25,8 @@
                               method="post">
 
 
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
                             <h:inputHidden id="id" value="#{captador.id}"/>
 
                             <h:inputHidden id="ativo" value="TRUE"/>
@@ -33,7 +35,7 @@
                             <h:inputText id="nome"  value="#{captador.nome}"/>
 
                             <h:outputLabel value="#{msg['funcionario.senha']}"/>
-                            <h:inputText id="senha" value="#{captador.senha}"/>
+                            <h:inputSecret id="senha" value="#{captador.senha}"/>
 
                             <h:outputLabel value="#{msg['funcionario.cpf']}"/>
                             <h:inputText id="cpf"  type="text" value="#{captador.cpf}"/>

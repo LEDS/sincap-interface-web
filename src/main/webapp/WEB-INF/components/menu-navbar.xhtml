@@ -22,24 +22,27 @@
             <ul class="nav pull-right">
                 <!-- Search Bar -->
                 <li class="hidden-phone">
-                    <input class="search" type="text" />
+                    <input class="search" type="text"/>
                 </li>
 
                 <!-- Entrar no administrativo -->
                 <li class="settings hidden-phone">
                     <a href="#{request.contextPath}#{contextUrls.admin}"
                        role="button">
-                        <i class="icon-cog" />
+                        <i class="icon-cog"/>
                     </a>
                 </li>
 
                 <!-- Logout -->
                 <li class="settings hidden-phone">
-                    <a href="#{request.contextPath}/logout" role="button">
-                        <i class="icon-share-alt" />
+                    <a href="#" role="button" onclick="document.getElementById('logout').submit()">
+                        <i class="icon-share-alt"/>
                     </a>
                 </li>
             </ul>
+            <form id="logout" hidden="hidden" method="post" action="#{request.contextPath}/#{contextUrls.logout}">
+                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+            </form>
         </h:panelGroup>
     </h:panelGroup>
 

@@ -6,8 +6,9 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.AnalistaCNCDO;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.NotificadorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.*;
-import br.ifes.leds.sincap.web.utility.Utility;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by aleao on 25/08/14.
@@ -26,7 +26,8 @@ import java.util.Set;
 @SessionScoped
 public class FuncionarioController {
 
-    Utility utility = Utility.INSTANCE;
+    @Autowired
+    private UtilityWeb utilityWeb;
     @Autowired
     private AplAnalistaCNCDO aplAnalistaCNCDO;
     @Autowired
@@ -59,7 +60,7 @@ public class FuncionarioController {
     @RequestMapping(value = ContextUrls.ADICIONAR + ContextUrls.APP_ANALISTA, method = RequestMethod.GET)
     public String cadastrarAnalista(ModelMap model) {
         String titulo = "funcionario.cadastro.analista";
-        utility.preencherEstados(model, aplEndereco);
+        utilityWeb.preencherEstados(model);
         model.addAttribute("titulo", titulo);
         return "form-cadastro-analista";
     }
@@ -75,7 +76,7 @@ public class FuncionarioController {
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
         String titulo = "funcionario.editar.analista";
         model.addAttribute("titulo",titulo);
-        utility.preencherEndereco(mapper.map(analista.getEndereco(), EnderecoDTO.class), model, aplEndereco);
+        utilityWeb.preencherEndereco(mapper.map(analista.getEndereco(), EnderecoDTO.class), model);
         model.addAttribute("analist", analista);
         return "form-cadastro-analista";
     }
@@ -91,9 +92,9 @@ public class FuncionarioController {
     public String cadastrarNotificador(ModelMap model) {
         String titulo = "funcionario.cadastro.notificador";
         model.addAttribute("titulo", titulo);
-        utility.preencherEstados(model, aplEndereco);
+        utilityWeb.preencherEstados(model);
         List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        model.addAttribute("listaHospitais",listaHospitais);
+        model.addAttribute("listaHospitais", listaHospitais);
         return "form-cadastro-notificador";
     }
 
@@ -112,13 +113,24 @@ public class FuncionarioController {
     @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_NOTIFICADOR+"/{idNotificador}" ,method = RequestMethod.GET)
     public String editarNotificador(ModelMap model, @PathVariable Long idNotificador){
         Notificador notificador = aplNotificador.obterNotificador(idNotificador);
+        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         String titulo = "funcionario.editar.notificador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
-        utility.preencherEndereco(mapper.map(notificador.getEndereco(), EnderecoDTO.class), model, aplEndereco);
-        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         model.addAttribute("listaHospitais",listaHospitais);
+        model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
         return "form-cadastro-notificador";
+    }
+
+    private Map<Long, Boolean> getLongBooleanMap(Notificador notificador, List<InstituicaoNotificadora> listaHospitais) {
+        Map<Long, Boolean> listaHospitaisNotificador = new HashMap<>();
+        for (InstituicaoNotificadora instituicao: listaHospitais) {
+            listaHospitaisNotificador.put(instituicao.getId(), Boolean.FALSE);
+        }
+        for (InstituicaoNotificadora instituicao: notificador.getInstituicoesNotificadoras()) {
+            listaHospitaisNotificador.put(instituicao.getId(), Boolean.TRUE);
+        }
+        return listaHospitaisNotificador;
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR +"/{idNotificador}", method = RequestMethod.POST)
@@ -132,8 +144,8 @@ public class FuncionarioController {
     public String cadastrarCaptador(ModelMap model) {
         String titulo = "funcionario.cadastro.captador";
         model.addAttribute("titulo", titulo);
-        utility.preencherEstados(model, aplEndereco);
-        utility.getBancoOlhos(model, aplBancoOlhos);
+        utilityWeb.preencherEstados(model);
+        utilityWeb.getBancoOlhos(model, aplBancoOlhos);
         return "form-cadastro-captador";
     }
 
@@ -149,8 +161,8 @@ public class FuncionarioController {
         String titulo = "funcionario.editar.captador";
         model.addAttribute("titulo",titulo);
         model.addAttribute("captador", captador);
-        utility.preencherEndereco(mapper.map(captador.getEndereco(), EnderecoDTO.class), model, aplEndereco);
-        utility.getBancoOlhos(model, aplBancoOlhos);
+        utilityWeb.preencherEndereco(mapper.map(captador.getEndereco(), EnderecoDTO.class), model);
+        utilityWeb.getBancoOlhos(model, aplBancoOlhos);
         return "form-cadastro-captador";
     }
 

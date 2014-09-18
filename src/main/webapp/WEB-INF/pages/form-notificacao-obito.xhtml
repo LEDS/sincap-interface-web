@@ -2,7 +2,8 @@
 <ui:composition template="/WEB-INF/templates/form.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:sincap="http://java.sun.com/jsf/composite/sincap">
 
     <ui:param name="obito" value="true"/>
 
@@ -17,14 +18,9 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.formContent}">
-        <h:panelGroup rendered="#{not sucessoObito and not empty sucessoObito}">
-            <div class="alert alert-error">
-                <i class="icon-remove-sign"/>
-                <ui:repeat value="#{constraintViolations}" var="constraint">
-                    #{constraint.message}<br/>
-                </ui:repeat>
-            </div>
-        </h:panelGroup>
+
+        <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['obito.erro']}"/>
+
         <div id="fuelux-wizard" class="wizard row-fluid">
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
@@ -61,6 +57,9 @@
                 </div>
                 <input type="hidden" name="id" value="#{processo.id}" />
                 <input type="hidden" name="obito.id" value="#{processo.obito.id}" />
+                <input type="hidden" name="obito.paciente.id" value="#{processo.obito.paciente.id}" />
+                <input type="hidden" name="obito.paciente.endereco.id" value="#{processo.obito.paciente.endereco.id}" />
+                <input type="hidden" name="obito.paciente.telefone.id" value="#{processo.obito.paciente.telefone.id}" />
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             </form>
         </div>

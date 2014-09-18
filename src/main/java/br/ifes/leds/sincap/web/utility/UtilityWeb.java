@@ -12,32 +12,40 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import javax.faces.model.SelectItem;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Utility {
+@Component
+public class UtilityWeb {
 
-    INSTANCE;
+    @Autowired
+    private AplEndereco aplEndereco;
 
-    public static Utility getInstance() {
-        return INSTANCE;
+    public void addConstraintViolations(ConstraintViolationException e, ModelMap model) {
+        ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
+        e.getConstraintViolations().toArray(constraintViolations);
+        model.addAttribute("constraintViolations", constraintViolations);
+        model.addAttribute("erro", true);
     }
 
-    public void preencherEndereco(EnderecoDTO endereco, ModelMap model,
-            AplEndereco aplEndereco) {
-        preencherEstados(model, aplEndereco);
+    public void preencherEndereco(EnderecoDTO endereco, ModelMap model) {
+        preencherEstados(model);
         try {
-            preencherCidades(endereco.getEstado(), model, aplEndereco);
-            preencherBairros(endereco.getCidade(), model, aplEndereco);
-        } catch (NullPointerException e) {
+            preencherCidades(endereco.getEstado(), model);
+            preencherBairros(endereco.getCidade(), model);
+        } catch (NullPointerException ignored) {
         }
 
     }
 
-    public void preencherEstados(ModelMap model, AplEndereco aplEndereco) {
+    public void preencherEstados(ModelMap model) {
 
         List<Estado> listaEstados;
         List<SelectItem> listaEstadoItem = new ArrayList<>();
@@ -53,8 +61,7 @@ public enum Utility {
         model.addAttribute("listaEstadoItem", listaEstadoItem);
     }
 
-    public void preencherCidades(Long idEstado, ModelMap model,
-            AplEndereco aplEndereco) {
+    public void preencherCidades(Long idEstado, ModelMap model) {
         List<Cidade> listaCidades;
         List<SelectItem> listaCidadeItem = new ArrayList<>();
 
@@ -69,8 +76,7 @@ public enum Utility {
         model.addAttribute("listaCidadeItem", listaCidadeItem);
     }
 
-    public void preencherBairros(Long idCidade, ModelMap model,
-            AplEndereco aplEndereco) {
+    public void preencherBairros(Long idCidade, ModelMap model) {
         List<Bairro> listaBairros;
         List<SelectItem> listaBairroItem = new ArrayList<>();
 
@@ -84,10 +90,10 @@ public enum Utility {
 
         model.addAttribute("listaBairroItem", listaBairroItem);
     }
-    
+
     public List<SelectItem> getParentescoSelectItem() {
         List<SelectItem> parentescos = new ArrayList<>();
-        
+
         for (Parentesco parentesco : Parentesco.values()) {
             parentescos
                     .add(new SelectItem(parentesco, parentesco.name()));
@@ -95,10 +101,10 @@ public enum Utility {
 
         return parentescos;
     }
-    
+
     public List<SelectItem> getEstadoCivilSelectItem() {
         List<SelectItem> estadosCivis = new ArrayList<>();
-        
+
         for (EstadoCivil estadoCivil : EstadoCivil.values()) {
             estadosCivis
                     .add(new SelectItem(estadoCivil, estadoCivil.name()));
@@ -106,10 +112,10 @@ public enum Utility {
 
         return estadosCivis;
     }
-    
+
     public List<SelectItem> getTipoNaoDoacaoSelectItem() {
         List<SelectItem> tiposNaoDoacao = new ArrayList<>();
-        
+
         for (TipoNaoDoacao tipoNaoDoacao : TipoNaoDoacao.values()) {
             tiposNaoDoacao
                     .add(new SelectItem(tipoNaoDoacao, tipoNaoDoacao.name()));
@@ -118,7 +124,7 @@ public enum Utility {
         return tiposNaoDoacao;
     }
 
-    public void getBancoOlhos(ModelMap model,AplBancoOlhos aplBancoOlhos) {
+    public void getBancoOlhos(ModelMap model, AplBancoOlhos aplBancoOlhos) {
 
         List<BancoOlhos> listaBancoOlhos;
         List<SelectItem> listaBancoOlhosItem = new ArrayList<>();
@@ -134,7 +140,8 @@ public enum Utility {
         model.addAttribute("listaBancoOlhosItem", listaBancoOlhosItem);
     }
 
-    public void getInstituicaoNotificadora(ModelMap model,AplInstituicaoNotificadora aplInstituicaoNotificadora) {
+    @SuppressWarnings("unused")
+    public void getInstituicaoNotificadora(ModelMap model, AplInstituicaoNotificadora aplInstituicaoNotificadora) {
 
         List<InstituicaoNotificadora> listaInstituicaoNotificadora;
         List<SelectItem> listaInstituicaoNotificadoraItem = new ArrayList<>();
