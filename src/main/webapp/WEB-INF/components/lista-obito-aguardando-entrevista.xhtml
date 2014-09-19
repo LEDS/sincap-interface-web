@@ -61,6 +61,7 @@
                         <form id="formulario-notificar-entrevista-#{notificacao.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.adicionar}" method="post">
                             <input type="hidden" name="id" value="#{notificacao.id}" />
                             <button type="submit"><i class="icon-edit"></i></button>
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
                         </form>
                     </h:column>
                 </h:dataTable>

@@ -13,16 +13,19 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import javax.validation.ConstraintViolationException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +75,7 @@ public class NotificacaoEntrevistaController {
         return "form-entrevista";
     }
 
+    @DefaultTimeZone
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
     public String salvarEntrevista(@ModelAttribute("processo") ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
@@ -80,7 +84,7 @@ public class NotificacaoEntrevistaController {
                                    @RequestParam("horaEntrevista") String horaEntrevista,
                                    @RequestParam("recusaFamiliar") Long recusaFamiliar,
                                    @RequestParam("problemasEstruturais") Long problemasEstruturais,
-                                   HttpSession session) throws ParseException {
+                                   HttpSession session)  {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         try {
@@ -100,11 +104,27 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
-        } catch (ViolacaoDeRIException ignored) {
-
+        }  catch (ConstraintViolationException e) {
+                setUpConstraintViolations(processo, doacaoAutorizada, entrevistaRealizada, dataEntrevista, e);
+                return "form-entrevista-nao-realizada";
+        } catch (TransactionSystemException e) {
+                setUpConstraintViolations(processo, doacaoAutorizada, entrevistaRealizada, dataEntrevista,
+                        (ConstraintViolationException) e.getRootCause());
+                return "form-entrevista-nao-realizada";
+        } catch (ParseException ignored) {
         }
 
         return "redirect:" + ContextUrls.INDEX;
+    }
+
+    private void setUpConstraintViolations(ProcessoNotificacaoDTO processo,
+                                           Boolean doacaoAutorizada,
+                                           Boolean entrevistaRealizada,
+                                           String dataEntrevista,
+                                           ConstraintViolationException e) {
+//        utilityWeb.addConstraintViolations(e, model);
+//        utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
+//        preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
     }
 
     @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
