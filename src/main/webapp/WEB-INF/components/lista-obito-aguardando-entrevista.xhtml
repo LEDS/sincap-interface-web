@@ -62,6 +62,7 @@
                             <input type="hidden" name="id" value="#{notificacao.id}" />
                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                             <button type="submit"><i class="icon-edit"></i></button>
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
                         </form>
                     </h:column>
                 </h:dataTable>
