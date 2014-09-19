@@ -39,7 +39,8 @@ public class IndexController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model,
-                        @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito) {
+                        @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito,
+                        @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento) {
         // Puxa os três tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
@@ -73,6 +74,7 @@ public class IndexController {
                 processosAguardandoArquivamento);
 
         model.addAttribute("sucessoObito", sucessoObito);
+        model.addAttribute("sucessoArquivamento", sucessoArquivamento);
 
         // Chama a página.
         return "index";

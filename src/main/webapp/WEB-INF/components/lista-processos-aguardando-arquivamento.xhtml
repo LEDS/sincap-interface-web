@@ -70,14 +70,17 @@
                     <!-- Botão de Analisar -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Analisar" />
+                            <h:outputText value="Arquivar" />
                         </f:facet>
-
-                        <!--<a class="btn-flat default"
-                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.app_analisar}/#{processo.id}">
-                            <i class="icon-file"></i>
-                            Analisar
-                        </a>-->
+                        <form id="form" method="post" hidden="hidden" action="#{request.contextPath}/processo/arquivar">
+                            <input type="text" hidden="hidden" name="id" value="#{processo.id}"/>
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                        </form>
+                        <a class="btn-flat default" onclick="document.getElementById('form').submit()"
+                           href="#">
+                            <i class="icon-file"/>
+                            Arquivar
+                        </a>
                     </h:column>
                 </h:dataTable>
 
