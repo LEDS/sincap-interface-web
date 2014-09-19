@@ -33,6 +33,7 @@ public class ContextUrls {
     public static final String APP_SETOR = "/setor";
     public static final String RLT_DOACAO_HOSPITAL = "/doacaoporhospital";
     public static final String RLT_N_DOACAO_HOSPITAL = "/naodoacaoporhospital";
+    public static final String RLT_TERMO_AUTORIZACAO_DOACAO = "/termoautorizacao";
     public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
@@ -80,6 +81,7 @@ public class ContextUrls {
     String app_setor = APP_SETOR;
     String rlt_doacao_hospital = RLT_DOACAO_HOSPITAL;
     String rlt_n_doacao_hospital = RLT_N_DOACAO_HOSPITAL;
+    String rlt_termo_autorizacao_doacao = RLT_TERMO_AUTORIZACAO_DOACAO;
     String app_notificacao_captacao = APP_NOTIFICACAO_CAPTACAO;
     String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
     String app_notificacao_entrevista = APP_NOTIFICACAO_ENTREVISTA;

@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+
+                <!-- Tabela de Notificações -->
+                <h:dataTable id="listProcessoNotificacao" value="#{processos}" var="processo" rows="#{quantidade}"
+                    styleClass="table table-hover table-striped">
+                    <!-- Protocolo -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cartão SUS" />
+                        </f:facet>
+
+                        <h:outputText value="#{processo.obito.paciente.numeroSUS}" />
+                    </h:column>
+
+                    <!-- Paciente -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Paciente" />
+                        </f:facet>
+
+                        <h:outputText value="#{processo.obito.paciente.nome}" />
+                    </h:column>
+                    <!-- Responsavel -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Responsável" />
+                        </f:facet>
+
+                        <h:outputText value="#{processo.obito.paciente.nomeMae}" />
+                    </h:column>
+
+                    <!-- Botão de Imprimir -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Imprimir" />
+                        </f:facet>
+
+                        <a class="btn-flat default"
+                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}#{contextUrls.imprimir}/#{processo.id}">
+                           <i class="icon-file"></i>
+                           Emitir
+                        </a>
+                    </h:column>
+                </h:dataTable>
+
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+</ui:composition>
