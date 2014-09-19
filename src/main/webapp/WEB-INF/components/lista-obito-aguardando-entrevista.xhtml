@@ -35,7 +35,7 @@
                             <h:outputText value="Hora do Óbito" />
                         </f:facet>
                         <h:outputText value="#{notificacao.obito.dataObito.time}">
-                            <f:convertDateTime pattern="HH:mm" />
+                            <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}" />
                         </h:outputText>
                     </h:column>
                     <h:column>
@@ -51,7 +51,7 @@
                             <h:outputText value="Hora da Notificação" />
                         </f:facet>
                         <h:outputText value="#{notificacao.dataAbertura.time}">
-                            <f:convertDateTime pattern="HH:mm" />
+                            <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
                         </h:outputText>
                     </h:column>
                     <h:column>

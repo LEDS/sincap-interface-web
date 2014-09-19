@@ -52,6 +52,7 @@ public class NotificacaoEntrevistaController {
     private AplEntrevista aplEntrevista;
 
     @RequestMapping(method = RequestMethod.GET)
+    @DefaultTimeZone
     public String loadListObitoAguardandoEntrevista(ModelMap model) {
         List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
         model.addAttribute("listaProcessosNotificacao", processos);
@@ -149,6 +150,7 @@ public class NotificacaoEntrevistaController {
         return "redirect:" + ContextUrls.INDEX;
     }
 
+    @DefaultTimeZone
     @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
     public String editarNotificacaoEntrevista(ModelMap model,
                                          @PathVariable Long idProcesso) {
@@ -210,6 +212,7 @@ public class NotificacaoEntrevistaController {
      *
      * @param idProcesso ID do ProcessoNotificacao
      */
+    @DefaultTimeZone
     @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
         // Pega o processo do banco.

@@ -21,12 +21,12 @@ public class RelatoriosController {
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
 
-    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+"/termodedoacao"+"/{cartaosus}", method = RequestMethod.GET)
-    public String emitirTermoDoacao(ModelMap model, @PathVariable String cartaoSus){
-        ProcessoNotificacao pn = aplProcessoNotificacao.obterPorNumeroSus(cartaoSus);
-
-        model.addAttribute("processoNotificacao", pn);
-        //TODO: Substituir pelo endereco do formulario!
-        return "termodedoacao";
-    }
+//    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+"/termodedoacao"+"/{cartaosus}", method = RequestMethod.GET)
+//    public String emitirTermoDoacao(ModelMap model, @PathVariable String cartaoSus){
+//        ProcessoNotificacao pn = aplProcessoNotificacao.obterPorNumeroSus(cartaoSus);
+//
+//        model.addAttribute("processoNotificacao", pn);
+//        //TODO: Substituir pelo endereco do formulario!
+//        return "termodedoacao";
+//    }
 }
