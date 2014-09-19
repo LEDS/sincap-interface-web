@@ -7,9 +7,9 @@
         <h:panelGroup layout="block" styleClass="navbar-inner">
 
             <h:commandButton type="button" styleClass="btn btn-navbar visible-phone" id="menu-toggler">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
+                <span class="icon-bar"/>
             </h:commandButton>
 
             <!-- Logo do sincap -->
@@ -26,13 +26,14 @@
                 </li>
 
                 <!-- Entrar no administrativo -->
+                <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
                 <li class="settings hidden-phone">
                     <a href="#{request.contextPath}#{contextUrls.admin}"
                        role="button">
                         <i class="icon-cog"/>
                     </a>
                 </li>
-
+                </h:panelGroup>
                 <!-- Logout -->
                 <li class="settings hidden-phone">
                     <a href="#" role="button" onclick="document.getElementById('logout').submit()">
@@ -41,6 +42,7 @@
                 </li>
             </ul>
             <form id="logout" hidden="hidden" method="post" action="#{request.contextPath}/#{contextUrls.logout}">
+                <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
             </form>
         </h:panelGroup>
