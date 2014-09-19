@@ -11,7 +11,9 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.EntrevistaDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplEntrevista;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
@@ -46,6 +48,8 @@ public class NotificacaoEntrevistaController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
+    @Autowired
+    private AplEntrevista aplEntrevista;
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadListObitoAguardandoEntrevista(ModelMap model) {
@@ -77,14 +81,15 @@ public class NotificacaoEntrevistaController {
 
     @DefaultTimeZone
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarEntrevista(@ModelAttribute("processo") ProcessoNotificacaoDTO processo,
+    public String salvarEntrevista(ModelMap model,
+                                   HttpSession session,
+                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
                                    @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
                                    @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
                                    @RequestParam("dataEntrevista") String dataEntrevista,
                                    @RequestParam("horaEntrevista") String horaEntrevista,
                                    @RequestParam("recusaFamiliar") Long recusaFamiliar,
-                                   @RequestParam("problemasEstruturais") Long problemasEstruturais,
-                                   HttpSession session)  {
+                                   @RequestParam("problemasEstruturais") Long problemasEstruturais)  {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         try {
@@ -105,26 +110,43 @@ public class NotificacaoEntrevistaController {
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
 
         }  catch (ConstraintViolationException e) {
-                setUpConstraintViolations(processo, doacaoAutorizada, entrevistaRealizada, dataEntrevista, e);
-                return "form-entrevista-nao-realizada";
+            utilityWeb.addConstraintViolations(e, model);
+            model.addAttribute("processo",processo);
+            model.addAttribute("doacaoAutorizada",doacaoAutorizada);
+            model.addAttribute("entrevistaRealizada",entrevistaRealizada);
+            model.addAttribute("dataEntrevista",dataEntrevista);
+            model.addAttribute("horaEntrevista",horaEntrevista);
+            model.addAttribute("recusaFamiliar",recusaFamiliar);
+            model.addAttribute("problemasEstruturais",problemasEstruturais);
+            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
+            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
+            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
+            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+
+
+
+            return "form-entrevista";
         } catch (TransactionSystemException e) {
-                setUpConstraintViolations(processo, doacaoAutorizada, entrevistaRealizada, dataEntrevista,
-                        (ConstraintViolationException) e.getRootCause());
-                return "form-entrevista-nao-realizada";
+            utilityWeb.addConstraintViolations((ConstraintViolationException) e.getRootCause(), model);
+            model.addAttribute("processo",processo);
+            model.addAttribute("doacaoAutorizada",doacaoAutorizada);
+            model.addAttribute("entrevistaRealizada",entrevistaRealizada);
+            model.addAttribute("dataEntrevista",dataEntrevista);
+            model.addAttribute("horaEntrevista",horaEntrevista);
+            model.addAttribute("recusaFamiliar",recusaFamiliar);
+            model.addAttribute("problemasEstruturais",problemasEstruturais);
+            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
+            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
+            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
+            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+
+            return "form-entrevista";
         } catch (ParseException ignored) {
         }
 
         return "redirect:" + ContextUrls.INDEX;
-    }
-
-    private void setUpConstraintViolations(ProcessoNotificacaoDTO processo,
-                                           Boolean doacaoAutorizada,
-                                           Boolean entrevistaRealizada,
-                                           String dataEntrevista,
-                                           ConstraintViolationException e) {
-//        utilityWeb.addConstraintViolations(e, model);
-//        utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
-//        preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
     }
 
     @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)

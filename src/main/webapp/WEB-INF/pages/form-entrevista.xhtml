@@ -3,7 +3,10 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:sincap="http://java.sun.com/jsf/composite/sincap">
+
+
 
     <ui:param name="entrevista" value="true"/>
 
@@ -22,10 +25,13 @@
         <form id="notifEntrevista" class="form-horizontal"
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+            <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['obito.erro']}"/>
             <div class="step-pane active" id="step1">
                 <div class="tab-content">
-                    <ui:include src="form-entrevista-nao-realizada.xhtml"/>
+                    <ui:include src="form-entrevista-include.xhtml"/>
                 </div>
+
+
 
                 <!-- Para manter os objetos quando buscar do banco de dados. -->
                 <input type="hidden" id="id" name="id" value="#{processo.id}"/>
