@@ -14,40 +14,27 @@
     <!--Fim título da página-->
 
     <ui:define name="#{sects.formHeader}">
-        TERMO DE AUTORIZAÇÃO DE DOAÇÃO DE MÚLTIPLOS ÓRGÃOS/TECIDOS
+       Termo de Autorização de Doação
     </ui:define>
 
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <form id="notifEntrevista" class="form-horizontal"
-              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.imprimir}" method="post">
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}" method="post">
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             <div class="step-pane active" id="step1">
-                <div class="tab-content">
-                    <ui:include src="form-termo-de-autorizacao.html"/>
-                </div>
-
-                <!-- Para manter os objetos quando buscar do banco de dados. -->
-                <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-                <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
-                <input type="hidden" id="entrevista-id" name="entrevista.id" value="#{processo.entrevista.id}"/>
-                <input type="hidden" id="causaNaoDoacao" name="causaNaoDoacao" value="#{processo.causaNaoDoacao}"/>
-                <input type="hidden" id="entrevista-responsavel-id" name="entrevista.responsavel.id" value="#{processo.entrevista.responsavel.id}"/>
-                <input type="hidden" id="entrevista-responsavel-telefone-id" name="entrevista.responsavel.telefone.id" value="#{processo.entrevista.responsavel.telefone.id}"/>
-                <input type="hidden" id="entrevista-responsavel-telefone2-id" name="entrevista.responsavel.telefone2.id" value="#{processo.entrevista.responsavel.telefone2.id}"/>
-                <input type="hidden" id="entrevista-responsavel-endereco-id" name="entrevista.responsavel.endereco.id" value="#{processo.entrevista.responsavel.endereco.id}"/>
-                <input type="hidden" id="entrevista-testemunha1-id" name="entrevista.testemunha1.id" value="#{processo.entrevista.testemunha1.id}"/>
-                <input type="hidden" id="entrevista-testemunha1-telefone-id" name="entrevista.testemunha1.telefone.id" value="#{processo.entrevista.testemunha1.telefone.id}"/>
-                <input type="hidden" id="entrevista-testemunha2-id" name="entrevista.testemunha2.id" value="#{processo.entrevista.testemunha2.id}"/>
-                <input type="hidden" id="entrevista-testemunha2-telefone-id" name="entrevista.testemunha2.telefone.id" value="#{processo.entrevista.testemunha2.telefone.id}"/>
-
-                <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                </h:inputHidden>
-                <br/>
-                <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
-                    #{msg['geral.button.imprimir']}
+                <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+                <input type="text" class="span3" name="nome" />
+                <button type="submit" id="submitFormulario" class="btn-flat success btn-finish">
+                    <i class="icon-search"></i>
+                    Buscar
                 </button>
+
+                <div class="tab-content">
+                    <ui:include src="../components/lista-termo-de-autorizacao.xhtml">
+                        <ui:param name="processos" value="#{listProcessoNotificacao}" />
+                    </ui:include>
+                </div>
             </div>
         </form>
 
