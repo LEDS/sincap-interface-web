@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:param name="entrevista" value="true"/>
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['relatorios.title']}
+    </ui:define>
+    <!--Fim título da página-->
+
+    <ui:define name="#{sects.formHeader}">
+        TERMO DE AUTORIZAÇÃO DE DOAÇÃO DE MÚLTIPLOS ÓRGÃOS/TECIDOS
+    </ui:define>
+
+    <!-- Formulário de entrevista -->
+    <ui:define name="#{sects.formContent}">
+        <form id="notifEntrevista" class="form-horizontal"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.imprimir}" method="post">
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+            <div class="step-pane active" id="step1">
+                <div class="tab-content">
+                    <ui:include src="form-termo-de-autorizacao.html"/>
+                </div>
+
+                <!-- Para manter os objetos quando buscar do banco de dados. -->
+                <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+                <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
+                <input type="hidden" id="entrevista-id" name="entrevista.id" value="#{processo.entrevista.id}"/>
+                <input type="hidden" id="causaNaoDoacao" name="causaNaoDoacao" value="#{processo.causaNaoDoacao}"/>
+                <input type="hidden" id="entrevista-responsavel-id" name="entrevista.responsavel.id" value="#{processo.entrevista.responsavel.id}"/>
+                <input type="hidden" id="entrevista-responsavel-telefone-id" name="entrevista.responsavel.telefone.id" value="#{processo.entrevista.responsavel.telefone.id}"/>
+                <input type="hidden" id="entrevista-responsavel-telefone2-id" name="entrevista.responsavel.telefone2.id" value="#{processo.entrevista.responsavel.telefone2.id}"/>
+                <input type="hidden" id="entrevista-responsavel-endereco-id" name="entrevista.responsavel.endereco.id" value="#{processo.entrevista.responsavel.endereco.id}"/>
+                <input type="hidden" id="entrevista-testemunha1-id" name="entrevista.testemunha1.id" value="#{processo.entrevista.testemunha1.id}"/>
+                <input type="hidden" id="entrevista-testemunha1-telefone-id" name="entrevista.testemunha1.telefone.id" value="#{processo.entrevista.testemunha1.telefone.id}"/>
+                <input type="hidden" id="entrevista-testemunha2-id" name="entrevista.testemunha2.id" value="#{processo.entrevista.testemunha2.id}"/>
+                <input type="hidden" id="entrevista-testemunha2-telefone-id" name="entrevista.testemunha2.telefone.id" value="#{processo.entrevista.testemunha2.telefone.id}"/>
+
+                <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                </h:inputHidden>
+                <br/>
+                <button type="submit" id="submitFormulario" class="btn-glow success btn-finish">
+                    #{msg['geral.button.imprimir']}
+                </button>
+            </div>
+        </form>
+
+        <h:outputScript library="js" name="form-entrevista.js" />
+    </ui:define>
+
+
+</ui:composition>
