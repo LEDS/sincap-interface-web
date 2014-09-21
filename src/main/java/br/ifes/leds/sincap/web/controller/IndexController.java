@@ -39,6 +39,9 @@ public class IndexController {
                         @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito,
                         @RequestParam(value = "obitoConfirmado", defaultValue = "false") boolean obitoConfirmado,
                         @RequestParam(value = "obitoRecusado", defaultValue = "false") boolean obitoRecusado,
+                        @RequestParam(value = "sucessoEntrevista", defaultValue = "false") boolean sucessoEntrevista,
+                        @RequestParam(value = "entrevistaConfirmada", defaultValue = "false") boolean entrevistaConfirmada,
+                        @RequestParam(value = "entrevistaRecusada", defaultValue = "false") boolean entrevistaRecusada,
                         @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento) {
         // Puxa os três tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
@@ -75,6 +78,9 @@ public class IndexController {
         model.addAttribute("sucessoObito", sucessoObito);
         model.addAttribute("obitoConfirmado", obitoConfirmado);
         model.addAttribute("obitoRecusado", obitoRecusado);
+        model.addAttribute("sucessoEntrevista", sucessoEntrevista);
+        model.addAttribute("entrevistaConfirmada", entrevistaConfirmada);
+        model.addAttribute("entrevistaRecusada", entrevistaRecusada);
         model.addAttribute("sucessoArquivamento", sucessoArquivamento);
 
         // Chama a página.

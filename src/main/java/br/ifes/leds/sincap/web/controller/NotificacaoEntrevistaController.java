@@ -142,7 +142,7 @@ public class NotificacaoEntrevistaController {
         } catch (ParseException ignored) {
         }
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?sucessoEntrevista=true";
     }
 
     @DefaultTimeZone
@@ -156,8 +156,7 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("dataEntrevista", processo.getEntrevista().getDataEntrevista());
         model.addAttribute("horaEntrevista", processo.getEntrevista().getDataEntrevista());
 
-        utilityWeb.preencherEndereco(processo.getObito().getPaciente()
-                .getEndereco(), model);
+        utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
 
         model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
         model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
@@ -178,7 +177,7 @@ public class NotificacaoEntrevistaController {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?entrevistaRecusada=true";
     }
 
     @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
@@ -231,6 +230,6 @@ public class NotificacaoEntrevistaController {
         // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?entrevistaConfirmada=true";
     }
 }

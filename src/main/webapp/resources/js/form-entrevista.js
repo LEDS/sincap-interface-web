@@ -1,11 +1,6 @@
 function init () {
     definirMascaras();
-    $('#divEntrevistaRealizada').hide();
-    $('#divDoacaoAutorizada').hide();
     definirEstilo();
-    focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
-    focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
-    focus('#entrevista-responsavel-documentoSocial', '#entrevista-responsavel-parentesco');
 }
 
 init();
