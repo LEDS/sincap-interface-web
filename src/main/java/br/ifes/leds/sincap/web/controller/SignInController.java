@@ -1,26 +1,25 @@
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Funcionario;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplPrincipal;
-import br.ifes.leds.sincap.web.model.Mensagem;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.faces.bean.SessionScoped;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -32,7 +31,9 @@ import java.util.Set;
 public class SignInController {
 
     @Autowired
-    AplPrincipal aplPrincipal;
+    private AplPrincipal aplPrincipal;
+    @Autowired
+    private Utility utility;
 
     @RequestMapping(method = RequestMethod.GET)
     public String loadForm(Principal principal) {
@@ -72,27 +73,12 @@ public class SignInController {
 
     @RequestMapping(value = "/getHospitais", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<Mensagem>> getHospitais(@RequestParam("cpf") String cpf) {
+    public ResponseEntity<List<Map>> getHospitais(@RequestParam("cpf") String cpf) {
 
-        Set<InstituicaoNotificadora> setInstituicoesNotificadoras;
-        List<Mensagem> listaMensagem = new ArrayList<>();
-        Mensagem mensagem;
+        Set<InstituicaoNotificadora> setInstituicoesNotificadoras = aplPrincipal.obterInstituicoesNotificadorasPorCpf(cpf);
+        List<InstituicaoNotificadora> instituicoes = new ArrayList<>();
+        instituicoes.addAll(setInstituicoesNotificadoras);
 
-        try {
-            setInstituicoesNotificadoras = aplPrincipal.obterInstituicoesNotificadorasPorCpf(cpf);
-
-            for (InstituicaoNotificadora instituicaoNotificadora : setInstituicoesNotificadoras) {
-                mensagem = new Mensagem();
-
-                mensagem.setDado(instituicaoNotificadora.getNome());
-                mensagem.setId(instituicaoNotificadora.getId().toString());
-
-                listaMensagem.add(mensagem);
-            }
-
-        } catch (Exception ignored) {
-        }
-
-        return new ResponseEntity<>(listaMensagem, HttpStatus.OK);
+        return new ResponseEntity<>(utility.mapList(instituicoes, Map.class), HttpStatus.OK);
     }
 }
