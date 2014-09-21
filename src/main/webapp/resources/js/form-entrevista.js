@@ -1,7 +1,7 @@
 function init () {
     definirMascaras();
-    fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-    fadeComponent('doacaoAutorizada', '', 'divDoacaoNaoAutorizada');
+    $('#divEntrevistaRealizada').hide();
+    $('#divDoacaoAutorizada').hide();
     definirEstilo();
     focus('#entrevista-responsavel-telefone-numero', '#entrevista-responsavel-telefone2-numero');
     focus('#entrevista-responsavel-telefone2-numero', '#entrevista-responsavel-profissao');
@@ -19,24 +19,6 @@ function definirMascaras() {
     });
     $('.cpf').inputmask('999.999.999-99');
 }
-
-function changeNameAttribute(radioButtonVet, selectItem1, selectItem2, name) {
-    if ($(radioButtonVet).filter('[value=true]').is(":checked")) {
-        $(selectItem1).prop('name', '');
-        $(selectItem2).prop('name', name);
-    } else {
-        $(selectItem1).prop('name', name);
-        $(selectItem2).prop('name', '');
-    }
-}
-
-$('[name="entrevistaRealizada"]').click(function() {
-    fadeComponent('entrevistaRealizada', 'divEntrevistaRealizada', 'divEntrevistaNaoRealizada');
-});
-
-$('[name="doacaoAutorizada"]').click(function(){
-    fadeComponent('doacaoAutorizada', '', 'divDoacaoNaoAutorizada');
-});
 
 $("#notifEntrevista").validate({
     errorPlacement: fieldBoxValidatorError,

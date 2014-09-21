@@ -221,7 +221,7 @@ public class NotificacaoObitoController {
         // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?obitoConfirmado=true";
     }
 
     /**
@@ -239,7 +239,7 @@ public class NotificacaoObitoController {
         // Recusar a notificação do óbito.
         aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + ContextUrls.INDEX + "?obitoRecusado=true";
     }
 
     /**

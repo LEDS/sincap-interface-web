@@ -24,6 +24,7 @@
     <ui:define name="#{sects.formContent}">
         <form id="notifEntrevista" class="form-horizontal"
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
+            <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['obito.erro']}"/>
             <div class="step-pane active" id="step1">
@@ -43,9 +44,7 @@
                 <input type="hidden" id="entrevista-responsavel-telefone2-id" name="entrevista.responsavel.telefone2.id" value="#{processo.entrevista.responsavel.telefone2.id}"/>
                 <input type="hidden" id="entrevista-responsavel-endereco-id" name="entrevista.responsavel.endereco.id" value="#{processo.entrevista.responsavel.endereco.id}"/>
                 <input type="hidden" id="entrevista-testemunha1-id" name="entrevista.testemunha1.id" value="#{processo.entrevista.testemunha1.id}"/>
-                <input type="hidden" id="entrevista-testemunha1-telefone-id" name="entrevista.testemunha1.telefone.id" value="#{processo.entrevista.testemunha1.telefone.id}"/>
                 <input type="hidden" id="entrevista-testemunha2-id" name="entrevista.testemunha2.id" value="#{processo.entrevista.testemunha2.id}"/>
-                <input type="hidden" id="entrevista-testemunha2-telefone-id" name="entrevista.testemunha2.telefone.id" value="#{processo.entrevista.testemunha2.telefone.id}"/>
 
                 <h:inputHidden id="dataDeAbertura" value="#{processo.dataAbertura.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
@@ -58,6 +57,24 @@
         </form>
 
         <h:outputScript library="js" name="form-entrevista.js" />
+        <script>
+            $('#entrevistaRealizada\\:0').click(function () {
+                $('#divEntrevistaRealizada').fadeIn();
+                $('#divEntrevistaNaoRealizada').fadeOut();
+            });
+            $('#entrevistaRealizada\\:1').click(function () {
+                $('#divEntrevistaNaoRealizada').fadeIn();
+                $('#divEntrevistaRealizada').fadeOut();
+            });
+            $('#doacaoAutorizada\\:0').click(function () {
+                $('#divDoacaoAutorizada').fadeIn();
+                $('#divDoacaoNaoAutorizada').fadeOut();
+            });
+            $('#doacaoAutorizada\\:1').click(function () {
+                $('#divDoacaoNaoAutorizada').fadeIn();
+                $('#divDoacaoAutorizada').fadeOut();
+            });
+        </script>
     </ui:define>
 
 

@@ -21,6 +21,20 @@
             </div>
         </h:panelGroup>
 
+        <h:panelGroup rendered="#{obitoConfirmado}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Obito confirmado com sucesso!
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{obitoRecusado}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Obito recusado com sucesso!
+            </div>
+        </h:panelGroup>
+
         <h:panelGroup rendered="#{sucessoArquivamento}">
             <div class="alert alert-success">
                 <i class="icon-save"/>

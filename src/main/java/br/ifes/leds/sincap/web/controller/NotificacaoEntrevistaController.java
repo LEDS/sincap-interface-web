@@ -5,15 +5,12 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.EntrevistaDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplEntrevista;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
@@ -48,8 +45,6 @@ public class NotificacaoEntrevistaController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
-    @Autowired
-    private AplEntrevista aplEntrevista;
 
     @RequestMapping(method = RequestMethod.GET)
     @DefaultTimeZone
@@ -108,7 +103,7 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setEntrevistaRealizada(entrevistaRealizada);
             processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
-            aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
+            aplProcessoNotificacao.salvarEntrevista(processo.getId(), processo.getEntrevista(), usuarioSessao.getIdUsuario());
 
         }  catch (ConstraintViolationException e) {
             utilityWeb.addConstraintViolations(e, model);
