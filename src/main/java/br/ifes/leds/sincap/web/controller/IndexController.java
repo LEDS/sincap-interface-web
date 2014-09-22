@@ -40,6 +40,7 @@ public class IndexController {
                         @RequestParam(value = "obitoConfirmado", defaultValue = "false") boolean obitoConfirmado,
                         @RequestParam(value = "obitoRecusado", defaultValue = "false") boolean obitoRecusado,
                         @RequestParam(value = "sucessoEntrevista", defaultValue = "false") boolean sucessoEntrevista,
+                        @RequestParam(value = "idEntrevista", required = false) Long idEntrevista,
                         @RequestParam(value = "entrevistaConfirmada", defaultValue = "false") boolean entrevistaConfirmada,
                         @RequestParam(value = "entrevistaRecusada", defaultValue = "false") boolean entrevistaRecusada,
                         @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento) {
@@ -79,6 +80,7 @@ public class IndexController {
         model.addAttribute("obitoConfirmado", obitoConfirmado);
         model.addAttribute("obitoRecusado", obitoRecusado);
         model.addAttribute("sucessoEntrevista", sucessoEntrevista);
+        model.addAttribute("idEntrevista", idEntrevista);
         model.addAttribute("entrevistaConfirmada", entrevistaConfirmada);
         model.addAttribute("entrevistaRecusada", entrevistaRecusada);
         model.addAttribute("sucessoArquivamento", sucessoArquivamento);
