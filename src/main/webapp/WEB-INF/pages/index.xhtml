@@ -56,6 +56,27 @@
             </div>
         </h:panelGroup>
 
+        <h:panelGroup rendered="#{captacaoSucesso}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Captação salva com sucesso!
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{captacaoConfirmada}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Captação confirmada com sucesso!
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{captacaoRecusada}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Captação recusada com sucesso!
+            </div>
+        </h:panelGroup>
+
         <h:panelGroup rendered="#{sucessoArquivamento}">
             <div class="alert alert-success">
                 <i class="icon-save"/>
