@@ -15,9 +15,9 @@
                 username-parameter="username"
                 password-parameter="password"/>
         <intercept-url pattern="/index.*" access="ROLE_ANALISTA, ROLE_CAPTADOR, ROLE_NOTIFICADOR"/>
-        <intercept-url pattern="/obito.*" access="ROLE_ANALISTA, ROLE_NOTIFICADOR"/>
-        <intercept-url pattern="/entrevista.*" access="ROLE_ANALISTA, ROLE_NOTIFICADOR, ROLE_CAPTADOR"/>
-        <intercept-url pattern="/captacao.*" access="ROLE_CAPTADOR, ROLE_ANALISTA"/>
+        <intercept-url pattern="/obito.*" access="ROLE_NOTIFICADOR"/>
+        <intercept-url pattern="/entrevista.*" access="ROLE_NOTIFICADOR, ROLE_CAPTADOR"/>
+        <intercept-url pattern="/captacao.*" access="ROLE_CAPTADOR"/>
         <intercept-url pattern="/admin.*" access="ROLE_ANALISTA"/>
         <intercept-url pattern="/processo.*" access="ROLE_ANALISTA"/>
         <intercept-url pattern="^.*analisar.*$" access="ROLE_ANALISTA"/>
@@ -30,7 +30,7 @@
                 <user name="111.111.111-11" password="abc123" authorities="ROLE_NOTIFICADOR"/>
                 <user name="222.222.222-22" password="abc123" authorities="ROLE_CAPTADOR"/>
                 <user name="333.333.333-33" password="abc123" authorities="ROLE_ANALISTA"/>
-                <user name="555.555.555-55" password="abc123" authorities="ROLE_ANALISTA"/>
+                <user name="555.555.555-55" password="abc123" authorities="ROLE_ANALISTA, ROLE_CAPTADOR, ROLE_NOTIFICADOR, ROLE_ADMIN"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>
