@@ -142,7 +142,7 @@ public class NotificacaoEntrevistaController {
         } catch (ParseException ignored) {
         }
 
-        return "redirect:" + ContextUrls.INDEX + "?sucessoEntrevista=true";
+        return "redirect:" + ContextUrls.INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
     }
 
     @DefaultTimeZone
