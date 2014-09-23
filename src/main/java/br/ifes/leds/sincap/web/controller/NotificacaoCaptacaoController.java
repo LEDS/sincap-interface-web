@@ -130,7 +130,7 @@ public class NotificacaoCaptacaoController {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?captacao'Recusado=true";
+        return "redirect:" + ContextUrls.INDEX + "?captacaoRecusado=true";
     }
 
     @RequestMapping(value = ContextUrls.CORRIGIR + "/{idProcesso}", method = RequestMethod.GET)
