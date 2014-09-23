@@ -1,12 +1,10 @@
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
-import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.AnalistaCNCDO;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.NotificadorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.*;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.dozer.Mapper;
@@ -16,10 +14,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.faces.bean.SessionScoped;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
- * Created by aleao on 25/08/14.
+ * @author André Leão
  */
 @Controller
 @RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO)
@@ -34,8 +35,6 @@ public class FuncionarioController {
     private AplNotificador aplNotificador;
     @Autowired
     private AplCaptador aplCaptador;
-    @Autowired
-    private AplEndereco aplEndereco;
     @Autowired
     private AplBancoOlhos aplBancoOlhos;
     @Autowired
@@ -66,7 +65,7 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_ANALISTA, method = RequestMethod.POST)
-    public String salvarAnalista(ModelMap model, @ModelAttribute AnalistaCNCDO analistaCNCDO) {
+    public String salvarAnalista(@ModelAttribute AnalistaCNCDO analistaCNCDO) {
         aplAnalistaCNCDO.salvar(analistaCNCDO);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
@@ -82,7 +81,7 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_ANALISTA +"/{idAnalistaCNCO}", method = RequestMethod.POST)
-    public String apagarAnalista(ModelMap model, @PathVariable Long idAnalistaCNCO){
+    public String apagarAnalista(@PathVariable Long idAnalistaCNCO){
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
         aplAnalistaCNCDO.excluir(analista);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
@@ -99,7 +98,7 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_NOTIFICADOR, method = RequestMethod.POST)
-    public String salvarNotificador(ModelMap model, @ModelAttribute Notificador notificador,
+    public String salvarNotificador(@ModelAttribute Notificador notificador,
                                     @RequestParam("hospitais") List<Long> hospitais) {
         for (Long l:hospitais){
             Set<InstituicaoNotificadora> setInstituicao = notificador.getInstituicoesNotificadoras();
@@ -134,7 +133,7 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR +"/{idNotificador}", method = RequestMethod.POST)
-    public String apagarNotificador(ModelMap model, @PathVariable Long idNotificador){
+    public String apagarNotificador(@PathVariable Long idNotificador){
         Notificador notificador = aplNotificador.obterNotificador(idNotificador);
         aplNotificador.delete(notificador);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
@@ -150,7 +149,7 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_CAPTADOR, method = RequestMethod.POST)
-    public String salvarCaptador(ModelMap model, @ModelAttribute Captador captador) {
+    public String salvarCaptador(@ModelAttribute Captador captador) {
         aplCaptador.salvar(captador);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
@@ -167,7 +166,7 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_CAPTADOR +"/{idCaptador}", method = RequestMethod.POST)
-    public String apagarCaptador(ModelMap model, @PathVariable Long idCaptador){
+    public String apagarCaptador(@PathVariable Long idCaptador){
         Captador captador = aplCaptador.obter(idCaptador);
         aplCaptador.exlcuir(captador);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;

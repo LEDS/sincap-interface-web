@@ -49,23 +49,21 @@ public class SetorController {
     }
     
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvarSetor(ModelMap model, 
-            @ModelAttribute SetorDTO setor){
+    public String salvarSetor(@ModelAttribute SetorDTO setor){
         try {
             aplSetor.adicionar(setor);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
             
         }
         
         return "redirect:"+ContextUrls.ADMIN+ContextUrls.APP_SETOR;
     }
     @RequestMapping(method = RequestMethod.POST)
-    public String excluirSetor(ModelMap model, 
-            @RequestParam("id") Long setorId){
+    public String excluirSetor(@RequestParam("id") Long setorId){
         try{
             aplSetor.excluir(setorId);    
         }catch(SetorEmUsoException exception){
-            //TODO
+            // TODO: Tratar erro
         }
         return "redirect:"+ContextUrls.ADMIN+ContextUrls.APP_SETOR;
     }

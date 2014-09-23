@@ -7,14 +7,11 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaNaoDoacao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplCausaNaoDoacao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,7 +47,7 @@ public class HospitalController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvar(ModelMap model, @ModelAttribute InstituicaoNotificadora hospital){
+    public String salvar(@ModelAttribute InstituicaoNotificadora hospital){
         aplInstituicaoNotificadora.salvar(hospital);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_HOSPITAL;
     }
