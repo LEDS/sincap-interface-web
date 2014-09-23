@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition template="/WEB-INF/templates/adm-form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg[titulo]}
+    </ui:define>
+
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
+
+                        <h2>#{msg[titulo]}</h2>
+                        <br/>
+
+                        <div class="step-content">
+                            <form id="form-hospital" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.salvar}"
+                                  method="post">
+
+                                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
+                                <h:inputHidden id="id" value="#{hospital.id}" />
+
+                                <h:outputLabel value="#{msg['hospital.text.nome']}" />
+                                <h:inputText id="nome" value="#{hospital.nome}" />
+
+                                <h:outputLabel value="#{msg['hospital.text.fantasia']}" />
+                                <h:inputText id="fantasia" value="#{hospital.fantasia}" />
+
+                                <h:outputLabel value="#{msg['hospital.text.cnes']}" />
+                                <h:inputText id="cnes" value="#{hospital.cnes}" />
+
+                                <h:outputLabel value="#{msg['hospital.text.email']}" />
+                                <h:inputText id="email" value="#{hospital.email}" />
+
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.notificador.dropDown.uf']}"/>
+
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="endereco-estado-id"
+                                                         value="#{notificador.endereco.estado.id}"
+                                                         onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
+                                            <f:selectItems value="#{listaEstadoItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
+
+                                <br></br><br></br>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="endereco-cidade-id"
+                                                         value="#{notificador.endereco.cidade.id}"
+                                                         onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+                                            <f:selectItems value="#{listaCidadeItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
+
+                                <br></br><br></br>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="endereco-bairro-id"
+                                                         value="#{notificador.endereco.bairro.id}">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+                                            <f:selectItems value="#{listaBairroItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
+
+                                <br></br><br></br>
+                                <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                                <h:inputText id="endereco-logradrouro" value="#{hospital.endereco.logradouro}"/>
+
+                                <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                                <h:inputText id="endereco-numero" value="#{hospital.endereco.numero}"/>
+
+                                <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                                <h:inputText id="endereco-complemento" value="#{hospital.endereco.complemento}"/>
+
+                                <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                                <h:inputText id="endereco-cep" value="#{hospital.endereco.cep}"/>
+
+                                <h:outputLabel value="#{msg['funcionario.telefone']}"/>
+                                <h:inputText id="telefone-numero" value="#{hospital.telefone.numero}"/>
+
+                                <br></br><br></br>
+                                
+                                <button type="submit" class="btn-glow success btn-finish">
+                                    #{msg['causa-nao-doacao.salvar']}
+                                </button>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
