@@ -26,12 +26,11 @@
 
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="111.111.111-11" password="abc123" authorities="ROLE_NOTIFICADOR"/>
-                <user name="222.222.222-22" password="abc123" authorities="ROLE_CAPTADOR"/>
-                <user name="333.333.333-33" password="abc123" authorities="ROLE_ANALISTA"/>
-                <user name="555.555.555-55" password="abc123" authorities="ROLE_ANALISTA, ROLE_CAPTADOR, ROLE_NOTIFICADOR, ROLE_ADMIN"/>
-            </user-service>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query=
+                                       "SELECT cpf username, senha AS password, ativo enabled FROM funcionario WHERE cpf =?"
+                               authorities-by-username-query=
+                                       "SELECT cpf username, permissao.role FROM funcionario JOIN funcionario_permissao ON funcionario.id = funcionario_permissao.funcionario_id JOIN permissao ON permissao.id = funcionario_permissao.permissoes_id WHERE cpf = ?"/>
         </authentication-provider>
     </authentication-manager>
 
