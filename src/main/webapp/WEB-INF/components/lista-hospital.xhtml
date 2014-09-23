@@ -1,0 +1,39 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+    <!-- main container -->
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">   
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+                <h:dataTable id="causas-table" value="#{listaHospitais}" var="hospital"
+                             rows="#{quantidade}" styleClass="table table-hover table-striped">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nome" />
+                        </f:facet>
+                        #{hospital.nome}
+                    </h:column>
+
+                    <!-- Botões -->
+                    <!--<h:column>-->
+
+                        <!--<form style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.editar}/#{causa.id}" method="get">-->
+                            <!--<button type="submit"><i class="icon-edit"></i></button>-->
+                        <!--</form>-->
+                    <!--</h:column>-->
+                    <!---->
+                    <!--<h:column>-->
+                         <!--<form  style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.apagar}/#{causa.id}" method="post">-->
+                            <!--<button type="submit"><i class="icon-trash"></i></button>-->
+                        <!--</form>-->
+                    <!--</h:column>-->
+                    
+                </h:dataTable>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+</ui:composition>
