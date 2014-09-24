@@ -9,9 +9,11 @@ import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ public class HospitalController {
     @Autowired
     private AplHospital aplHospital;
     @Autowired
+    private AplSetor aplSetor;
+    @Autowired
     private AplBancoOlhos aplBancoOlhos;
     @Autowired
     private UtilityWeb utilityWeb;
@@ -58,9 +62,10 @@ public class HospitalController {
     public String adicionar(ModelMap model){
         String titulo = "hospital.cadastro";
         List<BancoOlhos> listaBancoOlhos = aplBancoOlhos.obter();
+        List<Setor> listaSetores = aplSetor.obter();
         model.addAttribute("listaBancoOlhosItem",utility.mapList(listaBancoOlhos, SelectItem.class));
-
         model.addAttribute("titulo",titulo);
+        model.addAttribute("listaSetores",listaSetores);
         utilityWeb.preencherEstados(model);
         return "form-hospital";
     }
