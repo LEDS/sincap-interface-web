@@ -47,10 +47,10 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="bancoOlhos-id"
-                                                         value="#{hospital.bancoOlhos}">
+                                                         value="#{hospital.bancoOlhos.id}">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['hospital.bancoOlhos']}"/>
-                                            <f:selectItems value="#{listaBancoOlhos}"/>
+                                            <f:selectItems value="#{listaBancoOlhosItem}"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </h:panelGroup>
@@ -62,7 +62,7 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-estado-id"
-                                                         value="#{notificador.endereco.estado.id}"
+                                                         value="#{hospital.endereco.estado.id}"
                                                          onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
@@ -77,7 +77,7 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-cidade-id"
-                                                         value="#{notificador.endereco.cidade.id}"
+                                                         value="#{hospital.endereco.cidade.id}"
                                                          onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
@@ -92,7 +92,7 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-bairro-id"
-                                                         value="#{notificador.endereco.bairro.id}">
+                                                         value="#{hospital.endereco.bairro.id}">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
                                             <f:selectItems value="#{listaBairroItem}"/>
