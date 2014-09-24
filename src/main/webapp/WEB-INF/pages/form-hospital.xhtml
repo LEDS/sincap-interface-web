@@ -30,6 +30,9 @@
                                 <h:outputLabel value="#{msg['hospital.text.nome']}" />
                                 <h:inputText id="nome" value="#{hospital.nome}" />
 
+                                <h:outputLabel value="#{msg['hospital.text.sigla']}" />
+                                <h:inputText id="sigla" value="#{hospital.sigla}" />
+
                                 <h:outputLabel value="#{msg['hospital.text.fantasia']}" />
                                 <h:inputText id="fantasia" value="#{hospital.fantasia}" />
 
@@ -38,6 +41,21 @@
 
                                 <h:outputLabel value="#{msg['hospital.text.email']}" />
                                 <h:inputText id="email" value="#{hospital.email}" />
+
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['hospital.bancoOlhos']}"/>
+
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="bancoOlhos-id"
+                                                         value="#{hospital.bancoOlhos}">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['hospital.bancoOlhos']}"/>
+                                            <f:selectItems value="#{listaBancoOlhos}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
+
+                                <br></br><br></br>
 
                                 <h:panelGroup layout="block" styleClass="field-box">
                                     <h:outputLabel value="#{msg['funcionario.notificador.dropDown.uf']}"/>
