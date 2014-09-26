@@ -124,7 +124,7 @@
                                         <select name="lsetores" style="width:350px" multiple="multiple" class="select2">
                                             <option>
                                                 <ui:repeat value="#{listaSetores}" varStatus="index" var="setores" >
-                                                    <option selected="#{listaSetores[setor.id]?'selected':''}" value="#{setores.id}">#{setores.nome}</option>
+                                                    <option selected="#{listaSetoresHospital[setores.id]?'selected':''}" value="#{setores.id}">#{setores.nome}</option>
                                                 </ui:repeat>
                                             </option>
                                         </select>

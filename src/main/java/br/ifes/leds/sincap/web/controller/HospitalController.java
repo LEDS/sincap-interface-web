@@ -76,6 +76,8 @@ public class HospitalController {
         utilityWeb.preencherEndereco(mapper.map(hospital.getEndereco(), EnderecoDTO.class), model);
         utilityWeb.getBancoOlhos(model, aplBancoOlhos);
         model.addAttribute("listaSetores",listaSetores);
+        model.addAttribute("listaSetoresHospital", utilityWeb.getLongBooleanMap(listaSetores, hospital.getSetores()));
+
         return "form-hospital";
     }
 
