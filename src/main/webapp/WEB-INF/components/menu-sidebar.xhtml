@@ -22,24 +22,6 @@
                     <span>#{msg['sidebar.principal']}</span>
                 </a>
             </li>
-            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_CAPTADOR')}">
-                <li class="#{relatorio ? 'active':''}">
-                    <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
-                        <h:panelGroup layout="block" class="arrow"/>
-                        <h:panelGroup layout="block" class="arrow_border"/>
-                    </h:panelGroup>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-signal"/>
-                        <span>#{msg['sidebar.relatorios']}</span>
-                        <i class="icon-chevron-down"/>
-                    </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}">Termo de doação</a>
-                        </li>
-                    </ul>
-                </li>
-            </h:panelGroup>
             <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
                 <li class="#{obito ? 'active':''}">
                     <h:panelGroup layout="block" rendered="#{obito}" class="pointer">
@@ -72,6 +54,40 @@
                         <i class="icon-user-md"/>
                         <span>#{msg['sidebar.notificacao.notificar.captacao']}</span>
                     </a>
+                </li>
+            </h:panelGroup>
+            <li class="#{buscar ? 'active':''}">
+                <h:panelGroup layout="block" rendered="#{buscar}" class="pointer">
+                    <h:panelGroup layout="block" class="arrow"/>
+                    <h:panelGroup layout="block" class="arrow_border"/>
+                </h:panelGroup>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-signal"/>
+                    <span>#{msg['sidebar.notificacao.buscar']}</span>
+                    <i class="icon-chevron-down"/>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}">#{msg['sidebar.notificacao.buscarTodos']}</a>
+                    </li>
+                </ul>
+            </li>
+            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_CAPTADOR')}">
+                <li class="#{relatorio ? 'active':''}">
+                    <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
+                        <h:panelGroup layout="block" class="arrow"/>
+                        <h:panelGroup layout="block" class="arrow_border"/>
+                    </h:panelGroup>
+                    <a class="dropdown-toggle" href="#">
+                        <i class="icon-signal"/>
+                        <span>#{msg['sidebar.relatorios']}</span>
+                        <i class="icon-chevron-down"/>
+                    </a>
+                    <ul class="submenu">
+                        <li>
+                            <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}">Termo de doação</a>
+                        </li>
+                    </ul>
                 </li>
             </h:panelGroup>
         </ul>

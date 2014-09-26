@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:param name="entrevista" value="true"/>
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['sidebar.notificacao.titulo.buscar']}
+    </ui:define>
+    <!--Fim título da página-->
+
+    <ui:define name="#{sects.formHeader}">
+        #{msg['sidebar.notificacao.buscarTodos']}
+    </ui:define>
+
+    <!-- Formulário de entrevista -->
+    <ui:define name="#{sects.formContent}">
+        <div class="step-pane active" id="step1">
+            <form id="notifEntrevista" class="form-horizontal"
+                  action="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}" method="post">
+                <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                <input type="text" class="span3" name="buscar" value="#{buscar}"/>
+                <button type="submit" id="submitFormulario" class="btn-flat success btn-finish">
+                    <i class="icon-search"></i>
+                    Buscar
+                </button>
+            </form>
+
+            <div class="tab-content">
+                <ui:include src="../components/lista-buscar-todos.xhtml">
+                    <ui:param name="processos" value="#{listProcessoNotificacao}"/>
+                </ui:include>
+            </div>
+        </div>
+
+        <h:outputScript library="js" name="form-entrevista.js"/>
+    </ui:define>
+
+
+</ui:composition>
