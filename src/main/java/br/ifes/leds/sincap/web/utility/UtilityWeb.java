@@ -5,6 +5,7 @@ import br.ifes.leds.reuse.endereco.cdp.Cidade;
 import br.ifes.leds.reuse.endereco.cdp.Estado;
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
+import br.ifes.leds.reuse.persistence.ObjetoPersistente;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
@@ -19,8 +20,7 @@ import org.springframework.ui.ModelMap;
 import javax.faces.model.SelectItem;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class UtilityWeb {
@@ -156,4 +156,27 @@ public class UtilityWeb {
 
         model.addAttribute("listaInstituicaoNotificadoraItem", listaInstituicaoNotificadoraItem);
     }
+
+    /**
+     *
+     * @param colecaoPadrao
+     * @param colecaoAtual
+     * @param <T>
+     * @param <E>
+     * @return
+     */
+    public  <T extends ObjetoPersistente, E extends ObjetoPersistente> Map<Long, Boolean> getLongBooleanMap(Collection<E> colecaoPadrao, Collection<T> colecaoAtual) {
+        Map<Long, Boolean> mapEstahNaColecaoAtual = new HashMap<>();
+
+        for (E instituicao: colecaoPadrao) {
+            mapEstahNaColecaoAtual.put(instituicao.getId(), Boolean.FALSE);
+        }
+
+        for (T instituicao: colecaoAtual) {
+            mapEstahNaColecaoAtual.put(instituicao.getId(), Boolean.TRUE);
+        }
+
+        return mapEstahNaColecaoAtual;
+    }
+
 }
