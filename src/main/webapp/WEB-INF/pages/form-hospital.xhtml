@@ -30,6 +30,9 @@
                                 <h:outputLabel value="#{msg['hospital.text.nome']}" />
                                 <h:inputText id="nome" value="#{hospital.nome}" />
 
+                                <h:outputLabel value="#{msg['hospital.text.sigla']}" />
+                                <h:inputText id="sigla" value="#{hospital.sigla}" />
+
                                 <h:outputLabel value="#{msg['hospital.text.fantasia']}" />
                                 <h:inputText id="fantasia" value="#{hospital.fantasia}" />
 
@@ -40,11 +43,26 @@
                                 <h:inputText id="email" value="#{hospital.email}" />
 
                                 <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['hospital.bancoOlhos']}"/>
+
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="bancoOlhos-id"
+                                                         value="#{hospital.bancoOlhos.id}">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['hospital.bancoOlhos']}"/>
+                                            <f:selectItems value="#{listaBancoOlhosItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
+
+                                <br></br><br></br>
+
+                                <h:panelGroup layout="block" styleClass="field-box">
                                     <h:outputLabel value="#{msg['funcionario.notificador.dropDown.uf']}"/>
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-estado-id"
-                                                         value="#{notificador.endereco.estado.id}"
+                                                         value="#{hospital.endereco.estado.id}"
                                                          onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
@@ -59,7 +77,7 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-cidade-id"
-                                                         value="#{notificador.endereco.cidade.id}"
+                                                         value="#{hospital.endereco.cidade.id}"
                                                          onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
@@ -74,7 +92,7 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-bairro-id"
-                                                         value="#{notificador.endereco.bairro.id}">
+                                                         value="#{hospital.endereco.bairro.id}">
                                             <f:selectItem itemValue=""
                                                           itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
                                             <f:selectItems value="#{listaBairroItem}"/>
@@ -99,6 +117,21 @@
                                 <h:inputText id="telefone-numero" value="#{hospital.telefone.numero}"/>
 
                                 <br></br><br></br>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.captador.dropDown.instituicao']}"/>
+
+                                    <div class="span5">
+                                        <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
+                                            <option>
+                                                <ui:repeat value="#{listaSetores}" varStatus="index" var="setores" >
+                                                    <option selected="#{listaSetores[setor.id]?'selected':''}" value="#{setores.id}">#{setores.nome}</option>
+                                                </ui:repeat>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </h:panelGroup>
+
+                                <br></br><br></br>
                                 
                                 <button type="submit" class="btn-glow success btn-finish">
                                     #{msg['causa-nao-doacao.salvar']}
@@ -109,5 +142,6 @@
                 </div>
             </div>
         </div>
+        <h:outputScript library="js" name="form-hospital.js"/>
     </ui:define>
 </ui:composition>

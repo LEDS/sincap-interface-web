@@ -56,14 +56,6 @@
                     </div>
                 </div>
                 <input type="hidden" name="id" value="#{processo.id}" />
-                <input type="hidden" name="obito.id" value="#{processo.obito.id}" />
-                <input type="hidden" name="obito.paciente.id" value="#{processo.obito.paciente.id}" />
-                <input type="hidden" name="obito.paciente.endereco.id" value="#{processo.obito.paciente.endereco.id}" />
-                <input type="hidden" name="obito.paciente.telefone.id" value="#{processo.obito.paciente.telefone.id}" />
-                <input type="hidden" name="obito.primeiraCausaMortis.id" value="#{processo.obito.primeiraCausaMortis.id}" />
-                <input type="hidden" name="obito.segundaCausaMortis.id" value="#{processo.obito.segundaCausaMortis.id}" />
-                <input type="hidden" name="obito.terceiraCausaMortis.id" value="#{processo.obito.terceiraCausaMortis.id}" />
-                <input type="hidden" name="obito.quartaCausaMortis.id" value="#{processo.obito.quartaCausaMortis.id}" />
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             </form>
         </div>
@@ -80,6 +72,11 @@
         </div>
 
         <h:outputScript library="js" name="form-notificacao-obito.js"/>
+        <script>
+            if(document.getElementById("obito-aptoDoacao:0").checked) {
+                $("#divCausaNaoDoacao").hide();
+            }
+        </script>
     </ui:define>
     <!-- Fim do conteúdo -->
 

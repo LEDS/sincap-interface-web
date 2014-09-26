@@ -4,6 +4,8 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
+
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nome}"/>
@@ -85,6 +87,7 @@
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.horario']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
+            <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
             <f:convertDateTime type="time" timeStyle="medium" timeZone="#{timeZone}"/>
         </h:inputText>
     </div>
@@ -122,6 +125,6 @@
 
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
-        <h:inputText readonly="true" value="#{processo.causaNaoDoacao}" styleClass="span8"/>
+        <h:inputText readonly="true" value="#{processo.causaNaoDoacao.nome}" styleClass="span8"/>
     </div>
 </ui:composition>

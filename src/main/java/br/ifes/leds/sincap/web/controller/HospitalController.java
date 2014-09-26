@@ -5,11 +5,17 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
+import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
+import br.ifes.leds.reuse.utility.Utility;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Setor;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaNaoDoacao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplCausaNaoDoacao;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplSetor;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,7 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -30,13 +39,21 @@ import java.util.List;
 @SessionScoped
 public class HospitalController {
     @Autowired
-    private AplInstituicaoNotificadora aplInstituicaoNotificadora;
+    private AplHospital aplHospital;
+    @Autowired
+    private AplSetor aplSetor;
+    @Autowired
+    private AplBancoOlhos aplBancoOlhos;
     @Autowired
     private UtilityWeb utilityWeb;
+    @Autowired
+    private Utility utility;
+    @Autowired
+    private Mapper mapper;
     
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
-        List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        List<Hospital> listaHospitais = aplHospital.obter();
         model.addAttribute("listaHospitais", listaHospitais);
         return "hospital";
     }
@@ -44,32 +61,39 @@ public class HospitalController {
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
     public String adicionar(ModelMap model){
         String titulo = "hospital.cadastro";
+        List<BancoOlhos> listaBancoOlhos = aplBancoOlhos.obter();
+        List<Setor> listaSetores = aplSetor.obter();
+        model.addAttribute("listaBancoOlhosItem",utility.mapList(listaBancoOlhos, SelectItem.class));
         model.addAttribute("titulo",titulo);
+        model.addAttribute("listaSetores",listaSetores);
         utilityWeb.preencherEstados(model);
         return "form-hospital";
     }
 
+    @RequestMapping(value = ContextUrls.EDITAR + "/{idHospital}" ,method = RequestMethod.GET)
+    public String editarAnalista(ModelMap model, @PathVariable Long idHospital){
+        Hospital hospital = aplHospital.obter(idHospital);
+        String titulo = "hospital.editar";
+        model.addAttribute("titulo", titulo);
+        model.addAttribute("hospital", hospital);
+        utilityWeb.preencherEndereco(mapper.map(hospital.getEndereco(), EnderecoDTO.class), model);
+        utilityWeb.getBancoOlhos(model, aplBancoOlhos);
+        return "form-hospital";
+    }
+
+
     @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
-    public String salvar(ModelMap model, @ModelAttribute InstituicaoNotificadora hospital){
-        aplInstituicaoNotificadora.salvar(hospital);
+    public String salvar(@ModelAttribute Hospital hospital){
+        aplHospital.cadastrar(hospital);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_HOSPITAL;
     }
-//
-//    @RequestMapping(value = ContextUrls.EDITAR+"/{idCausaNaoDoacao}" ,method = RequestMethod.GET)
-//    public String preencherCausaNaoDoacao(ModelMap model, @PathVariable Long idCausaNaoDoacao){
-//        CausaNaoDoacao causa = aplCausaNaoDoacao.obter(idCausaNaoDoacao);
-//        String titulo = "causa-nao-doacao.editar";
-//        model.addAttribute("titulo",titulo);
-//        model.addAttribute("listaTiposNaoDoacao", utilityWeb.getTipoNaoDoacaoSelectItem());
-//        model.addAttribute("causa", causa);
-//        return "form-causa-nao-doacao";
-//    }
-//
-//    @RequestMapping(value = ContextUrls.APAGAR +"/{idCausaNaoDoacao}", method = RequestMethod.POST)
-//    public String apagarNovoRegistro(ModelMap model, @PathVariable Long idCausaNaoDoacao){
-//        CausaNaoDoacao causa = aplCausaNaoDoacao.obter(idCausaNaoDoacao);
-//        aplCausaNaoDoacao.excluir(causa);
-//        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_CAUSA_NAO_DOACAO;
-//    }
+
+    @RequestMapping(value = ContextUrls.APAGAR + "/{idHospital}", method = RequestMethod.POST)
+    public String apagarAnalista(@PathVariable Long idHospital){
+        Hospital hospital = aplHospital.obter(idHospital);
+        aplHospital.exlcuir(hospital);
+        return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_HOSPITAL;
+    }
+
 
 }

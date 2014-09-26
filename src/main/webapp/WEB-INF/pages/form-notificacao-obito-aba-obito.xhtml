@@ -62,19 +62,19 @@
 
         <div class="span8">
             <label class="radio">
-                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:0"
+                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:0" value="true"
                        checked="#{empty processo.obito.aptoDoacao or processo.obito.aptoDoacao? 'checked': ''}"/>
                 #{msg['obito.obito.radioButton.contraIndicacao.apto']}
             </label>
             <label class="radio">
-                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:1"
+                <input type="radio" name="obito.aptoDoacao" id="obito-aptoDoacao:1" value="false"
                        checked="#{not empty processo.obito.aptoDoacao and not processo.obito.aptoDoacao? 'checked':''}"/>
                 #{msg['obito.obito.radioButton.contraIndicacao.inapto']}
             </label>
         </div>
     </h:panelGroup>
 
-    <div id="divCausaNaoDoacao" class="field-box" hidden="hidden">
+    <div id="divCausaNaoDoacao" class="field-box">
         <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
 
         <div class="ui-select span5">

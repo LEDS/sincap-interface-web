@@ -18,19 +18,19 @@
                     </h:column>
 
                     <!-- Botões -->
-                    <!--<h:column>-->
+                    <h:column>
+                        <form style="width:0.5px;" id="formulario-hospital-#{hospital.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.editar}/#{hospital.id}" method="get">
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                            <button type="submit"><i class="icon-edit"></i></button>
+                        </form>
+                    </h:column>
 
-                        <!--<form style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.editar}/#{causa.id}" method="get">-->
-                            <!--<button type="submit"><i class="icon-edit"></i></button>-->
-                        <!--</form>-->
-                    <!--</h:column>-->
-                    <!---->
-                    <!--<h:column>-->
-                         <!--<form  style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.apagar}/#{causa.id}" method="post">-->
-                            <!--<button type="submit"><i class="icon-trash"></i></button>-->
-                        <!--</form>-->
-                    <!--</h:column>-->
-                    
+                    <h:column>
+                        <form  style="width:0.5px;" id="formulario-hospital-#{hospital.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.apagar}/#{hospital.id}" method="post">
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                            <button type="submit"><i class="icon-trash"></i></button>
+                        </form>
+                    </h:column>
                 </h:dataTable>
             </h:panelGroup>
         </h:panelGroup>

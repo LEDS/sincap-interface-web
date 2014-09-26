@@ -22,7 +22,8 @@
     <div class="field-box">
         <label>#{msg['entrevista.text.dtEntrevista']}</label>
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.dataEntrevista.time}">
-            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+            <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
+            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
         </h:inputText>
     </div>
 
