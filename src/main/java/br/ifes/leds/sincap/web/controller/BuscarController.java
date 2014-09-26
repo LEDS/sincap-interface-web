@@ -27,7 +27,7 @@ public class BuscarController {
         List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterTodasNotificacoes();
         model.addAttribute("listProcessoNotificacao", pn);
 
-        return "buscar-notificacao";
+        return "buscar-todas-notificacao";
     }
 
     @RequestMapping(value = ContextUrls.BUSCAR_TODOS, method = RequestMethod.POST)
@@ -42,6 +42,6 @@ public class BuscarController {
 
         model.addAttribute("listProcessoNotificacao", pn);
         model.addAttribute("search", search);
-        return "buscar-notificacao";
+        return "buscar-todas-notificacao";
     }
 }
