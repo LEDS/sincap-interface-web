@@ -39,11 +39,14 @@ public class IndexController {
                         @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito,
                         @RequestParam(value = "obitoConfirmado", defaultValue = "false") boolean obitoConfirmado,
                         @RequestParam(value = "obitoRecusado", defaultValue = "false") boolean obitoRecusado,
-                        @RequestParam(value = "sucessoEntrevista", defaultValue = "false") boolean sucessoEntrevista,
                         @RequestParam(value = "idEntrevista", required = false) Long idEntrevista,
+                        @RequestParam(value = "sucessoEntrevista", defaultValue = "false") boolean sucessoEntrevista,
                         @RequestParam(value = "entrevistaConfirmada", defaultValue = "false") boolean entrevistaConfirmada,
                         @RequestParam(value = "entrevistaRecusada", defaultValue = "false") boolean entrevistaRecusada,
-                        @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento) {
+                        @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento,
+                        @RequestParam(value = "captacaoSucesso", defaultValue = "false") boolean captacaoSucesso,
+                        @RequestParam(value = "captacaoConfirmado", defaultValue = "false") boolean captacaoConfirmado,
+                        @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado){
         // Puxa os três tipos de notificações corretamente da apl.
         List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
                 .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
@@ -79,10 +82,13 @@ public class IndexController {
         model.addAttribute("sucessoObito", sucessoObito);
         model.addAttribute("obitoConfirmado", obitoConfirmado);
         model.addAttribute("obitoRecusado", obitoRecusado);
-        model.addAttribute("sucessoEntrevista", sucessoEntrevista);
         model.addAttribute("idEntrevista", idEntrevista);
+        model.addAttribute("sucessoEntrevista", sucessoEntrevista);
         model.addAttribute("entrevistaConfirmada", entrevistaConfirmada);
         model.addAttribute("entrevistaRecusada", entrevistaRecusada);
+        model.addAttribute("captacaoSucesso", captacaoSucesso);
+        model.addAttribute("captacaoConfirmado", captacaoConfirmado);
+        model.addAttribute("captacaoRecusado", captacaoRecusado);
         model.addAttribute("sucessoArquivamento", sucessoArquivamento);
 
         // Chama a página.
