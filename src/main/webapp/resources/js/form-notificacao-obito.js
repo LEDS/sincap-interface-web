@@ -31,10 +31,19 @@ $(function () {
     });
 });
 
+function mergeDates() {
+    var $processo = document.forms["processo"];
+    var data = $processo.elements["obito.dataObito"].value;
+    $('#obito-dataObito').inputmask("remove");
+    $processo.elements["obito.dataObito"].value = data + " " + $processo.elements["horarioObito"].value;
+    console.log($processo.elements["obito.dataObito"].value);
+    $processo.submit();
+}
+
 $(".wizard-actions .btn-finish").click(function () {
     var processo = $("#processo");
     if (processo.valid()) {
-        processo.submit();
+        mergeDates();
     }
 });
 
