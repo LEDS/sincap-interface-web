@@ -13,8 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.servlet.http.HttpSession;
-
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,8 +26,6 @@ public class SignInTest extends AbstractionTest {
     private SignInController signInController;
     @Mock
     private AplPrincipal aplPrincipal;
-    @Mock
-    private HttpSession httpSession;
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
@@ -51,7 +48,7 @@ public class SignInTest extends AbstractionTest {
     public void loginTest() throws Exception {
         String cpf = "111.111.111-11";
 
-        when(aplPrincipal.validarLogin(cpf)).thenReturn(funcionarioRepository.findByCpf(cpf));
+        when(aplPrincipal.validarLogin(isA(String.class))).thenReturn(funcionarioRepository.findByCpf(cpf));
 
         mockMvc.perform(post("/autenticar")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
