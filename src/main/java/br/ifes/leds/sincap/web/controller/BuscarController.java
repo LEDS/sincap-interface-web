@@ -41,7 +41,7 @@ public class BuscarController {
         }
 
         model.addAttribute("listProcessoNotificacao", pn);
-        model.addAttribute("search", search);
+        model.addAttribute("buscar", search);
         return "buscar-todas-notificacao";
     }
 }

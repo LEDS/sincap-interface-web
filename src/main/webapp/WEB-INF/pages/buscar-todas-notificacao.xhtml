@@ -19,7 +19,7 @@
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <div class="step-pane active" id="step1">
-            <form id="notifEntrevista" class="form-horizontal"
+            <form id="notif" class="form-horizontal"
                   action="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}" method="post">
                 <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />

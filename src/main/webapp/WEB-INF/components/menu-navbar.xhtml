@@ -21,18 +21,22 @@
             <!-- Elementos a direita -->
             <ul class="nav pull-right">
                 <!-- Search Bar -->
-                <li class="hidden-phone">
-                    <input class="search" type="text"/>
-                </li>
+                    <li class="hidden-phone">
+                        <form id="notif" class="form-horizontal"
+                              action="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}" method="post">
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                            <input id="buscar" class="search" type="text" name="buscar"/>
+                        </form>
+                    </li>
 
                 <!-- Entrar no administrativo -->
                 <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-                <li class="settings hidden-phone">
-                    <a href="#{request.contextPath}#{contextUrls.admin}"
-                       role="button">
-                        <i class="icon-cog"/>
-                    </a>
-                </li>
+                    <li class="settings hidden-phone">
+                        <a href="#{request.contextPath}#{contextUrls.admin}"
+                           role="button">
+                            <i class="icon-cog"/>
+                        </a>
+                    </li>
                 </h:panelGroup>
                 <!-- Logout -->
                 <li class="settings hidden-phone">
