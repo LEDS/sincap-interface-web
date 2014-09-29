@@ -98,18 +98,20 @@
         </h:panelGroup>
 
         <!-- Notificações com óbito aguardando correção -->
-        <h:panelGroup rendered="#{not request.isUserInRole('ROLE_CAPTADOR')}">
+        <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
             <br/><h2>Óbito aguardando correção</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-corrigir-obito.xhtml">
                 <ui:param name="processos" value="#{processosObitoAguardandoCorrecao}"/>
             </ui:include>
         </h:panelGroup>
-        
+
+        <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR') or request.isUserInRole('ROLE_CAPTADOR')}">
         <br/><h2>Entrevista Aguardando Correção</h2><br/>
-        <!-- Notificações com entrevista pendente de análise -->
-        <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-correcao.xhtml">
-            <ui:param name="processos" value="#{processosEntrevistaAguardandoCorrecao}" />
-        </ui:include>
+            <!-- Notificações com entrevista pendente de análise -->
+            <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-correcao.xhtml">
+                <ui:param name="processos" value="#{processosEntrevistaAguardandoCorrecao}" />
+            </ui:include>
+        </h:panelGroup>
 
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
             <br/><h2>Análise de Entrevista Pendente</h2><br/>
@@ -127,7 +129,7 @@
             </ui:include>
         </h:panelGroup>
 
-        <h:panelGroup rendered="#{not request.isUserInRole('ROLE_NOTIFICADOR')}">
+        <h:panelGroup rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
             <br/><h2>Captação aguardando correção</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-corrigir-captacao.xhtml">
                 <ui:param name="processos" value="#{processosCaptacoesAguardandoCorrecao}"/>

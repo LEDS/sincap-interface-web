@@ -30,13 +30,13 @@
                     </li>
 
                 <!-- Entrar no administrativo -->
-                <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-                    <li class="settings hidden-phone">
-                        <a href="#{request.contextPath}#{contextUrls.admin}"
-                           role="button">
-                            <i class="icon-cog"/>
-                        </a>
-                    </li>
+                <h:panelGroup rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+                <li class="settings hidden-phone">
+                    <a href="#{request.contextPath}#{contextUrls.admin}"
+                       role="button">
+                        <i class="icon-cog"/>
+                    </a>
+                </li>
                 </h:panelGroup>
                 <!-- Logout -->
                 <li class="settings hidden-phone">
