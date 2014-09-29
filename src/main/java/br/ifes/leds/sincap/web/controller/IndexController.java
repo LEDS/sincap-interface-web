@@ -114,7 +114,7 @@ public class IndexController {
     private void seForNotificadorOuCaptador(ModelMap model, List<String> autoridades, UsuarioSessao usuarioSessao) {
         if (autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")) {
             List<ProcessoNotificacao> processosObitoAguardandoEntrevista = aplProcessoNotificacao
-                    .retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdHospital());
+                    .retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario());
             List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
                     .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
 
