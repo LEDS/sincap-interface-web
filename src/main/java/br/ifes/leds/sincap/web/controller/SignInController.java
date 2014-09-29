@@ -6,7 +6,6 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplPrincipal;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static org.springframework.http.HttpStatus.OK;
 
 /**
  * @author 20102bsi0553
@@ -77,8 +78,13 @@ public class SignInController {
 
         Set<InstituicaoNotificadora> setInstituicoesNotificadoras = aplPrincipal.obterInstituicoesNotificadorasPorCpf(cpf);
         List<InstituicaoNotificadora> instituicoes = new ArrayList<>();
-        instituicoes.addAll(setInstituicoesNotificadoras);
 
-        return new ResponseEntity<>(utility.mapList(instituicoes, Map.class), HttpStatus.OK);
+        try {
+            instituicoes.addAll(setInstituicoesNotificadoras);
+        } catch (NullPointerException e) {
+            return new ResponseEntity<List<Map>>(new ArrayList<Map>(), OK);
+        }
+
+        return new ResponseEntity<>(utility.mapList(instituicoes, Map.class), OK);
     }
 }

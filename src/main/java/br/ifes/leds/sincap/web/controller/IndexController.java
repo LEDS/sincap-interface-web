@@ -5,18 +5,28 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
+import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.*;
+import static br.ifes.leds.sincap.web.controller.ContextUrls.INDEX;
+import static org.springframework.security.core.context.SecurityContextHolder.getContext;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
  * Controla os eventos da página principal.
@@ -24,7 +34,7 @@ import java.util.List;
  * @author Lucas Possatti
  */
 @Controller
-@RequestMapping(ContextUrls.INDEX)
+@RequestMapping(INDEX)
 @SessionScoped
 public class IndexController {
 
@@ -34,8 +44,9 @@ public class IndexController {
     /**
      * Exibe a página principal.
      */
-    @RequestMapping(method = RequestMethod.GET)
-    public String index(ModelMap model,
+    @DefaultTimeZone
+    @RequestMapping(method = GET)
+    public String index(ModelMap model, HttpSession session,
                         @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito,
                         @RequestParam(value = "obitoConfirmado", defaultValue = "false") boolean obitoConfirmado,
                         @RequestParam(value = "obitoRecusado", defaultValue = "false") boolean obitoRecusado,
@@ -46,38 +57,14 @@ public class IndexController {
                         @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento,
                         @RequestParam(value = "captacaoSucesso", defaultValue = "false") boolean captacaoSucesso,
                         @RequestParam(value = "captacaoConfirmado", defaultValue = "false") boolean captacaoConfirmado,
-                        @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado){
-        // Puxa os três tipos de notificações corretamente da apl.
-        List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO);
-        List<ProcessoNotificacao> processosObitoAguardandoCorrecao = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOOBITO);
-        List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOENTREVISTA);
-        List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA);
-        List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO);
-        List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCORRECAOCAPTACACAO);
-        List<ProcessoNotificacao> processosAguardandoArquivamento = aplProcessoNotificacao
-                .retornarProcessoNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOARQUIVAMENTO);
+                        @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado) {
 
-        // Adiciona as três listas de notificações à página.
-        model.addAttribute("processosObitoAnalisePendente",
-                processosObitoAnalisePendente);
-        model.addAttribute("processosObitoAguardandoCorrecao",
-                processosObitoAguardandoCorrecao);
-        model.addAttribute("processosEntrevistaAguardandoCorrecao",
-                processosEntrevistaAguardandoCorrecao);
-        model.addAttribute("processosEntrevistaAnalisePendente",
-                processosEntrevistaAnalisePendente);
-        model.addAttribute("processosCaptacoesAnalisePendente",
-                processosCaptacoesAnalisePendente);
-        model.addAttribute("processosCaptacoesAguardandoCorrecao",
-                processosCaptacoesAguardandoCorrecao);
-        model.addAttribute("processosAguardandoArquivamento",
-                processosAguardandoArquivamento);
+        List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+
+        seForNotificador(model, autoridades);
+        seForNotificadorOuCaptador(model, autoridades, (UsuarioSessao) session.getAttribute("user"));
+        seForCaptador(model, autoridades, (UsuarioSessao) session.getAttribute("user"));
+        seForAnalista(model, autoridades);
 
         model.addAttribute("sucessoObito", sucessoObito);
         model.addAttribute("obitoConfirmado", obitoConfirmado);
@@ -91,7 +78,67 @@ public class IndexController {
         model.addAttribute("captacaoRecusado", captacaoRecusado);
         model.addAttribute("sucessoArquivamento", sucessoArquivamento);
 
-        // Chama a página.
         return "index";
+    }
+
+    private void seForAnalista(ModelMap model, List<String> autoridades) {
+        if (autoridades.contains("ROLE_ANALISTA")) {
+            List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO);
+            List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA);
+            List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISECAPTACAO);
+            List<ProcessoNotificacao> processosAguardandoArquivamento = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOARQUIVAMENTO);
+
+            model.addAttribute("processosObitoAnalisePendente", processosObitoAnalisePendente);
+            model.addAttribute("processosEntrevistaAnalisePendente", processosEntrevistaAnalisePendente);
+            model.addAttribute("processosCaptacoesAnalisePendente", processosCaptacoesAnalisePendente);
+            model.addAttribute("processosAguardandoArquivamento", processosAguardandoArquivamento);
+        }
+    }
+
+    private void seForCaptador(ModelMap model, List<String> autoridades, UsuarioSessao usuarioSessao) {
+        if (autoridades.contains("ROLE_CAPTADOR")) {
+            List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO);
+            List<ProcessoNotificacaoDTO> processosEntrevistasAguardandoCaptacao = aplProcessoNotificacao.
+                    retornarNotificacaoPorEstadoAtualEBancoOlhos(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario());
+
+            model.addAttribute("processosCaptacoesAguardandoCorrecao", processosCaptacoesAguardandoCorrecao);
+            model.addAttribute("processosEntrevistasAguardandoCaptacao", processosEntrevistasAguardandoCaptacao);
+        }
+    }
+
+    private void seForNotificadorOuCaptador(ModelMap model, List<String> autoridades, UsuarioSessao usuarioSessao) {
+        if (autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")) {
+            List<ProcessoNotificacao> processosObitoAguardandoEntrevista = aplProcessoNotificacao
+                    .retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdHospital());
+            List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
+
+            model.addAttribute("processosObitoAguardandoEntrevista", processosObitoAguardandoEntrevista);
+            model.addAttribute("processosEntrevistaAguardandoCorrecao", processosEntrevistaAguardandoCorrecao);
+        }
+    }
+
+    private void seForNotificador(ModelMap model, List<String> autoridades) {
+        if (autoridades.contains("ROLE_NOTIFICADOR")) {
+            List<ProcessoNotificacao> processosObitoAguardandoCorrecao = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO);
+
+            model.addAttribute("processosObitoAguardandoCorrecao", processosObitoAguardandoCorrecao);
+        }
+    }
+
+    private static List<String> authoritiesSetToStringList(Collection<? extends GrantedAuthority> authorities) {
+        List<String> auth = new ArrayList<>();
+
+        for (GrantedAuthority grantedAuthority : authorities) {
+            auth.add(grantedAuthority.toString());
+        }
+
+        return auth;
     }
 }

@@ -1,7 +1,6 @@
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
@@ -23,11 +22,16 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao.PROBLEMAS_LOGISTICOS;
+import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 /**
  * @author 20102bsi0553
  */
 @Controller
-@RequestMapping(ContextUrls.APP_NOTIFICACAO_CAPTACAO)
+@RequestMapping(APP_NOTIFICACAO_CAPTACAO)
 @SessionScoped
 public class NotificacaoCaptacaoController {
 
@@ -40,32 +44,19 @@ public class NotificacaoCaptacaoController {
     @Autowired
     private UtilityWeb utilityWeb;
 
-    @RequestMapping(method = RequestMethod.GET)
-    public String loadListEntrevistaAguardandoCaptacao(ModelMap model, HttpSession secao) {
-
-        UsuarioSessao usuarioSessao = (UsuarioSessao) secao.getAttribute("user");
-        List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.
-                retornarNotificacaoPorEstadoAtualEBancoOlhos(EstadoNotificacaoEnum.AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario());
-
-        model.addAttribute("listaProcessosNotificacao", processos);
-        return "captacao";
-    }
-
-    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.POST)
+    @RequestMapping(value = ADICIONAR, method = POST)
     public String loadFormCaptacao(ModelMap model, @RequestParam("id") Long id) {
         try {
             ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
-            model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(TipoNaoDoacao.PROBLEMAS_LOGISTICOS));
+            model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(PROBLEMAS_LOGISTICOS));
             model.addAttribute("processo", processo);
-
-        } catch (Exception e) {
-
+        } catch (Exception ignored) {
         }
 
         return "form-notificacao-captacao";
     }
 
-    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
+    @RequestMapping(value = SALVAR, method = POST)
     public String salvarCaptacao(HttpSession session, ModelMap model,
                                  @ModelAttribute ProcessoNotificacaoDTO processo,
                                  @RequestParam("captacaoRealizada") boolean captacaoRealizada,
@@ -79,21 +70,19 @@ public class NotificacaoCaptacaoController {
 
             aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), usuarioSessao.getIdUsuario());
         } catch (ConstraintViolationException e) {
-            setUpConstraintViolations(model, session, processo, captacaoRealizada, dataCaptacao, horarioCaptacao, e);
+            setUpConstraintViolations(model, processo, captacaoRealizada, dataCaptacao, horarioCaptacao, e);
             return "form-notificacao-captacao";
         } catch (TransactionSystemException e) {
-            setUpConstraintViolations(model, session, processo, captacaoRealizada, dataCaptacao, horarioCaptacao,
+            setUpConstraintViolations(model, processo, captacaoRealizada, dataCaptacao, horarioCaptacao,
                     (ConstraintViolationException) e.getRootCause());
             return "form-notificacao-captacao";
-        } catch (ParseException e) {
-            throw e;
+        } catch (ParseException ignored) {
         }
 
-        return "redirect:" + ContextUrls.INDEX + "?captacaoSucesso=true";
+        return "redirect:" + INDEX + "?captacaoSucesso=true";
     }
 
-    private void setUpConstraintViolations(ModelMap model,
-                                           HttpSession session, ProcessoNotificacaoDTO processo, boolean captacaoRealizada,
+    private void setUpConstraintViolations(ModelMap model, ProcessoNotificacaoDTO processo, boolean captacaoRealizada,
                                            String dataCaptacao, String horarioCaptacao, ConstraintViolationException e) {
 
         utilityWeb.addConstraintViolations(e, model);
@@ -110,11 +99,9 @@ public class NotificacaoCaptacaoController {
     /**
      * Fornece a página para análise.
      *
-     * @param model
      * @param idProcesso ID do ProcessoNotificacao
-     * @return
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
+    @RequestMapping(value = APP_ANALISAR + "/{idProcesso}", method = GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
         // Pega o processo do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao
@@ -127,19 +114,19 @@ public class NotificacaoCaptacaoController {
         return "analise-processo-notificacao";
     }
 
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
     public String recusarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?captacaoRecusado=true";
+        return "redirect:" + INDEX + "?captacaoRecusado=true";
     }
 
-    @RequestMapping(value = ContextUrls.CORRIGIR + "/{idProcesso}", method = RequestMethod.GET)
+    @RequestMapping(value = CORRIGIR + "/{idProcesso}", method = GET)
     public String corrigirCaptacao(ModelMap model, @PathVariable Long idProcesso) {
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
-        model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(TipoNaoDoacao.PROBLEMAS_LOGISTICOS));
+        model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(PROBLEMAS_LOGISTICOS));
 
         String dataHora = utilityEntities.calendarDataToString(processo.getCaptacao().getDataCaptacao());
         addAttributesToModel(processo, model, processo.getCaptacao().isCaptacaoRealizada(), dataHora, dataHora);
@@ -147,12 +134,12 @@ public class NotificacaoCaptacaoController {
         return "form-notificacao-captacao";
     }
 
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
     public String confirmarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.confirmarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?captacaoConfirmado=true";
+        return "redirect:" + INDEX + "?captacaoConfirmado=true";
     }
 
     private List<SelectItem> getListaProblemaLogisticoSelectItem(TipoNaoDoacao tipo) {

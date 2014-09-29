@@ -24,6 +24,7 @@ public class ContextUrls {
     /**
      * Aplicações (Controllers)
      */
+    public static final String APP_PROCESSO = "/processo";
     public static final String APP_NOTIFICADOR = "/notificador";
     public static final String APP_CAPTADOR = "/captador";
     public static final String APP_ANALISTA = "/analista";
@@ -40,6 +41,7 @@ public class ContextUrls {
     public static final String APP_ENDERECO = "/endereco";
     public static final String APP_CAUSA_NAO_DOACAO = "/causa-nao-doacao";
     public static final String APP_FUNCIONARIO = "/funcionario";
+    public static final String APP_BUSCAR = "/buscar";
     /**
      * Métodos
      */
@@ -56,7 +58,10 @@ public class ContextUrls {
     public static final String CORRIGIR = "/corrigir";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
+    public static final String EXCLUIR = "/excluir";
     public static final String IMPRIMIR = "/imprimir";
+    public static final String BUSCAR_TODOS = "/todos";
+    public static final String EXIBIR = "/exibir";
     public static final String GET_MUNICIPIOS = "/getMunicipios";
     public static final String GET_BAIRROS = "/getBairros";
     public static final String GET_ESTADOS = "/getEstados";
@@ -72,6 +77,7 @@ public class ContextUrls {
     /**
      * Aplicações (Controllers)
      */
+    String app_processo = APP_PROCESSO;
     String app_notificador = APP_NOTIFICADOR;
     String app_captador = APP_CAPTADOR;
     String app_analista = APP_ANALISTA;
@@ -88,6 +94,7 @@ public class ContextUrls {
     String app_endereco = APP_ENDERECO;
     String app_causa_nao_doacao = APP_CAUSA_NAO_DOACAO;
     String app_funcionario = APP_FUNCIONARIO;
+    String app_buscar = APP_BUSCAR;
     /**
      * Métodos
      */
@@ -101,7 +108,10 @@ public class ContextUrls {
     String corrigir = CORRIGIR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
+    String excluir = EXCLUIR;
     String imprimir = IMPRIMIR;
+    String buscar_todos = BUSCAR_TODOS;
+    String exibir = EXIBIR;
     String get_municipios = GET_MUNICIPIOS;
     String get_bairros = GET_BAIRROS;
     String get_estados = GET_ESTADOS;
