@@ -24,6 +24,7 @@ public class ContextUrls {
     /**
      * Aplicações (Controllers)
      */
+    public static final String APP_PROCESSO = "/processo";
     public static final String APP_NOTIFICADOR = "/notificador";
     public static final String APP_CAPTADOR = "/captador";
     public static final String APP_ANALISTA = "/analista";
@@ -57,6 +58,7 @@ public class ContextUrls {
     public static final String CORRIGIR = "/corrigir";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
+    public static final String EXCLUIR = "/excluir";
     public static final String IMPRIMIR = "/imprimir";
     public static final String BUSCAR_TODOS = "/todos";
     public static final String GET_MUNICIPIOS = "/getMunicipios";
@@ -74,6 +76,7 @@ public class ContextUrls {
     /**
      * Aplicações (Controllers)
      */
+    String app_processo = APP_PROCESSO;
     String app_notificador = APP_NOTIFICADOR;
     String app_captador = APP_CAPTADOR;
     String app_analista = APP_ANALISTA;
@@ -104,6 +107,7 @@ public class ContextUrls {
     String corrigir = CORRIGIR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
+    String excluir = EXCLUIR;
     String imprimir = IMPRIMIR;
     String buscar_todos = BUSCAR_TODOS;
     String get_municipios = GET_MUNICIPIOS;

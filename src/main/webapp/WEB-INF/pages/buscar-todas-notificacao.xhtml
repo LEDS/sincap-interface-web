@@ -16,6 +16,13 @@
         #{msg['sidebar.notificacao.buscarTodos']}
     </ui:define>
 
+    <h:panelGroup rendered="#{sucessoExcluir and request.isUserInRole('ROLE_ANALISTA')}">
+        <div class="alert alert-success">
+            <i class="icon-save"/>
+            Arquivado com sucesso!
+        </div>
+    </h:panelGroup>
+
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <div class="step-pane active" id="step1">

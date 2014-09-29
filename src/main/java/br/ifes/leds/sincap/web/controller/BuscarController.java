@@ -23,15 +23,18 @@ public class BuscarController {
     AplProcessoNotificacao aplProcessoNotificacao;
 
     @RequestMapping(value = ContextUrls.BUSCAR_TODOS, method = RequestMethod.GET)
-    public String carregaTodos(ModelMap model) {
+    public String carregaTodos(ModelMap model,
+                       @RequestParam(value = "sucessoExcluir", defaultValue = "false") boolean sucessoExcluir) {
         List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterTodasNotificacoes();
         model.addAttribute("listProcessoNotificacao", pn);
+        model.addAttribute("sucessoExcluir", sucessoExcluir);
 
         return "buscar-todas-notificacao";
     }
 
     @RequestMapping(value = ContextUrls.BUSCAR_TODOS, method = RequestMethod.POST)
-    public String buscarTodos(ModelMap model, @RequestParam(value = "buscar", defaultValue = "") String search) {
+    public String buscarTodos(ModelMap model, @RequestParam(value = "buscar", defaultValue = "") String search,
+                              @RequestParam(value = "sucessoExcluir", defaultValue = "false") boolean sucessoExcluir) {
         List<ProcessoNotificacao> pn = null;
 
         if (search.trim().isEmpty()) {
@@ -42,6 +45,7 @@ public class BuscarController {
 
         model.addAttribute("listProcessoNotificacao", pn);
         model.addAttribute("buscar", search);
+        model.addAttribute("sucessoExcluir", sucessoExcluir);
         return "buscar-todas-notificacao";
     }
 }

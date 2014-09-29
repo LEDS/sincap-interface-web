@@ -12,15 +12,23 @@ import javax.servlet.http.HttpSession;
 
 
 @Controller
-@RequestMapping("/processo")
+@RequestMapping(ContextUrls.APP_PROCESSO)
 public class ProcessoNotificacaoController {
 
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
-    @RequestMapping(value = "/arquivar", method = RequestMethod.POST)
+
+    @RequestMapping(value = ContextUrls.ARQUIVAR, method = RequestMethod.POST)
     public String arquivarProcesso(@RequestParam("id") Long id, HttpSession secao) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) secao.getAttribute("user");
         aplProcessoNotificacao.arquivarProcessoNotificacao(id,usuarioSessao.getIdUsuario());
         return "redirect:" + ContextUrls.INDEX + "/?sucessoArquivamento=true";
+    }
+
+    @RequestMapping(value = ContextUrls.EXCLUIR, method = RequestMethod.POST)
+    public String excluirProcesso(@RequestParam("id") Long id){
+
+        aplProcessoNotificacao.excluirProcesso(id);
+        return "redirect:" + ContextUrls.APP_BUSCAR + ContextUrls.BUSCAR_TODOS + "/?sucessoExcluir=true";
     }
 }
