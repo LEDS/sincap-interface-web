@@ -16,14 +16,14 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}*"/>
-        <h:inputText styleClass="data span8" id="dataNascimento" value="#{processo.obito.paciente.dataNascimento.time}">
+        <h:inputText styleClass="data span8" id="obito-paciente-dataNascimento" value="#{processo.obito.paciente.dataNascimento.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}*"/>
-        <h:inputText styleClass="data span8" id="dataInternacao" value="#{processo.obito.paciente.dataInternacao.time}">
+        <h:inputText styleClass="data span8" id="obito-paciente-dataInternacao" value="#{processo.obito.paciente.dataInternacao.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
     </h:panelGroup>
@@ -142,7 +142,7 @@
         $("#obito-paciente-endereco-logradouro").keypress(function (event) {
             if (event.key === "Tab") {
                 $("#btn-next").click();
-                $("#dataObito").focus();
+                $("#obito-dataObito").focus();
             }
         });
     </script>

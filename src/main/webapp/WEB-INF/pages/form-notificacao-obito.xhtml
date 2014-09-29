@@ -3,7 +3,8 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:sincap="http://java.sun.com/jsf/composite/sincap">
+                xmlns:sincap="http://java.sun.com/jsf/composite/sincap"
+                xmlns:f="http://java.sun.com/jsf/core">
 
     <ui:param name="obito" value="true"/>
 
@@ -56,6 +57,9 @@
                     </div>
                 </div>
                 <input type="hidden" name="id" value="#{processo.id}" />
+                <h:inputHidden id="obito-dataCadastro" value="#{processo.obito.dataCadastro.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
+                </h:inputHidden>
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             </form>
         </div>

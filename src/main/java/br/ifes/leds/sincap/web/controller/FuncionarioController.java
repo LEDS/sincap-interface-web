@@ -117,19 +117,8 @@ public class FuncionarioController {
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
         model.addAttribute("listaHospitais",listaHospitais);
-        model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
+        model.addAttribute("listaHospitaisNotificador", utilityWeb.getLongBooleanMap(listaHospitais, notificador.getInstituicoesNotificadoras()));
         return "form-cadastro-notificador";
-    }
-
-    private Map<Long, Boolean> getLongBooleanMap(Notificador notificador, List<InstituicaoNotificadora> listaHospitais) {
-        Map<Long, Boolean> listaHospitaisNotificador = new HashMap<>();
-        for (InstituicaoNotificadora instituicao: listaHospitais) {
-            listaHospitaisNotificador.put(instituicao.getId(), Boolean.FALSE);
-        }
-        for (InstituicaoNotificadora instituicao: notificador.getInstituicoesNotificadoras()) {
-            listaHospitaisNotificador.put(instituicao.getId(), Boolean.TRUE);
-        }
-        return listaHospitaisNotificador;
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR +"/{idNotificador}", method = RequestMethod.POST)
