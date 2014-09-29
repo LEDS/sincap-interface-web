@@ -22,7 +22,8 @@
                     <span>#{msg['sidebar.principal']}</span>
                 </a>
             </li>
-            <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
+            <h:panelGroup
+                    rendered="#{request.isUserInRole('ROLE_NOTIFICADOR') and not request.isUserInRole('ROLE_ANALISTA')}">
                 <li class="#{obito ? 'active':''}">
                     <h:panelGroup layout="block" rendered="#{obito}" class="pointer">
                         <h:panelGroup layout="block" class="arrow"/>
@@ -34,17 +35,20 @@
                     </a>
                 </li>
             </h:panelGroup>
-            <li class="#{entrevista ? 'active':''}">
-                <h:panelGroup layout="block" rendered="#{entrevista}" class="pointer">
-                    <h:panelGroup layout="block" class="arrow"/>
-                    <h:panelGroup layout="block" class="arrow_border"/>
-                </h:panelGroup>
-                <a href="#{request.contextPath}#{contextUrls.app_notificacao_entrevista}">
-                    <i class="icon-group"/>
-                    <span>#{msg['sidebar.entrevista']}</span>
-                </a>
-            </li>
-            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_NOTIFICADOR')}">
+            <h:panelGroup
+                    rendered="#{not request.isUserInRole('ROLE_ANALISTA')}">
+                <li class="#{entrevista ? 'active':''}">
+                    <h:panelGroup layout="block" rendered="#{entrevista}" class="pointer">
+                        <h:panelGroup layout="block" class="arrow"/>
+                        <h:panelGroup layout="block" class="arrow_border"/>
+                    </h:panelGroup>
+                    <a href="#{request.contextPath}#{contextUrls.app_notificacao_entrevista}">
+                        <i class="icon-group"/>
+                        <span>#{msg['sidebar.entrevista']}</span>
+                    </a>
+                </li>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
                 <li class="#{captacao ? 'active':''}">
                     <h:panelGroup layout="block" rendered="#{captacao}" class="pointer">
                         <h:panelGroup layout="block" class="arrow"/>
@@ -72,24 +76,22 @@
                     </li>
                 </ul>
             </li>
-            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_CAPTADOR')}">
-                <li class="#{relatorio ? 'active':''}">
-                    <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
-                        <h:panelGroup layout="block" class="arrow"/>
-                        <h:panelGroup layout="block" class="arrow_border"/>
-                    </h:panelGroup>
-                    <a class="dropdown-toggle" href="#">
-                        <i class="icon-signal"/>
-                        <span>#{msg['sidebar.relatorios']}</span>
-                        <i class="icon-chevron-down"/>
-                    </a>
-                    <ul class="submenu">
-                        <li>
-                            <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}">Termo de doação</a>
-                        </li>
-                    </ul>
-                </li>
-            </h:panelGroup>
+            <li class="#{relatorio ? 'active':''}">
+                <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
+                    <h:panelGroup layout="block" class="arrow"/>
+                    <h:panelGroup layout="block" class="arrow_border"/>
+                </h:panelGroup>
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-signal"/>
+                    <span>#{msg['sidebar.relatorios']}</span>
+                    <i class="icon-chevron-down"/>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}">Termo de doação</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </h:panelGroup>
 

@@ -61,6 +61,7 @@ public class ContextUrls {
     public static final String EXCLUIR = "/excluir";
     public static final String IMPRIMIR = "/imprimir";
     public static final String BUSCAR_TODOS = "/todos";
+    public static final String EXIBIR = "/exibir";
     public static final String GET_MUNICIPIOS = "/getMunicipios";
     public static final String GET_BAIRROS = "/getBairros";
     public static final String GET_ESTADOS = "/getEstados";
@@ -110,6 +111,7 @@ public class ContextUrls {
     String excluir = EXCLUIR;
     String imprimir = IMPRIMIR;
     String buscar_todos = BUSCAR_TODOS;
+    String exibir = EXIBIR;
     String get_municipios = GET_MUNICIPIOS;
     String get_bairros = GET_BAIRROS;
     String get_estados = GET_ESTADOS;

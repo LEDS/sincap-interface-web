@@ -2,6 +2,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
     <h:panelGroup layout="block" styleClass="row-fluid">
         <h:panelGroup layout="block" styleClass="span12">
             <h:panelGroup styleClass="row-fluid form-wrapper">
@@ -74,10 +75,10 @@
                             <h:outputText value="Status"/>
                         </f:facet>
 
-                        <h:panelGroup rendered="#{processo.ativo}">
+                        <h:panelGroup rendered="#{not processo.excluido}">
                             <span class="label label-success">Ativo</span>
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{!processo.ativo}">
+                        <h:panelGroup rendered="#{processo.excluido}">
                             <span class="label label-important">Excluido</span>
                         </h:panelGroup>
                     </h:column>
@@ -90,8 +91,9 @@
                             <h:outputText value="Exibir"/>
                         </f:facet>
                         <form style="width:0.5px;" id="formulario-exibe-processo-#{processo.id}"
-                              action="#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_notificador}/#{notificador.id}"
+                              action="#{request.contextPath}#{contextUrls.app_processo}#{contextUrls.exibir}"
                               method="get">
+                            <input type="hidden" name="idProcesso" value="#{processo.id}"/>
                             <button type="submit"><i class="icon-edit"></i></button>
                         </form>
                     </h:column>
