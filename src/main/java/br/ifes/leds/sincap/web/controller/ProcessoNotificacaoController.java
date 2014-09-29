@@ -22,13 +22,13 @@ public class ProcessoNotificacaoController {
     public String arquivarProcesso(@RequestParam("id") Long id, HttpSession secao) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) secao.getAttribute("user");
         aplProcessoNotificacao.arquivarProcessoNotificacao(id,usuarioSessao.getIdUsuario());
-        return "redirect:" + ContextUrls.INDEX + "/?sucessoArquivamento=true";
+        return "redirect:" + ContextUrls.INDEX + "?sucessoExcluir=true";
     }
 
     @RequestMapping(value = ContextUrls.EXCLUIR, method = RequestMethod.POST)
-    public String excluirProcesso(@RequestParam("id") Long id){
+    public String excluirProcesso(@RequestParam("idProcesso") Long id){
 
         aplProcessoNotificacao.excluirProcesso(id);
-        return "redirect:" + ContextUrls.APP_BUSCAR + ContextUrls.BUSCAR_TODOS + "/?sucessoExcluir=true";
+        return "redirect:" + ContextUrls.APP_BUSCAR + ContextUrls.BUSCAR_TODOS + "?sucessoExcluir=true";
     }
 }

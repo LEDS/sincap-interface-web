@@ -16,15 +16,15 @@
         #{msg['sidebar.notificacao.buscarTodos']}
     </ui:define>
 
-    <h:panelGroup rendered="#{sucessoExcluir and request.isUserInRole('ROLE_ANALISTA')}">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Arquivado com sucesso!
-        </div>
-    </h:panelGroup>
-
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
+        <h:panelGroup rendered="#{sucessoExcluir and request.isUserInRole('ROLE_ANALISTA')}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Excluido com sucesso!
+            </div>
+        </h:panelGroup>
+
         <div class="step-pane active" id="step1">
             <form id="notif" class="form-horizontal"
                   action="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}" method="post">
@@ -44,8 +44,5 @@
             </div>
         </div>
 
-        <h:outputScript library="js" name="form-entrevista.js"/>
     </ui:define>
-
-
 </ui:composition>

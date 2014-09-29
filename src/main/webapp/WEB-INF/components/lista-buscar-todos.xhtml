@@ -68,6 +68,20 @@
                         <h:outputText value="#{processo.notificador.nome}"/>
                     </h:column>
 
+                    <!-- Status -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Status"/>
+                        </f:facet>
+
+                        <h:panelGroup rendered="#{processo.ativo}">
+                            <span class="label label-success">Ativo</span>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{!processo.ativo}">
+                            <span class="label label-important">Excluido</span>
+                        </h:panelGroup>
+                    </h:column>
+
                     <!-- COLUNA COM STADO DA NOTIFICACAO -->
 
                     <!-- Botões -->
@@ -87,9 +101,10 @@
                             <h:outputText value="Excluir"/>
                         </f:facet>
                         <form style="width:0.5px;" id="formulario-exclui-processo-#{processo.id}"
-                              action="#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_notificador}/#{notificador.id}"
+                              action="#{request.contextPath}#{contextUrls.app_processo}#{contextUrls.excluir}"
                               method="post">
                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+                            <input type="hidden" name="idProcesso" value="#{processo.id}"/>
                             <button type="submit"><i class="icon-trash"></i></button>
                         </form>
                     </h:column>
