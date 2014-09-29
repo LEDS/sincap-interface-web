@@ -6,6 +6,7 @@
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,8 +101,11 @@ public class IndexController {
         if (autoridades.contains("ROLE_CAPTADOR")) {
             List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
                     .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO);
+            List<ProcessoNotificacaoDTO> processosEntrevistasAguardandoCaptacao = aplProcessoNotificacao.
+                    retornarNotificacaoPorEstadoAtual(AGUARDANDOCAPTACAO);
 
             model.addAttribute("processosCaptacoesAguardandoCorrecao", processosCaptacoesAguardandoCorrecao);
+            model.addAttribute("processosEntrevistasAguardandoCaptacao", processosEntrevistasAguardandoCaptacao);
         }
     }
 

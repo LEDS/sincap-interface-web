@@ -52,18 +52,6 @@
                     </a>
                 </li>
             </h:panelGroup>
-            <h:panelGroup rendered="#{not request.isUserInRole('ROLE_NOTIFICADOR')}">
-                <li class="#{captacao ? 'active':''}">
-                    <h:panelGroup layout="block" rendered="#{captacao}" class="pointer">
-                        <h:panelGroup layout="block" class="arrow"/>
-                        <h:panelGroup layout="block" class="arrow_border"/>
-                    </h:panelGroup>
-                    <a href="#{request.contextPath}#{contextUrls.app_notificacao_captacao}">
-                        <i class="icon-user-md"/>
-                        <span>#{msg['sidebar.notificacao.notificar.captacao']}</span>
-                    </a>
-                </li>
-            </h:panelGroup>
         </ul>
     </h:panelGroup>
 

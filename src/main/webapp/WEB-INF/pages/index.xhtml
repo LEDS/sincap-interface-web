@@ -135,6 +135,11 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
+            <br/><h2>#{msg['entrevista.entrevista-aguardando-Captacao']}</h2><br/>
+            <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-captacao.xhtml">
+                <ui:param name="listaProcessosNotificacao" value="#{processosEntrevistasAguardandoCaptacao}"/>
+            </ui:include>
+
             <br/><h2>Captação aguardando correção</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-corrigir-captacao.xhtml">
                 <ui:param name="processos" value="#{processosCaptacoesAguardandoCorrecao}"/>
