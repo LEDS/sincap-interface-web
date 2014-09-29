@@ -6,7 +6,6 @@
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
@@ -45,14 +44,6 @@ public class NotificacaoEntrevistaController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
-
-    @RequestMapping(method = RequestMethod.GET)
-    @DefaultTimeZone
-    public String loadListObitoAguardandoEntrevista(ModelMap model) {
-        List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
-        model.addAttribute("listaProcessosNotificacao", processos);
-        return "entrevista";
-    }
 
     @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.POST)
     public String loadFormEntrevista(ModelMap model, @RequestParam("id") Long id) {

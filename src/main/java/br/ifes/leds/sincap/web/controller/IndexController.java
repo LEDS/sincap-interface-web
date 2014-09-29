@@ -7,6 +7,7 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
@@ -40,6 +41,7 @@ public class IndexController {
     /**
      * Exibe a página principal.
      */
+    @DefaultTimeZone
     @RequestMapping(method = GET)
     public String index(ModelMap model,
                         @RequestParam(value = "sucessoObito", defaultValue = "false") boolean sucessoObito,

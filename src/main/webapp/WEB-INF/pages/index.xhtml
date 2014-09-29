@@ -106,7 +106,12 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR') or request.isUserInRole('ROLE_CAPTADOR')}">
-        <br/><h2>Entrevista Aguardando Correção</h2><br/>
+            <br/><h2>#{msg['entrevista.obito-aguardando-entrevista']}</h2><br/>
+            <ui:include src="/WEB-INF/components/lista-obito-aguardando-entrevista.xhtml">
+                <ui:param name="listaProcessosNotificacao" value="#{processosObitoAguardandoEntrevista}"/>
+            </ui:include>
+
+            <br/><h2>Entrevista Aguardando Correção</h2><br/>
             <!-- Notificações com entrevista pendente de análise -->
             <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-correcao.xhtml">
                 <ui:param name="processos" value="#{processosEntrevistaAguardandoCorrecao}" />
