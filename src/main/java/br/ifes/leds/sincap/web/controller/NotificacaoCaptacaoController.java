@@ -41,9 +41,11 @@ public class NotificacaoCaptacaoController {
     private UtilityWeb utilityWeb;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String loadListEntrevistaAguardandoCaptacao(ModelMap model) {
+    public String loadListEntrevistaAguardandoCaptacao(ModelMap model, HttpSession secao) {
+
+        UsuarioSessao usuarioSessao = (UsuarioSessao) secao.getAttribute("user");
         List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.
-                retornarNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOCAPTACAO);
+                retornarNotificacaoPorEstadoAtualEBancoOlhos(EstadoNotificacaoEnum.AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario());
 
         model.addAttribute("listaProcessosNotificacao", processos);
         return "captacao";

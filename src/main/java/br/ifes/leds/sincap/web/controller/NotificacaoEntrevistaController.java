@@ -48,8 +48,10 @@ public class NotificacaoEntrevistaController {
 
     @RequestMapping(method = RequestMethod.GET)
     @DefaultTimeZone
-    public String loadListObitoAguardandoEntrevista(ModelMap model) {
-        List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtual(EstadoNotificacaoEnum.AGUARDANDOENTREVISTA);
+    public String loadListObitoAguardandoEntrevista(ModelMap model , HttpSession secao) {
+
+        UsuarioSessao usuarioSessao = (UsuarioSessao) secao.getAttribute("user");
+        List<ProcessoNotificacaoDTO> processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(EstadoNotificacaoEnum.AGUARDANDOENTREVISTA, usuarioSessao.getIdHospital());
         model.addAttribute("listaProcessosNotificacao", processos);
         return "entrevista";
     }
