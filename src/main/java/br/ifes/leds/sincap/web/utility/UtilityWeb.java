@@ -16,6 +16,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.FieldError;
 
 import javax.faces.model.SelectItem;
 import javax.validation.ConstraintViolation;
@@ -33,6 +34,13 @@ public class UtilityWeb {
         e.getConstraintViolations().toArray(constraintViolations);
         model.addAttribute("constraintViolations", constraintViolations);
         model.addAttribute("erro", true);
+    }
+
+    public void addConstraintViolations(List<? extends FieldError> errors, ModelMap modelMap) {
+        FieldError[] fieldErrors = new FieldError[errors.size()];
+        errors.toArray(fieldErrors);
+        modelMap.addAttribute("erro", true)
+                .addAttribute("fieldErrors", fieldErrors);
     }
 
     public void preencherEndereco(EnderecoDTO endereco, ModelMap model) {
@@ -157,14 +165,6 @@ public class UtilityWeb {
         model.addAttribute("listaInstituicaoNotificadoraItem", listaInstituicaoNotificadoraItem);
     }
 
-    /**
-     *
-     * @param colecaoPadrao
-     * @param colecaoAtual
-     * @param <T>
-     * @param <E>
-     * @return
-     */
     public  <T extends ObjetoPersistente, E extends ObjetoPersistente> Map<Long, Boolean> getLongBooleanMap(Collection<E> colecaoPadrao, Collection<T> colecaoAtual) {
         Map<Long, Boolean> mapEstahNaColecaoAtual = new HashMap<>();
 

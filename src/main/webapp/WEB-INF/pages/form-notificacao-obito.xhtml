@@ -20,7 +20,7 @@
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.formContent}">
 
-        <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['obito.erro']}"/>
+        <sincap:fieldError erro="#{erro}" msgErro="#{msg['obito.erro']}" objectErrors="#{fieldErrors}"/>
 
         <div id="fuelux-wizard" class="wizard row-fluid">
             <ul class="wizard-steps">

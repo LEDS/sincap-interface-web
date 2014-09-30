@@ -10,27 +10,35 @@ import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
+
 /**
  * @author marcosdias
  */
 @Controller
-@RequestMapping(ContextUrls.APP_NOTIFICACAO_OBITO)
+@RequestMapping(APP_NOTIFICACAO_OBITO)
 @SessionScoped
 public class NotificacaoObitoController {
 
@@ -39,11 +47,9 @@ public class NotificacaoObitoController {
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
-    private br.ifes.leds.reuse.utility.Utility utilityEntities;
-    @Autowired
     private UtilityWeb utilityWeb;
 
-    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.GET)
+    @RequestMapping(value = ADICIONAR, method = GET)
     public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
                                           @RequestParam(value = "erro", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
@@ -56,7 +62,7 @@ public class NotificacaoObitoController {
     }
 
     @DefaultTimeZone
-    @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
+    @RequestMapping(value = EDITAR + "/{idProcesso}", method = GET)
     public String editarNotificacaoObito(ModelMap model, HttpSession session,
                                          @PathVariable Long idProcesso) {
 
@@ -72,30 +78,28 @@ public class NotificacaoObitoController {
     }
 
     @DefaultTimeZone
-    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
+    @RequestMapping(value = SALVAR, method = POST)
     public String salvarFormNovaNotificacao(ModelMap model, HttpSession session,
-                                            @ModelAttribute ProcessoNotificacaoDTO processo) {
-        try {
+                                            @Valid @ModelAttribute ProcessoNotificacaoDTO processo,
+                                            BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()){
             UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
-        } catch (ConstraintViolationException e) {
-            setUpConstraintViolations(model, session, processo, e);
-            return "form-notificacao-obito";
-        } catch (TransactionSystemException e) {
-            setUpConstraintViolations(model, session, processo, (ConstraintViolationException) e.getRootCause());
+        } else {
+            setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
             return "form-notificacao-obito";
         }
 
-        return "redirect:" + ContextUrls.INDEX + "?sucessoObito=true";
+        return "redirect:" + INDEX + "?sucessoObito=true";
     }
 
     private void setUpConstraintViolations(ModelMap model,
                                            HttpSession session,
                                            ProcessoNotificacaoDTO processo,
-                                           ConstraintViolationException e) {
-        utilityWeb.addConstraintViolations(e, model);
+                                           List<? extends FieldError> errors) {
+        utilityWeb.addConstraintViolations(errors, model);
         utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
         preencherSetorCausaNDoacao(model, (UsuarioSessao) session.getAttribute("user"));
         addAttributesToModel(model, processo);
@@ -123,7 +127,7 @@ public class NotificacaoObitoController {
         return listaCausasSelIt;
     }
 
-    @RequestMapping(value = ContextUrls.GET_CONTRA_INDICACAO, method = RequestMethod.GET)
+    @RequestMapping(value = GET_CONTRA_INDICACAO, method = GET)
     public ResponseEntity<List<Map<String, String>>> getContraIndicacoesMedicas() {
         List<Map<String, String>> contraIndicacoes = new ArrayList<>();
 
@@ -136,10 +140,10 @@ public class NotificacaoObitoController {
             contraIndicacoes.add(setor);
         }
 
-        return new ResponseEntity<>(contraIndicacoes, HttpStatus.OK);
+        return new ResponseEntity<>(contraIndicacoes, OK);
     }
 
-    @RequestMapping(value = ContextUrls.GET_SETORES, method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.GET_SETORES, method = GET)
     public ResponseEntity<List<Map<String, String>>> getSetores(HttpSession session) {
         List<Map<String, String>> setores = new ArrayList<>();
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
@@ -153,7 +157,7 @@ public class NotificacaoObitoController {
             setores.add(setor);
         }
 
-        return new ResponseEntity<>(setores, HttpStatus.OK);
+        return new ResponseEntity<>(setores, OK);
     }
 
     private List<SelectItem> getListaSetoresSelectItem(UsuarioSessao usuarioSessao) {
@@ -171,7 +175,7 @@ public class NotificacaoObitoController {
      * Fornece a página para análise.
      */
     @DefaultTimeZone
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
+    @RequestMapping(value = APP_ANALISAR + "/{idProcesso}", method = GET)
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
@@ -187,7 +191,7 @@ public class NotificacaoObitoController {
      *
      * @param idProcesso ID do ProcessoNotificacao
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + ContextUrls.CONFIRMAR, method = POST)
     public String confirmarAnaliseObito(HttpSession session, @RequestParam("id") long idProcesso) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
@@ -196,7 +200,7 @@ public class NotificacaoObitoController {
         // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?obitoConfirmado=true";
+        return "redirect:" + INDEX + "?obitoConfirmado=true";
     }
 
     /**
@@ -204,7 +208,7 @@ public class NotificacaoObitoController {
      *
      * @param idProcesso ID do ProcessoNotificacao
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + ContextUrls.RECUSAR, method = POST)
     public String recusarAnaliseObito(HttpSession session, @RequestParam
             ("id") Long idProcesso) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
@@ -214,7 +218,7 @@ public class NotificacaoObitoController {
         // Recusar a notificação do óbito.
         aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?obitoRecusado=true";
+        return "redirect:" + INDEX + "?obitoRecusado=true";
     }
 
     /**
@@ -222,7 +226,7 @@ public class NotificacaoObitoController {
      *
      * @param idProcesso ID do ProcessoNotificacao
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + ARQUIVAR, method = POST)
     public String arquivarAnaliseObito(HttpSession session, @RequestParam("id") Long idProcesso) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
@@ -231,6 +235,6 @@ public class NotificacaoObitoController {
         // Recusar a notificação do óbito.
         aplProcessoNotificacao.arquivarProcesso(processo, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + INDEX;
     }
 }

@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<composite:interface>
+    <composite:attribute name="erro" type="boolean" required="true"/>
+    <composite:attribute name="msgErro" type="java.lang.String" required="true"/>
+    <composite:attribute name="objectErrors" type="org.springframework.validation.FieldError[]" required="true"/>
+</composite:interface>
+
+<composite:implementation>
+    <h:panelGroup rendered="#{cc.attrs.erro}">
+        <div class="alert alert-error">
+            <i class="icon-remove-sign"/>
+            #{cc.attrs.msgErro}<br/>
+            <ui:repeat value="#{cc.attrs.objectErrors}" var="constraint">
+                #{constraint.field} #{constraint.defaultMessage}<br/>
+            </ui:repeat>
+        </div>
+    </h:panelGroup>
+</composite:implementation>
+
+</html>
