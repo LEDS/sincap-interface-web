@@ -212,16 +212,13 @@ function ajaxGetBairros(idMunicipio, idBairro) {
  * de novas notificações.
  */
 function ajaxGetNovasNotificacoes() {
-    // Endereço da aplicação.
-    var aplicacao = "http://" + location.host + "/sincap";
-
     // Limpa todo o html do painel.
     $('#painelNovasNotificacoes').html("");
 
     // Faz a requisição ao controlador.
     $.ajax({
         type: "get",
-        url: aplicacao + "/notificacao/getNovasNotificacoes",
+        url: location.origin + "/sincap/processo/getNotificarInteressados",
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
@@ -277,11 +274,14 @@ function ajaxGetNovasNotificacoes() {
                     + "</div>");
         },
         error: function (response, status, error) {
+            $painelNovasNotificacoes.append(
+                    "<h3>"+ response + "</h3><h3>" + status.getName() + "</h3><h3>" + error.getJSON + "</h3>");
             //alert("Erro no javascript do painel de novas notificações");
         }
     });
-
 }
+
+ajaxGetNovasNotificacoes();
 
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");

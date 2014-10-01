@@ -1,24 +1,40 @@
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.*;
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO;
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 
 
 @Controller
 @RequestMapping(ContextUrls.APP_PROCESSO)
 public class ProcessoNotificacaoController {
 
+    @Autowired
+    UtilityWeb utilityWeb;
+    @Autowired
+    Utility utility;
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
 
@@ -54,6 +70,29 @@ public class ProcessoNotificacaoController {
         verificaCaptacao(model, processo);
 
         return "exibir-processo-notificacao";
+    }
+
+    @RequestMapping(value = "/getNotificarInteressados", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<List<Map>> getHospitais(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> notificacoesInteressados = new ArrayList<>();
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(autoridades.contains("ROLE_NOTIFICADOR")){
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario()));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
+        }else if(autoridades.contains("ROLE_CAPTADOR")){
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario()));
+        }else if(autoridades.contains("ROLE_ANALISTA")){
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISECAPTACAO));
+        }
+        return new ResponseEntity<>(utility.mapList(notificacoesInteressados, Map.class), OK);
     }
 
     private void verificaCaptacao(ModelMap model, ProcessoNotificacao processo) {
