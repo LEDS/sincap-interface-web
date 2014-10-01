@@ -14,46 +14,56 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
-import javax.validation.ConstraintViolationException;
-import java.text.ParseException;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS;
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao.RECUSA_FAMILIAR;
+import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * @author Breno Grillo
  */
 @Controller
-@RequestMapping(ContextUrls.APP_NOTIFICACAO_ENTREVISTA)
+@RequestMapping(APP_NOTIFICACAO_ENTREVISTA)
 @SessionScoped
 public class NotificacaoEntrevistaController {
 
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
-    private br.ifes.leds.reuse.utility.Utility utilityEntities;
-    @Autowired
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
 
-    @RequestMapping(value = ContextUrls.ADICIONAR, method = RequestMethod.POST)
+    @RequestMapping(value = ADICIONAR, method = POST)
     public String loadFormEntrevista(ModelMap model, @RequestParam("id") Long id) {
         try {
             ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
 
             utilityWeb.preencherEstados(model);
             model.addAttribute("processo", processo);
-            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
-            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
+            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
             model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
@@ -67,90 +77,62 @@ public class NotificacaoEntrevistaController {
     }
 
     @DefaultTimeZone
-    @RequestMapping(value = ContextUrls.SALVAR, method = RequestMethod.POST)
+    @RequestMapping(value = SALVAR, method = POST)
     public String salvarEntrevista(ModelMap model,
                                    HttpSession session,
-                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
-                                   @RequestParam("doacaoAutorizada") boolean doacaoAutorizada,
-                                   @RequestParam("entrevistaRealizada") boolean entrevistaRealizada,
-                                   @RequestParam("dataEntrevista") String dataEntrevista,
-                                   @RequestParam("horaEntrevista") String horaEntrevista,
+                                   @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("dataEntrevista") LocalDate dataEntrevista,
+                                   @DateTimeFormat(pattern = "HH:mm") @RequestParam("horaEntrevista") LocalTime horaEntrevista,
                                    @RequestParam("recusaFamiliar") Long recusaFamiliar,
-                                   @RequestParam("problemasEstruturais") Long problemasEstruturais)  {
+                                   @RequestParam("problemasEstruturais") Long problemasEstruturais,
+                                   @RequestParam("paciente.nome") String nomePaciente,
+                                   @Valid @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
+                                   BindingResult bindingResult) {
+
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        try {
-            if(entrevistaRealizada){
-                processo.setCausaNaoDoacao(recusaFamiliar);
-            }
-            else{
-                processo.setCausaNaoDoacao(problemasEstruturais);
-            }
+        processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
 
-            if(!dataEntrevista.trim().isEmpty() || !horaEntrevista.trim().isEmpty()) {
-                processo.getEntrevista().setDataEntrevista(utilityEntities.stringToCalendar(dataEntrevista, horaEntrevista));
-            }
-
-            processo.getEntrevista().setEntrevistaRealizada(entrevistaRealizada);
-            processo.getEntrevista().setDoacaoAutorizada(doacaoAutorizada);
-            processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
-            aplProcessoNotificacao.salvarEntrevista(processo.getId(), processo.getEntrevista(), usuarioSessao.getIdUsuario());
-
-        }  catch (ConstraintViolationException e) {
-            utilityWeb.addConstraintViolations(e, model);
-            model.addAttribute("processo",processo);
-            model.addAttribute("doacaoAutorizada",doacaoAutorizada);
-            model.addAttribute("entrevistaRealizada",entrevistaRealizada);
-            model.addAttribute("dataEntrevista",dataEntrevista);
-            model.addAttribute("horaEntrevista",horaEntrevista);
-            model.addAttribute("recusaFamiliar",recusaFamiliar);
-            model.addAttribute("problemasEstruturais",problemasEstruturais);
-            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
-            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
-            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
-            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
-            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
-
-
-
-            return "form-entrevista";
-        } catch (TransactionSystemException e) {
-            utilityWeb.addConstraintViolations((ConstraintViolationException) e.getRootCause(), model);
-            model.addAttribute("processo",processo);
-            model.addAttribute("doacaoAutorizada",doacaoAutorizada);
-            model.addAttribute("entrevistaRealizada",entrevistaRealizada);
-            model.addAttribute("dataEntrevista",dataEntrevista);
-            model.addAttribute("horaEntrevista",horaEntrevista);
-            model.addAttribute("recusaFamiliar",recusaFamiliar);
-            model.addAttribute("problemasEstruturais",problemasEstruturais);
-            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
-            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
-            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
-            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
-            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
-
-            return "form-entrevista";
-        } catch (ParseException ignored) {
+        if (processo.getEntrevista().isEntrevistaRealizada()) {
+            processo.setCausaNaoDoacao(recusaFamiliar);
+        } else {
+            processo.setCausaNaoDoacao(problemasEstruturais);
         }
 
-        return "redirect:" + ContextUrls.INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
+        if (!bindingResult.hasErrors()) {
+            processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
+            aplProcessoNotificacao.salvarEntrevista(processo.getId(), processo.getEntrevista(), usuarioSessao.getIdUsuario());
+        } else {
+            model.addAttribute("nomePaciente", nomePaciente);
+            addAtributosIniciais(model, processo);
+            utilityWeb.addConstraintViolations(bindingResult.getFieldErrors(), model);
+            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+
+            return "form-entrevista";
+        }
+
+        return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
+    }
+
+    private void addAtributosIniciais(ModelMap model, ProcessoNotificacaoDTO processo) {
+        model.addAttribute("processo", processo);
+        model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
+        model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
+        model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
+        model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
     }
 
     @DefaultTimeZone
-    @RequestMapping(value = ContextUrls.EDITAR + "/{idProcesso}", method = RequestMethod.GET)
+    @RequestMapping(value = EDITAR + "/{idProcesso}", method = GET)
     public String editarNotificacaoEntrevista(ModelMap model,
-                                         @PathVariable Long idProcesso) {
+                                              @PathVariable Long idProcesso) {
 
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
 
-        model.addAttribute("dataEntrevista", processo.getEntrevista().getDataEntrevista());
-        model.addAttribute("horaEntrevista", processo.getEntrevista().getDataEntrevista());
-
         utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
 
-        model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS));
-        model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(TipoNaoDoacao.RECUSA_FAMILIAR));
+        model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
+        model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
         model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
         model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
         model.addAttribute("recusaFamiliar", processo.getCausaNaoDoacao());
@@ -163,20 +145,20 @@ public class NotificacaoEntrevistaController {
         return "form-entrevista";
     }
 
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.RECUSAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
     public String recusarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?entrevistaRecusada=true";
+        return "redirect:" + INDEX + "?entrevistaRecusada=true";
     }
 
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.ARQUIVAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + ARQUIVAR, method = POST)
     public String arquivarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX;
+        return "redirect:" + INDEX;
     }
 
     private List<SelectItem> getListaCausaNDoacaoSelectItem(TipoNaoDoacao tipo) {
@@ -198,7 +180,7 @@ public class NotificacaoEntrevistaController {
      * @param idProcesso ID do ProcessoNotificacao
      */
     @DefaultTimeZone
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + "/{idProcesso}", method = RequestMethod.GET)
+    @RequestMapping(value = APP_ANALISAR + "/{idProcesso}", method = GET)
     public String analisar(ModelMap model, @PathVariable Long idProcesso) {
         // Pega o processo do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
@@ -215,12 +197,12 @@ public class NotificacaoEntrevistaController {
      *
      * @param idProcesso ID do ProcessoNotificacao
      */
-    @RequestMapping(value = ContextUrls.APP_ANALISAR + ContextUrls.CONFIRMAR, method = RequestMethod.POST)
+    @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
     public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?entrevistaConfirmada=true";
+        return "redirect:" + INDEX + "?entrevistaConfirmada=true";
     }
 }
