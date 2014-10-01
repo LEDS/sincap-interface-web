@@ -24,9 +24,8 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Locale;
 
 import static br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo.MASCULINO;
-import static br.ifes.leds.sincap.web.controller.ContextUrls.APP_NOTIFICACAO_OBITO;
-import static br.ifes.leds.sincap.web.controller.ContextUrls.EDITAR;
-import static org.hamcrest.Matchers.sameInstance;
+import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -66,7 +65,7 @@ public class ObitoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void novaNotificacao() {
-        mockMvc.perform(get("/obito/adicionar")
+        mockMvc.perform(get(APP_NOTIFICACAO_OBITO + ADICIONAR)
                 .session(session))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("listaEstadoItem"))
@@ -84,7 +83,7 @@ public class ObitoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void salvarNotificacaoSucessoAptoDoacao() {
-        mockMvc.perform(post("/obito/salvar")
+        mockMvc.perform(post(APP_NOTIFICACAO_OBITO + SALVAR)
                 .session(session)
                 .accept(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("obito.paciente.nome", "hjrasncdnbnsdgç")
@@ -130,7 +129,7 @@ public class ObitoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void salvarNotificacaoSucessoInaptoDoacao() {
-        mockMvc.perform(post("/obito/salvar")
+        mockMvc.perform(post(APP_NOTIFICACAO_OBITO + SALVAR)
                 .session(session)
                 .accept(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("obito.paciente.nome", "hjrasncdnbnsdgç")
@@ -177,7 +176,7 @@ public class ObitoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void salvarNotificacaoConstraintViolation() {
-        mockMvc.perform(post("/obito/salvar")
+        mockMvc.perform(post(APP_NOTIFICACAO_OBITO + SALVAR)
                 .session(session)
                 .accept(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("obito.paciente.nome", "hjrasncdnbnsdgç")
@@ -222,8 +221,7 @@ public class ObitoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void editarNotificacao() {
-        ProcessoNotificacaoDTO processoNotificacaoDTO = criarProcesso();
-        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(processoNotificacaoDTO);
+        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcesso());
 
         mockMvc.perform(get(APP_NOTIFICACAO_OBITO + EDITAR + "/22")
                 .session(session))
@@ -234,7 +232,7 @@ public class ObitoControllerTest extends AbstractionTest {
                 .andExpect(model().attributeExists("listaEstadoItem"))
                 .andExpect(model().attributeExists("listaCidadeItem"))
                 .andExpect(model().attributeExists("listaBairroItem"))
-                .andExpect(model().attribute("processo", sameInstance(processoNotificacaoDTO)));
+                .andExpect(model().attribute("processo", equalTo(criarProcesso())));
 
         verify(aplProcessoNotificacao, times(1)).obter(isA(Long.class));
     }
