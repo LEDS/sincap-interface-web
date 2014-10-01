@@ -14,6 +14,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.FieldError;
@@ -177,6 +178,16 @@ public class UtilityWeb {
         }
 
         return mapEstahNaColecaoAtual;
+    }
+
+    public static List<String> authoritiesSetToStringList(Collection<? extends GrantedAuthority> authorities) {
+        List<String> auth = new ArrayList<>();
+
+        for (GrantedAuthority grantedAuthority : authorities) {
+            auth.add(grantedAuthority.toString());
+        }
+
+        return auth;
     }
 
 }

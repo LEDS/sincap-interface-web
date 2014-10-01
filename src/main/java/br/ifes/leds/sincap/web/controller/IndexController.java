@@ -5,26 +5,33 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.*;
 import static br.ifes.leds.sincap.web.controller.ContextUrls.INDEX;
+import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -38,6 +45,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @SessionScoped
 public class IndexController {
 
+    @Autowired
+    private UtilityWeb utilityWeb;
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
 
@@ -59,7 +68,7 @@ public class IndexController {
                         @RequestParam(value = "captacaoConfirmado", defaultValue = "false") boolean captacaoConfirmado,
                         @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado) {
 
-        List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
 
         seForNotificador(model, autoridades);
         seForNotificadorOuCaptador(model, autoridades, (UsuarioSessao) session.getAttribute("user"));
@@ -130,15 +139,5 @@ public class IndexController {
 
             model.addAttribute("processosObitoAguardandoCorrecao", processosObitoAguardandoCorrecao);
         }
-    }
-
-    private static List<String> authoritiesSetToStringList(Collection<? extends GrantedAuthority> authorities) {
-        List<String> auth = new ArrayList<>();
-
-        for (GrantedAuthority grantedAuthority : authorities) {
-            auth.add(grantedAuthority.toString());
-        }
-
-        return auth;
     }
 }
