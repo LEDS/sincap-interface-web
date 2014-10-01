@@ -57,9 +57,16 @@
                     </div>
                 </div>
                 <input type="hidden" name="id" value="#{processo.id}" />
+
+                <!-- Salva a data de abertura, se houver -->
+                <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
+                </h:inputHidden>
+
                 <h:inputHidden id="obito-dataCadastro" value="#{processo.obito.dataCadastro.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
                 </h:inputHidden>
+
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             </form>
         </div>
