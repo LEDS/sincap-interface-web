@@ -67,6 +67,7 @@ public class ContextUrls {
     public static final String GET_ESTADOS = "/getEstados";
     public static final String GET_SETORES = "/getSetores";
     public static final String GET_CONTRA_INDICACAO = "/getContraIndicacoesMedicas";
+    public static final String GET_NOTIFICAR_INTERESSADOS = "/getNotificarInteressados";
 
     /**
      * Subsistemas
@@ -117,5 +118,6 @@ public class ContextUrls {
     String get_estados = GET_ESTADOS;
     String get_setores = GET_SETORES;
     String get_contra_indicacao = GET_CONTRA_INDICACAO;
+    String get_notificar_interessados = GET_NOTIFICAR_INTERESSADOS;
     String logout = LOGOUT;
 }
