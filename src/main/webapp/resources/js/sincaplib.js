@@ -250,6 +250,7 @@ function ajaxGetNovasNotificacoes() {
                 });
 
                 // Acrescenta um item ao painel, com os dados da notificação.
+                var aplicacao = "/sincap";
                 itens[idx] =
                     "<a href=\"" + aplicacao + "/notificacao/visualizar/" + id + "\" class=\"item\">"
                     + "<i class=\"icon-download-alt\"></i>" + codigo + " " + nomePaciente
