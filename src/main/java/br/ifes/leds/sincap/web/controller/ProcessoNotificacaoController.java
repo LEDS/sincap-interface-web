@@ -74,7 +74,7 @@ public class ProcessoNotificacaoController {
 
     @RequestMapping(value = "/getNotificarInteressados", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<Map>> getHospitais(HttpSession session) {
+    public ResponseEntity<List<Map>> getNotificarInteressados(HttpSession session) {
         List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
         List<ProcessoNotificacao> notificacoesInteressados = new ArrayList<>();
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");

@@ -21,7 +21,8 @@
     <h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
-            <h:inputText readonly="true" styleClass="span8" id="paciente-nome" value="#{processo.obito.paciente.nome}" />
+            <!--@elvariable id="nomePaciente" type="java.lang.String"-->
+            <h:inputText readonly="true" styleClass="span8" id="paciente-nome" value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}" />
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['notificacao.protocolo']}*"/>
@@ -31,11 +32,11 @@
             <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}*" />
             <div class="span8">
                 <label class="radio">
-                    <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:0" value="true" checked="#{entrevistaRealizada eq true? 'checked':''}"/>
+                    <input type="radio" name="entrevista.entrevistaRealizada" id="entrevistaRealizada:0" value="true" checked="#{processo.entrevista.entrevistaRealizada eq true? 'checked':''}"/>
                     #{msg['entrevista.radioButton.realizada.sim']}
                 </label>
                 <label class="radio">
-                    <input type="radio" name="entrevistaRealizada" id="entrevistaRealizada:1" value="false" checked="#{not entrevistaRealizada eq true? 'checked':''}"/>
+                    <input type="radio" name="entrevista.entrevistaRealizada" id="entrevistaRealizada:1" value="false" checked="#{not processo.entrevista.entrevistaRealizada eq true? 'checked':''}"/>
                     #{msg['entrevista.radioButton.realizada.nao']}
                 </label>
             </div>
@@ -58,11 +59,11 @@
                 <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}*" />
                 <div class="span8">
                     <label class="radio">
-                        <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:0" value="true" checked="#{doacaoAutorizada eq true? 'checked':''}"/>
+                        <input type="radio" name="entrevista.doacaoAutorizada" id="doacaoAutorizada:0" value="true" checked="#{processo.entrevista.doacaoAutorizada? 'checked':''}"/>
                         #{msg['entrevista.radioButton.doacaoAutorizada.sim']}
                     </label>
                     <label class="radio">
-                        <input type="radio" name="doacaoAutorizada" id="doacaoAutorizada:1" value="false" checked="#{not doacaoAutorizada eq true? 'checked':''}"/>
+                        <input type="radio" name="entrevista.doacaoAutorizada" id="doacaoAutorizada:1" value="false" checked="#{not processo.entrevista.doacaoAutorizada? 'checked':''}"/>
                         #{msg['entrevista.radioButton.doacaoAutorizada.nao']}
                     </label>
                 </div>

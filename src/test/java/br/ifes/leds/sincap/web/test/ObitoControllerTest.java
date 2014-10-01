@@ -1,30 +1,21 @@
 package br.ifes.leds.sincap.web.test;
 
-import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ObitoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.PacienteDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
-import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import lombok.SneakyThrows;
 import org.hamcrest.Matchers;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Locale;
-
-import static br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo.MASCULINO;
 import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
+import static br.ifes.leds.sincap.web.test.SetUp.*;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotNull;
@@ -48,18 +39,9 @@ public class ObitoControllerTest extends AbstractionTest {
     private WebApplicationContext webApplicationContext;
 
     @Before
-    public void setUp() {
-        Mockito.reset(aplProcessoNotificacao, aplCadastroInterno);
-
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-
-        session = new MockHttpSession();
-        session.setAttribute("user", UsuarioSessao.builder()
-                .idUsuario(1L)
-                .cpfUsuario("111.111.111-11")
-                .idHospital(1L)
-                .nome("Notificador 1")
-                .build());
+    public void before() {
+        mockMvc = setUp(webApplicationContext, aplCadastroInterno, aplProcessoNotificacao);
+        session = criaSessao();
     }
 
     @Test
@@ -235,28 +217,5 @@ public class ObitoControllerTest extends AbstractionTest {
                 .andExpect(model().attribute("processo", equalTo(criarProcesso())));
 
         verify(aplProcessoNotificacao, times(1)).obter(isA(Long.class));
-    }
-
-    private static ProcessoNotificacaoDTO criarProcesso() {
-        return ProcessoNotificacaoDTO.builder()
-                .obito(ObitoDTO.builder()
-                        .paciente(PacienteDTO.builder()
-                                .endereco(EnderecoDTO.builder()
-                                        .estado(8L)
-                                        .cidade(2052L)
-                                        .bairro(3251L)
-                                        .logradouro("Rua Tal")
-                                        .cep("29182-527")
-                                        .numero("5324")
-                                        .build())
-                                .nome("Fulano de Tal")
-                                .sexo(MASCULINO)
-                                .dataNascimento(new DateTime(1991, 9, 27, 0, 0).toCalendar(Locale.getDefault()))
-                                .dataInternacao(new DateTime(2014, 1, 10, 0, 0).toCalendar(Locale.getDefault()))
-                                .documentoSocial("15663477")
-                                .build())
-                        .setor(1L)
-                        .build())
-                .build();
     }
 }
