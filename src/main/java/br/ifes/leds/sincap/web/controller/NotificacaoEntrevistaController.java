@@ -100,7 +100,7 @@ public class NotificacaoEntrevistaController {
 
         if (!bindingResult.hasErrors()) {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
-            aplProcessoNotificacao.salvarEntrevista(processo.getId(), processo.getEntrevista(), usuarioSessao.getIdUsuario());
+            aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
         } else {
             model.addAttribute("nomePaciente", nomePaciente);
             addAtributosIniciais(model, processo);
