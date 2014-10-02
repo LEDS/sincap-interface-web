@@ -82,8 +82,8 @@ public class NotificacaoEntrevistaController {
                                    HttpSession session,
                                    @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("dataEntrevista") LocalDate dataEntrevista,
                                    @DateTimeFormat(pattern = "HH:mm") @RequestParam("horaEntrevista") LocalTime horaEntrevista,
-                                   @RequestParam("recusaFamiliar") Long recusaFamiliar,
-                                   @RequestParam("problemasEstruturais") Long problemasEstruturais,
+                                   @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
+                                   @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
                                    @RequestParam("paciente.nome") String nomePaciente,
                                    @Valid @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
                                    BindingResult bindingResult) {
