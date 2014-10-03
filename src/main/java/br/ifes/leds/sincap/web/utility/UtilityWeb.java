@@ -12,7 +12,9 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
+import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,7 @@ import org.springframework.validation.FieldError;
 import javax.faces.model.SelectItem;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.text.DateFormat;
 import java.util.*;
 
 @Component
@@ -166,14 +169,14 @@ public class UtilityWeb {
         model.addAttribute("listaInstituicaoNotificadoraItem", listaInstituicaoNotificadoraItem);
     }
 
-    public  <T extends ObjetoPersistente, E extends ObjetoPersistente> Map<Long, Boolean> getLongBooleanMap(Collection<E> colecaoPadrao, Collection<T> colecaoAtual) {
+    public <T extends ObjetoPersistente, E extends ObjetoPersistente> Map<Long, Boolean> getLongBooleanMap(Collection<E> colecaoPadrao, Collection<T> colecaoAtual) {
         Map<Long, Boolean> mapEstahNaColecaoAtual = new HashMap<>();
 
-        for (E instituicao: colecaoPadrao) {
+        for (E instituicao : colecaoPadrao) {
             mapEstahNaColecaoAtual.put(instituicao.getId(), Boolean.FALSE);
         }
 
-        for (T instituicao: colecaoAtual) {
+        for (T instituicao : colecaoAtual) {
             mapEstahNaColecaoAtual.put(instituicao.getId(), Boolean.TRUE);
         }
 
@@ -190,4 +193,23 @@ public class UtilityWeb {
         return auth;
     }
 
+    public List<MensagemProcesso> ProcessoToMensagem(List<ProcessoNotificacao> notificacoesInteressados) {
+        List<MensagemProcesso> mensagens = new ArrayList<MensagemProcesso>();
+        DateFormat dfo = new java.text.SimpleDateFormat("HH:mm:ss");
+
+        for (ProcessoNotificacao notificacao : notificacoesInteressados) {
+            MensagemProcesso mensagem = new MensagemProcesso();
+
+            mensagem.setId(notificacao.getId());
+            mensagem.setCodigo(notificacao.getCodigo());
+            mensagem.setEstado(notificacao.getUltimoEstado().getEstadoNotificacao().getNome());
+            mensagem.setTempo(dfo.format(
+                    Calendar.getInstance().getTimeInMillis() - notificacao.getDataAbertura().getTimeInMillis()
+            ));
+
+            mensagens.add(mensagem);
+        }
+
+        return mensagens;
+    }
 }

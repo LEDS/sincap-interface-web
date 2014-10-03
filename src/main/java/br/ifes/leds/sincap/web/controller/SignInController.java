@@ -72,7 +72,7 @@ public class SignInController {
         return "forward:/j_spring_security_logout";
     }
 
-    @RequestMapping(value = "/getHospitais", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.GET_HOSPITAIS, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Map>> getHospitais(@RequestParam("cpf") String cpf) {
 
@@ -87,4 +87,6 @@ public class SignInController {
 
         return new ResponseEntity<>(utility.mapList(instituicoes, Map.class), OK);
     }
+
+
 }

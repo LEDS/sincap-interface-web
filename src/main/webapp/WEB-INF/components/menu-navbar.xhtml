@@ -45,13 +45,13 @@
                             <h:panelGroup id="painelNovasNotificacoes" layout="block" styleClass="notifications">
                                 <h3>Você tem 0 notificações.</h3>
 
-                                <ul id="notificarInteressados">
+                                <ul>
 
                                 </ul>
 
-                                <h:panelGroup id="visualizarTodasNotificacoes" layout="block" styleClass="footer">
-                                    <!--<a href="#" class="logout">Ver todas as notificações</a>-->
-                                </h:panelGroup>
+                                <!--<h:panelGroup id="visualizarTodasNotificacoes" layout="block" styleClass="footer">-->
+                                    <!--&lt;!&ndash;<a href="#" class="logout">Ver todas as notificações</a>&ndash;&gt;-->
+                                <!--</h:panelGroup>-->
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
@@ -81,5 +81,14 @@
     </h:panelGroup>
 
     <h:outputScript library="js" name="sincaplib.js"/>
+
+    <script type="text/javascript">
+
+        $(document).ready(function()
+        {
+            ajaxGetNovasNotificacoes();
+            setInterval(ajaxGetNovasNotificacoes, 5000);
+        });
+    </script>
 
 </ui:composition>

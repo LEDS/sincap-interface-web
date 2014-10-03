@@ -5,6 +5,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,7 @@ public class ProcessoNotificacaoController {
         return "exibir-processo-notificacao";
     }
 
-    @RequestMapping(value = "/getNotificarInteressados", method = RequestMethod.GET)
+    @RequestMapping(value = ContextUrls.GET_NOTIFICAR_INTERESSADOS, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Map>> getNotificarInteressados(HttpSession session) {
         List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
@@ -92,7 +93,25 @@ public class ProcessoNotificacaoController {
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISECAPTACAO));
         }
-        return new ResponseEntity<>(utility.mapList(notificacoesInteressados, Map.class), OK);
+
+        List<MensagemProcesso> mensagens = utilityWeb.ProcessoToMensagem(notificacoesInteressados);
+
+        return new ResponseEntity<>(utility.mapList(mensagens, Map.class), OK);
+    }
+
+    @RequestMapping(value = ContextUrls.PROXIMA_ETAPA, method = RequestMethod.POST)
+    public String proximaEtapaNotificacao(ModelMap model, @RequestParam("id") Long id){
+        ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
+
+        if(processo.getUltimoEstado().getEstadoNotificacao().equals(EstadoNotificacaoEnum.AGUARDANDOCORRECAOOBITO)){
+            return "redirect:" + ContextUrls.APP_NOTIFICACAO_OBITO + ContextUrls.EDITAR;
+        } else if(processo.getUltimoEstado().getEstadoNotificacao().equals(EstadoNotificacaoEnum.AGUARDANDOENTREVISTA)){
+            return "redirect:" + ContextUrls.APP_NOTIFICACAO_ENTREVISTA + ContextUrls.ADICIONAR;
+        } else if(processo.getUltimoEstado().getEstadoNotificacao().equals(EstadoNotificacaoEnum.AGUARDANDOCORRECAOENTREVISTA)){
+            return "redirect:" + ContextUrls.APP_NOTIFICACAO_ENTREVISTA + ContextUrls.EDITAR;
+        }
+
+        return "redirect:" + ContextUrls.APP_PROCESSO + ContextUrls.BUSCAR_TODOS;
     }
 
     private void verificaCaptacao(ModelMap model, ProcessoNotificacao processo) {

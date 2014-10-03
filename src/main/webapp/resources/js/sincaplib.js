@@ -231,7 +231,7 @@ function ajaxGetNovasNotificacoes() {
 
             var id;
             var codigo;
-            var nomePaciente;
+            var estado;
             var tempo;
             $.each(response, function (idx, notificacao) {
                 // Para cada notificação, aumenta 1 no número de notificações.
@@ -243,18 +243,18 @@ function ajaxGetNovasNotificacoes() {
                         id = value;
                     if (key === "codigo")
                         codigo = value;
-                    if (key === "nomePaciente")
-                        nomePaciente = value;
+                    if (key === "estado")
+                        estado = value;
                     if (key === "tempo")
                         tempo = value;
                 });
 
                 // Acrescenta um item ao painel, com os dados da notificação.
-                var aplicacao = "/sincap";
                 itens[idx] =
-                    "<a href=\"" + aplicacao + "/notificacao/visualizar/" + id + "\" class=\"item\">"
-                    + "<i class=\"icon-download-alt\"></i>" + codigo + " " + nomePaciente
+                    "<input hidden=\"hidden\" id=\"id\" name=\"id\" value=" + id +"/>"
+                    + "<a href=\"#\" class=\"item\">"
                     + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
+                    + "<i class=\"icon-envelope-alt\"></i>" + estado
                     + "</a>";
             });
 
@@ -271,18 +271,17 @@ function ajaxGetNovasNotificacoes() {
             // Anexa o rodapé a lista.
             $painelNovasNotificacoes.append(
                     "<div class=\"footer\">"
-                    + "<a href=\"" + aplicacao + "/index" + "\" class=\"logout\">Ver todas as notificações</a>"
+                    + "<a href=\"" + location.origin + "/sincap/buscar/todos" + "\" class=\"logout\">Ver todas as notificações</a>"
                     + "</div>");
         },
         error: function (response, status, error) {
-            $painelNovasNotificacoes.append(
-                    "<h3>"+ response + "</h3><h3>" + status.getName() + "</h3><h3>" + error.getJSON + "</h3>");
-            //alert("Erro no javascript do painel de novas notificações");
+            $("#painelNovasNotificacoes").append(
+                    "<h3>Erro no javascript do painel de novas notificações</h3>");
         }
     });
 }
 
-ajaxGetNovasNotificacoes();
+//ajaxGetNovasNotificacoes();
 
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
