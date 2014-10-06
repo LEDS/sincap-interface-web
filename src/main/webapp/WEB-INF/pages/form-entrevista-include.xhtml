@@ -136,8 +136,30 @@
                     <h:inputText styleClass="tel span8" id="entrevista-responsavel-telefone2-numero" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
+                    <h:outputLabel value="#{msg['responsavel.radioButton.sexo']}*"/>
+                    <div class="span8">
+                        <label class="radio">
+                            <input type="radio" name="entrevista.responsavel.sexo" id="entrevista-responsavel-sexo:0" value="MASCULINO"
+                                   checked="true"/>
+                            #{msg['responsavel.radioButton.sexo.masc']}
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="entrevista.responsavel.sexo" id="entrevista-responsavel-sexo:1" value="FEMININO"/>
+                            #{msg['responsavel.radioButton.sexo.fem']}
+                        </label>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="field-box">
                     <h:outputLabel value="#{msg['responsavel.text.profissao']}*"/>
                     <h:inputText styleClass="span8" id="entrevista-responsavel-profissao" value="#{processo.entrevista.responsavel.profissao}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <h:outputLabel value="#{msg['responsavel.text.religiao']}*"/>
+                    <h:inputText styleClass="span8" id="entrevista-responsavel-religiao" value="#{processo.entrevista.responsavel.religiao}"/>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}*"/>
+                    <h:inputText styleClass="span8" id="entrevista-responsavel-grauEscolaridade" value="#{processo.entrevista.responsavel.grauEscolaridade}"/>
                 </h:panelGroup>
                 <h:panelGroup layout="block" styleClass="field-box">
                     <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
