@@ -30,21 +30,43 @@
 
                             <h:inputHidden id="ativo" value="TRUE"/>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.nome']}"/>
                             <h:inputText id="nome" value="#{analist.nome}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.senha']}"/>
                             <h:inputSecret id="senha"  value="#{analist.senha}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.cpf']}"/>
                             <h:inputText id="cpf" value="#{analist.cpf}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
                             <h:inputText id="documentoSocial" value="#{analist.documentoSocial}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.email']}"/>
                             <h:inputText id="email" value="#{analist.email}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box"> <!--Drop Adm-->
+                                <h:outputLabel value="#{msg['administrador']}"/>
+
+                                <div class="ui-select span5">
+                                    <select name="admin">
+                                        <option value="true">Sim</option>
+                                        <option value="false">Não</option>
+                                    </select>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
                             <h:panelGroup layout="block" styleClass="field-box">
                                 <h:outputLabel value="#{msg['funcionario.analista.dropDown.uf']}"/>
 
@@ -60,6 +82,7 @@
                             </h:panelGroup>
 
                             <br></br><br></br>
+
                             <h:panelGroup layout="block" styleClass="field-box">
                                 <h:outputLabel value="#{msg['funcionario.analista.dropDown.cidade']}"/>
 
@@ -89,20 +112,30 @@
                             </h:panelGroup>
 
                             <br></br><br></br>
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
                             <h:inputText id="endereco-logradrouro" value="#{analist.endereco.logradouro}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
                             <h:inputText id="endereco-numero" value="#{analist.endereco.numero}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
                             <h:inputText id="endereco-complemento" value="#{analist.endereco.complemento}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
                             <h:inputText id="endereco-cep" value="#{analist.endereco.cep}"/>
+                            </h:panelGroup>
 
+                            <h:panelGroup layout="block" styleClass="field-box">
                             <h:outputLabel value="#{msg['funcionario.telefone']}"/>
                             <h:inputText id="telefone-numero" value="#{analist.telefone.numero}"/>
+                            </h:panelGroup>
 
                             <br></br><br></br>
                             <button type="submit" class="btn-glow success btn-finish">

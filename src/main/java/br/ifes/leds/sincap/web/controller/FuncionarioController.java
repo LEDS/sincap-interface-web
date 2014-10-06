@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author André Leão
+ * @author aleao
  */
 @Controller
 @RequestMapping(ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO)
@@ -65,8 +65,10 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_ANALISTA, method = RequestMethod.POST)
-    public String salvarAnalista(@ModelAttribute AnalistaCNCDO analistaCNCDO) {
-        aplAnalistaCNCDO.salvar(analistaCNCDO);
+    public String salvarAnalista(@ModelAttribute AnalistaCNCDO analistaCNCDO, @RequestParam("admin") boolean isAdmin) {
+
+        aplAnalistaCNCDO.salvar(analistaCNCDO, isAdmin);
+
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
@@ -117,8 +119,19 @@ public class FuncionarioController {
         model.addAttribute("titulo",titulo);
         model.addAttribute("notificador", notificador);
         model.addAttribute("listaHospitais",listaHospitais);
-        model.addAttribute("listaHospitaisNotificador", utilityWeb.getLongBooleanMap(listaHospitais, notificador.getInstituicoesNotificadoras()));
+        model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
         return "form-cadastro-notificador";
+    }
+
+    private Map<Long, Boolean> getLongBooleanMap(Notificador notificador, List<InstituicaoNotificadora> listaHospitais) {
+        Map<Long, Boolean> listaHospitaisNotificador = new HashMap<>();
+        for (InstituicaoNotificadora instituicao: listaHospitais) {
+            listaHospitaisNotificador.put(instituicao.getId(), Boolean.FALSE);
+        }
+        for (InstituicaoNotificadora instituicao: notificador.getInstituicoesNotificadoras()) {
+            listaHospitaisNotificador.put(instituicao.getId(), Boolean.TRUE);
+        }
+        return listaHospitaisNotificador;
     }
 
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR +"/{idNotificador}", method = RequestMethod.POST)
