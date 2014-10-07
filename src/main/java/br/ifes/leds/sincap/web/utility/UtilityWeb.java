@@ -40,6 +40,15 @@ public class UtilityWeb {
         model.addAttribute("erro", true);
     }
 
+    public void addConstraintViolations(Set<? extends ConstraintViolation<?>> constraintViolations, ModelMap model) {
+        if (constraintViolations != null && constraintViolations.size() > 0) {
+            ConstraintViolation<?>[] constraintViolationsArray = new ConstraintViolation<?>[constraintViolations.size()];
+            constraintViolations.toArray(constraintViolationsArray);
+            model.addAttribute("constraintViolations", constraintViolationsArray);
+            model.addAttribute("erro", true);
+        }
+    }
+
     public void addConstraintViolations(List<? extends FieldError> errors, ModelMap modelMap) {
         FieldError[] fieldErrors = new FieldError[errors.size()];
         errors.toArray(fieldErrors);
@@ -194,7 +203,7 @@ public class UtilityWeb {
     }
 
     public List<MensagemProcesso> ProcessoToMensagem(List<ProcessoNotificacao> notificacoesInteressados) {
-        List<MensagemProcesso> mensagens = new ArrayList<MensagemProcesso>();
+        List<MensagemProcesso> mensagens = new ArrayList<>();
         DateFormat dfo = new java.text.SimpleDateFormat("HH:mm:ss");
 
         for (ProcessoNotificacao notificacao : notificacoesInteressados) {
