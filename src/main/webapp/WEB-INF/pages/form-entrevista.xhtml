@@ -26,7 +26,7 @@
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
             <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-            <sincap:fieldError erro="#{erro}" objectErrors="#{fieldErrors}" msgErro="#{msg['entrevista.erro']}"/>
+            <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['entrevista.erro']}"/>
             <div class="step-pane active" id="step1">
                 <div class="tab-content">
                     <ui:include src="form-entrevista-include.xhtml"/>
