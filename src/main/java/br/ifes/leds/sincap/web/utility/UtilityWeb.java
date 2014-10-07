@@ -212,4 +212,34 @@ public class UtilityWeb {
 
         return mensagens;
     }
+
+    public int getIdade(Date dataNasc, Date dataObito)
+    {
+        //Cria um objeto com a data de nascimento
+        Calendar dateOfBirth = new GregorianCalendar();
+        dateOfBirth.setTime(dataNasc);
+
+        // Cria um objeto calendar com a data de obito
+
+        Calendar obito =  new GregorianCalendar();
+        obito.setTime(dataObito);
+
+        // Obtém a idade baseado no ano
+
+        int idade = obito.get(Calendar.YEAR) - dateOfBirth.get(Calendar.YEAR);
+
+        dateOfBirth.add(Calendar.YEAR, idade);
+
+        //se a data de obito é antes da data de Nascimento, então diminui 1(um)
+
+        if (obito.before(dateOfBirth)) {
+
+            idade--;
+
+        }
+
+        return idade;
+
+    }
+
 }
