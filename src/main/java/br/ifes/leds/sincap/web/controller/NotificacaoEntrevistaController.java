@@ -5,6 +5,7 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
@@ -20,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -85,12 +84,13 @@ public class NotificacaoEntrevistaController {
                                    @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
                                    @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
                                    @RequestParam("paciente.nome") String nomePaciente,
-                                   @Valid @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
-                                   BindingResult bindingResult) {
+                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
+        if (dataEntrevista != null && horaEntrevista != null) {
+            processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
+        }
 
         if (processo.getEntrevista().isEntrevistaRealizada()) {
             processo.setCausaNaoDoacao(recusaFamiliar);
@@ -98,13 +98,13 @@ public class NotificacaoEntrevistaController {
             processo.setCausaNaoDoacao(problemasEstruturais);
         }
 
-        if (!bindingResult.hasErrors()) {
+        try {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
-        } else {
+        } catch (ViolacaoDeRIException e) {
             model.addAttribute("nomePaciente", nomePaciente);
             addAtributosIniciais(model, processo);
-            utilityWeb.addConstraintViolations(bindingResult.getFieldErrors(), model);
+            utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
             utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
 
             return "form-entrevista";
@@ -129,7 +129,11 @@ public class NotificacaoEntrevistaController {
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao
                 .obter(idProcesso);
 
-        utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+        if (processo.getEntrevista().getResponsavel() != null && processo.getEntrevista().getResponsavel().getEndereco() != null) {
+            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+        } else {
+            utilityWeb.preencherEstados(model);
+        }
 
         model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
         model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));

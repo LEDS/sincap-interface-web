@@ -9,7 +9,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.data']}*"/>
-        <h:inputText styleClass="data span8" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
+        <h:inputText styleClass="data span8" onblur="setInaptoDoacao()" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
     </h:panelGroup>
