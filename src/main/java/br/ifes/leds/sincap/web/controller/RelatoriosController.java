@@ -73,10 +73,14 @@ public class RelatoriosController {
         String bairroResponsavel = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel().getEndereco().getBairro()).getNome();
         String estadoResponsavel = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel().getEndereco().getEstado()).getNome();
 
-        String cidadeResponsavel2 = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel2().getEndereco().getCidade()).getNome();
-        String bairroResponsavel2 = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel2().getEndereco().getBairro()).getNome();
-        String estadoResponsavel2 = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel2().getEndereco().getEstado()).getNome();
-
+        if(pn.getEntrevista().getResponsavel2() != null) {
+            String cidadeResponsavel2 = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel2().getEndereco().getCidade()).getNome();
+            String bairroResponsavel2 = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel2().getEndereco().getBairro()).getNome();
+            String estadoResponsavel2 = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel2().getEndereco().getEstado()).getNome();
+            model.addAttribute("bairroResponsavel2",bairroResponsavel2);
+            model.addAttribute("estadoResponsavel2",estadoResponsavel2);
+            model.addAttribute("cidadeResponsavel2", cidadeResponsavel2);
+        }
         String nomeFuncinario = aplFuncionario.obter(pn.getEntrevista().getFuncionario()).getNome();
 
         int idadePaciente = utility.calculaIdade(pn.getObito().getPaciente().getDataNascimento(), pn.getObito().getDataObito());
@@ -85,9 +89,6 @@ public class RelatoriosController {
         model.addAttribute("bairroResponsavel",bairroResponsavel);
         model.addAttribute("estadoResponsavel",estadoResponsavel);
         model.addAttribute("cidadeResponsavel", cidadeResponsavel);
-        model.addAttribute("bairroResponsavel2",bairroResponsavel2);
-        model.addAttribute("estadoResponsavel2",estadoResponsavel2);
-        model.addAttribute("cidadeResponsavel2", cidadeResponsavel2);
         model.addAttribute("hospitalNome", hospitalNome);
         model.addAttribute("hospitalCidade", hospitalCidade);
         model.addAttribute("cidadePaciente",cidadePaciente);
