@@ -8,7 +8,6 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
-import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,13 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.faces.bean.SessionScoped;
 import java.util.List;
 
+import static br.ifes.leds.sincap.web.controller.ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
+import static br.ifes.leds.sincap.web.controller.ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO;
+
 /**
- * Created by Home on 18/09/2014.
+ * @author Ivana Julião
+ * @author Breno Sampaio
  */
 @Controller
 @RequestMapping(ContextUrls.RELATORIOS)
 @SessionScoped
 public class RelatoriosController {
+
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
@@ -38,24 +42,26 @@ public class RelatoriosController {
     @Autowired
     AplFuncionario aplFuncionario;
 
-    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.GET)
+    @RequestMapping(value = APP_NOTIFICACAO_ENTREVISTA + RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.GET)
     public String carregarFormTermoDoacao(ModelMap model){
-        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterTodasNotificacoes();
+        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoAutorizada("");
 
         model.addAttribute("listProcessoNotificacao", pn);
         //TODO: Substituir pelo endereco do formulario!
         return "termo-de-autorizacao";
     }
-    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.POST)
+
+    @RequestMapping(value = APP_NOTIFICACAO_ENTREVISTA+ RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.POST)
     public String buscarTermoDoacao(ModelMap model, @RequestParam("nome") String nome){
-        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNome(nome);
+        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoAutorizada(nome);
 
         model.addAttribute("listProcessoNotificacao", pn);
 
         //TODO: Substituir pelo endereco do formulario!
         return "termo-de-autorizacao";
     }
-    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO+ContextUrls.IMPRIMIR+"/{id}", method = RequestMethod.GET)
+
+    @RequestMapping(value = APP_NOTIFICACAO_ENTREVISTA+ RLT_TERMO_AUTORIZACAO_DOACAO+ContextUrls.IMPRIMIR+"/{id}", method = RequestMethod.GET)
     public String emitirTermoDoacao(ModelMap model, @PathVariable Long id) {
         ProcessoNotificacaoDTO pn = aplProcessoNotificacao.obter(id);
         String dataObito = utility.calendarDataToString(pn.getObito().getDataObito());
