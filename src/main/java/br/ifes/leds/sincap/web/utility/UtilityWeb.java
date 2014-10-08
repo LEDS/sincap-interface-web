@@ -45,8 +45,8 @@ public class UtilityWeb {
             ConstraintViolation<?>[] constraintViolationsArray = new ConstraintViolation<?>[constraintViolations.size()];
             constraintViolations.toArray(constraintViolationsArray);
             model.addAttribute("constraintViolations", constraintViolationsArray);
-            model.addAttribute("erro", true);
         }
+        model.addAttribute("erro", true);
     }
 
     public void addConstraintViolations(List<? extends FieldError> errors, ModelMap modelMap) {
