@@ -228,9 +228,9 @@ public class UtilityWeb {
         String status = mensagem.getEstado();
         String partialUrl = "/sincap";
 
-        String obito = "Obito";
+        String obito = "Óbito";
         String entrevista = "Entrevista";
-        String captacao = "Captacao";
+        String captacao = "Captação";
         String correcao = "Correção";
         String analise = "Análise";
 
