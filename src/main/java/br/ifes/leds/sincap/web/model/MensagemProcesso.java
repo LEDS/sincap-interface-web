@@ -13,4 +13,5 @@ public class MensagemProcesso {
     private String tempo;
     private String estado;
     private String codigo;
+    private String urlRelativa;
 }

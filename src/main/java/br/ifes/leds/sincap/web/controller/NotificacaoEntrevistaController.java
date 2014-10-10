@@ -53,6 +53,26 @@ public class NotificacaoEntrevistaController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
+    @RequestMapping(value = ADICIONAR+"/{idProcesso}", method = GET)
+    public String loadFormEntrevistaGetMethod(ModelMap model, @PathVariable Long idProcesso) {
+        try {
+            ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
+
+            utilityWeb.preencherEstados(model);
+            model.addAttribute("processo", processo);
+            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
+            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
+            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
+            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
+            model.addAttribute("recusaFamiliar", (long) 0);
+            model.addAttribute("problemasEstruturais", (long) 0);
+
+        } catch (Exception ignored) {
+
+        }
+
+        return "form-entrevista";
+    }
 
     @RequestMapping(value = ADICIONAR, method = POST)
     public String loadFormEntrevista(ModelMap model, @RequestParam("id") Long id) {
@@ -67,7 +87,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
-            model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
+
         } catch (Exception ignored) {
 
         }
