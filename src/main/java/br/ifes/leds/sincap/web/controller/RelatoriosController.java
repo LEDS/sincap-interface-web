@@ -48,7 +48,7 @@ public class RelatoriosController {
     }
     @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.POST)
     public String buscarTermoDoacao(ModelMap model, @RequestParam("nome") String nome){
-        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNome(nome);
+        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoAutorizada(nome);
 
         model.addAttribute("listProcessoNotificacao", pn);
 
