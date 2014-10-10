@@ -87,6 +87,7 @@ public class ProcessoNotificacaoController {
         }else if(autoridades.contains("ROLE_CAPTADOR")){
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario()));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario()));
         }else if(autoridades.contains("ROLE_ANALISTA")){
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO));
