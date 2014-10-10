@@ -44,6 +44,18 @@ public class NotificacaoCaptacaoController {
     @Autowired
     private UtilityWeb utilityWeb;
 
+    @RequestMapping(value = ADICIONAR + "/{idProcesso}", method = GET)
+    public String loadFormCaptacaoGetMethod(ModelMap model, @PathVariable Long idProcesso) {
+        try {
+            ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
+            model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(PROBLEMAS_LOGISTICOS));
+            model.addAttribute("processo", processo);
+        } catch (Exception ignored) {
+        }
+
+        return "form-notificacao-captacao";
+    }
+
     @RequestMapping(value = ADICIONAR, method = POST)
     public String loadFormCaptacao(ModelMap model, @RequestParam("id") Long id) {
         try {

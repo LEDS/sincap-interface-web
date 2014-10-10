@@ -14,6 +14,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
+import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -215,10 +216,52 @@ public class UtilityWeb {
             mensagem.setTempo(dfo.format(
                     Calendar.getInstance().getTimeInMillis() - notificacao.getDataAbertura().getTimeInMillis()
             ));
-
+            criarUrlRelativa(mensagem);
             mensagens.add(mensagem);
         }
 
         return mensagens;
+    }
+
+    private void criarUrlRelativa(MensagemProcesso mensagem){
+        //Criando a URL relativa ao objeto
+        String status = mensagem.getEstado();
+        String partialUrl = "/sincap";
+
+        String obito = "Obito";
+        String entrevista = "Entrevista";
+        String captacao = "Captacao";
+        String correcao = "Correção";
+        String analise = "Análise";
+
+        if(status.contains(obito)){
+            partialUrl+=ContextUrls.APP_NOTIFICACAO_OBITO;
+            if(status.contains(correcao)){
+                partialUrl+=ContextUrls.EDITAR;
+            }else if(status.contains(analise)){
+                partialUrl+=ContextUrls.APP_ANALISAR;
+            }
+        }else if(status.contains(entrevista)){
+            partialUrl+=ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
+            if(status.contains(analise)){
+                partialUrl+=ContextUrls.APP_ANALISAR;
+            }else if(status.contains(correcao)){
+                partialUrl+=ContextUrls.EDITAR;
+            }else{
+                partialUrl+=ContextUrls.ADICIONAR;
+            }
+        }else if(status.contains(captacao)){
+            partialUrl+=ContextUrls.APP_NOTIFICACAO_CAPTACAO;
+            if(status.contains(analise)){
+                partialUrl+=ContextUrls.APP_ANALISAR;
+            }else if(status.contains(correcao)){
+                partialUrl+=ContextUrls.EDITAR;
+            }else{
+                partialUrl+=ContextUrls.ADICIONAR;
+            }
+        }
+
+        mensagem.setUrlRelativa(partialUrl+"/"+mensagem.getId());
+
     }
 }

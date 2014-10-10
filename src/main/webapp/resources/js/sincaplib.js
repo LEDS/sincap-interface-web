@@ -233,6 +233,8 @@ function ajaxGetNovasNotificacoes() {
             var codigo;
             var estado;
             var tempo;
+            var url;
+
             $.each(response, function (idx, notificacao) {
                 // Para cada notificação, aumenta 1 no número de notificações.
                 quantasNotificacoes += 1;
@@ -247,12 +249,14 @@ function ajaxGetNovasNotificacoes() {
                         estado = value;
                     if (key === "tempo")
                         tempo = value;
+                    if (key === "urlRelativa")
+                        url = value;
                 });
 
                 // Acrescenta um item ao painel, com os dados da notificação.
                 itens[idx] =
                     "<input hidden=\"hidden\" id=\"id\" name=\"id\" value=" + id +"/>"
-                    + "<a href=\"#\" class=\"item\">"
+                    +  "<a href=\"" + location.origin + url + "\" class=\"item\">"
                     + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
                     + "<i class=\"icon-envelope-alt\"></i>" + estado
                     + "</a>";
