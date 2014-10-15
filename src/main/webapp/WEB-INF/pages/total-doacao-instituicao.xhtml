@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['relatorios.title']}
+    </ui:define>
+    <!--Fim título da página-->
+
+
+    <!-- Formulário de entrevista -->
+    <ui:define name="#{sects.formContent}">
+        <form id="total-docao-instituicao" class="form-horizontal"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}" method="post">
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
+            <br></br><br></br>
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
+
+                <div class="span5">
+                    <select name="instituicao" style="width:350px" dropzone="dropzone"  class="select2">
+                        <option>
+                            <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" >
+                                <option  value="#{instituicao.id}">#{instituicao.nome}</option>
+                            </ui:repeat>
+                        </option>
+                    </select>
+                </div>
+            </h:panelGroup>
+
+        </form>
+
+        <h:outputScript library="js" name="total-doacao-instituicao.js" />
+    </ui:define>
+
+
+</ui:composition>

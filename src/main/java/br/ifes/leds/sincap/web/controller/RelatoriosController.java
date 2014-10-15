@@ -3,8 +3,10 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -29,6 +32,8 @@ import java.util.List;
 public class RelatoriosController {
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
+    @Autowired
+    AplInstituicaoNotificadora aplInstituicaoNotificadora;
     @Autowired
     Utility utility;
     @Autowired
@@ -93,6 +98,16 @@ public class RelatoriosController {
         model.addAttribute("pn", pn);
         //TODO: Substituir pelo endereco do formulario!
         return "form-termo-de-autorizacao";
+    }
+
+    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.GET)
+    public String carregarRelatorioIndex(ModelMap model){
+
+        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+
+        model.addAttribute("listInstituicao", in);
+        //TODO: Substituir pelo endereco do formulario!
+        return "total-doacao-instituicao";
     }
 
 }
