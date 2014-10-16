@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -106,6 +107,7 @@ public class RelatoriosController {
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
 
         model.addAttribute("listInstituicao", in);
+
         //TODO: Substituir pelo endereco do formulario!
         return "total-doacao-instituicao";
     }

@@ -14,16 +14,30 @@
 
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
-        <form id="total-docao-instituicao" class="form-horizontal"
-              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}" method="post">
+        <form id="total-docao-instituicao" class="form-horizontal">
+
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+
+            <h1 align="center">Total Doação por Instituição</h1>
+
+            <br></br><br></br>
+
+            <h:outputLabel value="A partir de"/>
+            <h:inputText id="datIni" name="datIni"  >
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:inputText>
+
+            <h:outputLabel value="Até"/>
+            <h:inputText id="datFim" name="datFim"  >
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:inputText>
 
             <br></br><br></br>
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
 
                 <div class="span5">
-                    <select name="instituicao" style="width:350px" dropzone="dropzone"  class="select2">
+                    <select name="instituicao" style="width:350px" multiple="multiple"  class="select2">
                         <option>
                             <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" >
                                 <option  value="#{instituicao.id}">#{instituicao.nome}</option>
@@ -34,6 +48,14 @@
             </h:panelGroup>
 
         </form>
+
+        <br></br><br></br>
+        <br></br><br></br>
+
+        <button type="submit" class="btn-glow success btn-finish" >
+            Enviar
+        </button>
+
 
         <h:outputScript library="js" name="total-doacao-instituicao.js" />
     </ui:define>
