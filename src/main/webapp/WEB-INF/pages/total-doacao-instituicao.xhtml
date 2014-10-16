@@ -55,7 +55,13 @@
         <button type="submit" class="btn-glow success btn-finish" >
             Enviar
         </button>
+        <br></br><br></br>
 
+        <div class="tab-content">
+            <ui:include src="../components/lista-total-doacao-instituicao.xhtml">
+                <ui:param name="processos" value="" />
+            </ui:include>
+        </div>
 
         <h:outputScript library="js" name="total-doacao-instituicao.js" />
     </ui:define>

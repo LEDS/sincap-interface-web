@@ -112,4 +112,9 @@ public class RelatoriosController {
         return "total-doacao-instituicao";
     }
 
+    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO+"/listar", method = RequestMethod.POST)
+    public  String listarRelatorioTotalInst (ModelMap model){
+        return  "total-doacao-instituicao";
+    }
+
 }
