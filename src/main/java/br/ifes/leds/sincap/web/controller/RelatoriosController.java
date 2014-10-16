@@ -7,6 +7,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
+import br.ifes.leds.sincap.gerenciaNotificacao.cgd.ProcessoNotificacaoRepository;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
@@ -20,9 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Home on 18/09/2014.
@@ -33,6 +32,8 @@ import java.util.List;
 public class RelatoriosController {
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
+    @Autowired
+    private ProcessoNotificacaoRepository notificacaoRepository;
     @Autowired
     AplInstituicaoNotificadora aplInstituicaoNotificadora;
     @Autowired
@@ -112,9 +113,16 @@ public class RelatoriosController {
         return "total-doacao-instituicao";
     }
 
-    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO+"/listar", method = RequestMethod.POST)
-    public  String listarRelatorioTotalInst (ModelMap model){
-        return  "total-doacao-instituicao";
+    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
+    public String ExibirRelatorio(ModelMap model, @RequestParam ("instituicao") List<Long> listaInstituicao){
+
+        for(Long i:listaInstituicao){
+            ProcessoNotificacao pn = notificacaoRepository.findOne(i);
+
+        }
+
+        //TODO: Substituir pelo endereco do formulario!
+        return "total-doacao-instituicao";
     }
 
 }

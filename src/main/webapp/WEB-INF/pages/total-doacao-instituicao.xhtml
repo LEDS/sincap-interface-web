@@ -14,7 +14,8 @@
 
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
-        <form id="total-docao-instituicao" class="form-horizontal">
+        <form id="total-docao-instituicao" class="form-horizontal"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}" method="post" >
 
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
@@ -40,7 +41,7 @@
                     <select name="instituicao" style="width:350px" multiple="multiple"  class="select2">
                         <option>
                             <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" >
-                                <option  value="#{instituicao.id}">#{instituicao.nome}</option>
+                                <option value="#{instituicao.id}">#{instituicao.nome}</option>
                             </ui:repeat>
                         </option>
                     </select>
