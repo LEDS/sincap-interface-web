@@ -21,36 +21,45 @@
 
             <h1 align="center">Total Doação por Instituição</h1>
 
+            <br></br><br></br><br></br>
+
+            <h:panelGrid columns="4">
+
+                <h:outputLabel value="A partir de"/>
+                <h:inputText id="datIni" name="datIni"  >
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+
+                <h:outputLabel value="Até"/>
+                <h:inputText id="datFim" name="datFim"  >
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+
+            </h:panelGrid>
+
             <br></br><br></br>
 
-            <h:outputLabel value="A partir de"/>
-            <h:inputText id="datIni" name="datIni"  >
-                <f:convertDateTime pattern="dd/MM/yyyy"/>
-            </h:inputText>
 
-            <h:outputLabel value="Até"/>
-            <h:inputText id="datFim" name="datFim"  >
-                <f:convertDateTime pattern="dd/MM/yyyy"/>
-            </h:inputText>
+                <h:panelGrid columns="2">
 
-            <br></br><br></br>
-            <h:panelGroup layout="block" styleClass="field-box">
-                <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
+                    <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
 
-                <div class="span5">
-                    <select name="instituicao" style="width:350px" multiple="multiple"  class="select2">
-                        <option>
-                            <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" >
-                                <option value="#{instituicao.id}">#{instituicao.nome}</option>
-                            </ui:repeat>
-                        </option>
-                    </select>
-                </div>
-            </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="field-box">
+                        <div class="span5">
+                            <select name="instituicao" style="width:350px" multiple="multiple"  class="select2">
+                                <option>
+                                    <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" >
+                                        <option value="#{instituicao.id}">#{instituicao.nome}</option>
+                                    </ui:repeat>
+                                </option>
+                            </select>
+                        </div>
+                    </h:panelGroup>
+                </h:panelGrid>
+
 
         </form>
 
-        <br></br><br></br>
         <br></br><br></br>
 
         <button type="submit" class="btn-glow success btn-finish" >
