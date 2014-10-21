@@ -3,6 +3,7 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Instituicao;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
@@ -12,7 +13,9 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
+import jdk.nashorn.internal.ir.RuntimeNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
+import javax.persistence.Entity;
 import java.util.*;
 
 /**
@@ -114,12 +118,11 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model, @RequestParam ("instituicao") List<Long> listaInstituicao){
+    public String ExibirRelatorio(ModelMap model,@RequestParam ("hospitais") List<Long> lh,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datIni") Calendar dataInicial,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datFim") Calendar dataFinal){
 
-        for(Long i:listaInstituicao){
-            ProcessoNotificacao pn = notificacaoRepository.findOne(i);
+        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
 
-        }
+        model.addAttribute("listInstituicao", in);
 
         //TODO: Substituir pelo endereco do formulario!
         return "total-doacao-instituicao";

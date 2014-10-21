@@ -15,9 +15,10 @@
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <form id="total-docao-instituicao" class="form-horizontal"
-              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}" method="post" >
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}"
+              method="post">
 
-            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
 
             <h1 align="center">Total Doação por Instituição</h1>
 
@@ -26,12 +27,12 @@
             <h:panelGrid columns="4">
 
                 <h:outputLabel value="A partir de"/>
-                <h:inputText id="datIni" name="datIni"  >
+                <h:inputText id="datIni" name="datIni">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
 
                 <h:outputLabel value="Até"/>
-                <h:inputText id="datFim" name="datFim"  >
+                <h:inputText id="datFim" name="datFim">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
 
@@ -40,40 +41,40 @@
             <br></br><br></br>
 
 
-                <h:panelGrid columns="2">
+            <h:panelGrid columns="2">
 
-                    <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
+                <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
 
-                    <h:panelGroup layout="block" styleClass="field-box">
-                        <div class="span5">
-                            <select name="instituicao" style="width:350px" multiple="multiple"  class="select2">
-                                <option>
-                                    <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" >
-                                        <option value="#{instituicao.id}">#{instituicao.nome}</option>
-                                    </ui:repeat>
-                                </option>
-                            </select>
-                        </div>
-                    </h:panelGroup>
-                </h:panelGrid>
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <div class="span5">
+                        <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
+                            <option>
+                                <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao">
+                                    <option value="#{instituicao.id}">#{instituicao.nome}</option>
+                                </ui:repeat>
+                            </option>
+                        </select>
+                    </div>
+                </h:panelGroup>
+            </h:panelGrid>
 
 
+            <br></br><br></br>
+
+            <button type="submit" class="btn-glow success btn-finish">
+                Enviar
+            </button>
         </form>
 
         <br></br><br></br>
 
-        <button type="submit" class="btn-glow success btn-finish" >
-            Enviar
-        </button>
-        <br></br><br></br>
-
         <div class="tab-content">
             <ui:include src="../components/lista-total-doacao-instituicao.xhtml">
-                <ui:param name="processos" value="" />
+                <ui:param name="processos" value=""/>
             </ui:include>
         </div>
 
-        <h:outputScript library="js" name="total-doacao-instituicao.js" />
+        <h:outputScript library="js" name="total-doacao-instituicao.js"/>
     </ui:define>
 
 
