@@ -50,7 +50,7 @@ public class RelatoriosController {
 
     @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.GET)
     public String carregarFormTermoDoacao(ModelMap model){
-        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterTodasNotificacoes();
+        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoAutorizada("");
 
         model.addAttribute("listProcessoNotificacao", pn);
         //TODO: Substituir pelo endereco do formulario!

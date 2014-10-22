@@ -54,13 +54,25 @@
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
     </div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.profissao}"/>
-    </div>
+                <h:outputLabel value="#{msg['responsavel.radioButton.sexo']}"/>
+                <h:inputText readonly="true" styleClass="span8" value="#{processo.entrevista.responsavel.sexo}"/>
+            </div>
+        <div class="field-box">
+    <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
+    <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.profissao}"/>
+</div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.nacionalidade}"/>
-    </div>
+                <h:outputLabel value="#{msg['responsavel.text.religiao']}"/>
+                <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.religiao}"/>
+            </div>
+        <div class="field-box">
+            <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}"/>
+            <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.grauEscolaridade}"/>
+        </div>
+        <div class="field-box">
+    <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
+    <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.nacionalidade}"/>
+</div>
     <div class="field-box">
         <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
         <h:inputText styleClass="span8" readonly="true"

@@ -4,6 +4,7 @@ import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgd.BairroRepository;
 import br.ifes.leds.reuse.endereco.cgd.CidadeRepository;
 import br.ifes.leds.reuse.endereco.cgd.EstadoRepository;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.EntrevistaDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
@@ -111,8 +112,10 @@ public class EntrevistaControllerTest extends AbstractionTest {
                 .param("entrevista.responsavel.estadoCivil", entrevista.getEntrevista().getResponsavel().getEstadoCivil().toString())
                 .param("entrevista.responsavel.telefone.numero", entrevista.getEntrevista().getResponsavel().getTelefone().getNumero())
                 .param("entrevista.responsavel.telefone2.numero", entrevista.getEntrevista().getResponsavel().getTelefone2().getNumero())
+                .param("entrevista.responsavel.sexo", "MASCULINO")
                 .param("entrevista.responsavel.profissao", entrevista.getEntrevista().getResponsavel().getProfissao())
-                .param("entrevista.responsavel.endereco.numero", entrevista.getEntrevista().getResponsavel().getEndereco().getNumero())
+                .param("entrevista.responsavel.religiao", entrevista.getEntrevista().getResponsavel().getReligiao())
+                .param("entrevista.responsavel.grauEscolaridade", entrevista.getEntrevista().getResponsavel().getGrauEscolaridade()).param("entrevista.responsavel.endereco.numero", entrevista.getEntrevista().getResponsavel().getEndereco().getNumero())
                 .param("entrevista.responsavel.endereco.cep", entrevista.getEntrevista().getResponsavel().getEndereco().getCep())
                 .param("entrevista.responsavel.endereco.complemento", entrevista.getEntrevista().getResponsavel().getEndereco().getComplemento())
                 .param("entrevista.responsavel.endereco.logradouro", entrevista.getEntrevista().getResponsavel().getEndereco().getLogradouro())
@@ -155,7 +158,10 @@ public class EntrevistaControllerTest extends AbstractionTest {
                                 .telefone2(Telefone.builder()
                                         .numero("(27)3333-3333")
                                         .build())
+                                .sexo(Sexo.MASCULINO)
                                 .profissao("Profissão")
+                                .religiao("Religião")
+                                .grauEscolaridade("Grau de ecolaridade")
                                 .endereco(EnderecoDTO.builder()
                                         .numero("123")
                                         .cep("29182-527")
