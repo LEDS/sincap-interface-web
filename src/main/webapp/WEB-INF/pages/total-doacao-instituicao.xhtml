@@ -24,14 +24,16 @@
 
             <br></br><br></br><br></br>
 
-            <h:panelGrid columns="4">
+            <h:panelGrid columns="7">
 
-                <h:outputLabel value="A partir de"/>
+                <h:outputLabel value="A partir de:"/>
+                <h:outputLabel value=" "/>
                 <h:inputText id="datIni" name="datIni">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
-
-                <h:outputLabel value="Até"/>
+                <h:outputLabel value=" "/>
+                <h:outputLabel value=" "/>
+                <h:outputLabel value="Até:"/>
                 <h:inputText id="datFim" name="datFim">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
@@ -65,13 +67,10 @@
                 Enviar
             </button>
         </form>
-
         <br></br><br></br>
 
         <div class="tab-content">
-            <ui:include src="../components/lista-total-doacao-instituicao.xhtml">
-                <ui:param name="processos" value=""/>
-            </ui:include>
+            <ui:include src="../components/lista-total-doacao-instituicao.xhtml"/>
         </div>
 
         <h:outputScript library="js" name="total-doacao-instituicao.js"/>

@@ -11,7 +11,9 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cgd.ProcessoNotificacaoRepository;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -47,6 +49,8 @@ public class RelatoriosController {
     AplHospital aplHospital;
     @Autowired
     AplFuncionario aplFuncionario;
+    @Autowired
+    AplRelatorio aplRelatorio;
 
     @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA+ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.GET)
     public String carregarFormTermoDoacao(ModelMap model){
@@ -117,11 +121,25 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model,@RequestParam ("hospitais") List<Long> lh,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datIni") Calendar dataInicial,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datFim") Calendar dataFinal){
+    public String ExibirRelatorio(ModelMap model,@RequestParam (value = "hospitais", required = false) List<Long> lh,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datIni") Calendar dataInicial,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datFim") Calendar dataFinal){
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
+
+        if (lh.isEmpty()){
+          for(InstituicaoNotificadora i:in){
+              TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i.getId(),dataInicial,dataFinal);
+              listtdi.add(tdi);
+          }
+        } else {
+            for (Long i : lh) {
+                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i, dataInicial, dataFinal);
+                listtdi.add(tdi);
+            }
+        }
 
         model.addAttribute("listInstituicao", in);
+        model.addAttribute("listaTotaldi", listtdi);
 
         //TODO: Substituir pelo endereco do formulario!
         return "total-doacao-instituicao";
