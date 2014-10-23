@@ -3,18 +3,13 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.Instituicao;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
-import br.ifes.leds.sincap.gerenciaNotificacao.cgd.ProcessoNotificacaoRepository;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
-import javax.persistence.Entity;
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by Home on 18/09/2014.
@@ -35,10 +29,6 @@ import java.util.*;
 public class RelatoriosController {
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
-    @Autowired
-    private ProcessoNotificacaoRepository notificacaoRepository;
-    @Autowired
-    AplInstituicaoNotificadora aplInstituicaoNotificadora;
     @Autowired
     Utility utility;
     @Autowired
@@ -83,6 +73,14 @@ public class RelatoriosController {
         String bairroResponsavel = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel().getEndereco().getBairro()).getNome();
         String estadoResponsavel = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel().getEndereco().getEstado()).getNome();
 
+        if(pn.getEntrevista().getResponsavel2() != null) {
+            String cidadeResponsavel2 = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel2().getEndereco().getCidade()).getNome();
+            String bairroResponsavel2 = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel2().getEndereco().getBairro()).getNome();
+            String estadoResponsavel2 = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel2().getEndereco().getEstado()).getNome();
+            model.addAttribute("bairroResponsavel2",bairroResponsavel2);
+            model.addAttribute("estadoResponsavel2",estadoResponsavel2);
+            model.addAttribute("cidadeResponsavel2", cidadeResponsavel2);
+        }
         String nomeFuncinario = aplFuncionario.obter(pn.getEntrevista().getFuncionario()).getNome();
 
         int idadePaciente = utility.calculaIdade(pn.getObito().getPaciente().getDataNascimento(), pn.getObito().getDataObito());
@@ -103,28 +101,6 @@ public class RelatoriosController {
         model.addAttribute("pn", pn);
         //TODO: Substituir pelo endereco do formulario!
         return "form-termo-de-autorizacao";
-    }
-
-    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.GET)
-    public String carregarRelatorioIndex(ModelMap model){
-
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-
-        model.addAttribute("listInstituicao", in);
-
-        //TODO: Substituir pelo endereco do formulario!
-        return "total-doacao-instituicao";
-    }
-
-    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model,@RequestParam ("hospitais") List<Long> lh,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datIni") Calendar dataInicial,@DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam ("datFim") Calendar dataFinal){
-
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-
-        model.addAttribute("listInstituicao", in);
-
-        //TODO: Substituir pelo endereco do formulario!
-        return "total-doacao-instituicao";
     }
 
 }
