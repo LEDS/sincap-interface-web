@@ -87,7 +87,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
-
+            model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
         } catch (Exception ignored) {
 
         }

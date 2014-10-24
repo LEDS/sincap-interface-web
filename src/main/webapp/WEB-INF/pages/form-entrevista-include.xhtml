@@ -210,6 +210,11 @@
                     <h:inputText styleClass="span8" id="entrevista-responsavel-endereco-numero" value="#{processo.entrevista.responsavel.endereco.numero}"/>
                 </h:panelGroup>
 
+                <!--@elvariable id="menorIdade" type="java.lang.Boolean"-->
+                <h:panelGroup rendered="#{menorIdade}">
+                    <ui:include src="/WEB-INF/components/responsavel2.xhtml" />
+                </h:panelGroup>
+
                 <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha1']}</b></h:outputLabel>
                 <h:panelGroup layout="block" styleClass="field-box">
                     <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}*"/>

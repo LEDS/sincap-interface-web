@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <br/><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.nome']}*"/>
+        <h:inputText id="entrevista-responsavel2-nome" styleClass="span8"
+                     value="#{processo.entrevista.responsavel2.nome}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.rg']}*"/>
+        <h:inputText id="entrevista-responsavel2-documentoSocial" styleClass="span8"
+                     value="#{processo.entrevista.responsavel2.documentoSocial}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-parentesco"
+                             value="#{processo.entrevista.responsavel2.parentesco}">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.parentesco']}"/>
+                <f:selectItems value="#{listaParentescos}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-estadoCivil"
+                             value="#{processo.entrevista.responsavel2.estadoCivil}">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.estadoCivil']}"/>
+                <f:selectItems value="#{listaEstadosCivis}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.telefone1']}*"/>
+        <h:inputText styleClass="tel span8" id="entrevista-responsavel2-telefone-numero"
+                     value="#{processo.entrevista.responsavel2.telefone.numero}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.telefone2']}*"/>
+        <h:inputText styleClass="tel span8" id="entrevista-responsavel2-telefone2-numero"
+                     value="#{processo.entrevista.responsavel2.telefone2.numero}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.profissao']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-profissao"
+                     value="#{processo.entrevista.responsavel2.profissao}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
+        <h:inputText styleClass="cep span8" id="entrevista-responsavel2-endereco-cep"
+                     value="#{processo.entrevista.responsavel2.endereco.cep}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-nacionalidade"
+                     value="#{processo.entrevista.responsavel2.nacionalidade}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.uf']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-endereco-estado"
+                             value="#{processo.entrevista.responsavel2.endereco.estado}"
+                             onchange="ajaxGetMunicipios('#entrevista-responsavel2-endereco-estado', '#entrevista-responsavel2-endereco-cidade')">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.uf']}"/>
+                <f:selectItems value="#{listaEstadoItem}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-endereco-cidade"
+                             value="#{processo.entrevista.responsavel2.endereco.cidade}"
+                             onchange="ajaxGetBairros('#entrevista-responsavel2-endereco-cidade', '#entrevista-responsavel2-endereco-bairro')">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.cidade']}"/>
+                <f:selectItems value="#{listaCidadeItem}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-endereco-bairro"
+                             value="#{processo.entrevista.responsavel2.endereco.bairro}">
+                <f:selectItem itemValue=""
+                              itemLabel="#{msg['responsavel.dropdown.bairro']}"/>
+                <f:selectItems value="#{listaBairroItem}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-endereco-logradouro"
+                     value="#{processo.entrevista.responsavel2.endereco.logradouro}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-endereco-numero"
+                     value="#{processo.entrevista.responsavel2.endereco.numero}"/>
+    </h:panelGroup>
+
+</ui:composition>
