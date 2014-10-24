@@ -125,23 +125,23 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false) List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
+    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false) List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam(value = "datIni", required=false) Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam(value="datFim", required = false) Calendar dataFinal) {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
-
-        if (lh.isEmpty()) {
-            for (InstituicaoNotificadora i : in) {
-                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
-                listtdi.add(tdi);
-            }
-        } else {
-            for (Long i : lh) {
-                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i, dataInicial, dataFinal);
-                listtdi.add(tdi);
+        if(dataInicial!=null && dataFinal!=null) {
+            if (lh == null) {
+                for (InstituicaoNotificadora i : in) {
+                    TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
+                    listtdi.add(tdi);
+                }
+            } else {
+                for (Long i : lh) {
+                    TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i, dataInicial, dataFinal);
+                    listtdi.add(tdi);
+                }
             }
         }
-
         model.addAttribute("listInstituicao", in);
         model.addAttribute("listaTotaldi", listtdi);
 
