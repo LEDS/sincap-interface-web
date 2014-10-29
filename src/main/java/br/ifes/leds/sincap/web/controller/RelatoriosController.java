@@ -12,6 +12,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDT
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
+import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,8 @@ public class RelatoriosController {
     AplInstituicaoNotificadora aplInstituicaoNotificadora;
     @Autowired
     Utility utility;
+    @Autowired
+    UtilityWeb utilityWeb;
     @Autowired
     AplEndereco aplEndereco;
     @Autowired
@@ -129,6 +132,14 @@ public class RelatoriosController {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
+        List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
+
+        model.addAttribute("dataInicial",dataInicial);
+        model.addAttribute("dataFinal",dataFinal);
+
+
+        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
+
 
         if (lh.get(0) == -1) {
             for (InstituicaoNotificadora i : in) {

@@ -25,19 +25,17 @@
             <br></br><br></br><br></br>
 
             <h:panelGrid columns="7">
-
                 <h:outputLabel value="A partir de:"/>
                 <h:outputLabel value=" "/>
-                <h:inputText id="datIni" name="datIni">
+                <h:inputText id="datIni" name="datIni" value="#{dataInicial.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value="Até:"/>
-                <h:inputText id="datFim" name="datFim">
+                <h:inputText id="datFim" name="datFim" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
-
             </h:panelGrid>
 
             <br></br><br></br>
@@ -52,7 +50,7 @@
                         <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
                             <option>
                                 <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao">
-                                    <option value="#{instituicao.id}">#{instituicao.nome}</option>
+                                    <option selected="#{listInstituicaoSelected[instituicao.id]?'selected':''}" value="#{instituicao.id}">#{instituicao.nome}</option>
                                 </ui:repeat>
                             </option>
                         </select>
@@ -66,6 +64,7 @@
             <button type="submit" class="btn-glow success btn-finish">
                 Enviar
             </button>
+
         </form>
         <br></br><br></br>
 

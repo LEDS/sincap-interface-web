@@ -1,3 +1,13 @@
+jQuery.validator.addMethod("isValid", function (value, element) {
+    var dataIni = $('#datIni').val();
+    var dataFim = $('#datFim').val();
+
+    return Date.parse(dataIni) < Date.parse(dataFim);
+
+}, "* Data final deve ser maior do que a inicial.");
+
+
+
 $(document).ready(function () {
     $('#datIni').inputmask("dd/mm/yyyy", {placeholder: "_"});
     $('#datFim').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -8,13 +18,15 @@ $(".select2").select2({
     placeholder: "Escolha as Instituições"
 });
 
+
 $("#total-docao-instituicao").validate({
     rules: {
         'datIni': {
             required: true
         },
         datFim:{
-            required: true
+            required: true,
+            isValid: true
         }
     },
     messages: {
@@ -29,3 +41,6 @@ $("#total-docao-instituicao").validate({
         form.submit();
     }
 });
+
+
+
