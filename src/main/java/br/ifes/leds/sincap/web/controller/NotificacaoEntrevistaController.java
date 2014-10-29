@@ -67,7 +67,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
-            model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+            model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
 
         } catch (Exception ignored) {
 
@@ -163,7 +163,7 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
         model.addAttribute("recusaFamiliar", processo.getCausaNaoDoacao());
         model.addAttribute("problemasEstruturais", processo.getCausaNaoDoacao());
-        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+        model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("processo", processo);
 
         model.addAttribute("entrevistaRealizada", processo.getEntrevista().isEntrevistaRealizada());
