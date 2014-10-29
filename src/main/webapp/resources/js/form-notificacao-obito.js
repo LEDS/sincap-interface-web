@@ -98,7 +98,10 @@ $("#processo").validate({
         dataInternacao: {
             required: true
         },
-        'obito.paciente.documentoSocial': {
+        'obito.paciente.documentoSocial.documento': {
+            required: true
+        },
+        'obito-paciente-documentoSocial-tipoDocumentoComFoto': {
             required: true
         },
         'obito.paciente.telefone.numero': {
@@ -156,13 +159,16 @@ $("#processo").validate({
         'obito.paciente.nome': {
             required: "Por favor, insira o nome do paciente"
         },
-        dataNascimento: {
+        'obito-paciente-dataNascimento': {
             required: "Por favor, insira a data de nascimento do paciente"
         },
-        dataInternacao: {
+        'obito-paciente-dataInternacao': {
             required: "Por favor, insira a data de internação do paciente"
         },
-        'obito.paciente.documentoSocial': {
+        'obito.paciente.documentoSocial.documento': {
+            required: "Por favor, insira um documento social do paciente"
+        },
+        'obito-paciente-documentoSocial-tipoDocumentoComFoto': {
             required: "Por favor, insira um documento social do paciente"
         },
         'obito.paciente.telefone.numero': {

@@ -56,6 +56,7 @@ public class NotificacaoObitoController {
 
         utilityWeb.preencherEstados(model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
+        model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
 
         return "form-notificacao-obito";
@@ -71,7 +72,7 @@ public class NotificacaoObitoController {
 
         utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
-
+        model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         addAttributesToModel(model, processo);
 
         return "form-notificacao-obito";

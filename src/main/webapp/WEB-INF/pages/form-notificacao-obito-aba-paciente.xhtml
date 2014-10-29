@@ -32,7 +32,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.text.documento']}*"/>
-        <h:inputText id="entrevista-responsavel-documentoSocial-documento" styleClass="span8"
+        <h:inputText id="obito-paciente-documentoSocial-documento" styleClass="span8"
                      value="#{processo.entrevista.responsavel.documentoSocial.documento}"/>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
@@ -40,7 +40,7 @@
 
         <div class="ui-select span5">
             <h:selectOneMenu
-                    id="entrevista-responsavel-documentoSocial-tipodocumentocomfoto"
+                    id="obito-paciente-documentoSocial-tipoDocumentoComFoto"
                     value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
                 <f:selectItem itemLabel="#{msg['responsavel.text.selecioneTipoDocumento']}"/>
                 <f:selectItems value="#{tipoDocumentos}"/>
