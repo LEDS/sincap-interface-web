@@ -20,11 +20,6 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.formContent}">
-        <style scoped="scoped">
-            input {
-                color: darkslategray;
-            }
-        </style>
         <div id="fuelux-wizard" class="wizard row-fluid">
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
@@ -76,11 +71,16 @@
         </div>
         <div class="wizard-actions">
             <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
-                <i class="icon-chevron-left"/> Anterior
+                <i class="icon-chevron-left"></i> Anterior
             </button>
             <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
-                Próximo <i class="icon-chevron-right"/>
+                Próximo <i class="icon-chevron-right"></i>
             </button>
+            <!--<h:panelGroup rendered="#{entrevista}">-->
+                <!--<button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">-->
+                    <!--#{msg['analise.arquivar']}-->
+                <!--</button>-->
+            <!--</h:panelGroup>-->
             <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
                 #{msg['analise.recusar']}
             </button>

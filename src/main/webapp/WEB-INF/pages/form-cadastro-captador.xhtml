@@ -41,7 +41,20 @@
                             <h:inputText id="cpf"  type="text" value="#{captador.cpf}"/>
 
                             <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
-                            <h:inputText id="documentoSocial" value="#{captador.documentoSocial}"/>
+                            <h:inputText id="documentoSocial-documento" value="#{captador.documentoSocial.documento}"/>
+
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.tipoDocumentoSocial']}*"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
+                                                     value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
+                                        <f:selectItem
+                                                itemLabel="#{msg['funcionario.selecioneTipoDocumentoSocial']}"/>
+                                        <f:selectItems value="#{tipoDocumentosComFotos}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup><br></br><br></br>
 
                             <h:outputLabel value="#{msg['funcionario.email']}"/>
                             <h:inputText id="email" value="#{captador.email}"/>

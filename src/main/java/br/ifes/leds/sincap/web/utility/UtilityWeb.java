@@ -10,10 +10,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.*;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +43,8 @@ public class UtilityWeb {
             ConstraintViolation<?>[] constraintViolationsArray = new ConstraintViolation<?>[constraintViolations.size()];
             constraintViolations.toArray(constraintViolationsArray);
             model.addAttribute("constraintViolations", constraintViolationsArray);
+            model.addAttribute("erro", true);
         }
-        model.addAttribute("erro", true);
     }
 
     public void addConstraintViolations(List<? extends FieldError> errors, ModelMap modelMap) {
@@ -122,6 +119,17 @@ public class UtilityWeb {
         }
 
         return parentescos;
+    }
+
+    public List<SelectItem> getTipoDocumentoComFotoSelectItem() {
+        List<SelectItem> tipos = new ArrayList<>();
+
+        for (TipoDocumentoComFoto tipo : TipoDocumentoComFoto.values()) {
+            tipos
+                    .add(new SelectItem(tipo, tipo.name()));
+        }
+
+        return tipos;
     }
 
     public List<SelectItem> getEstadoCivilSelectItem() {
@@ -203,6 +211,7 @@ public class UtilityWeb {
         return auth;
     }
 
+
     public List<MensagemProcesso> ProcessoToMensagem(List<ProcessoNotificacao> notificacoesInteressados) {
         List<MensagemProcesso> mensagens = new ArrayList<>();
         DateFormat dfo = new java.text.SimpleDateFormat("HH:mm:ss");
@@ -235,7 +244,7 @@ public class UtilityWeb {
         String analise = "Análise";
 
         if(status.contains(obito)){
-            partialUrl+=ContextUrls.APP_NOTIFICACAO_OBITO;
+            partialUrl+= ContextUrls.APP_NOTIFICACAO_OBITO;
             if(status.contains(correcao)){
                 partialUrl+=ContextUrls.EDITAR;
             }else if(status.contains(analise)){

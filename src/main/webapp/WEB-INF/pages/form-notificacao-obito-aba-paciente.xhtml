@@ -16,22 +16,36 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}*"/>
-        <h:inputText styleClass="data span8" id="obito-paciente-dataNascimento" value="#{processo.obito.paciente.dataNascimento.time}">
+        <h:inputText styleClass="data span8" id="obito-paciente-dataNascimento"
+                     value="#{processo.obito.paciente.dataNascimento.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}*"/>
-        <h:inputText styleClass="data span8" id="obito-paciente-dataInternacao" value="#{processo.obito.paciente.dataInternacao.time}">
+        <h:inputText styleClass="data span8" id="obito-paciente-dataInternacao"
+                     value="#{processo.obito.paciente.dataInternacao.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.paciente.docSocial']}*"/>
-        <h:inputText id="obito-paciente-documentoSocial" styleClass="rg span8"
-                     value="#{processo.obito.paciente.documentoSocial}"/>
+        <h:outputLabel value="#{msg['responsavel.text.documento']}*"/>
+        <h:inputText id="entrevista-responsavel-documentoSocial-documento" styleClass="span8"
+                     value="#{processo.entrevista.responsavel.documentoSocial.documento}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu
+                    id="entrevista-responsavel-documentoSocial-tipodocumentocomfoto"
+                    value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
+                <f:selectItem itemLabel="#{msg['responsavel.text.selecioneTipoDocumento']}"/>
+                <f:selectItems value="#{tipoDocumentos}"/>
+            </h:selectOneMenu>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">

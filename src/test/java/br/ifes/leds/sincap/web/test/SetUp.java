@@ -13,16 +13,18 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Locale;
 
 import static br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo.MASCULINO;
+import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFoto.RG;
 
 public abstract class SetUp {
 
     /**
      * Faz a configuração inicial do contexto do teste.
+     *
      * @param applicationContext O contexto web que será utilizado.
      *                           Esse contexto pode ser instânciado da seguinte forma:<br/>
      *                           {@code @Autowired}<br/>
      *                           {@code private WebApplicationContext webApplicationContext;}
-     * @param mocks São os serviços que são instanciados pelo Controller a ser testado.
+     * @param mocks              São os serviços que são instanciados pelo Controller a ser testado.
      * @return o {@code MockMvc} que será utilizado para fazer as requisições {@code HTTP}.
      */
     public static MockMvc setUp(WebApplicationContext applicationContext, Object... mocks) {
@@ -34,6 +36,7 @@ public abstract class SetUp {
 
     /**
      * Cria uma sessão de usuário para testes
+     *
      * @return Um objeto {@code MockHttpSession} com atributo "user".
      */
     public static MockHttpSession criaSessao() {
@@ -64,13 +67,19 @@ public abstract class SetUp {
                                 .sexo(MASCULINO)
                                 .dataNascimento(new DateTime(1991, 9, 27, 0, 0).toCalendar(Locale.getDefault()))
                                 .dataInternacao(new DateTime(2014, 1, 10, 0, 0).toCalendar(Locale.getDefault()))
-                                .documentoSocial("15663477")
+                                .documentoSocial(DocumentoComFotoDTO.builder()
+                                        .documento("15663477")
+                                        .tipoDocumentoComFoto(RG)
+                                        .build())
                                 .build())
                         .setor(1L)
                         .build())
                 .entrevista(EntrevistaDTO.builder()
                         .responsavel(ResponsavelDTO.builder()
-                                .documentoSocial("54323414")
+                                .documentoSocial(DocumentoComFotoDTO.builder()
+                                        .documento("54323414")
+                                        .tipoDocumentoComFoto(RG)
+                                        .build())
                                 .nome("Responsavel 1")
                                 .build())
                         .testemunha1(TestemunhaDTO.builder()

@@ -34,8 +34,14 @@
         <input type="text" class="span8" readonly="readonly" value="#{processo.entrevista.responsavel.nome}"/>
     </div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['responsavel.text.rg']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.documentoSocial}"/>
+        <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+        <h:inputText styleClass="span8" readonly="true"
+                     value="#{processo.entrevista.responsavel.documentoSocial.documento}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+        <h:inputText styleClass="span8" readonly="true"
+                     value="#{processo.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
@@ -54,20 +60,8 @@
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
     </div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['responsavel.radioButton.sexo']}"/>
-        <h:inputText readonly="true" styleClass="span8" value="#{processo.entrevista.responsavel.sexo}"/>
-    </div>
-    <div class="field-box">
         <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.profissao}"/>
-    </div>
-    <div class="field-box">
-        <h:outputLabel value="#{msg['responsavel.text.religiao']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.religiao}"/>
-    </div>
-    <div class="field-box">
-        <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.grauEscolaridade}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>

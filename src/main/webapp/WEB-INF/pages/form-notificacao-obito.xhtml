@@ -90,16 +90,16 @@
 
             function getIdade(){
 
-                var datIni = new Date(document.getElementById("obito-paciente-dataNascimento").value);
-                var datFim = new Date(document.getElementById("obito-dataObito").value);
+                datIni = new Date(document.getElementById("obito-paciente-dataNascimento").value);
+                datFim = new Date(document.getElementById("obito-dataObito").value);
 
                 return (Math.floor(Math.ceil(Math.abs(datIni.getTime() - datFim.getTime()) / (1000 * 3600 * 24)) / 365.25));
 
             }
 
             function setInaptoDoacao(){
-                var idade = getIdade();
-                if (2 > idade || idade > 75){
+                idade = getIdade();
+                if (!(idade > 2) || idade > 23){
                     document.getElementById("obito-aptoDoacao:1").click();
                     document.getElementById("causaNaoDoacao").value = 17;
                 }

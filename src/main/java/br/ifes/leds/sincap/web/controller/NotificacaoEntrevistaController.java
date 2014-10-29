@@ -53,7 +53,8 @@ public class NotificacaoEntrevistaController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
-    @RequestMapping(value = ADICIONAR+"/{idProcesso}", method = GET)
+
+    @RequestMapping(value = ADICIONAR + "/{idProcesso}", method = GET)
     public String loadFormEntrevistaGetMethod(ModelMap model, @PathVariable Long idProcesso) {
         try {
             ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
@@ -66,6 +67,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
+            model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
 
         } catch (Exception ignored) {
 
@@ -87,7 +89,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
-            model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
+
         } catch (Exception ignored) {
 
         }
@@ -161,6 +163,7 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
         model.addAttribute("recusaFamiliar", processo.getCausaNaoDoacao());
         model.addAttribute("problemasEstruturais", processo.getCausaNaoDoacao());
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("processo", processo);
 
         model.addAttribute("entrevistaRealizada", processo.getEntrevista().isEntrevistaRealizada());

@@ -11,16 +11,6 @@
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nome}"/>
     </div>
 
-    <div class="field-box" style="color: red">
-        <h:outputLabel value="#{msg['obito.paciente.idade']}"/>
-        <h:inputText readonly="true" style="color: inherit" styleClass="span8" value="#{processo.obito.idadePaciente} anos"/>
-    </div>
-
-    <div class="field-box" style="color: red">
-        <h:outputLabel value="#{msg['obito.tempoObito']}"/>
-        <h:inputText readonly="true" style="color: inherit" styleClass="span8" value="#{processo.obito.horasObito} horas"/>
-    </div>
-
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.dataNascimento.time}">

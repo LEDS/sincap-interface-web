@@ -39,8 +39,22 @@
                             <h:outputLabel value="#{msg['funcionario.cpf']}"/>
                             <h:inputText id="cpf" value="#{notificador.cpf}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
-                            <h:inputText id="documentoSocial" value="#{notificador.documentoSocial}"/>
+                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}*"/>
+                            <h:inputText id="documentoSocial-documento" value="#{notificador.documentoSocial.documento}"/>
+
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.tipoDocumentoSocial']}*"/>
+
+                                <div class="ui-select span5">
+                                    <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
+                                                     value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
+                                        <f:selectItem
+                                                itemLabel="#{msg['funcionario.selecioneTipoDocumentoSocial']}"/>
+                                        <f:selectItems value="#{tipoDocumentosComFotos}"/>
+                                    </h:selectOneMenu>
+                                </div>
+                            </h:panelGroup><br></br><br></br>
+
 
                             <h:outputLabel value="#{msg['funcionario.email']}"/>
                             <h:inputText id="email" value="#{notificador.email}"/>

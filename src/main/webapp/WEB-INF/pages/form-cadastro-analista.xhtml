@@ -4,153 +4,165 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<!-- Título da página -->
-<ui:define name="#{sects.title}">
-    #{msg['causa-nao-doacao.titulo']}
-</ui:define>
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg[titulo]}
+    </ui:define>
 
-<!-- Conteúdo da página -->
-<ui:define name="#{sects.content}">
-    <div id="pad-wrapper">
-        <div class="row-fluid">
-            <div class="span12">
-                <div id="fuelux-wizard" class="wizard row-fluid">
+    <!-- Conteúdo da página -->
+    <ui:define name="#{sects.content}">
+        <div id="pad-wrapper">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div id="fuelux-wizard" class="wizard row-fluid">
 
-                    <h2>#{msg[titulo]}</h2>
-                    <br/>
+                        <h2>#{msg[titulo]}</h2>
+                        <br/>
 
-                    <div class="step-content">
-                        <form id="form-cadastro-analista"
-                              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_analista}"
-                              method="post">
+                        <div class="step-content">
+                            <form id="form-cadastro-analista"
+                                  action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_analista}"
+                                  method="post">
 
-                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
 
-                            <h:inputHidden id="id" value="#{analist.id}"/>
+                                <h:inputHidden id="id" value="#{analist.id}"/>
 
-                            <h:inputHidden id="ativo" value="TRUE"/>
+                                <h:inputHidden id="ativo" value="TRUE"/>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.nome']}"/>
-                            <h:inputText id="nome" value="#{analist.nome}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.nome']}"/>
+                                    <h:inputText id="nome" value="#{analist.nome}"/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.senha']}"/>
-                            <h:inputSecret id="senha"  value="#{analist.senha}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.senha']}"/>
+                                    <h:inputSecret id="senha" value="#{analist.senha}"/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.cpf']}"/>
-                            <h:inputText id="cpf" value="#{analist.cpf}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.cpf']}"/>
+                                    <h:inputText id="cpf" value="#{analist.cpf}"/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
-                            <h:inputText id="documentoSocial" value="#{analist.documentoSocial}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
+                                    <h:inputText id="documentoSocial-documento" value="#{analist.documentoSocial.documento}"/>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.tipoDocumentoSocial']}*"/>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.email']}"/>
-                            <h:inputText id="email" value="#{analist.email}"/>
-                            </h:panelGroup>
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
+                                                         value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
+                                            <f:selectItem
+                                                    itemLabel="#{msg['funcionario.selecioneTipoDocumentoSocial']}"/>
+                                            <f:selectItems value="#{tipoDocumentosComFotos}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup><br></br><br></br>
 
-                            <h:panelGroup layout="block" styleClass="field-box"> <!--Drop Adm-->
-                                <h:outputLabel value="#{msg['administrador']}"/>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.email']}"/>
+                                    <h:inputText id="email" value="#{analist.email}"/>
+                                </h:panelGroup>
 
-                                <div class="ui-select span5">
-                                    <select name="admin">
-                                        <option value="true">Sim</option>
-                                        <option value="false">Não</option>
-                                    </select>
-                                </div>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box"> <!--Drop Adm-->
+                                    <h:outputLabel value="#{msg['administrador']}"/>
 
-                            <br></br><br></br>
-                            <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.analista.dropDown.uf']}"/>
+                                    <div class="ui-select span5">
+                                        <select name="admin">
+                                            <option value="true">Sim</option>
+                                            <option value="false">Não</option>
+                                        </select>
+                                    </div>
+                                </h:panelGroup>
 
-                                <div class="ui-select span5">
-                                    <h:selectOneMenu id="endereco-estado-id"
-                                                     value="#{analist.endereco.estado.id}"
-                                                     onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
-                                        <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['funcionario.analista.dropDown.uf']}"/>
-                                        <f:selectItems value="#{listaEstadoItem}"/>
-                                    </h:selectOneMenu>
-                                </div>
-                            </h:panelGroup>
+                                <br></br><br></br>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.analista.dropDown.uf']}"/>
 
-                            <br></br><br></br>
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="endereco-estado-id"
+                                                         value="#{analist.endereco.estado.id}"
+                                                         onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['funcionario.analista.dropDown.uf']}"/>
+                                            <f:selectItems value="#{listaEstadoItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.analista.dropDown.cidade']}"/>
+                                <br></br><br></br>
 
-                                <div class="ui-select span5">
-                                    <h:selectOneMenu id="endereco-cidade-id"
-                                                     value="#{analist.endereco.cidade.id}"
-                                                     onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
-                                        <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['funcionario.analista.dropDown.cidade']}"/>
-                                        <f:selectItems value="#{listaCidadeItem}"/>
-                                    </h:selectOneMenu>
-                                </div>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.analista.dropDown.cidade']}"/>
 
-                            <br></br><br></br>
-                            <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.analista.dropDown.bairro']}"/>
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="endereco-cidade-id"
+                                                         value="#{analist.endereco.cidade.id}"
+                                                         onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['funcionario.analista.dropDown.cidade']}"/>
+                                            <f:selectItems value="#{listaCidadeItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
 
-                                <div class="ui-select span5">
-                                    <h:selectOneMenu id="endereco-bairro-id"
-                                                     value="#{analist.endereco.bairro.id}">
-                                        <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['funcionario.analista.dropDown.bairro']}"/>
-                                        <f:selectItems value="#{listaBairroItem}"/>
-                                    </h:selectOneMenu>
-                                </div>
-                            </h:panelGroup>
+                                <br></br><br></br>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.analista.dropDown.bairro']}"/>
 
-                            <br></br><br></br>
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
-                            <h:inputText id="endereco-logradrouro" value="#{analist.endereco.logradouro}"/>
-                            </h:panelGroup>
+                                    <div class="ui-select span5">
+                                        <h:selectOneMenu id="endereco-bairro-id"
+                                                         value="#{analist.endereco.bairro.id}">
+                                            <f:selectItem itemValue=""
+                                                          itemLabel="#{msg['funcionario.analista.dropDown.bairro']}"/>
+                                            <f:selectItems value="#{listaBairroItem}"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
-                            <h:inputText id="endereco-numero" value="#{analist.endereco.numero}"/>
-                            </h:panelGroup>
+                                <br></br><br></br>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                                    <h:inputText id="endereco-logradrouro" value="#{analist.endereco.logradouro}"/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
-                            <h:inputText id="endereco-complemento" value="#{analist.endereco.complemento}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                                    <h:inputText id="endereco-numero" value="#{analist.endereco.numero}"/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
-                            <h:inputText id="endereco-cep" value="#{analist.endereco.cep}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                                    <h:inputText id="endereco-complemento" value="#{analist.endereco.complemento}"/>
+                                </h:panelGroup>
 
-                            <h:panelGroup layout="block" styleClass="field-box">
-                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
-                            <h:inputText id="telefone-numero" value="#{analist.telefone.numero}"/>
-                            </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                                    <h:inputText id="endereco-cep" value="#{analist.endereco.cep}"/>
+                                </h:panelGroup>
 
-                            <br></br><br></br>
-                            <button type="submit" class="btn-glow success btn-finish">
-                                #{msg['funcionario.salvar']}
-                            </button>
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.telefone']}*"/>
+                                    <h:inputText id="telefone-numero" value="#{analist.telefone.numero}"/>
+                                </h:panelGroup>
 
-                        </form>
+                                <br></br><br></br>
+                                <button type="submit" class="btn-glow success btn-finish">
+                                    #{msg['funcionario.salvar']}
+                                </button>
+
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <h:outputScript library="js" name="form-cadastro-analista.js"/>
-</ui:define>
+        <h:outputScript library="js" name="form-cadastro-analista.js"/>
+    </ui:define>
 
-<!-- scripts -->
+    <!-- scripts -->
 
 </ui:composition>

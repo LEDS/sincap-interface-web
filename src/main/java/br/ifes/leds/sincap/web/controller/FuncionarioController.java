@@ -58,9 +58,13 @@ public class FuncionarioController {
 
     @RequestMapping(value = ContextUrls.ADICIONAR + ContextUrls.APP_ANALISTA, method = RequestMethod.GET)
     public String cadastrarAnalista(ModelMap model) {
+
         String titulo = "funcionario.cadastro.analista";
+
         utilityWeb.preencherEstados(model);
         model.addAttribute("titulo", titulo);
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+
         return "form-cadastro-analista";
     }
 
@@ -72,18 +76,23 @@ public class FuncionarioController {
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
-    @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_ANALISTA+"/{idAnalistaCNCO}" ,method = RequestMethod.GET)
-    public String editarAnalista(ModelMap model, @PathVariable Long idAnalistaCNCO){
+    @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_ANALISTA + "/{idAnalistaCNCO}", method = RequestMethod.GET)
+    public String editarAnalista(ModelMap model, @PathVariable Long idAnalistaCNCO) {
+
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
+
         String titulo = "funcionario.editar.analista";
-        model.addAttribute("titulo",titulo);
+
+        model.addAttribute("titulo", titulo);
         utilityWeb.preencherEndereco(mapper.map(analista.getEndereco(), EnderecoDTO.class), model);
         model.addAttribute("analist", analista);
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+
         return "form-cadastro-analista";
     }
 
-    @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_ANALISTA +"/{idAnalistaCNCO}", method = RequestMethod.POST)
-    public String apagarAnalista(@PathVariable Long idAnalistaCNCO){
+    @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_ANALISTA + "/{idAnalistaCNCO}", method = RequestMethod.POST)
+    public String apagarAnalista(@PathVariable Long idAnalistaCNCO) {
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
         aplAnalistaCNCDO.excluir(analista);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
@@ -91,18 +100,22 @@ public class FuncionarioController {
 
     @RequestMapping(value = ContextUrls.ADICIONAR + ContextUrls.APP_NOTIFICADOR, method = RequestMethod.GET)
     public String cadastrarNotificador(ModelMap model) {
+
         String titulo = "funcionario.cadastro.notificador";
+
         model.addAttribute("titulo", titulo);
         utilityWeb.preencherEstados(model);
         List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         model.addAttribute("listaHospitais", listaHospitais);
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+
         return "form-cadastro-notificador";
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_NOTIFICADOR, method = RequestMethod.POST)
     public String salvarNotificador(@ModelAttribute Notificador notificador,
                                     @RequestParam("hospitais") List<Long> hospitais) {
-        for (Long l:hospitais){
+        for (Long l : hospitais) {
             Set<InstituicaoNotificadora> setInstituicao = notificador.getInstituicoesNotificadoras();
             setInstituicao.add(aplInstituicaoNotificadora.obter(l));
             notificador.setInstituicoesNotificadoras(setInstituicao);
@@ -111,31 +124,35 @@ public class FuncionarioController {
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
-    @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_NOTIFICADOR+"/{idNotificador}" ,method = RequestMethod.GET)
-    public String editarNotificador(ModelMap model, @PathVariable Long idNotificador){
+    @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_NOTIFICADOR + "/{idNotificador}", method = RequestMethod.GET)
+    public String editarNotificador(ModelMap model, @PathVariable Long idNotificador) {
+
         Notificador notificador = aplNotificador.obterNotificador(idNotificador);
         List<InstituicaoNotificadora> listaHospitais = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         String titulo = "funcionario.editar.notificador";
-        model.addAttribute("titulo",titulo);
+
+        model.addAttribute("titulo", titulo);
         model.addAttribute("notificador", notificador);
-        model.addAttribute("listaHospitais",listaHospitais);
+        model.addAttribute("listaHospitais", listaHospitais);
         model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+
         return "form-cadastro-notificador";
     }
 
     private Map<Long, Boolean> getLongBooleanMap(Notificador notificador, List<InstituicaoNotificadora> listaHospitais) {
         Map<Long, Boolean> listaHospitaisNotificador = new HashMap<>();
-        for (InstituicaoNotificadora instituicao: listaHospitais) {
+        for (InstituicaoNotificadora instituicao : listaHospitais) {
             listaHospitaisNotificador.put(instituicao.getId(), Boolean.FALSE);
         }
-        for (InstituicaoNotificadora instituicao: notificador.getInstituicoesNotificadoras()) {
+        for (InstituicaoNotificadora instituicao : notificador.getInstituicoesNotificadoras()) {
             listaHospitaisNotificador.put(instituicao.getId(), Boolean.TRUE);
         }
         return listaHospitaisNotificador;
     }
 
-    @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR +"/{idNotificador}", method = RequestMethod.POST)
-    public String apagarNotificador(@PathVariable Long idNotificador){
+    @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR + "/{idNotificador}", method = RequestMethod.POST)
+    public String apagarNotificador(@PathVariable Long idNotificador) {
         Notificador notificador = aplNotificador.obterNotificador(idNotificador);
         aplNotificador.delete(notificador);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
@@ -143,10 +160,14 @@ public class FuncionarioController {
 
     @RequestMapping(value = ContextUrls.ADICIONAR + ContextUrls.APP_CAPTADOR, method = RequestMethod.GET)
     public String cadastrarCaptador(ModelMap model) {
+
         String titulo = "funcionario.cadastro.captador";
+
         model.addAttribute("titulo", titulo);
         utilityWeb.preencherEstados(model);
         utilityWeb.getBancoOlhos(model, aplBancoOlhos);
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+
         return "form-cadastro-captador";
     }
 
@@ -156,19 +177,23 @@ public class FuncionarioController {
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
-    @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_CAPTADOR+"/{idCaptador}" ,method = RequestMethod.GET)
-    public String editarCaptador(ModelMap model, @PathVariable Long idCaptador){
+    @RequestMapping(value = ContextUrls.EDITAR + ContextUrls.APP_CAPTADOR + "/{idCaptador}", method = RequestMethod.GET)
+    public String editarCaptador(ModelMap model, @PathVariable Long idCaptador) {
+
         Captador captador = aplCaptador.obter(idCaptador);
         String titulo = "funcionario.editar.captador";
-        model.addAttribute("titulo",titulo);
+
+        model.addAttribute("titulo", titulo);
         model.addAttribute("captador", captador);
         utilityWeb.preencherEndereco(mapper.map(captador.getEndereco(), EnderecoDTO.class), model);
         utilityWeb.getBancoOlhos(model, aplBancoOlhos);
+        model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+
         return "form-cadastro-captador";
     }
 
-    @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_CAPTADOR +"/{idCaptador}", method = RequestMethod.POST)
-    public String apagarCaptador(@PathVariable Long idCaptador){
+    @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_CAPTADOR + "/{idCaptador}", method = RequestMethod.POST)
+    public String apagarCaptador(@PathVariable Long idCaptador) {
         Captador captador = aplCaptador.obter(idCaptador);
         aplCaptador.exlcuir(captador);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;

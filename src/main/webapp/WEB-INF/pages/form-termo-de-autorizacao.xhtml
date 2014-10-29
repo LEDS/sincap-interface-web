@@ -44,29 +44,23 @@
     <h5>TERMO DE AUTORIZAÇÃO DE DOAÇÃO DE MÚLTIPLOS ÓRGÃOS/TECIDOS</h5>
     <div class="padrao">
         <b>1. DOADOR:</b><br/>
-            Nome:<b>#{pn.obito.paciente.nome}</b> <br/>
-            Idade: <b>#{idadePaciente}</b> anos Sexo: <b>#{pn.obito.paciente.sexo}</b> Data de Nascimento: <b>#{dataNascimento}</b> RG/CPF nº: <b>#{pn.obito.paciente.documentoSocial}</b><br/>
-            Endereço Completo: <b>#{pn.obito.paciente.endereco.logradouro}, #{bairroPaciente}</b> Município: <b>#{cidadePaciente}</b> Estado: <b>#{estadoPaciente}</b><br/>
-            Hospital:<b> #{hospitalNome}</b> Municipio:<b> #{hospitalCidade}</b>/ES<br/>
-           Registro Hospitalar: <b> _________________</b> Data do óbito: <b>#{dataObito}</b> Horário do óbito: <b>#{horaObito}h</b>
+            <b>#{pn.obito.paciente.nome}</b> <br/>
+            Idade <b>#{idadePaciente}</b> anos Sexo <b>#{pn.obito.paciente.sexo}</b> Data de Nascimento <b>#{dataNascimento}</b> #{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.obito.paciente.documentoSocial.documento}</b><br/>
+            <b>#{pn.obito.paciente.endereco.logradouro}, #{bairroPaciente}</b> Município <b>#{cidadePaciente}</b> Estado <b>#{estadoPaciente}</b><br/>
+            Hospital<b> #{hospitalNome}</b> Municipio<b> #{hospitalCidade}</b>/ES<br/>
+           Registro Hospitalar <b> _________________</b> Data do óbito <b>#{dataObito}</b> Horário do óbito <b>#{horaObito}</b>h
     </div>
     <div >
         <div class="padrao">
            <b>2. RESPONSÁVEL PELA AUTORIZAÇÃO:</b><b style="text-align:right;font-weight: bold">    *LEI Nº 10.211/2001</b><br/>
             <b>* Grau de Parentesco: #{pn.entrevista.responsavel.parentesco}</b><br/>
-            Nome: <b>#{pn.entrevista.responsavel.nome}</b><br/>
-            Idade:<b>___</b>anos Sexo:<b> #{pn.entrevista.responsavel.sexo}</b> RG/CFP nº: <b>#{pn.entrevista.responsavel.documentoSocial}</b> Profissão:<b> #{pn.entrevista.responsavel.profissao}</b><br/>
-            Religião:<b>#{pn.entrevista.responsavel.religiao}</b> Grau de Escolaridade: <b>#{pn.entrevista.responsavel.grauEscolaridade}</b><br/>
-            Endereço Completo: <b>#{pn.entrevista.responsavel.endereco.logradouro}, #{pn.entrevista.responsavel.endereco.numero}, #{bairroResponsavel}</b> Município:<b> #{cidadeResponsavel}</b> Estado: <b>#{estadoResponsavel}</b> Telefone(s):<b>#{pn.entrevista.responsavel.telefone.numero}</b><br/>
+            <b>#{pn.entrevista.responsavel.nome}</b><br/>
+            Idade<b>___</b> Sexo<b> #{pn.entrevista.responsavel.sexo}</b> #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.entrevista.responsavel.documentoSocial.documento}</b> Profissão<b> #{pn.entrevista.responsavel.profissao}</b><br/>
+            Religião<b>_____________________</b> Grau de Escolaridade <b>________________________________</b><br/>
+            <b>#{pn.entrevista.responsavel.endereco.logradouro}, #{pn.entrevista.responsavel.endereco.numero}, #{bairroResponsavel}</b> Município<b> #{cidadeResponsavel}</b> Estado <b>#{estadoResponsavel}</b> Telefone(s)<b>#{pn.entrevista.responsavel.telefone.numero}</b><br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
-            <br/>
-            <h:panelGroup rendered="#{not empty pn.entrevista.responsavel2}" layout="block">
-                Nome: <b>#{pn.entrevista.responsavel2.nome}</b><br/>
-                Idade:<b>___</b>anos Sexo:<b> #{pn.entrevista.responsavel2.sexo}</b> RG/CFP nº: <b>#{pn.entrevista.responsavel2.documentoSocial}</b> Profissão:<b> #{pn.entrevista.responsavel2.profissao}</b><br/>
-                Religião:<b>#{pn.entrevista.responsavel2.religiao}</b> Grau de Escolaridade: <b>#{pn.entrevista.responsavel2.grauEscolaridade}</b><br/>
-                Endereço Completo: <b>#{pn.entrevista.responsavel2.endereco.logradouro}, #{pn.entrevista.responsavel2.endereco.numero}, #{bairroResponsavel2}</b> Município:<b> #{cidadeResponsavel2}</b> Estado: <b>#{estadoResponsavel2}</b> Telefone(s):<b>#{pn.entrevista.responsavel2.telefone.numero}</b><br/>
-                <b>ASSINATURA</b> ________________________________________________________________
-            </h:panelGroup>
+            <b>*Caso menor de 18 anos; assinatura de ambos os pais.</b><br/><br/>
+            <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>
     <div >
@@ -79,16 +73,16 @@
     </div>
     <div >
         <div class="padrao">
-            Testemunha 1: <b>#{pn.entrevista.testemunha1.nome}</b>           RG nº: <b>#{pn.entrevista.testemunha1.documentoSocial}</b><br/>
+            Testemunha 1 <b>#{pn.entrevista.testemunha1.nome}</b>           #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.entrevista.testemunha1.documentoSocial.documento}</b><br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
-            Testemunha 2: <b>#{pn.entrevista.testemunha2.nome}</b>           RG nº: <b>#{pn.entrevista.testemunha2.documentoSocial}</b><br/>
+            Testemunha 2 <b>#{pn.entrevista.testemunha2.nome}</b>           #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.entrevista.testemunha2.documentoSocial.documento}</b><br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>
     <div >
         <div class="profissional">
             <b>Profissional Responsável pela Entrevista</b><br/>
-            Nome: <b>#{nomeFuncionario}</b> Conselho: <b>___________________</b> <br/>
+            <b>#{nomeFuncionario}</b> Conselho <b>___________________</b> <br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>
