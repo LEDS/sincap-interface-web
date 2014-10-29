@@ -36,6 +36,7 @@ public class ContextUrls {
     public static final String RLT_N_DOACAO_HOSPITAL = "/naodoacaoporhospital";
     public static final String RLT_TERMO_AUTORIZACAO_DOACAO = "/termoautorizacao";
     public static final String RLT_TOTAL_DOACAO_INSTITUICAO = "/total-doacao-instituicao";
+    public static final String RLT_TOTAL_NAO_DOACAO_INSTITUICAO = "/total-nao-doacao-instituicao";
     public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
