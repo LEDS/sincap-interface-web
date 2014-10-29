@@ -125,12 +125,12 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false) List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
+    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false,defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
 
-        if (lh.isEmpty()) {
+        if (lh.get(0) == -1) {
             for (InstituicaoNotificadora i : in) {
                 TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
                 listtdi.add(tdi);
