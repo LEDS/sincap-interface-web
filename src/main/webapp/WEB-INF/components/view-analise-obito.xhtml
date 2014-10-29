@@ -25,8 +25,12 @@
         </h:inputText>
     </div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['obito.paciente.docSocial']}"/>
-        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.documentoSocial}"/>
+        <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.documentoSocial.documento}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}"/>
     </div>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.telefone']}"/>
