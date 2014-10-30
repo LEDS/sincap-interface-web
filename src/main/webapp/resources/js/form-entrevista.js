@@ -46,7 +46,7 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.documentoSocial.documento': {
             required: true
         },
-        'entrevista.responsavel.documentoSocial.tipo': {
+        'entrevista.responsavel.documentoSocial.tipoDocumentoComFoto': {
             required: true
         },
         'entrevista.responsavel.parentesco': {
@@ -62,6 +62,12 @@ $("#notifEntrevista").validate({
             required: true
         },
         'entrevista.responsavel.profissao': {
+            required: true
+        },
+        'entrevista.responsavel.religiao': {
+            required: true
+        },
+        'entrevista.responsavel.grauEscolaridade': {
             required: true
         },
         'entrevista.responsavel.endereco.cep': {
@@ -144,6 +150,12 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.profissao': {
             required: "Por favor, insira a profissao do responsavel"
         },
+        'entrevista.responsavel.religiao': {
+            required: "Por favor, insira a religiao do responsavel"
+        },
+        'entrevista.responsavel.grauEscolaridade': {
+            required: "Por favor, insira o grau de escolaridade do responsavel"
+        },
         'entrevista.responsavel.endereco.cep': {
             required: "Por favor, insira o cep do responsavel"
         },
@@ -163,20 +175,20 @@ $("#notifEntrevista").validate({
         'entrevista.testemunha1.nome': {
             required: "Por favor, insira o nome"
         },
-        'entrevista.testemunha1.documentoSocial': {
+        'entrevista.testemunha1.documentoSocial.documento': {
             required: "Por favor, insira o número de um documento com foto"
         },
-        'entrevista.testemunha1.documentoSocial.tipo': {
+        'entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto': {
             required: "Por favor, insira o tipo do documento com foto"
         },
         //Dados 2° testemunha
         'entrevista.testemunha2.nome': {
             required: "Por favor, insira o nome da segunga testemunha"
         },
-        'entrevista-testemunha2-documentoSocial-documento': {
+        'entrevista.testemunha2.documentoSocial.documento': {
             required: "Por favor, insira o número do documento com foto"
         },
-        'entrevista.testemunha2.documentoSocial.tipo': {
+        'entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto': {
             required: "Por favor, insira o tipo do documento com foto"
         }
     },

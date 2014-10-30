@@ -255,8 +255,8 @@
             <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}*"/>
 
             <div class="ui-select span5">
-                <h:selectOneMenu id="entrevista-testemunha1-documentoSocial-tipo"
-                                 value="#{processo.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}">
+                <h:selectOneMenu id="entrevista-testemunha1-documentoSocial-tipoDocumentoComFoto"
+                                 value="#{processo.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}">
                     <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
                     <f:selectItems value="#{tipoDocumentos}"/>
                 </h:selectOneMenu>
@@ -278,8 +278,8 @@
             <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}*"/>
 
             <div class="ui-select span5">
-                <h:selectOneMenu id="entrevista-testemunha2-documentoSocial-tipo"
-                                 value="#{processo.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}">
+                <h:selectOneMenu id="entrevista-testemunha2-documentoSocial-tipoDocumentoComFoto"
+                                 value="#{processo.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}">
                     <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
                     <f:selectItems value="#{tipoDocumentos}"/>
                 </h:selectOneMenu>
