@@ -64,6 +64,14 @@
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.profissao}"/>
     </div>
     <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.religiao']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.religiao}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.grauEscolaridade}"/>
+    </div>
+    <div class="field-box">
         <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.nacionalidade}"/>
     </div>
@@ -98,23 +106,31 @@
     <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha1']}</b></h:outputLabel>
 
     <div class="field-box">
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+        <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.nome}"/>
     </div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.documentoSocial']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.documentoSocial}"/>
+        <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.documentoSocial.documento}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}"/>
     </div>
 
     <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha2']}</b></h:outputLabel>
 
     <div class="field-box">
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.nome']}"/>
+        <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
         <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.nome}"/>
     </div>
     <div class="field-box">
-        <h:outputLabel value="#{msg['entrevista.text.testemunha1.documentoSocial']}"/>
-        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.documentoSocial}"/>
+        <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.documentoSocial.documento}"/>
+    </div>
+    <div class="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+        <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}"/>
     </div>
 
 </ui:composition>
