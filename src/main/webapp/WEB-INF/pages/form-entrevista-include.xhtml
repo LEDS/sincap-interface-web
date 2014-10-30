@@ -16,6 +16,7 @@
 <!--@elvariable id="listaBairroItem" type="java.util.List"-->
 <!--@elvariable id="entrevistaRealizada" type="java.lang.Boolean"-->
 <!--@elvariable id="doacaoAutorizada" type="java.lang.Boolean"-->
+<!--@elvariable id="tipoDocumentos" type="java.util.List"-->
 
 <br/>
 <h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
@@ -116,17 +117,27 @@
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.documento']}*"/>
-            <h:inputText id="entrevista-responsavel-documentoSocial-document" styleClass="span8"
+            <h:inputText id="entrevista-responsavel-documentoSocial-documento" styleClass="span8"
                          value="#{processo.entrevista.responsavel.documentoSocial.documento}"/>
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}*"/>
 
             <div class="ui-select span5">
-                <h:selectOneMenu id="entrevista-responsavel-documentoSocial-tipo"
+                <h:selectOneMenu id="entrevista-responsavel-documentoSocial-tipoDocumentoComFoto"
                                  value="#{processo.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}">
                     <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
                     <f:selectItems value="#{tipoDocumentos}"/>
+                </h:selectOneMenu>
+            </div>
+        </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}*"/>
+            <div class="ui-select span5">
+                <h:selectOneMenu id="entrevista-responsavel-parentesco" value="#{processo.entrevista.responsavel.parentesco}">
+                    <f:selectItem itemValue=""
+                                  itemLabel="#{msg['responsavel.dropdown.parentesco']}" />
+                    <f:selectItems value="#{listaParentescos}" />
                 </h:selectOneMenu>
             </div>
         </h:panelGroup>
@@ -156,6 +167,14 @@
             <h:outputLabel value="#{msg['responsavel.text.profissao']}*"/>
             <h:inputText styleClass="span8" id="entrevista-responsavel-profissao"
                          value="#{processo.entrevista.responsavel.profissao}"/>
+        </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['responsavel.text.religiao']}*"/>
+            <h:inputText styleClass="span8" id="entrevista-responsavel-religiao" value="#{processo.entrevista.responsavel.religiao}"/>
+        </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}*"/>
+            <h:inputText styleClass="span8" id="entrevista-responsavel-grauEscolaridade" value="#{processo.entrevista.responsavel.grauEscolaridade}"/>
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
@@ -229,7 +248,7 @@
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}*"/>
-            <h:inputText styleClass="span8" id="entrevista-testemunha1-documentoSocial"
+            <h:inputText styleClass="span8" id="entrevista-testemunha1-documentoSocial-documento"
                          value="#{processo.entrevista.testemunha1.documentoSocial.documento}"/>
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
@@ -259,7 +278,7 @@
             <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}*"/>
 
             <div class="ui-select span5">
-                <h:selectOneMenu id="entrevista-testemunha2-tipo"
+                <h:selectOneMenu id="entrevista-testemunha2-documentoSocial-tipo"
                                  value="#{processo.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}">
                     <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
                     <f:selectItems value="#{tipoDocumentos}"/>

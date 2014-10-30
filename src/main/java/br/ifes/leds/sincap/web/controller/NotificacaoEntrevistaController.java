@@ -87,6 +87,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
             model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
             model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
+            model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
 
@@ -128,6 +129,7 @@ public class NotificacaoEntrevistaController {
             addAtributosIniciais(model, processo);
             utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
             utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+            model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
 
             return "form-entrevista";
         }

@@ -43,7 +43,10 @@ $("#notifEntrevista").validate({
             required: true,
             minlength: 3
         },
-        'entrevista.responsavel.rg': {
+        'entrevista.responsavel.documentoSocial.documento': {
+            required: true
+        },
+        'entrevista.responsavel.documentoSocial.tipo': {
             required: true
         },
         'entrevista.responsavel.parentesco': {
@@ -80,14 +83,20 @@ $("#notifEntrevista").validate({
         'entrevista.testemunha1.nome': {
             required: true
         },
-        'entrevista.testemunha1.cpf': {
+        'entrevista.testemunha1.documentoSocial': {
+            required: true
+        },
+        'entrevista.testemunha1.documentoSocial.tipo': {
             required: true
         },
         //Dados 2° testemunha
         'entrevista.testemunha2.nome': {
             required: true
         },
-        'entrevista.testemunha2.cpf': {
+        'entrevista.testemunha2.documentoSocial.documento': {
+            required: true
+        },
+        'entrevista.testemunha2.documentoSocial.tipo': {
             required: true
         }
     },
@@ -114,8 +123,11 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.nome': {
             required: "Por favor, insira o nome do responsavel"
         },
-        'entrevista.responsavel.rg': {
-            required: "Por favor, insira o rg do responsavel"
+        'entrevista.responsavel.documentoSocial.documento': {
+            required: "Por favor, insira o número do documento com foto"
+        },
+        'entrevista.responsavel.documentoSocial.tipoDocumentoComFoto': {
+            required: "Por favor, insira o tipo do documento com foto"
         },
         'entrevista.responsavel.parentesco': {
             required: "Por favor, insira o parentesco do responsavel"
@@ -149,17 +161,23 @@ $("#notifEntrevista").validate({
         },
         //Dados 1° testemunha
         'entrevista.testemunha1.nome': {
-            required: "Por favor, insira o nome da primeira testemunha"
+            required: "Por favor, insira o nome"
         },
-        'entrevista.testemunha1.cpf': {
-            required: "Por favor, insira o documentoSocial da primeira testemunha"
+        'entrevista.testemunha1.documentoSocial': {
+            required: "Por favor, insira o número de um documento com foto"
+        },
+        'entrevista.testemunha1.documentoSocial.tipo': {
+            required: "Por favor, insira o tipo do documento com foto"
         },
         //Dados 2° testemunha
         'entrevista.testemunha2.nome': {
             required: "Por favor, insira o nome da segunga testemunha"
         },
-        'entrevista.testemunha2.cpf': {
-            required: "Por favor, insira o documentoSocial da segunda testemunha"
+        'entrevista-testemunha2-documentoSocial-documento': {
+            required: "Por favor, insira o número do documento com foto"
+        },
+        'entrevista.testemunha2.documentoSocial.tipo': {
+            required: "Por favor, insira o tipo do documento com foto"
         }
     },
     submitHandler: function (form) {
