@@ -9,7 +9,7 @@
                 height: 1.21cm;
             }
 
-            p {
+             #cabecalho{
                 text-align: center;
                 font-size: 10pt;
             }
@@ -36,7 +36,7 @@
     </head>
 
     <h:graphicImage library="img" name="brasao.jpg"/>
-    <p>GOVERNO DO ESTADO DO ESPÍRITO SANTO<br/>
+    <p id="cabecalho">GOVERNO DO ESTADO DO ESPÍRITO SANTO<br/>
     SECRETARIA DO ESTADO DA SAÚDE<br/>
     CENTRAL DE NOTIFICAÇÃO, CAPTAÇÃO E DISTRIBUIÇÃO DE ÓRGÃOS E TECIDOS<br/>
     PARA TRANSPLANTES DO ESPÍRITO SANTO</p>
@@ -44,45 +44,59 @@
     <h5>TERMO DE AUTORIZAÇÃO DE DOAÇÃO DE MÚLTIPLOS ÓRGÃOS/TECIDOS</h5>
     <div class="padrao">
         <b>1. DOADOR:</b><br/>
-            <b>#{pn.obito.paciente.nome}</b> <br/>
-            Idade <b>#{idadePaciente}</b> anos Sexo <b>#{pn.obito.paciente.sexo}</b> Data de Nascimento <b>#{dataNascimento}</b> #{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.obito.paciente.documentoSocial.documento}</b><br/>
-            <b>#{pn.obito.paciente.endereco.logradouro}, #{bairroPaciente}</b> Município <b>#{cidadePaciente}</b> Estado <b>#{estadoPaciente}</b><br/>
-            Hospital<b> #{hospitalNome}</b> Municipio<b> #{hospitalCidade}</b>/ES<br/>
-           Registro Hospitalar <b> _________________</b> Data do óbito <b>#{dataObito}</b> Horário do óbito <b>#{horaObito}</b>h
+            Nome: #{pn.obito.paciente.nome} Sexo: #{pn.obito.paciente.sexo} <br/>
+            Idade: #{idadePaciente} anos   Data de Nascimento: #{dataNascimento} Documento com foto: #{pn.obito.paciente.documentoSocial.documento} Tipo de Documento: #{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto}<br/>
+            Endereço/Rua: #{pn.obito.paciente.endereco.logradouro} CEP: #{pn.obito.paciente.endereco.cep} N°: #{pn.obito.paciente.endereco.numero} Bairro: #{bairroPaciente} <br/>
+            Município: #{cidadePaciente} Estado: #{estadoPaciente} Nome da mãe: #{pn.obito.paciente.nomeMae}<br/>
+            Local da Captação: #{hospitalNome} Municipio: #{hospitalCidade} Religião: ______________________<br/>
+            Registro Hospitalar:  _________________ Data do óbito: #{dataObito} Horário do óbito: #{horaObito}h
     </div>
     <div >
         <div class="padrao">
            <b>2. RESPONSÁVEL PELA AUTORIZAÇÃO:</b><b style="text-align:right;font-weight: bold">    *LEI Nº 10.211/2001</b><br/>
             <b>* Grau de Parentesco: #{pn.entrevista.responsavel.parentesco}</b><br/>
-            <b>#{pn.entrevista.responsavel.nome}</b><br/>
-            Idade<b>___</b> Sexo<b> #{pn.entrevista.responsavel.sexo}</b> #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.entrevista.responsavel.documentoSocial.documento}</b> Profissão<b> #{pn.entrevista.responsavel.profissao}</b><br/>
-            Religião<b>_____________________</b> Grau de Escolaridade <b>________________________________</b><br/>
-            <b>#{pn.entrevista.responsavel.endereco.logradouro}, #{pn.entrevista.responsavel.endereco.numero}, #{bairroResponsavel}</b> Município<b> #{cidadeResponsavel}</b> Estado <b>#{estadoResponsavel}</b> Telefone(s)<b>#{pn.entrevista.responsavel.telefone.numero}</b><br/>
+            Nome: <b>#{pn.entrevista.responsavel.nome}</b><br/>
+            Idade:___ anos Sexo: #{pn.entrevista.responsavel.sexo} Doc/Foto Nº: #{pn.entrevista.responsavel.documentoSocial.documento} Tipo de documento: #{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} Profissão: #{pn.entrevista.responsavel.profissao}<br/>
+            Religião: #{pn.entrevista.responsavel.religiao} Grau de Escolaridade: #{pn.entrevista.responsavel.grauEscolaridade}<br/>
+            Endereço/Rua: #{pn.entrevista.responsavel.endereco.logradouro} CEP: #{pn.entrevista.responsavel.endereco.cep} Nº:#{pn.entrevista.responsavel.endereco.numero} Bairro: #{bairroResponsavel} <br/>
+            Município: #{cidadeResponsavel} Estado: #{estadoResponsavel} Telefone(s): #{pn.entrevista.responsavel.telefone.numero}<br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
-            <b>*Caso menor de 18 anos; assinatura de ambos os pais.</b><br/><br/>
-            <b>ASSINATURA</b> ________________________________________________________________
+            <br/>
+            <h:panelGroup rendered="#{not empty pn.entrevista.responsavel2}" layout="block">
+                <b>* Caso menor de 18 anos; assinatura de ambos os pais.</b>
+                Nome: <b>#{pn.entrevista.responsavel2.nome}</b><br/>
+                Idade:___anos Sexo: #{pn.entrevista.responsavel2.sexo} Doc/Foto Nº: #{pn.entrevista.responsavel2.documentoSocial.documento} Tipo de documento: #{pn.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto} Profissão: #{pn.entrevista.responsavel2.profissao}<br/>
+                Religião: #{pn.entrevista.responsavel2.religiao} Grau de Escolaridade: #{pn.entrevista.responsavel2.grauEscolaridade}<br/>
+                Endereço/Rua: #{pn.entrevista.responsavel2.endereco.logradouro} CEP: #{pn.entrevista.responsavel2.endereco.cep} N°: #{pn.entrevista.responsavel2.endereco.numero} Bairro: #{bairroResponsavel2}<br/>
+                Município: #{cidadeResponsavel2} Estado: #{estadoResponsavel2} Telefone(s): #{pn.entrevista.responsavel2.telefone.numero}<br/>
+                <b>ASSINATURA</b> ________________________________________________________________
+            </h:panelGroup>
         </div>
     </div>
     <div >
         <div class="padrao">
-            <b>3. AUTORIZO A RETIRADA DE TODOS OS ÓRGÃOS E/OU TECIDOS:</b><br/>
+            <p>Os Órgãos e tecidos oculares retirados serão processados e deverão ser transplantados em pacientes devidamente inscritos na lista única da CNCDO/ES, que
+                obedece aos critérios estabelecidos pelo Sistema Nacional de Transplantes, do Ministério da Saúde em conformidade com as leis e normas vigentes. Esta
+                autorização inclui a realização de exames sorológicos necessários para assegurar a viabilidade dos tecidos. Esta doação é motivada apenas por razões
+                humanitárias, não havendo expectativa de qualquer forma de compensação material. Declaro ter recebido as informações sobre todo o processo de doação,
+                bem como possíveis intercorrências (sangramento, edema, hematoma) referente à captação dos globos oculares e que não terei informações sobre os receptores.</p>
                 ( ) Somente para fins de transplantes.<br/>
                 ( ) O órgão ou tecido não utilizado para transplante devido a sua qualidade, poderá ser utilizado para fins científico(ensino/pesquisa.)<br/>
-                <b>Observação:</b> O autorizante <b>não aceita</b> a retirada, do órgão/tecido: ________________________
+                <b>OBSERVÇÃO:</b> O autorizante <b>não aceita</b> a retirada, do órgão/tecido: ________________________
         </div>
     </div>
     <div >
         <div class="padrao">
-            Testemunha 1 <b>#{pn.entrevista.testemunha1.nome}</b>           #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.entrevista.testemunha1.documentoSocial.documento}</b><br/>
+            Testemunha 1- Nome Completo: #{pn.entrevista.testemunha1.nome}           Doc/Foto Nº: #{pn.entrevista.testemunha1.documentoSocial.documento} Tipo de doc: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}<br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
-            Testemunha 2 <b>#{pn.entrevista.testemunha2.nome}</b>           #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} nº <b>#{pn.entrevista.testemunha2.documentoSocial.documento}</b><br/>
+            Testemunha 2- Nome Completo: #{pn.entrevista.testemunha2.nome}           Doc/Foto Nº: #{pn.entrevista.testemunha2.documentoSocial.documento} Tipo de doc: #{pn.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto}<br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>
     <div >
         <div class="profissional">
             <b>Profissional Responsável pela Entrevista</b><br/>
-            <b>#{nomeFuncionario}</b> Conselho <b>___________________</b> <br/>
+            Nome Completo: #{nomeFuncionario} N° Conselho: ___________________ Data/Hora:#{pn.entrevista.dataEntrevista.time} <br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>

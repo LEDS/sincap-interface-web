@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
+import java.util.Calendar;
 import java.util.List;
 
 import static br.ifes.leds.sincap.web.controller.ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
@@ -86,6 +87,7 @@ public class RelatoriosController {
             model.addAttribute("bairroResponsavel2",bairroResponsavel2);
             model.addAttribute("estadoResponsavel2",estadoResponsavel2);
             model.addAttribute("cidadeResponsavel2", cidadeResponsavel2);
+
         }
         String nomeFuncinario = aplFuncionario.obter(pn.getEntrevista().getFuncionario()).getNome();
 
