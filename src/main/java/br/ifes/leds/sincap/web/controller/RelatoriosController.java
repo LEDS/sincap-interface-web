@@ -133,13 +133,13 @@ public class RelatoriosController {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
-        //List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh.get());
+        List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
 
         model.addAttribute("dataInicial",dataInicial);
         model.addAttribute("dataFinal",dataFinal);
 
 
-//        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
+        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
 
 
         if (lh.get(0) == -1) {
@@ -163,6 +163,14 @@ public class RelatoriosController {
     }
 
 
+
+    @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.GET)
+    public String carregarRelatorioIndexNaoDoacao(ModelMap model) {
+
+
+
+        return "total-nao-doacao-instituicao";
+    }
     @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.POST)
     public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("dataInicio") Calendar dataInicio, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("dataFinal") Calendar dataFinal) {
 
