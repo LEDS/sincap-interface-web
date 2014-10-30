@@ -51,9 +51,30 @@
                      value="#{processo.entrevista.responsavel2.telefone2.numero}"/>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.radioButton.sexo']}*"/>
+        <div class="span8">
+            <label class="radio">
+                <input type="radio" name="entrevista.responsavel2.sexo" id="entrevista-responsavel2-sexo:0" value="MASCULINO"
+                       checked="true"/>
+                #{msg['responsavel.radioButton.sexo.masc']}
+            </label>
+            <label class="radio">
+                <input type="radio" name="entrevista.responsavel2.sexo" id="entrevista-responsavel2-sexo:1" value="FEMININO"/>
+                #{msg['responsavel.radioButton.sexo.fem']}
+            </label>
+        </div>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.text.profissao']}*"/>
-        <h:inputText styleClass="span8" id="entrevista-responsavel2-profissao"
-                     value="#{processo.entrevista.responsavel2.profissao}"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-profissao" value="#{processo.entrevista.responsavel2.profissao}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.religiao']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-religiao" value="#{processo.entrevista.responsavel2.religiao}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-responsavel2-grauEscolaridade" value="#{processo.entrevista.responsavel2.grauEscolaridade}"/>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
