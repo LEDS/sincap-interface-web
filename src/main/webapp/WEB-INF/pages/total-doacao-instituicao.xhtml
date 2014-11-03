@@ -25,15 +25,15 @@
             <br></br><br></br><br></br>
 
             <h:panelGrid columns="7">
-                <h:outputLabel value="A partir de:"/>
+                <h:outputLabel for="datIni" value="A partir de:"/>
                 <h:outputLabel value=" "/>
-                <h:inputText id="datIni" name="datIni" value="#{dataInicial.time}">
+                <h:inputText type = "date" id="datIni" name="datIni" value="#{dataInicial.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
-                <h:outputLabel value="Até:"/>
-                <h:inputText id="datFim" name="datFim" value="#{dataFinal.time}">
+                <h:outputLabel for= "datFim" value="Até:"/>
+                <h:inputText type = "date" id="datFim" name="datFim" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGrid>

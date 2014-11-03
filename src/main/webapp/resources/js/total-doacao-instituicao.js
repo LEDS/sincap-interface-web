@@ -2,7 +2,7 @@ jQuery.validator.addMethod("isValid", function (value, element) {
     var dataIni = $('#datIni').val();
     var dataFim = $('#datFim').val();
 
-    return Date.parse(dataIni) < Date.parse(dataFim);
+    return Date.parse(dataIni) <= Date.parse(dataFim);
 
 }, "* Data final deve ser maior do que a inicial.");
 
