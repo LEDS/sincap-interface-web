@@ -280,7 +280,7 @@ function ajaxGetNovasNotificacoes() {
         },
         error: function (response, status, error) {
             $("#painelNovasNotificacoes").append(
-                    "<h3>Erro no javascript do painel de novas notificações</h3>");
+                "<h3>Erro no javascript do painel de novas notificações</h3>");
         }
     });
 }
