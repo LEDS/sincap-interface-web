@@ -55,4 +55,18 @@ public class CaptacaoControllerTest extends AbstractionTest {
         verify(aplProcessoNotificacao, times(1)).obter(isA(Long.class));
         verifyNoMoreInteractions(aplProcessoNotificacao);
     }
+
+    @Test
+    @SneakyThrows
+    public void editarEntrevistaTest() {
+        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcesso());
+
+        mockMvc.perform(get(APP_NOTIFICACAO_CAPTACAO + EDITAR + "/" + isA(Long.class)))
+                .andExpect(status().isOk())
+                .andExpect(model().attribute("processo", equalTo(criarProcesso())))
+                .andExpect(model().attributeExists("listaEstadoItem", "listaAspectoEstrutural", "listaRecusaFamiliar", "listaParentescos", "listaEstadosCivis", "recusaFamiliar", "problemasEstruturais"));
+
+        verify(aplProcessoNotificacao, times(1)).obter(isA(Long.class));
+        verifyNoMoreInteractions(aplProcessoNotificacao);
+    }
 }
