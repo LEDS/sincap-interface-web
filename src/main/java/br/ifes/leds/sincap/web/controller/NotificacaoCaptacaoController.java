@@ -134,8 +134,8 @@ public class NotificacaoCaptacaoController {
         return "redirect:" + INDEX + "?captacaoRecusado=true";
     }
 
-    @RequestMapping(value = CORRIGIR + "/{idProcesso}", method = GET)
-    public String corrigirCaptacao(ModelMap model, @PathVariable Long idProcesso) {
+    @RequestMapping(value = EDITAR + "/{idProcesso}", method = GET)
+    public String editarCaptacao(ModelMap model, @PathVariable Long idProcesso) {
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
         model.addAttribute("listaProblemasLogisticos", getListaProblemaLogisticoSelectItem(PROBLEMAS_LOGISTICOS));

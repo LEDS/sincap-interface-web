@@ -55,7 +55,6 @@ public class ContextUrls {
     public static final String ADICIONAR = "/adicionar";
     public static final String SALVAR = "/salvar";
     public static final String CONFIRMAR = "/confirmar";
-    public static final String CORRIGIR = "/corrigir";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
     public static final String EXCLUIR = "/excluir";
@@ -107,7 +106,6 @@ public class ContextUrls {
     String adicionar = ADICIONAR;
     String salvar = SALVAR;
     String confirmar = CONFIRMAR;
-    String corrigir = CORRIGIR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
     String excluir = EXCLUIR;
