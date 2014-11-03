@@ -76,6 +76,9 @@ public class RelatoriosController {
         String hospitalNome = h.getNome();
         String hospitalCidade = h.getEndereco().getCidade().getNome();
 
+        String dataEntrevista = utility.calendarDataToString(pn.getEntrevista().getDataEntrevista());
+        String horaEntrevista = utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
+
         String cidadeResponsavel = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel().getEndereco().getCidade()).getNome();
         String bairroResponsavel = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel().getEndereco().getBairro()).getNome();
         String estadoResponsavel = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel().getEndereco().getEstado()).getNome();
@@ -93,6 +96,8 @@ public class RelatoriosController {
 
         int idadePaciente = utility.calculaIdade(pn.getObito().getPaciente().getDataNascimento(), pn.getObito().getDataObito());
 
+        model.addAttribute("dataEntrevista",dataEntrevista);
+        model.addAttribute("horaEntrevista",horaEntrevista);
         model.addAttribute("nomeFuncionario", nomeFuncinario);
         model.addAttribute("bairroResponsavel",bairroResponsavel);
         model.addAttribute("estadoResponsavel",estadoResponsavel);
