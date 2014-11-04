@@ -6,9 +6,11 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
+import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.ui.ModelMap;
@@ -68,10 +70,12 @@ public class NotificacaoCaptacaoController {
         return "form-notificacao-captacao";
     }
 
+    @DefaultTimeZone
     @RequestMapping(value = SALVAR, method = POST)
     public String salvarCaptacao(HttpSession session, ModelMap model,
                                  @ModelAttribute ProcessoNotificacaoDTO processo,
                                  @RequestParam("captacaoRealizada") boolean captacaoRealizada,
+                                 @RequestParam("paciente.nome") String nomePaciente,
                                  @RequestParam("dataCaptacao") String dataCaptacao,
                                  @RequestParam("horarioCaptacao") String horarioCaptacao) throws ParseException {
         //Processo de notificacao vem incompleto, logo, ele deve ser buscado novamente
@@ -82,9 +86,11 @@ public class NotificacaoCaptacaoController {
 
             aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), usuarioSessao.getIdUsuario());
         } catch (ConstraintViolationException e) {
+            model.addAttribute("nomePaciente", nomePaciente);
             setUpConstraintViolations(model, processo, captacaoRealizada, dataCaptacao, horarioCaptacao, e);
             return "form-notificacao-captacao";
         } catch (TransactionSystemException e) {
+            model.addAttribute("nomePaciente", nomePaciente);
             setUpConstraintViolations(model, processo, captacaoRealizada, dataCaptacao, horarioCaptacao,
                     (ConstraintViolationException) e.getRootCause());
             return "form-notificacao-captacao";
