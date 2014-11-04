@@ -172,18 +172,18 @@ public class RelatoriosController {
         return "total-nao-doacao-instituicao";
     }
     @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("dataInicio") Calendar dataInicio, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("dataFinal") Calendar dataFinal) {
+    public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<TotalNaoDoacaoInstituicao> listIns = new ArrayList<>();
 
         for (InstituicaoNotificadora i : in) {
-              TotalNaoDoacaoInstituicao tdi = aplRelatorio.relatorioTotalNaoDoacaoInstituicao(i.getId(), dataInicio, dataFinal);
+              TotalNaoDoacaoInstituicao tdi = aplRelatorio.relatorioTotalNaoDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
               listIns.add(tdi);
             }
 
 
-        model.addAttribute("listInstituicao", in);
+
         model.addAttribute("listaTotaldi", listIns);
 
 
