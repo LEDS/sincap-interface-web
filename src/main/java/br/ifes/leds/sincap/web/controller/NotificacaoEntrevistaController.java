@@ -221,6 +221,7 @@ public class NotificacaoEntrevistaController {
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("entrevista", true);
+        model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
 
         return "analise-processo-notificacao";
     }

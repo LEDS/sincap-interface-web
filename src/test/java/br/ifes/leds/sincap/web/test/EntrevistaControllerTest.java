@@ -4,8 +4,9 @@ import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.endereco.cgd.BairroRepository;
 import br.ifes.leds.reuse.endereco.cgd.CidadeRepository;
 import br.ifes.leds.reuse.endereco.cgd.EstadoRepository;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFoto;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.DocumentoComFoto;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.*;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
@@ -23,7 +24,6 @@ import java.util.Locale;
 
 import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil.SOLTEIRO;
 import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco.PAIS;
-import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFoto.RG;
 import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
 import static br.ifes.leds.sincap.web.test.SetUp.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -105,13 +105,15 @@ public class EntrevistaControllerTest extends AbstractionTest {
                 .param("dataEntrevista", "27/09/2014")
                 .param("horaEntrevista", "11:11")
                 .param("entrevista.responsavel.nome", entrevista.getEntrevista().getResponsavel().getNome())
-                .param("entrevista.responsavel.documentoSocial.documento", entrevista.getEntrevista().getResponsavel().getDocumentoSocial().getDocumento())
-                .param("entrevista.responsavel.documentoSocial.tipoDocumentoComFoto", entrevista.getEntrevista().getResponsavel().getDocumentoSocial().getTipoDocumentoComFoto().toString())
+                .param("entrevista.responsavel.documentoSocial", entrevista.getEntrevista().getResponsavel().getDocumentoSocial().getDocumento())
                 .param("entrevista.responsavel.parentesco", entrevista.getEntrevista().getResponsavel().getParentesco().toString())
                 .param("entrevista.responsavel.estadoCivil", entrevista.getEntrevista().getResponsavel().getEstadoCivil().toString())
                 .param("entrevista.responsavel.telefone.numero", entrevista.getEntrevista().getResponsavel().getTelefone().getNumero())
                 .param("entrevista.responsavel.telefone2.numero", entrevista.getEntrevista().getResponsavel().getTelefone2().getNumero())
+                .param("entrevista.responsavel.sexo", "MASCULINO")
                 .param("entrevista.responsavel.profissao", entrevista.getEntrevista().getResponsavel().getProfissao())
+                .param("entrevista.responsavel.religiao", entrevista.getEntrevista().getResponsavel().getReligiao())
+                .param("entrevista.responsavel.grauEscolaridade", entrevista.getEntrevista().getResponsavel().getGrauEscolaridade())
                 .param("entrevista.responsavel.endereco.numero", entrevista.getEntrevista().getResponsavel().getEndereco().getNumero())
                 .param("entrevista.responsavel.endereco.cep", entrevista.getEntrevista().getResponsavel().getEndereco().getCep())
                 .param("entrevista.responsavel.endereco.complemento", entrevista.getEntrevista().getResponsavel().getEndereco().getComplemento())
@@ -121,11 +123,9 @@ public class EntrevistaControllerTest extends AbstractionTest {
                 .param("entrevista.responsavel.endereco.bairro", entrevista.getEntrevista().getResponsavel().getEndereco().getBairro().toString())
                 .param("entrevista.responsavel.nacionalidade", entrevista.getEntrevista().getResponsavel().getNacionalidade())
                 .param("entrevista.testemunha1.nome", entrevista.getEntrevista().getTestemunha1().getNome())
-                .param("entrevista.testemunha1.documentoSocial.documento", entrevista.getEntrevista().getTestemunha1().getDocumentoSocial().getDocumento())
-                .param("entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto", entrevista.getEntrevista().getTestemunha1().getDocumentoSocial().getTipoDocumentoComFoto().toString())
+                .param("entrevista.testemunha1.documentoSocial", entrevista.getEntrevista().getTestemunha1().getDocumentoSocial().getDocumento())
                 .param("entrevista.testemunha2.nome", entrevista.getEntrevista().getTestemunha2().getNome())
-                .param("entrevista.testemunha2.documentoSocial.documento", entrevista.getEntrevista().getTestemunha2().getDocumentoSocial().getDocumento())
-                .param("entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto", entrevista.getEntrevista().getTestemunha2().getDocumentoSocial().getTipoDocumentoComFoto().toString()))
+                .param("entrevista.testemunha2.documentoSocial", entrevista.getEntrevista().getTestemunha2().getDocumentoSocial().getDocumento()))
 //                302 significa que foi redirecionado. https://en.wikipedia.org/wiki/HTTP_302
                 .andExpect(status().is(302))
                 .andExpect(redirectedUrl(INDEX + "?sucessoEntrevista=true&idEntrevista=" + entrevista.getId()));
@@ -149,9 +149,8 @@ public class EntrevistaControllerTest extends AbstractionTest {
                         .responsavel(ResponsavelDTO.builder()
                                 .nome("Responsável")
                                 .documentoSocial(DocumentoComFotoDTO.builder()
-                                .documento("65165325864")
-                                .tipoDocumentoComFoto(RG)
-                                .build())
+                                        .documento("654654564")
+                                        .build())
                                 .parentesco(PAIS)
                                 .estadoCivil(SOLTEIRO)
                                 .telefone(Telefone.builder()
@@ -160,7 +159,10 @@ public class EntrevistaControllerTest extends AbstractionTest {
                                 .telefone2(Telefone.builder()
                                         .numero("(27)3333-3333")
                                         .build())
+                                .sexo(Sexo.MASCULINO)
                                 .profissao("Profissão")
+                                .religiao("Religião")
+                                .grauEscolaridade("Grau de ecolaridade")
                                 .endereco(EnderecoDTO.builder()
                                         .numero("123")
                                         .cep("29182-527")
@@ -175,15 +177,13 @@ public class EntrevistaControllerTest extends AbstractionTest {
                         .testemunha1(TestemunhaDTO.builder()
                                 .nome("Testemunha 1")
                                 .documentoSocial(DocumentoComFotoDTO.builder()
-                                .documento("12345645646")
-                                .tipoDocumentoComFoto(RG)
-                                .build())
+                                        .documento("12345645646")
+                                        .build())
                                 .build())
                         .testemunha2(TestemunhaDTO.builder()
                                 .nome("Testemunha 2")
                                 .documentoSocial(DocumentoComFotoDTO.builder()
                                         .documento("6765452")
-                                        .tipoDocumentoComFoto(RG)
                                         .build())
                                 .build())
                         .funcionario(((UsuarioSessao) session.getAttribute("user")).getIdUsuario())
