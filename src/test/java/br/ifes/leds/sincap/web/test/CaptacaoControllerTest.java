@@ -43,13 +43,13 @@ public class CaptacaoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void novaCaptacaoTest() {
-        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcesso());
+        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcessoComCaptacao(true));
 
         mockMvc.perform(post(APP_NOTIFICACAO_CAPTACAO + ADICIONAR)
                 .param("id", isA(Long.class).toString())
                 .session(session))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("processo", equalTo(criarProcesso())))
+                .andExpect(model().attribute("processo", equalTo(criarProcessoComCaptacao(true))))
                 .andExpect(model().attributeExists("listaProblemasLogisticos"));
 
         verify(aplProcessoNotificacao, times(1)).obter(isA(Long.class));
@@ -58,13 +58,13 @@ public class CaptacaoControllerTest extends AbstractionTest {
 
     @Test
     @SneakyThrows
-    public void editarEntrevistaTest() {
-        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcesso());
+    public void editarCaptacaoTest() {
+        when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcessoComCaptacao(true));
 
         mockMvc.perform(get(APP_NOTIFICACAO_CAPTACAO + EDITAR + "/" + isA(Long.class)))
                 .andExpect(status().isOk())
-                .andExpect(model().attribute("processo", equalTo(criarProcesso())))
-                .andExpect(model().attributeExists("listaEstadoItem", "listaAspectoEstrutural", "listaRecusaFamiliar", "listaParentescos", "listaEstadosCivis", "recusaFamiliar", "problemasEstruturais"));
+                .andExpect(model().attribute("processo", equalTo(criarProcessoComCaptacao(true))))
+                .andExpect(model().attributeExists("listaProblemasLogisticos"));
 
         verify(aplProcessoNotificacao, times(1)).obter(isA(Long.class));
         verifyNoMoreInteractions(aplProcessoNotificacao);
