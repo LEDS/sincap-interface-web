@@ -13,6 +13,7 @@ function definirMascaras() {
         mask: ["(99)9999-9999", "(99)99999-9999"]
     });
     $('.cpf').inputmask('999.999.999-99');
+    $('.dataNascimento').inputmask("dd/mm/yyyy", {placeholder: "_"});
 }
 
 $("#notifEntrevista").validate({
@@ -42,6 +43,9 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.nome': {
             required: true,
             minlength: 3
+        },
+        'entrevista.responsavel.dataNascimento':{
+            required:true
         },
         'entrevista.responsavel.documentoSocial.documento': {
             required: true
@@ -128,6 +132,9 @@ $("#notifEntrevista").validate({
         //Dados do Responsavel Legal
         'entrevista.responsavel.nome': {
             required: "Por favor, insira o nome do responsavel"
+        },
+        'entrevista.responsavel.dataNascimento':{
+            required:"Por favor, insira a data de nascimento"
         },
         'entrevista.responsavel.documentoSocial.documento': {
             required: "Por favor, insira o número do documento com foto"
