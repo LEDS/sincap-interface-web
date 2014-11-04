@@ -11,6 +11,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.QualificacaoRecusaFamiliar;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalNaoDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
@@ -129,17 +130,17 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false,defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
+    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
         List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
 
-        model.addAttribute("dataInicial",dataInicial);
-        model.addAttribute("dataFinal",dataFinal);
+        model.addAttribute("dataInicial", dataInicial);
+        model.addAttribute("dataFinal", dataFinal);
 
 
-        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
+        model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(in, listInstituicaoSelected));
 
 
         if (lh.get(0) == -1) {
@@ -173,17 +174,17 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_QUALIFICACAO_RECUSA_FAMILIAR, method = RequestMethod.POST)
-    public String ExibirRelatorioRecusa(ModelMap model, @RequestParam(value = "hospitais", required = false,defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
+    public String ExibirRelatorioRecusa(ModelMap model, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         List<QualificacaoRecusaFamiliar> listqrf = new ArrayList<>();
         List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
 
-        model.addAttribute("dataInicial",dataInicial);
-        model.addAttribute("dataFinal",dataFinal);
+        model.addAttribute("dataInicial", dataInicial);
+        model.addAttribute("dataFinal", dataFinal);
 
 
-        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
+        model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(in, listInstituicaoSelected));
 
 
 //        if (lh.get(0) == -1) {
@@ -204,5 +205,28 @@ public class RelatoriosController {
 
         //TODO: Substituir pelo endereco do formulario!
         return "qualificacao-recusa-familiar";
+    }
+
+
+    @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.GET)
+    public String carregarRelatorioIndexNaoDoacao() {
+        return "total-nao-doacao-instituicao";
+    }
+
+    @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.POST)
+    public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
+
+        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        List<TotalNaoDoacaoInstituicao> listIns = new ArrayList<>();
+
+        for (InstituicaoNotificadora i : in) {
+            TotalNaoDoacaoInstituicao tdi = aplRelatorio.relatorioTotalNaoDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
+            listIns.add(tdi);
+        }
+
+        model.addAttribute("listaTotaldi", listIns);
+
+        //TODO: Substituir pelo endereco do formulario!
+        return "total-nao-doacao-instituicao";
     }
 }
