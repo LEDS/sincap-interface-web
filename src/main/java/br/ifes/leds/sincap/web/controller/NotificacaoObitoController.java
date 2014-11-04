@@ -90,6 +90,7 @@ public class NotificacaoObitoController {
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
+            model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
             return "form-notificacao-obito";
         }
 
