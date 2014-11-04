@@ -8,7 +8,7 @@
             <h:panelGroup styleClass="row-fluid form-wrapper">
 
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="tabela" value="#{processos}" var="processo" rows="#{quantidade}"
+                <h:dataTable id="tabela" value="#{listaTotaldi}" var="lista" rows="#{quantidade}"
                              styleClass="table table-hover table-striped">
                     <!-- Instituição -->
                     <h:column>
@@ -16,7 +16,7 @@
                             <h:outputText value="Instituição"/>
                         </f:facet>
 
-                        <h:outputText value=""/>
+                        <h:outputText value="#{lista.nome}"/>
                     </h:column>
 
                     <!-- Recusa Familiar -->
@@ -25,7 +25,7 @@
                             <h:outputText value="Recusa Familiar"/>
                         </f:facet>
 
-                        <h:outputText value="#{recusaFamiliar}"/>
+                        <h:outputText value="#{lista.recusaFamiliar}"/>
                     </h:column>
 
                     <!--Contra Indicação Medica -->
@@ -34,7 +34,7 @@
                             <h:outputText value="Contra Indicação Médica"/>
                         </f:facet>
 
-                        <h:outputText value="#{contraInd}"/>
+                        <h:outputText value="#{lista.contraInd}"/>
                     </h:column>
 
                     <!-- Problema Logistico ou Estrutural -->
@@ -43,7 +43,7 @@
                             <h:outputText value="Problema Logistico ou Estrutural"/>
                         </f:facet>
 
-                        <h:outputText value="#{probLogs}"/>
+                        <h:outputText value="#{lista.problema}"/>
                     </h:column>
 
                     <!-- Total -->
@@ -52,7 +52,7 @@
                             <h:outputText value="Total"/>
                         </f:facet>
 
-                        <h:outputText value="#{qtdNaoDoacao}"/>
+                        <h:outputText value="#{lista.total}"/>
                     </h:column>
 
                 </h:dataTable>
