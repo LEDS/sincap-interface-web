@@ -1,6 +1,7 @@
 package br.ifes.leds.sincap.web.test;
 
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Captacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.*;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.joda.time.DateTime;
@@ -51,6 +52,10 @@ public abstract class SetUp {
         return session;
     }
 
+    /**
+     * Constroi um Processo de Notificacao DTO com uma entrevista
+     * @return
+     */
     public static ProcessoNotificacaoDTO criarProcesso() {
         return ProcessoNotificacaoDTO.builder()
                 .obito(ObitoDTO.builder()
@@ -88,5 +93,21 @@ public abstract class SetUp {
                         .build())
                 .causaNaoDoacao(1L)
                 .build();
+    }
+
+    /**
+     * Constroi um Processo de Notificacao DTO com uma captacao vinculada
+     * @param captacaoRealizada - Boolean se a captacao foi realizada ou nao
+     * @return
+     */
+    public static ProcessoNotificacaoDTO criarProcessoComCaptacao(boolean captacaoRealizada) {
+        ProcessoNotificacaoDTO pComCaptacao = criarProcesso();
+        pComCaptacao.setCaptacao(CaptacaoDTO.builder()
+                .captacaoRealizada(captacaoRealizada)
+                .comentario("Comentario")
+                .dataCadastro(new DateTime(2011, 10, 3, 0, 0).toCalendar(Locale.getDefault()))
+                .dataCaptacao(new DateTime(2010, 10, 3, 0, 0).toCalendar(Locale.getDefault()))
+                .build());
+        return pComCaptacao;
     }
 }

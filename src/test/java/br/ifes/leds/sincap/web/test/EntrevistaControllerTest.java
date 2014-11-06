@@ -1,16 +1,8 @@
 package br.ifes.leds.sincap.web.test;
 
-import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
-import br.ifes.leds.reuse.endereco.cgd.BairroRepository;
-import br.ifes.leds.reuse.endereco.cgd.CidadeRepository;
-import br.ifes.leds.reuse.endereco.cgd.EstadoRepository;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFoto;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.*;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
-import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import lombok.SneakyThrows;
-import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -19,11 +11,6 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Locale;
-
-import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoCivil.SOLTEIRO;
-import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Parentesco.PAIS;
-import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFoto.RG;
 import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
 import static br.ifes.leds.sincap.web.test.SetUp.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -46,12 +33,7 @@ public class EntrevistaControllerTest extends AbstractionTest {
     private WebApplicationContext webApplicationContext;
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
-    @Autowired
-    private EstadoRepository estadoRepository;
-    @Autowired
-    private CidadeRepository cidadeRepository;
-    @Autowired
-    private BairroRepository bairroRepository;
+
 
     @Before
     public void before() {
@@ -135,59 +117,5 @@ public class EntrevistaControllerTest extends AbstractionTest {
         argumentCaptor.getValue().setHistorico(null);
 
         assertThat(argumentCaptor.getValue(), equalTo(entrevista));
-    }
-
-    private ProcessoNotificacaoDTO criaEntrevista() {
-        return ProcessoNotificacaoDTO.builder()
-                .id(253L)
-                .dataAbertura(new DateTime(2014, 9, 27, 10, 24).toCalendar(Locale.getDefault()))
-                .entrevista(EntrevistaDTO.builder()
-                        .dataCadastro(new DateTime(2014, 9, 27, 12, 12).toCalendar(Locale.getDefault()))
-                        .entrevistaRealizada(true)
-                        .doacaoAutorizada(true)
-                        .dataEntrevista(new DateTime(2014, 9, 27, 11, 11).toCalendar(Locale.getDefault()))
-                        .responsavel(ResponsavelDTO.builder()
-                                .nome("Responsável")
-                                .documentoSocial(DocumentoComFotoDTO.builder()
-                                .documento("65165325864")
-                                .tipoDocumentoComFoto(RG)
-                                .build())
-                                .parentesco(PAIS)
-                                .estadoCivil(SOLTEIRO)
-                                .telefone(Telefone.builder()
-                                        .numero("(27)99999-9999")
-                                        .build())
-                                .telefone2(Telefone.builder()
-                                        .numero("(27)3333-3333")
-                                        .build())
-                                .profissao("Profissão")
-                                .endereco(EnderecoDTO.builder()
-                                        .numero("123")
-                                        .cep("29182-527")
-                                        .complemento("Complemento")
-                                        .logradouro("Logradouro")
-                                        .estado(estadoRepository.findBySigla("ES").getId())
-                                        .cidade(cidadeRepository.findByEstado_SiglaAndNome("ES", "Serra").getId())
-                                        .bairro(bairroRepository.findByCidade_Estado_SiglaAndCidade_NomeAndNome("ES", "Serra", "Nova Almeida").getId())
-                                        .build())
-                                .nacionalidade("Brasileira")
-                                .build())
-                        .testemunha1(TestemunhaDTO.builder()
-                                .nome("Testemunha 1")
-                                .documentoSocial(DocumentoComFotoDTO.builder()
-                                .documento("12345645646")
-                                .tipoDocumentoComFoto(RG)
-                                .build())
-                                .build())
-                        .testemunha2(TestemunhaDTO.builder()
-                                .nome("Testemunha 2")
-                                .documentoSocial(DocumentoComFotoDTO.builder()
-                                        .documento("6765452")
-                                        .tipoDocumentoComFoto(RG)
-                                        .build())
-                                .build())
-                        .funcionario(((UsuarioSessao) session.getAttribute("user")).getIdUsuario())
-                        .build())
-                .build();
     }
 }
