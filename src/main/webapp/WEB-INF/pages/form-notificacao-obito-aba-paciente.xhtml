@@ -79,7 +79,10 @@
         <h:outputLabel value="#{msg['obito.paciente.profissao']}*"/>
         <h:inputText id="obito-paciente-profissao" styleClass="span8" value="#{processo.obito.paciente.profissao}"/>
     </h:panelGroup>
-
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.religiao']}"/>
+        <h:inputText id="obito-paciente-religiao" styleClass="span8" value="#{processo.obito.paciente.religiao}"/>
+    </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}*"/>
         <h:inputText id="obito-paciente-nacionalidade" styleClass="span8"
@@ -149,8 +152,10 @@
         <h:inputText id="obito-paciente-endereco-logradouro" styleClass="span8"
                      value="#{processo.obito.paciente.endereco.logradouro}"/>
     </h:panelGroup>
-
-
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.endereco.numero']}"/>
+        <h:inputText id="obito-paciente-endereco-numero" styleClass="span8" value="#{processo.obito.paciente.endereco.numero}"/>
+    </h:panelGroup>
     <script type="text/javascript">
         focus('#obito-paciente-telefone-numero', "#obito-paciente-sexo\\:0");
         $("#obito-paciente-endereco-logradouro").keypress(function (event) {
