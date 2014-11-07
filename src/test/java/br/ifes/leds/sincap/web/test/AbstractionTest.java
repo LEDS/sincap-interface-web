@@ -121,14 +121,10 @@ public abstract class AbstractionTest {
         ProcessoNotificacaoDTO processo = this.criaEntrevista();
 
         processo.setCaptacao(CaptacaoDTO.builder()
-                .captador(((UsuarioSessao) session.getAttribute("user")).getIdUsuario())
                 .captacaoRealizada(captacaoRealizada)
                 .comentario("Comentario")
-                .dataCadastro(new DateTime(2011, 10, 3, 0, 0).toCalendar(Locale.getDefault()))
-                .dataCaptacao(new DateTime(2010, 10, 3, 0, 0).toCalendar(Locale.getDefault()))
+                .dataCaptacao(new DateTime(2010, 10, 3, 1, 0).toCalendar(Locale.getDefault()))
             .build());
-
-        processo.setNotificador(((UsuarioSessao) session.getAttribute("user")).getIdUsuario());
 
         return processo;
     }
