@@ -94,12 +94,8 @@ public abstract class SetUp {
                 .causaNaoDoacao(1L)
                 .build();
 
-        processo.setObito(ObitoDTO.builder()
-                .dataObito(new DateTime(2014, 9, 27, 10, 24).toCalendar(Locale.getDefault()))
-                .paciente(PacienteDTO.builder()
-                        .dataNascimento(new DateTime(2014, 9, 27, 11, 11).toCalendar(Locale.getDefault()))
-                        .build())
-                .build());
+        processo.getObito().getPaciente().setDataNascimento(new DateTime(2014, 9, 27, 11, 11).toCalendar(Locale.getDefault()));
+        processo.getObito().setDataObito(new DateTime(2014, 9, 27, 10, 24).toCalendar(Locale.getDefault()));
 
         return processo;
     }
