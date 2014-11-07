@@ -5,43 +5,49 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:sincap="http://java.sun.com/jsf/composite/sincap">
 
-<ui:param name="captacao" value="true"/>
+    <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
 
-<!-- Título da página -->
-<ui:define name="#{sects.title}">
-    #{msg['captacao.title']}
-</ui:define>
+    <ui:param name="captacao" value="true"/>
 
-<ui:define name="#{sects.formHeader}">
-    #{msg['notificacao.msg.etapa.captacao']}
-</ui:define>
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['captacao.title']}
+    </ui:define>
 
-<ui:define name="#{sects.formContent}">
+    <ui:define name="#{sects.formHeader}">
+        #{msg['notificacao.msg.etapa.captacao']}
+    </ui:define>
 
-    <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['captacao.erro']}"/>
+    <ui:define name="#{sects.formContent}">
 
-    <form id="processoCaptacao" class="span8"
-          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
-          method="post">
-        <br/>
-        <div class="form-wrapper inline-input">
-            <div class="form-horizontal">
-                <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
+        <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}"
+                                msgErro="#{msg['captacao.erro']}"/>
+
+        <form id="processoCaptacao" class="span8"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
+              method="post">
+            <br/>
+
+            <div class="form-wrapper inline-input">
+                <div class="form-horizontal">
+                    <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
+                </div>
             </div>
-        </div>
 
-        <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-        <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
-        <!--<h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">-->
-        <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />-->
-        <!--</h:inputHidden>-->
-        <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-        <button type="submit"
-                class="btn-glow success btn-finish">
-            #{msg['obito.button.finalizar']}</button>
-    </form>
+            <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+            <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
 
-    <h:outputScript library="js" name="form-notificacao-captacao.js"/>
-</ui:define>
+            <!--<h:inputHidden id="captacao-dataCadastro" value="#{processo.captacao.dataCadastro.time}">-->
+            <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />-->
+            <!--</h:inputHidden>-->
+
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+            <button type="submit"
+                    class="btn-glow success btn-finish">
+                #{msg['obito.button.finalizar']}</button>
+        </form>
+
+        <h:outputScript library="js" name="form-notificacao-captacao.js"/>
+    </ui:define>
 
 </ui:composition>

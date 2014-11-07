@@ -7,13 +7,13 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-        <input type="text" autofocus="true" class="span8" readonly="true" id="paciente-nome"
-               value="#{processo.obito.paciente.nome}"/>
+        <!--@elvariable id="nomePaciente" type="java.lang.String"-->
+        <h:inputText readonly="true" styleClass="span8" id="paciente-nome"
+                     value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
     </h:panelGroup>
-
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
-        <h:inputText styleClass="span8" readonly="true" id="codigo" value="#{processo.codigo}"/>
+        <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
