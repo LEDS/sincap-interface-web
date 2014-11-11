@@ -238,4 +238,9 @@ public class RelatoriosController {
         //TODO: Substituir pelo endereco do formulario!
         return "total-nao-doacao-instituicao";
     }
+
+    @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.GET)
+    public String carregarRelatorioAtividadeMensal() {
+        return "rel-atividade-mensal";
+    }
 }

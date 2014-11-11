@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['relatorios.title']}
+    </ui:define>
+    <!--Fim título da página-->
+
+
+    <!-- Formulário de entrevista -->
+    <ui:define name="#{sects.formContent}">
+        <form id="rel-atividade-mensal" class="form-horizontal"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}"
+              method="post">
+
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+
+            <h1 align="center">Atividade Mensal CIHDOTT</h1>
+
+            <br></br><br></br><br></br>
+
+            <h:panelGrid columns="7">
+                <h:outputLabel id="dat" for="datMes" value="Mês:" />
+                <h:outputLabel value=" "/>
+                <h:inputText type = "date" id="datMes" name="datMes" value="#{datMes.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+            </h:panelGrid>
+
+            <br></br><br></br>
+
+            <button type="submit" class="btn-glow success btn-finish">
+                Enviar
+            </button>
+
+        </form>
+        <br></br><br></br>
+
+        <label class ="listas" style="font-weight: bold;">Faixa Etária            <i class="icon-chevron-down"></i></label>
+        <div class="secao">
+            <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+        </div>
+
+
+        <label class ="listas" style="font-weight: bold;">Óbitos com parada cardiorespiratória            <i class="icon-chevron-down"></i></label>
+        <div class="secao">
+            <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+        </div>
+
+        <label class ="listas" style="font-weight: bold;">Causa da não efetivação da doação:             <i class="icon-chevron-down"></i></label>
+        <ul class = "ul" style ="list-style-type: none;">
+            <li>
+                <label class = "sub" style="font-weight: bold;float: left">Relacionadas a entrevista familiar            <i class="icon-chevron-down"></i></label>
+                <div class="secao">
+                    <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+                </div>
+            </li>
+            <li>
+                <label  class = "sub" style="font-weight: bold;float: left;margin-left: 50px">Motivos médicos            <i class="icon-chevron-down"></i></label>
+                <div class="secao">
+                    <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+                </div>
+            </li>
+            <li>
+                <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+            </li>
+        </ul>
+
+        <label class ="listas" style="font-weight: bold;">Atividades de educação e divulgação            <i class="icon-chevron-down"></i></label>
+        <div class="secao">
+            <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+        </div>
+
+        <h:outputScript library="js" name="atividade-mensal.js"/>
+    </ui:define>
+
+
+</ui:composition>
