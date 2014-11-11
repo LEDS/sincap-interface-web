@@ -37,6 +37,7 @@ public class ContextUrls {
     public static final String RLT_TERMO_AUTORIZACAO_DOACAO = "/termoautorizacao";
     public static final String RLT_TOTAL_DOACAO_INSTITUICAO = "/total-doacao-instituicao";
     public static final String RLT_QUALIFICACAO_RECUSA_FAMILIAR = "/qualificacao-recusa-familiar";
+    public static final String RLT_TOTAL_NAO_DOACAO_INSTITUICAO = "/total-nao-doacao-instituicao";
     public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
@@ -57,7 +58,6 @@ public class ContextUrls {
     public static final String ADICIONAR = "/adicionar";
     public static final String SALVAR = "/salvar";
     public static final String CONFIRMAR = "/confirmar";
-    public static final String CORRIGIR = "/corrigir";
     public static final String RECUSAR = "/recusar";
     public static final String ARQUIVAR = "/arquivar";
     public static final String EXCLUIR = "/excluir";
@@ -94,6 +94,7 @@ public class ContextUrls {
     String rlt_termo_autorizacao_doacao = RLT_TERMO_AUTORIZACAO_DOACAO;
     String rlt_total_doacao_instituicao = RLT_TOTAL_DOACAO_INSTITUICAO;
     String rlt_qualificacao_recusa_familiar = RLT_QUALIFICACAO_RECUSA_FAMILIAR;
+    String rlt_total_nao_doacao_instituicao = RLT_TOTAL_NAO_DOACAO_INSTITUICAO;
     String app_notificacao_captacao = APP_NOTIFICACAO_CAPTACAO;
     String app_notificacao_obito = APP_NOTIFICACAO_OBITO;
     String app_notificacao_entrevista = APP_NOTIFICACAO_ENTREVISTA;
@@ -111,7 +112,6 @@ public class ContextUrls {
     String adicionar = ADICIONAR;
     String salvar = SALVAR;
     String confirmar = CONFIRMAR;
-    String corrigir = CORRIGIR;
     String recusar = RECUSAR;
     String arquivar = ARQUIVAR;
     String excluir = EXCLUIR;

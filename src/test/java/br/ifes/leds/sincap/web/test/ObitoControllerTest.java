@@ -206,9 +206,10 @@ public class ObitoControllerTest extends AbstractionTest {
     @Test
     @SneakyThrows
     public void editarNotificacao() {
+        ProcessoNotificacaoDTO proc = criarProcesso();
         when(aplProcessoNotificacao.obter(isA(Long.class))).thenReturn(criarProcesso());
 
-        mockMvc.perform(get(APP_NOTIFICACAO_OBITO + EDITAR + "/22")
+        mockMvc.perform(get(APP_NOTIFICACAO_OBITO + EDITAR + "/" + isA(Long.class))
                 .session(session))
 
                 .andExpect(view().name("form-notificacao-obito"))

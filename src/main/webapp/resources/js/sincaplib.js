@@ -285,8 +285,6 @@ function ajaxGetNovasNotificacoes() {
     });
 }
 
-//ajaxGetNovasNotificacoes();
-
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
     var $control_group_input = $(".control-group > input").addClass("span3 inline-input");

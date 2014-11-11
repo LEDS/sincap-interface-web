@@ -5,16 +5,34 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <br/><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
+    <br/><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal2']}</b></h:outputLabel>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.text.nome']}*"/>
         <h:inputText id="entrevista-responsavel2-nome" styleClass="span8"
                      value="#{processo.entrevista.responsavel2.nome}"/>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['responsavel.text.rg']}*"/>
-        <h:inputText id="entrevista-responsavel2-documentoSocial" styleClass="span8"
-                     value="#{processo.entrevista.responsavel2.documentoSocial}"/>
+        <h:outputLabel value="#{msg['responsavel.text.dataNascimento']}*"/>
+        <h:inputText styleClass="dataNascimento span8" id="entrevista-responsavel2-dataNascimento"
+                     value="#{processo.entrevista.responsavel2.dataNascimento.time}">
+            <f:convertDateTime pattern="dd/MM/yyyy"/>
+        </h:inputText>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.documento']}*"/>
+        <h:inputText id="entrevista-responsavel2-documentoSocial-documento" styleClass="span8"
+                     value="#{processo.entrevista.responsavel2.documentoSocial.documento}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-documentoSocial-tipoDocumentoComFoto"
+                             value="#{processo.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto}">
+                <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
+                <f:selectItems value="#{tipoDocumentos}"/>
+            </h:selectOneMenu>
+        </div>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}*"/>
