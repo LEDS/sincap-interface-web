@@ -49,31 +49,35 @@
 
         <label class ="listas" style="font-weight: bold;">Óbitos com parada cardiorespiratória            <i class="icon-chevron-down"></i></label>
         <div class="secao">
-            <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+            <ui:include src="../components/lista-obitos-com-parada.xhtml"/>
         </div>
 
         <label class ="listas" style="font-weight: bold;">Causa da não efetivação da doação:             <i class="icon-chevron-down"></i></label>
         <ul class = "ul" style ="list-style-type: none;">
             <li>
-                <label class = "sub" style="font-weight: bold;float: left">Relacionadas a entrevista familiar            <i class="icon-chevron-down"></i></label>
-                <div class="secao">
-                    <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+                <div class = "div1" style ="position: relative;float: left;">
+                    <label class = "sub" style="font-weight: bold;">Relacionadas a entrevista familiar            <i class="icon-chevron-down"></i></label>
+                        <div class="secao" >
+                            <ui:include src="../components/lista-entrevista-familiar.xhtml"/>
+                        </div>
                 </div>
             </li>
             <li>
-                <label  class = "sub" style="font-weight: bold;float: left;margin-left: 50px">Motivos médicos            <i class="icon-chevron-down"></i></label>
-                <div class="secao">
-                    <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+                <div class="div2" style="position: relative;float: left;">
+                    <label  class = "sub" style="font-weight: bold;margin-left: 50px;">Motivos médicos            <i class="icon-chevron-down"></i></label>
+                        <div class="secao">
+                            <ui:include src="../components/lista-motivos-medicos.xhtml"/>
+                        </div>
                 </div>
             </li>
             <li>
-                <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+                <ui:include src="../components/lista-causa-nao-efetivacao.xhtml"/>
             </li>
         </ul>
 
         <label class ="listas" style="font-weight: bold;">Atividades de educação e divulgação            <i class="icon-chevron-down"></i></label>
         <div class="secao">
-            <ui:include src="../components/lista-faixa-etaria.xhtml"/>
+            <ui:include src="../components/lista-atividade-educacao-divulgacao.xhtml"/>
         </div>
 
         <h:outputScript library="js" name="atividade-mensal.js"/>

@@ -7,21 +7,30 @@
 
                 <!-- Tabela de Notificações -->
                 <h:dataTable id="tabela" value="#{listaTotaldi}" var="total" rows="#{quantidade}"
-                             styleClass="table table-hover table-striped" style="width: 420px;">
+                             styleClass="table table-hover table-striped" style="width: 620px;">
 
-                    <!-- Faixa Etária-->
+                    <!-- Atividade-->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="         " />
+                            <h:outputText value="Atividade" />
                         </f:facet>
 
                         <h:outputText value="#{total.nomeInstituicao}" />
                     </h:column>
 
-                    <!-- Quantidade de doação -->
+                    <!-- Quantidade-->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="PCR" />
+                            <h:outputText value="Quantidade" />
+                        </f:facet>
+
+                        <h:outputText value="#{total.numeroNotificacao}" />
+                    </h:column>
+
+                    <!-- Data -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Data" />
                         </f:facet>
 
                         <h:outputText value="#{total.numeroNotificacao}" />
