@@ -190,33 +190,29 @@ public class RelatoriosController {
     public String ExibirRelatorioRecusa(ModelMap model, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
 
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        List<QualificacaoRecusaFamiliar> listqrf = new ArrayList<>();
+        List<Long> inlong = aplInstituicaoNotificadora.obter();
         List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
 
         model.addAttribute("dataInicial", dataInicial);
         model.addAttribute("dataFinal", dataFinal);
 
+        model.addAttribute("dataInicial",dataInicial);
+        model.addAttribute("dataFinal",dataFinal);
 
-        model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(in, listInstituicaoSelected));
+        if (lh.get(0) == -1) {
+            List<QualificacaoRecusaFamiliar> listqrf = aplRelatorio.relatorioQualificacaoRecusa(dataInicial,dataFinal,inlong);
+            model.addAttribute("listaTotalrf", listqrf);
+        } else {
+            List<QualificacaoRecusaFamiliar> listqrf = aplRelatorio.relatorioQualificacaoRecusa(dataInicial,dataFinal,lh);
+            model.addAttribute("listaTotalrf", listqrf);
+          }
 
 
-//        if (lh.get(0) == -1) {
-//            for (InstituicaoNotificadora i : in) {
-//                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
-//                listtdi.add(tdi);
-//            }
-//        } else {
-//            for (Long i : lh) {
-//                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i, dataInicial, dataFinal);
-//                listtdi.add(tdi);
-//            }
-//        }
+        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
 
         model.addAttribute("listInstituicao", in);
-        model.addAttribute("listaTotalrf", listqrf);
 
 
-        //TODO: Substituir pelo endereco do formulario!
         return "qualificacao-recusa-familiar";
     }
 
