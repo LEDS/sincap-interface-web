@@ -27,7 +27,7 @@
             <h:panelGrid columns="7">
                 <h:outputLabel id="dat" for="datMes" value="Mês:" />
                 <h:outputLabel value=" "/>
-                <h:inputText type = "date" id="datMes" name="datMes" value="#{datMes.time}">
+                <h:inputText type="date" id="datMes" name="datMes" value="#{datMes.time}">
                     <f:convertDateTime pattern="MM/yyyy"/>
                 </h:inputText>
             </h:panelGrid>
@@ -41,11 +41,9 @@
                 <h:panelGroup layout="block" styleClass="field-box">
                     <div class="span5">
                         <select name="hospitais" style="width:350px" dropzone="dropzone" class="select2">
-                            <option>
-                                <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao">
-                                    <option selected="#{listInstituicaoSelected[instituicao.id]?'selected':''}" value="#{instituicao.id}">#{instituicao.nome}</option>
-                                </ui:repeat>
-                            </option>
+                            <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" autocomplete="on">
+                                <option value="#{instituicao.id}">#{instituicao.nome}</option>
+                            </ui:repeat>
                         </select>
                     </div>
                 </h:panelGroup>
