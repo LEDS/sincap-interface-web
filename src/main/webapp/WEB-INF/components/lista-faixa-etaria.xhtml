@@ -6,27 +6,55 @@
             <h:panelGroup styleClass="row-fluid form-wrapper">
 
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="tabela" value="#{listaTotaldi}" var="total" rows="#{quantidade}"
+                <h:dataTable id="tabela" value="#{listaFaixa}" var="faixa" rows="#{quantidade}"
                              styleClass="table table-hover table-striped" style="width: 420px;">
 
-                    <!-- Faixa Etária-->
+                    <!-- Faixa Etária -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="         " />
+                            <br />
+                            <h:outputText value="Faixa Etária" />
                         </f:facet>
-
-                        <h:outputText value="#{total.nomeInstituicao}" />
+                        <h:outputText value="#{faixa.faixa}" />
                     </h:column>
 
-                    <!-- Quantidade de doação -->
+                    <!-- nº -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="PCR" />
+                            <h:outputText value="PCR"  />
+                            <br />
+                            <h:outputText value="Nº" />
                         </f:facet>
-
-                        <h:outputText value="#{total.numeroNotificacao}" />
+                        <h:outputText value="#{faixa.totalPCR}" />
                     </h:column>
 
+                    <!-- % -->
+                    <h:column>
+                        <f:facet name="header">
+                            <br />
+                            <h:outputText value="%" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.percentualPCR}" />
+                    </h:column>
+
+                    <!-- nº -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ME"  />
+                            <br />
+                            <h:outputText value="Nº" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.totalME}" />
+                    </h:column>
+
+                    <!-- % -->
+                    <h:column>
+                        <f:facet name="header">
+                            <br />
+                            <h:outputText value="%" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.percentualME}" />
+                    </h:column>
                 </h:dataTable>
 
             </h:panelGroup>

@@ -9,12 +9,14 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.FaixaEtaria;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.QualificacaoRecusaFamiliar;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalNaoDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -240,7 +242,35 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.GET)
-    public String carregarRelatorioAtividadeMensal() {
+    public String carregarRelatorioAtividadeMensal(ModelMap model) {
+        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        model.addAttribute("listInstituicao", in);
+        return "rel-atividade-mensal";
+    }
+
+    @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.POST)
+    public String ExibirRelatorioAtividadeMensal(ModelMap model, @DateTimeFormat(pattern = "MM/yyyy") @RequestParam("datMes") Calendar dataMes, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh) {
+
+        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
+        Calendar dataInicial = Calendar.getInstance();
+        Calendar dataFinal = Calendar.getInstance();
+
+
+        dataInicial.set(Calendar.DAY_OF_MONTH, 1);
+
+        dataFinal.add(Calendar.MONTH, 1);
+        dataFinal.set(Calendar.DAY_OF_MONTH, 1);
+        dataFinal.add(Calendar.DAY_OF_MONTH, -1);
+
+        List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(lh.get(0),dataInicial,dataFinal);
+
+        model.addAttribute("listaFaixa",listaFaixa);
+
+        model.addAttribute("datMes", dataMes);
+        model.addAttribute("listInstituicao", in);
+        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
+
         return "rel-atividade-mensal";
     }
 }

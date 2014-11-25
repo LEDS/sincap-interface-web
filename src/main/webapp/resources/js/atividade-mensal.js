@@ -15,6 +15,9 @@ $(document).ready(function () {
     });
 });
 
+$(".select2").select2({
+    placeholder: "Escolha as Instituições"
+});
 
 $("#rel-atividade-mensal").validate({
     rules: {
