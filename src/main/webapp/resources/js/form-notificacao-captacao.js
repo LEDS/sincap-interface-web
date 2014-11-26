@@ -41,5 +41,19 @@ $("#processoCaptacao").validate({
         'horarioCaptacao': {
             required: true
         }
+    },
+    messages: {
+        'captacaoRealizada': {
+            required: "Por favor, confirme se a captação foi realizada ou não"
+        },
+        'causaNaoDoacao': {
+            required: "Por favor, selecione o problema logístico"
+        },
+        'dataCaptacao': {
+            required: "Por favor, informe a a data da captação"
+        },
+        'horarioCaptacao': {
+            required: "Por favor, informe o horário da captação"
+        }
     }
 });
