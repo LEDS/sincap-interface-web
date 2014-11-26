@@ -159,6 +159,17 @@ public class UtilityWeb {
         return tiposNaoDoacao;
     }
 
+    public List<SelectItem> getEscolaridadeSelectItem() {
+        List<SelectItem> escolaridadeSelectItem = new ArrayList<>();
+
+        for (Escolaridade escolaridade : Escolaridade.values()) {
+            escolaridadeSelectItem
+                    .add(new SelectItem(escolaridade, escolaridade.name()));
+        }
+
+        return escolaridadeSelectItem;
+    }
+
     public void getBancoOlhos(ModelMap model, AplBancoOlhos aplBancoOlhos) {
 
         List<BancoOlhos> listaBancoOlhos;

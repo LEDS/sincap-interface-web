@@ -68,6 +68,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+            model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
 
         } catch (Exception ignored) {
 
@@ -93,6 +94,7 @@ public class NotificacaoEntrevistaController {
 
             model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
 
+            model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
         } catch (Exception ignored) {
 
         }
@@ -132,6 +134,7 @@ public class NotificacaoEntrevistaController {
             utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
             utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+            model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
 
             return "form-entrevista";
         }
@@ -174,6 +177,7 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("doacaoAutorizada", processo.getEntrevista().isDoacaoAutorizada());
 
         model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
+        model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
 
         return "form-entrevista";
     }
@@ -206,6 +210,7 @@ public class NotificacaoEntrevistaController {
 
         return listaCausasSelIt;
     }
+
 
     /**
      * Fornece a página para análise.
