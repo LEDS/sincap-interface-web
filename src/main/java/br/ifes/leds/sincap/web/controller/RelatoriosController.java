@@ -10,6 +10,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.QualificacaoRecusaFamiliar;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.RelEntrevistaFamiliar;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalNaoDoacaoInstituicao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
@@ -229,4 +230,42 @@ public class RelatoriosController {
         //TODO: Substituir pelo endereco do formulario!
         return "total-nao-doacao-instituicao";
     }
+//Relatorio CIHDOTT
+  /*  @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.POST)
+    public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal)
+    {
+
+        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        RelEntrevistaFamiliar relEntrevista = new RelEntrevistaFamiliar();
+        RelEntrevistaFamiliar tdi = new RelEntrevistaFamiliar();
+        relEntrevista.setDesconhecimento(0);
+        relEntrevista.setPotencial(0);
+        relEntrevista.setFamiliares(0);
+        relEntrevista.setFamiliaresCorpo(0);
+        relEntrevista.setNaoEntendimento(0);
+        relEntrevista.setFamiliaresDescontentes(0);
+        relEntrevista.setReceio(0);
+        relEntrevista.setReligiao(0);
+        relEntrevista.setOutros(0);
+
+        for (InstituicaoNotificadora i : in) {
+            RelEntrevistaFamiliar tdi = aplRelatorio.relatorioTotalEntrevistaFamiliar(i.getId(), dataInicial, dataFinal);
+
+            relEntrevista.setDesconhecimento(relEntrevista.getDesconhecimento() + tdi.getDesconhecimento());
+            relEntrevista.setPotencial(relEntrevista.getPotencial() + tdi.getPotencial());
+            relEntrevista.setFamiliares(relEntrevista.getFamiliares() + tdi.getFamiliares());
+            relEntrevista.setFamiliaresCorpo(relEntrevista.getFamiliaresCorpo() + tdi.getFamiliaresCorpo());
+            relEntrevista.setNaoEntendimento(relEntrevista.getNaoEntendimento() + tdi.getNaoEntendimento());
+            relEntrevista.setFamiliaresDescontentes(relEntrevista.getFamiliaresDescontentes() + tdi.getFamiliaresDescontentes());
+            relEntrevista.setReceio(relEntrevista.getReceio() + tdi.getReceio());
+            relEntrevista.setReligiao(relEntrevista.getReligiao() + tdi.getReligiao());
+            relEntrevista.setOutros(relEntrevista.getOutros() + tdi.getOutros());
+
+        }
+
+        model.addAttribute("listaTotaldi", listIns);
+
+        //TODO: Substituir pelo endereco do formulario!
+        return "total-nao-doacao-instituicao";
+    }*/
 }
