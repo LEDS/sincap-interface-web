@@ -240,6 +240,12 @@ public class RelatoriosController {
         return "total-nao-doacao-instituicao";
     }
 //Relatorio CIHDOTT
+
+    @RequestMapping(value = ContextUrls.RLT_FORM_REL_CIHDOTT_NAO_DOACAO, method = RequestMethod.GET)
+    public String carregarRelatorioMensalCIHDOTT()
+    {
+        return "form-rel-cihdott-nao-doacao";
+    }
   /*  @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.POST)
     public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal)
     {
