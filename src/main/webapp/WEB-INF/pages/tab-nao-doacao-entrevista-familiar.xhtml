@@ -5,28 +5,42 @@
 
     <h:panelGroup layout="block" styleClass="row-fluid">
         <h:panelGroup layout="block" styleClass="span12">
-            <h:panelGroup styleClass="row-fluid form-wrapper">
-
+            <h:panelGroup styleClass="row-fluid pad-wrapper datatables-page">
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="tabela" value="#{objt}" var="lista" rows="#{quantidade}"
+                <h:dataTable id="tabela" value="#{obj}" var="lista" rows="#{quantidade}"
                              styleClass="table table-hover table-striped">
                     <!-- Instituição -->
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Relacionados à Recusa Familiar"/>
                         </f:facet>
-
-                        <h:outputText value="Desconhecimento do desejo do potencial doador"/>
-                        <h:outputText value="Potencial doador contrario à doação em vida"/>
-                        <h:outputText value="Familiares Indecisos"/>
-                        <h:outputText value="Familiares desejam o corpo integro"/>
-                        <h:outputText value="Não entendimento do diagnostico de morte encefálica"/>
-                        <h:outputText value="Familiares descontentes com o atendimento"/>
-                        <h:outputText value="Receio de demora na liberação do corpo"/>
-                        <h:outputText value="Convicção Religiosa"/>
-                        <h:outputText value="Outros"/>
-
-
+                        <tr>
+                            <td>Desconhecimento do desejo do potencial doador</td>
+                        </tr>
+                        <tr>
+                            <td>Potencial doador contrario à doação em vida</td>
+                        </tr>
+                        <tr>
+                            <td>Familiares Indecisos</td>
+                        </tr>
+                        <tr>
+                            <td>Familiares desejam o corpo integro</td>
+                        </tr>
+                        <tr>
+                            <td>Não entendimento do diagnostico de morte encefálica</td>
+                        </tr>
+                        <tr>
+                            <td>Familiares descontentes com o atendimento</td>
+                        </tr>
+                        <tr>
+                            <td>Receio de demora na liberação do corpo</td>
+                        </tr>
+                        <tr>
+                            <td>Convicção Religiosa</td>
+                        </tr>
+                        <tr>
+                            <td>Outros</td>
+                        </tr>
                     </h:column>
 
 
@@ -35,17 +49,33 @@
                         <f:facet name="header">
                             <h:outputText value="Quantidade"/>
                         </f:facet>
-
-                        <h:outputText value="#{objt.desconhecimento}"/>
-                        <h:outputText value="#{objt.potencial}"/>
-                        <h:outputText value="#{objt.familiares}"/>
-                        <h:outputText value="#{objt.familiaresCorpo}"/>
-                        <h:outputText value="#{objt.naoEntendimento}"/>
-                        <h:outputText value="#{objt.familiaresDescontentes}"/>
-                        <h:outputText value="#{objt.receio}"/>
-                        <h:outputText value="#{objt.religiao}"/>
-                        <h:outputText value="#{objt.outros}"/>
-
+                        <tr>
+                            <td>#{obj.desconhecimento}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.potencial}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.familiares}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.familiaresCorpo}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.naoEntendimento}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.familiaresDescontentes}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.receio}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.religiao}</td>
+                        </tr>
+                        <tr>
+                            <td>#{obj.outros}</td>
+                        </tr>
                     </h:column>
 
                 </h:dataTable>
