@@ -268,6 +268,9 @@ public class RelatoriosController {
         List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(lh.get(0),dataInicial,dataFinal);
         model.addAttribute("liObito",liObito);
 
+        List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(lh.get(0),dataInicial,dataFinal);
+        model.addAttribute("listaObitosME",listaObitosME);
+
         model.addAttribute("datMes", dataMes);
         model.addAttribute("listInstituicao", in);
         model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
