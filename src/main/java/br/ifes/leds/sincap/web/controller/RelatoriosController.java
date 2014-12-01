@@ -9,10 +9,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.FaixaEtaria;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.QualificacaoRecusaFamiliar;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalNaoDoacaoInstituicao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.*;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
@@ -256,6 +253,8 @@ public class RelatoriosController {
         Calendar dataInicial = Calendar.getInstance();
         Calendar dataFinal = Calendar.getInstance();
 
+        dataInicial.set(dataMes.get(Calendar.YEAR),dataMes.get(Calendar.MONTH),dataMes.get(Calendar.DAY_OF_MONTH));
+        dataFinal.set(dataMes.get(Calendar.YEAR),dataMes.get(Calendar.MONTH),dataMes.get(Calendar.DAY_OF_MONTH));
 
         dataInicial.set(Calendar.DAY_OF_MONTH, 1);
 
@@ -264,8 +263,10 @@ public class RelatoriosController {
         dataFinal.add(Calendar.DAY_OF_MONTH, -1);
 
         List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(lh.get(0),dataInicial,dataFinal);
-
         model.addAttribute("listaFaixa",listaFaixa);
+
+        List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(lh.get(0),dataInicial,dataFinal);
+        model.addAttribute("liObito",liObito);
 
         model.addAttribute("datMes", dataMes);
         model.addAttribute("listInstituicao", in);
