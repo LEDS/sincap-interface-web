@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+
+                <!-- Tabela de Notificações -->
+                <h:dataTable id="tabela" value="#{listaObitosME}" var="obito" rows="#{quantidade}"
+                             styleClass="table table-hover table-striped" style="width: 420px;">
+
+                    <!-- Turno -->
+                    <h:column>
+                        <f:facet name="header">
+                            <br />
+                            <h:outputText value="Turno" />
+                        </f:facet>
+                        <h:outputText value="#{obito.turno}" />
+                    </h:column>
+
+                    <!-- nº -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Nº" />
+                        </f:facet>
+                        <h:outputText value="#{obito.numero}" />
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+</ui:composition>
