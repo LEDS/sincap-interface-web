@@ -38,7 +38,6 @@ public class ContextUrls {
     public static final String RLT_TOTAL_DOACAO_INSTITUICAO = "/total-doacao-instituicao";
     public static final String RLT_QUALIFICACAO_RECUSA_FAMILIAR = "/qualificacao-recusa-familiar";
     public static final String RLT_TOTAL_NAO_DOACAO_INSTITUICAO = "/total-nao-doacao-instituicao";
-    public static final String RLT_ATIVIDADE_MENSAL = "/atividade-mensal";
     public static final String APP_NOTIFICACAO_CAPTACAO = "/captacao";
     public static final String APP_NOTIFICACAO_OBITO = "/obito";
     public static final String APP_NOTIFICACAO_ENTREVISTA = "/entrevista";
@@ -72,6 +71,7 @@ public class ContextUrls {
     public static final String GET_SETORES = "/getSetores";
     public static final String GET_CONTRA_INDICACAO = "/getContraIndicacoesMedicas";
     public static final String GET_NOTIFICAR_INTERESSADOS = "/getNotificarInteressados";
+    public static final String RLT_ATIVIDADE_MENSAL = "/atividade-mensal";
 
     /**
      * Subsistemas
