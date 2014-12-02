@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGroup layout="block" styleClass="row-fluid">
+        <h:panelGroup layout="block" styleClass="span12">
+            <h:panelGroup styleClass="row-fluid form-wrapper">
+
+                <!-- Tabela de Notificações -->
+                <h:dataTable id="tabela" value="#{listaFaixa}" var="faixa" rows="#{quantidade}"
+                             styleClass="table table-hover table-striped" style="width: 420px;">
+
+                    <!-- Faixa Etária -->
+                    <h:column>
+                        <f:facet name="header">
+                            <br />
+                            <h:outputText value="Faixa Etária" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.faixa}" />
+                    </h:column>
+
+                    <!-- nº -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="PCR"  />
+                            <br />
+                            <h:outputText value="Nº" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.totalPCR}" />
+                    </h:column>
+
+                    <!-- % -->
+                    <h:column>
+                        <f:facet name="header">
+                            <br />
+                            <h:outputText value="%" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.percentualPCR}" />
+                    </h:column>
+
+                    <!-- nº -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ME"  />
+                            <br />
+                            <h:outputText value="Nº" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.totalME}" />
+                    </h:column>
+
+                    <!-- % -->
+                    <h:column>
+                        <f:facet name="header">
+                            <br />
+                            <h:outputText value="%" />
+                        </f:facet>
+                        <h:outputText value="#{faixa.percentualME}" />
+                    </h:column>
+                </h:dataTable>
+
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:panelGroup>
+
+</ui:composition>
