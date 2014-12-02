@@ -32,22 +32,6 @@
                 </h:inputText>
             </h:panelGrid>
 
-            <br></br><br></br>
-
-            <h:panelGrid columns="2">
-
-                <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
-
-                <h:panelGroup layout="block" styleClass="field-box">
-                    <div class="span5">
-                        <select name="hospitais" style="width:350px" dropzone="dropzone" class="select2">
-                            <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao" autocomplete="on">
-                                <option selected="#{listInstituicaoSelected[instituicao.id]?'selected':''}" value="#{instituicao.id}">#{instituicao.nome}</option>
-                            </ui:repeat>
-                        </select>
-                    </div>
-                </h:panelGroup>
-            </h:panelGrid>
 
             <button type="submit" class="btn-glow success btn-finish">
                 Enviar

@@ -84,8 +84,8 @@ public class RelatoriosController {
         String hospitalNome = h.getNome();
         String hospitalCidade = h.getEndereco().getCidade().getNome();
 
-        String dataEntrevista = utility.calendarDataToString(pn.getEntrevista().getDataEntrevista());
-        String horaEntrevista = utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
+        String dataEntrevista =utility.calendarDataToString(pn.getEntrevista().getDataEntrevista());
+        String horaEntrevista=utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
 
         //String dataNascimentoResponsavel = utility.calendarDataToString(pn.getEntrevista().getResponsavel().getDataNascimento());
         String cidadeResponsavel = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel().getEndereco().getCidade()).getNome();
@@ -98,27 +98,27 @@ public class RelatoriosController {
             String estadoResponsavel2 = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel2().getEndereco().getEstado()).getNome();
             String dataNascimentoResponavel2 = utility.calendarDataToString(pn.getEntrevista().getResponsavel2().getDataNascimento());
 
-            Integer idadeResponsavel2 = utility.calculaIdade(pn.getEntrevista().getResponsavel2().getDataNascimento(), Calendar.getInstance());
+            Integer idadeResponsavel2=utility.calculaIdade(pn.getEntrevista().getResponsavel2().getDataNascimento(),Calendar.getInstance());
 
             model.addAttribute("bairroResponsavel2", bairroResponsavel2);
             model.addAttribute("estadoResponsavel2", estadoResponsavel2);
             model.addAttribute("cidadeResponsavel2", cidadeResponsavel2);
-            model.addAttribute("dataNascimentoResponavel2", dataNascimentoResponavel2);
-            model.addAttribute("idadeResponsavel2", idadeResponsavel2);
+            model.addAttribute("dataNascimentoResponavel2",dataNascimentoResponavel2);
+            model.addAttribute("idadeResponsavel2",idadeResponsavel2);
         }
         String nomeFuncinario = aplFuncionario.obter(pn.getEntrevista().getFuncionario()).getNome();
 
         int idadePaciente = utility.calculaIdade(pn.getObito().getPaciente().getDataNascimento(), pn.getObito().getDataObito());
-        Integer idadeResponsavel = utility.calculaIdade(pn.getEntrevista().getResponsavel().getDataNascimento(), Calendar.getInstance());
+        Integer idadeResponsavel = utility.calculaIdade(pn.getEntrevista().getResponsavel().getDataNascimento(),Calendar.getInstance());
 
         model.addAttribute("nomeFuncionario", nomeFuncinario);
         model.addAttribute("bairroResponsavel", bairroResponsavel);
         model.addAttribute("estadoResponsavel", estadoResponsavel);
         model.addAttribute("cidadeResponsavel", cidadeResponsavel);
         //model.addAttribute("dataNascimentoResponsavel", dataNascimentoResponsavel);
-        model.addAttribute("idadeResponsavel", idadeResponsavel);
-        model.addAttribute("dataEntrevista", dataEntrevista);
-        model.addAttribute("horaEntrevista", horaEntrevista);
+        model.addAttribute("idadeResponsavel",idadeResponsavel);
+        model.addAttribute("dataEntrevista",dataEntrevista);
+        model.addAttribute("horaEntrevista",horaEntrevista);
         model.addAttribute("hospitalNome", hospitalNome);
         model.addAttribute("hospitalCidade", hospitalCidade);
         model.addAttribute("cidadePaciente", cidadePaciente);
@@ -197,19 +197,19 @@ public class RelatoriosController {
         model.addAttribute("dataInicial", dataInicial);
         model.addAttribute("dataFinal", dataFinal);
 
-        model.addAttribute("dataInicial", dataInicial);
-        model.addAttribute("dataFinal", dataFinal);
+        model.addAttribute("dataInicial",dataInicial);
+        model.addAttribute("dataFinal",dataFinal);
 
         if (lh.get(0) == -1) {
-            List<QualificacaoRecusaFamiliar> listqrf = aplRelatorio.relatorioQualificacaoRecusa(dataInicial, dataFinal, inlong);
+            List<QualificacaoRecusaFamiliar> listqrf = aplRelatorio.relatorioQualificacaoRecusa(dataInicial,dataFinal,inlong);
             model.addAttribute("listaTotalrf", listqrf);
         } else {
-            List<QualificacaoRecusaFamiliar> listqrf = aplRelatorio.relatorioQualificacaoRecusa(dataInicial, dataFinal, lh);
+            List<QualificacaoRecusaFamiliar> listqrf = aplRelatorio.relatorioQualificacaoRecusa(dataInicial,dataFinal,lh);
             model.addAttribute("listaTotalrf", listqrf);
-        }
+          }
 
 
-        model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(in, listInstituicaoSelected));
+        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
 
         model.addAttribute("listInstituicao", in);
 
@@ -248,15 +248,14 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.POST)
-    public String ExibirRelatorioAtividadeMensal(ModelMap model, @DateTimeFormat(pattern = "MM/yyyy") @RequestParam("datMes") Calendar dataMes, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh) {
+    public String ExibirRelatorioAtividadeMensal(ModelMap model,HttpSession sessao, @DateTimeFormat(pattern = "MM/yyyy") @RequestParam("datMes") Calendar dataMes) {
 
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
+        UsuarioSessao usuario = (UsuarioSessao)sessao.getAttribute("user");
         Calendar dataInicial = Calendar.getInstance();
         Calendar dataFinal = Calendar.getInstance();
 
-        dataInicial.set(dataMes.get(Calendar.YEAR), dataMes.get(Calendar.MONTH), dataMes.get(Calendar.DAY_OF_MONTH));
-        dataFinal.set(dataMes.get(Calendar.YEAR), dataMes.get(Calendar.MONTH), dataMes.get(Calendar.DAY_OF_MONTH));
+        dataInicial.set(dataMes.get(Calendar.YEAR),dataMes.get(Calendar.MONTH),dataMes.get(Calendar.DAY_OF_MONTH));
+        dataFinal.set(dataMes.get(Calendar.YEAR),dataMes.get(Calendar.MONTH),dataMes.get(Calendar.DAY_OF_MONTH));
 
         dataInicial.set(Calendar.DAY_OF_MONTH, 1);
 
@@ -264,14 +263,14 @@ public class RelatoriosController {
         dataFinal.set(Calendar.DAY_OF_MONTH, 1);
         dataFinal.add(Calendar.DAY_OF_MONTH, -1);
 
-        List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(lh.get(0), dataInicial, dataFinal);
-        model.addAttribute("listaFaixa", listaFaixa);
+        List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(usuario.getIdHospital(),dataInicial,dataFinal);
+        model.addAttribute("listaFaixa",listaFaixa);
 
-        List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(lh.get(0), dataInicial, dataFinal);
-        model.addAttribute("liObito", liObito);
+        List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(usuario.getIdHospital(),dataInicial,dataFinal);
+        model.addAttribute("liObito",liObito);
 
-        List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(lh.get(0), dataInicial, dataFinal);
-        model.addAttribute("listaObitosME", listaObitosME);
+        List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(usuario.getIdHospital(),dataInicial,dataFinal);
+        model.addAttribute("listaObitosME",listaObitosME);
 
         List<NaoDoacaoCIHDOTT> naoDoacao = aplRelatorio.naoDoacaoMensalFamiliar(lh.get(0),dataInicial,dataFinal);
         model.addAttribute("listaNaoDoacaoFamiliar",naoDoacao);
@@ -280,10 +279,8 @@ public class RelatoriosController {
 
         model.addAttribute("datMes", dataMes);
         model.addAttribute("listInstituicao", in);
-        model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(in, listInstituicaoSelected));
+        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
 
         return "rel-atividade-mensal";
     }
-
-
 }

@@ -6,7 +6,7 @@
             <h:panelGroup styleClass="row-fluid form-wrapper">
 
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="tabela" value="#{listaTotaldi}" var="total" rows="#{quantidade}"
+                <h:dataTable id="tabela" value="#{listaProblemaEstrutural}" var="total" rows="#{quantidade}"
                              styleClass="table table-hover table-striped" style="width: 420px;">
 
                     <!-- Causa-->
@@ -15,7 +15,7 @@
                             <h:outputText value="Causa" />
                         </f:facet>
 
-                        <h:outputText value="#{total.nomeInstituicao}" />
+                        <h:outputText value="#{total.motivo}" />
                     </h:column>
 
                     <!-- Numero-->
@@ -24,16 +24,7 @@
                             <h:outputText value="Nº" />
                         </f:facet>
 
-                        <h:outputText value="#{total.numeroNotificacao}" />
-                    </h:column>
-
-                    <!-- Porcentagem -->
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="%" />
-                        </f:facet>
-
-                        <h:outputText value="#{total.numeroNotificacao}" />
+                        <h:outputText value="#{total.quant}" />
                     </h:column>
 
                 </h:dataTable>
