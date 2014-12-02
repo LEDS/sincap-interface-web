@@ -60,12 +60,15 @@
                     <input id="password" name="password" class="span12" type="password" placeholder="Senha"
                            title="#{msg['login.text.senha']}"/>
 
+                    <div id="select-hospitais">
                     <h:outputLabel value="Hospital"/>
 
-                    <div class="ui-select">
+                    <div class="ui-select" id="hospitais">
                         <h:selectOneMenu id="hospital" value="#{usuario.hospital}"
                                          title="#{msg['login.text.hospital']}">
+
                         </h:selectOneMenu>
+                    </div>
                     </div>
 
                     <br/><br/>
@@ -131,7 +134,11 @@
             }
         });
     </script>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#select-hospitais').hide();
+        });
+    </script>
 </h:body>
 
 </html>
