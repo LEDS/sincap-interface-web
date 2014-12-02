@@ -1,8 +1,6 @@
 $(document).ready(function () {
     $('#datMes').inputmask("mm/yyyy", {placeholder: "_"});
 
-    $('.secao').hide();
-    $('.ul').hide();
 
     $('.listas').click(function () {
         $(this).toggleClass("open");
