@@ -9,12 +9,10 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.QualificacaoRecusaFamiliar;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.RelEntrevistaFamiliar;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalDoacaoInstituicao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.TotalNaoDoacaoInstituicao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.*;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
+import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +38,8 @@ public class RelatoriosController {
     AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     AplInstituicaoNotificadora aplInstituicaoNotificadora;
+    @Autowired
+    AplRelatorio aplRel;
     @Autowired
     Utility utility;
     @Autowired
@@ -246,41 +247,32 @@ public class RelatoriosController {
     {
         return "form-rel-cihdott-nao-doacao";
     }
-  /*  @RequestMapping(value = ContextUrls.RLT_TOTAL_NAO_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorioNaoDoacao(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal)
+
+    @RequestMapping(value = ContextUrls.RLT_FORM_REL_CIHDOTT_NAO_DOACAO, method = RequestMethod.POST)
+
+    public String ExibirRelatorioMensalCIHDOTT(ModelMap model, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal, HttpSession sessao)
     {
 
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
+        UsuarioSessao usuario = (UsuarioSessao)sessao.getAttribute("user");
+
         RelEntrevistaFamiliar relEntrevista = new RelEntrevistaFamiliar();
-        RelEntrevistaFamiliar tdi = new RelEntrevistaFamiliar();
-        relEntrevista.setDesconhecimento(0);
-        relEntrevista.setPotencial(0);
-        relEntrevista.setFamiliares(0);
-        relEntrevista.setFamiliaresCorpo(0);
-        relEntrevista.setNaoEntendimento(0);
-        relEntrevista.setFamiliaresDescontentes(0);
-        relEntrevista.setReceio(0);
-        relEntrevista.setReligiao(0);
-        relEntrevista.setOutros(0);
+        RelLogisticoEstrutural relEstrutural = new RelLogisticoEstrutural();
+        RelMotivosMedicos relMedicos = new RelMotivosMedicos();
 
-        for (InstituicaoNotificadora i : in) {
-            RelEntrevistaFamiliar tdi = aplRelatorio.relatorioTotalEntrevistaFamiliar(i.getId(), dataInicial, dataFinal);
+        relEntrevista.fazZerar();
+        relEstrutural.fazZerar();
+        relMedicos.fazZerar();
 
-            relEntrevista.setDesconhecimento(relEntrevista.getDesconhecimento() + tdi.getDesconhecimento());
-            relEntrevista.setPotencial(relEntrevista.getPotencial() + tdi.getPotencial());
-            relEntrevista.setFamiliares(relEntrevista.getFamiliares() + tdi.getFamiliares());
-            relEntrevista.setFamiliaresCorpo(relEntrevista.getFamiliaresCorpo() + tdi.getFamiliaresCorpo());
-            relEntrevista.setNaoEntendimento(relEntrevista.getNaoEntendimento() + tdi.getNaoEntendimento());
-            relEntrevista.setFamiliaresDescontentes(relEntrevista.getFamiliaresDescontentes() + tdi.getFamiliaresDescontentes());
-            relEntrevista.setReceio(relEntrevista.getReceio() + tdi.getReceio());
-            relEntrevista.setReligiao(relEntrevista.getReligiao() + tdi.getReligiao());
-            relEntrevista.setOutros(relEntrevista.getOutros() + tdi.getOutros());
 
-        }
 
-        model.addAttribute("listaTotaldi", listIns);
+        System.out.println(usuario.getIdHospital());
+
+        relEntrevista = aplRel.relatorioTotalEntrevistaFamiliar(usuario.getIdHospital(),dataFinal,dataInicial);
+
+
+        model.addAttribute("obj", relEntrevista);
 
         //TODO: Substituir pelo endereco do formulario!
-        return "total-nao-doacao-instituicao";
-    }*/
+        return "form-rel-cihdott-nao-doacao";
+    }
 }

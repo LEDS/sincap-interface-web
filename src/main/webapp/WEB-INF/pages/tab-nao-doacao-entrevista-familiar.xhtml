@@ -7,78 +7,138 @@
         <h:panelGroup layout="block" styleClass="span12">
             <h:panelGroup styleClass="row-fluid pad-wrapper datatables-page">
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="tabela" value="#{obj}" var="lista" rows="#{quantidade}"
-                             styleClass="table table-hover table-striped">
-                    <!-- Instituição -->
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Relacionados à Recusa Familiar"/>
-                        </f:facet>
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Relacionados à entrevista familiar</th>
+                            <th scope="col">Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <td>Desconhecimento do desejo do potencial doador</td>
-                        </tr>
-                        <tr>
-                            <td>Potencial doador contrario à doação em vida</td>
-                        </tr>
-                        <tr>
-                            <td>Familiares Indecisos</td>
-                        </tr>
-                        <tr>
-                            <td>Familiares desejam o corpo integro</td>
-                        </tr>
-                        <tr>
-                            <td>Não entendimento do diagnostico de morte encefálica</td>
-                        </tr>
-                        <tr>
-                            <td>Familiares descontentes com o atendimento</td>
-                        </tr>
-                        <tr>
-                            <td>Receio de demora na liberação do corpo</td>
-                        </tr>
-                        <tr>
-                            <td>Convicção Religiosa</td>
-                        </tr>
-                        <tr>
-                            <td>Outros</td>
-                        </tr>
-                    </h:column>
-
-
-                    <!-- Recusa Familiar -->
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Quantidade"/>
-                        </f:facet>
-                        <tr>
                             <td>#{obj.desconhecimento}</td>
                         </tr>
                         <tr>
+                            <td>Potencial doador contrario à doação em vida</td>
                             <td>#{obj.potencial}</td>
                         </tr>
                         <tr>
+                            <td>Familiares Indecisos</td>
                             <td>#{obj.familiares}</td>
                         </tr>
                         <tr>
+                            <td>Familiares desejam o corpo integro</td>
                             <td>#{obj.familiaresCorpo}</td>
                         </tr>
                         <tr>
+                            <td>Não entendimento do diagnostico de morte encefálica</td>
                             <td>#{obj.naoEntendimento}</td>
                         </tr>
                         <tr>
+                            <td>Familiares descontentes com o atendimento</td>
                             <td>#{obj.familiaresDescontentes}</td>
                         </tr>
                         <tr>
+                            <td>Receio de demora na liberação do corpo</td>
                             <td>#{obj.receio}</td>
                         </tr>
                         <tr>
+                            <td>Convicção Religiosa</td>
                             <td>#{obj.religiao}</td>
                         </tr>
                         <tr>
+                            <td>Outros</td>
                             <td>#{obj.outros}</td>
                         </tr>
-                    </h:column>
+                    </tbody>
 
-                </h:dataTable>
+                    <br></br>
+
+                    <thead>
+                     <tr>
+                        <th scope="col">Relacionados a Motivos Medicos</th>
+                        <th scope="col">Quantidade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Desconhecimento Da Causa Base Do Óbito</td>
+                        <td>#{obj.desconhecimento}</td>
+                    </tr>
+                    <tr>
+                        <td>Portador De Neoplasia</td>
+                        <td>#{obj.potencial}</td>
+                    </tr>
+                    <tr>
+                        <td>Sorologia Positiva</td>
+                        <td>#{obj.familiares}</td>
+                    </tr>
+                    <tr>
+                        <td>Fora Da Faixa Etária</td>
+                        <td>#{obj.familiaresCorpo}</td>
+                    </tr>
+                    <tr>
+                        <td>Tempo Máximo Para Retirada Ultrapassado</td>
+                        <td>#{obj.naoEntendimento}</td>
+                    </tr>
+                    <tr>
+                        <td>Sepse</td>
+                        <td>#{obj.familiaresDescontentes}</td>
+                    </tr>
+                    <tr>
+                        <td>Trauma Com Lesão Do Tecido A Ser Doado</td>
+                        <td>#{obj.receio}</td>
+                    </tr>
+                    <tr>
+                        <td>Outras Condições Impeditivas</td>
+                        <td>#{obj.outros}</td>
+                    </tr>
+                    </tbody>
+
+                    <br></br>
+
+                    <thead>
+                    <tr>
+                        <th scope="col">Relacionados A Problemas Logísticos</th>
+                        <th scope="col">Quantidade</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Aspecots Logísticos Ou Estruturais</td>
+                        <td>#{obj.desconhecimento}</td>
+                    </tr>
+                    <tr>
+                        <td>Equipe De Retirada De Ordãos Não Disponível</td>
+                        <td>#{obj.potencial}</td>
+                    </tr>
+                    <tr>
+                        <td>Deficiência Estrutural Da Instituição</td>
+                        <td>#{obj.familiares}</td>
+                    </tr>
+                    <tr>
+                        <td>Incapacidade Diagnóstica De Morte Encefálica Por Carência De Equipamentos</td>
+                        <td>#{obj.familiaresCorpo}</td>
+                    </tr>
+                    <tr>
+                        <td>Familiares Não Localizados</td>
+                        <td>#{obj.naoEntendimento}</td>
+                    </tr>
+                    <tr>
+                        <td>Potencial Doador Sem Identificação</td>
+                        <td>#{obj.familiaresDescontentes}</td>
+                    </tr>
+                    <tr>
+                        <td>Outros</td>
+                        <td>#{obj.receio}</td>
+                    </tr>
+                    </tbody>
+
+
+
+
+                </table>
 
             </h:panelGroup>
         </h:panelGroup>
