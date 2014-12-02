@@ -8,13 +8,13 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.*;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -272,14 +272,17 @@ public class RelatoriosController {
         List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(usuario.getIdHospital(),dataInicial,dataFinal);
         model.addAttribute("listaObitosME",listaObitosME);
 
-        List<NaoDoacaoCIHDOTT> naoDoacao = aplRelatorio.naoDoacaoMensalFamiliar(lh.get(0),dataInicial,dataFinal);
-        model.addAttribute("listaNaoDoacaoFamiliar",naoDoacao);
+        List<NaoDoacaoCIHDOTT> recusaFamiliar = aplRelatorio.naoDoacaoMensal(usuario.getIdHospital(), dataInicial, dataFinal, TipoNaoDoacao.RECUSA_FAMILIAR);
+        model.addAttribute("listaNaoDoacaoFamiliar",recusaFamiliar);
 
+        List<NaoDoacaoCIHDOTT> problemaMedico = aplRelatorio.naoDoacaoMensal(usuario.getIdHospital(), dataInicial, dataFinal, TipoNaoDoacao.CONTRAINDICACAO_MEDICA);
+        model.addAttribute("listaProbMedico",problemaMedico);
+
+        List<NaoDoacaoCIHDOTT> problemaEstrutural = aplRelatorio.naoDoacaoMensal(usuario.getIdHospital(), dataInicial, dataFinal, TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS);
+        model.addAttribute("listaProblemaEstrutural",problemaEstrutural);
 
 
         model.addAttribute("datMes", dataMes);
-        model.addAttribute("listInstituicao", in);
-        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
 
         return "rel-atividade-mensal";
     }
