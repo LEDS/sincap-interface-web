@@ -12,6 +12,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDT
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.*;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
+import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -246,10 +248,9 @@ public class RelatoriosController {
     }
 
     @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.POST)
-    public String ExibirRelatorioAtividadeMensal(ModelMap model, @DateTimeFormat(pattern = "MM/yyyy") @RequestParam("datMes") Calendar dataMes, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh) {
+    public String ExibirRelatorioAtividadeMensal(ModelMap model,HttpSession sessao, @DateTimeFormat(pattern = "MM/yyyy") @RequestParam("datMes") Calendar dataMes) {
 
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
+        UsuarioSessao usuario = (UsuarioSessao)sessao.getAttribute("user");
         Calendar dataInicial = Calendar.getInstance();
         Calendar dataFinal = Calendar.getInstance();
 
@@ -262,18 +263,16 @@ public class RelatoriosController {
         dataFinal.set(Calendar.DAY_OF_MONTH, 1);
         dataFinal.add(Calendar.DAY_OF_MONTH, -1);
 
-        List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(lh.get(0),dataInicial,dataFinal);
+        List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(usuario.getIdHospital(),dataInicial,dataFinal);
         model.addAttribute("listaFaixa",listaFaixa);
 
-        List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(lh.get(0),dataInicial,dataFinal);
+        List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(usuario.getIdHospital(),dataInicial,dataFinal);
         model.addAttribute("liObito",liObito);
 
-        List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(lh.get(0),dataInicial,dataFinal);
+        List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(usuario.getIdHospital(),dataInicial,dataFinal);
         model.addAttribute("listaObitosME",listaObitosME);
 
         model.addAttribute("datMes", dataMes);
-        model.addAttribute("listInstituicao", in);
-        model.addAttribute("listInstituicaoSelected",utilityWeb.getLongBooleanMap(in,listInstituicaoSelected));
 
         return "rel-atividade-mensal";
     }
