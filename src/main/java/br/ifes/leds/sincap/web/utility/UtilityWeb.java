@@ -137,6 +137,23 @@ public class UtilityWeb {
         return tipos;
     }
 
+    public List<SelectItem> getTipoObitoSelectItem() {
+        List<SelectItem> tipos = new ArrayList<>();
+
+        for (TipoObito tipo : TipoObito.values()) {
+            tipos
+                    .add(new SelectItem(tipo, tipo.name()));
+        }
+
+        return tipos;
+    }
+
+    public void preencherTipoObito(ModelMap model) {
+        model.addAttribute("tiposObito", this.getTipoObitoSelectItem());
+    }
+
+
+
     public List<SelectItem> getEstadoCivilSelectItem() {
         List<SelectItem> estadosCivis = new ArrayList<>();
 

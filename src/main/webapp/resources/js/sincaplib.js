@@ -131,6 +131,8 @@ function ajaxGetHospitais() {
 
             if(response.length != 0){
                 $('#select-hospitais').show();
+            }else{
+                $('#select-hospitais').hide();
             }
 
         },
