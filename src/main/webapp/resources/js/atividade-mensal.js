@@ -4,12 +4,12 @@ $(document).ready(function () {
 
     $('.listas').click(function () {
         $(this).toggleClass("open");
-        $(this).next().toggle();
+        $(this).next().toggle("slow");
     });
 
     $('.sub').click(function () {
         $(this).toggleClass("open");
-        $(this).next().toggle();
+        $(this).next().toggle("slow");
     });
 });
 
