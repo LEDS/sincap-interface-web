@@ -36,22 +36,22 @@
                     </a>
                 </li>
             </h:panelGroup>
-            <li class="#{buscar ? 'active':''}">
-                <h:panelGroup layout="block" rendered="#{buscar}" class="pointer">
+           <!--  <li class="#/{buscar ? 'active':''}">
+                <h:panelGroup layout="block" rendered="#/{buscar}" class="pointer">
                     <h:panelGroup layout="block" class="arrow"/>
                     <h:panelGroup layout="block" class="arrow_border"/>
                 </h:panelGroup>
                 <a class="dropdown-toggle" href="#">
                     <i class="icon-search"/>
-                    <span>#{msg['sidebar.notificacao.buscar']}</span>
+                    <span>#/{msg['sidebar.notificacao.buscar']}</span>
                     <i class="icon-chevron-down"/>
                 </a>
                 <ul class="submenu">
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}">#{msg['sidebar.notificacao.buscarTodos']}</a>
+                        <a href="#/{request.contextPath}#/{contextUrls.app_buscar}#/{contextUrls.buscar_todos}">#/{msg['sidebar.notificacao.buscarTodos']}</a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li class="#{relatorio ? 'active':''}">
                 <h:panelGroup layout="block" rendered="#{relatorio}" class="pointer">
                     <h:panelGroup layout="block" class="arrow"/>
