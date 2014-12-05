@@ -17,7 +17,22 @@
                href="#{request.contextPath}#{contextUrls.index}">
                 <h:graphicImage library="img" name="logo.png" class="logo"/>
             </a>
-
+<!-- Elementos a esquerda -->
+          <!-- Nomes das funções -->
+            <ul class="nav pull-left">
+                <h:panelGroup
+                        rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
+                <p class="navbar-text">Página do notificador</p>
+                </h:panelGroup>
+                   <h:panelGroup
+                           rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+                <p class="navbar-text">Página do administrador</p>
+                    </h:panelGroup>
+                <h:panelGroup
+                        rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
+                    <p class="navbar-text">Página do analista</p>
+                </h:panelGroup>
+            </ul>
             <!-- Elementos a direita -->
             <ul class="nav pull-right">
                 <!-- Search Bar -->
