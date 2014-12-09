@@ -18,20 +18,21 @@
                 <h:graphicImage library="img" name="logo.png" class="logo"/>
             </a>
 <!-- Elementos a esquerda -->
-          <!-- Nomes das funções -->
+            <!-- Nomes das funções -->
             <ul class="nav pull-left">
                 <h:panelGroup
                         rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
-                <p class="navbar-text">Página do notificador</p>
+                    <h5 class="navbar-text" style="color:azure">Página do notificador</h5>
                 </h:panelGroup>
-                   <h:panelGroup
-                           rendered="#{request.isUserInRole('ROLE_ADMIN')}">
-                <p class="navbar-text">Página do administrador</p>
-                    </h:panelGroup>
                 <h:panelGroup
                         rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-                    <p class="navbar-text">Página do analista</p>
+                    <h5 class="navbar-text" style="color:azure">Página do analista</h5>
                 </h:panelGroup>
+                <h:panelGroup
+                        rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
+                    <h5 class="navbar-text" style="color:azure">Página do captador</h5>
+                </h:panelGroup>
+
             </ul>
             <!-- Elementos a direita -->
             <ul class="nav pull-right">
