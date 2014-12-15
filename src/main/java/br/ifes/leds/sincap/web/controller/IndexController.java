@@ -140,4 +140,5 @@ public class IndexController {
             model.addAttribute("processosObitoAguardandoCorrecao", processosObitoAguardandoCorrecao);
         }
     }
+
 }

@@ -22,15 +22,21 @@
             <ul class="nav pull-left">
                 <h:panelGroup
                         rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
-                    <h5 class="navbar-text" style="color:azure">Página do notificador</h5>
+                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
+                        Página do notificador: #{request.getSession().getAttribute('user').nome}
+                    </h5>
                 </h:panelGroup>
                 <h:panelGroup
                         rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-                    <h5 class="navbar-text" style="color:azure">Página do analista</h5>
+                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
+                        Página do analista: #{request.getSession().getAttribute('user').nome}
+                    </h5>
                 </h:panelGroup>
                 <h:panelGroup
                         rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
-                    <h5 class="navbar-text" style="color:azure">Página do captador</h5>
+                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
+                        Página do captador: #{request.getSession().getAttribute('user').nome}
+                    </h5>
                 </h:panelGroup>
 
             </ul>
