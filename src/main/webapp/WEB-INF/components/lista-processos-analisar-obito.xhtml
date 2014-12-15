@@ -6,8 +6,8 @@
             <h:panelGroup styleClass="row-fluid form-wrapper">
 
                 <!-- Tabela de Notificações -->
-                <h:dataTable id="listaProcessos" value="#{processos}" var="processo" rows="#{quantidade}"
-                    styleClass="table table-hover table-striped">
+                <h:dataTable id="tabelaAnalisarObito" value="#{processos}" var="processo" rows="#{quantidade}"
+                    styleClass="table table-hover table-striped table-bordered">
                     <!-- Protocolo -->
                     <h:column>
                         <f:facet name="header">

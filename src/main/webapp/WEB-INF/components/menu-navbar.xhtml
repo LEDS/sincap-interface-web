@@ -82,11 +82,14 @@
 
     <h:outputScript library="js" name="sincaplib.js"/>
 
+    <h:outputScript library="js" name="jquery.dataTables.min.js"/>
+
     <script type="text/javascript">
 
         $(document).ready(function()
         {
             setInterval(ajaxGetNovasNotificacoes, 2500);
+            getAnalisarObito();
         });
     </script>
 

@@ -293,3 +293,27 @@ function definirEstilo() {
     $(".control-group > select").wrap("<div class='span3'></div>");
     $("br + label").css("padding-bottom", "1em");
 }
+
+function getAnalisarObito() {
+
+    $('#tabelaAnalisarObito').DataTable().fnDestroy();
+    var table = $('#tabelaAnalisarObito').DataTable(
+        {
+            "ajax": location.origin + "/sincap/processo/getAnaliseObitoPendente",
+            "columns": [
+                { "data": "protocolo" },
+                { "data": "dataNotificacao" },
+                { "data": "dataObito" },
+                { "data": "paciente" },
+                { "data": "hospital" },
+                { "data": "notificador" },
+                { "data": "idProcesso" }
+            ]
+        }
+    );
+
+    setInterval( function () {
+        table.ajax.reload();
+    }, 2500 );
+}
+

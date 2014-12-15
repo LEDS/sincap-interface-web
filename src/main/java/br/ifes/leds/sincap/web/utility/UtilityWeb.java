@@ -13,6 +13,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.*;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
+import br.ifes.leds.sincap.web.model.NotificacaoDTO;
 import org.joda.time.*;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -330,6 +331,27 @@ public class UtilityWeb {
                 .appendSeconds().
         toFormatter(); // produce thread-safe formatter
         return HHMMSSFormater.print(period);
+    }
+
+    public List<NotificacaoDTO> ProcessoToNotificacaoDTO(List<ProcessoNotificacao> notificacoes) {
+        List<NotificacaoDTO> notificacoesDTO = new ArrayList<>();
+        DateFormat dfo = new java.text.SimpleDateFormat("dd/MM/yyyy");
+
+        for (ProcessoNotificacao notificacao : notificacoes) {
+            NotificacaoDTO notificacaoDTO = new NotificacaoDTO();
+
+            notificacaoDTO.setProtocolo(notificacao.getCodigo());
+            notificacaoDTO.setDataNotificacao(dfo.format(notificacao.getDataAbertura().getTime()));
+            notificacaoDTO.setPaciente(notificacao.getObito().getPaciente().getNome());
+            notificacaoDTO.setDataObito(dfo.format(notificacao.getObito().getDataObito().getTime()));
+            notificacaoDTO.setHospital(notificacao.getObito().getHospital().getNome());
+            notificacaoDTO.setNotificador(notificacao.getNotificador().getNome());
+            notificacaoDTO.setIdProcesso(notificacao.getId());
+
+            notificacoesDTO.add(notificacaoDTO);
+        }
+
+        return notificacoesDTO;
     }
 
 }

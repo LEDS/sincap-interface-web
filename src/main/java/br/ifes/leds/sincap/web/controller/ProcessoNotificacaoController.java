@@ -6,6 +6,8 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
+import br.ifes.leds.sincap.web.model.NotificacaoDTO;
+import br.ifes.leds.sincap.web.model.NotificacaoJSON;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,5 +131,23 @@ public class ProcessoNotificacaoController {
         }else{
             model.addAttribute("entrevista", false);
         }
+    }
+
+    @RequestMapping(value = ContextUrls.GET_ANALISE_OBITO_PENDENTE, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getAnaliseObitoPendente(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processosObitoAnalisePendente = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_ANALISTA")){
+            processosObitoAnalisePendente = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processosObitoAnalisePendente));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
     }
 }
