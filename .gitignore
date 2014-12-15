@@ -13,7 +13,7 @@ glassfish-web.xml
 # Qualquer tipo de log
 *.log
 *.log.????-??
-*.log*
+
 
 # Arquivos de configuração do IntelliJ
 .idea/
