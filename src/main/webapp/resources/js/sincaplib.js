@@ -296,7 +296,9 @@ function definirEstilo() {
 
 function getAnalisarObito() {
 
-    $('#tabelaAnalisarObito').DataTable().fnDestroy();
+    /*A função não está sendo reconhecida no Mozilla Firefox (Firebug)*/
+    //$('#tabelaAnalisarObito').DataTable().fnDestroy();
+
     var table = $('#tabelaAnalisarObito').DataTable(
         {
             "ajax": location.origin + "/sincap/processo/getAnaliseObitoPendente",
@@ -307,8 +309,24 @@ function getAnalisarObito() {
                 { "data": "paciente" },
                 { "data": "hospital" },
                 { "data": "notificador" },
-                { "data": "idProcesso" }
+                {
+                  "data": null,
+                  "targets": -1,
+                  "defaultContent": "<button>Analisar</button>"
+                },
             ]
+        }
+    );
+
+    $('#tabelaAnalisarObito tbody').on( 'click', 'button',
+        function () {
+            var data = table.row( $(this).parents('tr') ).data();
+
+            $.each(data, function (key, value) {
+                if(key == "idProcesso"){
+                    alert( "Analisar o óbito "+ value );
+                }
+            });
         }
     );
 
