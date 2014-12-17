@@ -6,6 +6,7 @@ div.dataTables_length label {
 
 div.dataTables_length select {
 	width: 75px;
+    height: 30px;
 	display: inline-block;
 }
 

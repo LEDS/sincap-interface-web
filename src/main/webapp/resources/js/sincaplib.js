@@ -296,11 +296,16 @@ function definirEstilo() {
 
 function getAnalisarObito() {
 
-    /*A função não está sendo reconhecida no Mozilla Firefox (Firebug)*/
-    //$('#tabelaAnalisarObito').DataTable().fnDestroy();
+    var tableId = '#tabelaAnalisarObito';
+    var urlRelativa = "/sincap/obito/analisar/";
 
-    var table = $('#tabelaAnalisarObito').DataTable(
+    var table = $(tableId).DataTable(
         {
+            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            bPaginate: true,
+            bLengthChange: true,
+            bFilter: true,
+            bInfo: false,
             "ajax": location.origin + "/sincap/processo/getAnaliseObitoPendente",
             "columns": [
                 { "data": "protocolo" },
@@ -312,23 +317,58 @@ function getAnalisarObito() {
                 {
                   "data": null,
                   "targets": -1,
-                  "defaultContent": "<button>Analisar</button>"
+                  "defaultContent": "<a class=\"btn-flat default\" href=\"#\"> " +
+                                        "<i class=\"icon-file\"></i>"+
+                                        "Analisar"+
+                                    "</a>"
                 },
             ]
         }
     );
 
-    $('#tabelaAnalisarObito tbody').on( 'click', 'button',
+    //Adicionando as classes do bootstrap à tabela
+    $(tableId)
+        .removeClass('display')
+        .addClass('table table-striped table-bordered no-wrap responsive')
+
+    //Tornando a tabela flexivel à tela
+    $(tableId).attr("width","100%");
+
+    //Traduzindo o Show 'n' entries do label do select
+    $(tableId+"_length label").html(
+        $(tableId+"_length label").html().replace("Show","Mostrar")
+                                         .replace("entries","linhas")
+    );
+
+    //Traduzindo o Search do label do input de busca
+    $(tableId+"_filter label").html(
+        $(tableId+"_filter label").html().replace("Search","Buscar")
+    );
+
+    //Traduzindo os botões da paginação
+    $(tableId+"_paginate").html(
+        $(tableId+"_paginate").html().replace("Previous","Anterior")
+                                     .replace("Next","Próximo")
+    );
+
+
+    //Centralizando o componente de paginação
+    $(tableId+'_paginate')
+        .removeClass()
+        .addClass("pagination pagination-centered")
+
+
+    //Criando o link para redirecionamento ao clique no botão
+    $(tableId + ' tbody').on( 'click', 'a',
         function () {
             var data = table.row( $(this).parents('tr') ).data();
 
-            $.each(data, function (key, value) {
-                if(key == "idProcesso"){
-                    alert( "Analisar o óbito "+ value );
-                }
-            });
+            window.location=location.origin+urlRelativa+data.idProcesso;
         }
     );
+
+    alert($(tableId+"_paginate").html());
+
 
     setInterval( function () {
         table.ajax.reload();
