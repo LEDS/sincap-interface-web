@@ -292,6 +292,51 @@ public class UtilityWeb {
 
     }
 
+    private void criarUrlRelativa(NotificacaoDTO mensagem){
+        //Criando a URL relativa ao objeto
+        String status = mensagem.getEstado();
+        String partialUrl = "/sincap";
+
+        String obito = "Óbito";
+        String entrevista = "Entrevista";
+        String captacao = "Captação";
+        String correcao = "Correção";
+        String analise = "Análise";
+
+        /*Criar link para notificações de óbito*/
+        if(status.contains(obito)){
+            partialUrl+= ContextUrls.APP_NOTIFICACAO_OBITO;
+            if(status.contains(correcao)){
+                partialUrl+=ContextUrls.EDITAR;
+            }else if(status.contains(analise)){
+                partialUrl+=ContextUrls.APP_ANALISAR;
+            }
+        /*Criar link para notificações de entrevista*/
+        }else if(status.contains(entrevista)){
+            partialUrl+=ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
+            if(status.contains(analise)){
+                partialUrl+=ContextUrls.APP_ANALISAR;
+            }else if(status.contains(correcao)){
+                partialUrl+=ContextUrls.EDITAR;
+            }else{
+                partialUrl+=ContextUrls.ADICIONAR;
+            }
+        /*Criar link para notificações de captação*/
+        }else if(status.contains(captacao)){
+            partialUrl+=ContextUrls.APP_NOTIFICACAO_CAPTACAO;
+            if(status.contains(analise)){
+                partialUrl+=ContextUrls.APP_ANALISAR;
+            }else if(status.contains(correcao)){
+                partialUrl+=ContextUrls.EDITAR;
+            }else{
+                partialUrl+=ContextUrls.ADICIONAR;
+            }
+        }
+
+        mensagem.setUrlRelativa(partialUrl+"/"+mensagem.getId());
+
+    }
+
     public int getIdade(Date dataNasc, Date dataObito) {
         //Cria um objeto com a data de nascimento
         Calendar dateOfBirth = new GregorianCalendar();
@@ -346,7 +391,10 @@ public class UtilityWeb {
             notificacaoDTO.setDataObito(dfo.format(notificacao.getObito().getDataObito().getTime()));
             notificacaoDTO.setHospital(notificacao.getObito().getHospital().getNome());
             notificacaoDTO.setNotificador(notificacao.getNotificador().getNome());
-            notificacaoDTO.setIdProcesso(notificacao.getId());
+            notificacaoDTO.setId(notificacao.getId());
+            notificacaoDTO.setEstado(notificacao.getUltimoEstado().getEstadoNotificacao().getNome());
+
+            this.criarUrlRelativa(notificacaoDTO);
 
             notificacoesDTO.add(notificacaoDTO);
         }

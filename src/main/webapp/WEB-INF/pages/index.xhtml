@@ -159,7 +159,10 @@
     <ui:define name="#{sects.scripts}">
         <script type="text/javascript">
             $(document).ready(function() {
-                getAnalisarObito();
+                buildTable("tabelaAnalisarObito");
+                buildTable("tabelaAnalisarEntrevista");
+                buildTable("tabelaAnalisarCaptacao");
+                buildTable("tabelaNotificacoesAguardandoArquivamento");
             });
         </script>
     </ui:define>

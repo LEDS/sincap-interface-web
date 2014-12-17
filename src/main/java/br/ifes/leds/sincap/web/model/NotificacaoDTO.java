@@ -16,5 +16,7 @@ public class NotificacaoDTO {
     public String paciente;
     public String hospital;
     public String notificador;
-    public Long idProcesso;
+    public String estado;
+    public Long id;
+    public String urlRelativa;
 }

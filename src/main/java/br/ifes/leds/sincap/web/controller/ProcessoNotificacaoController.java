@@ -150,4 +150,58 @@ public class ProcessoNotificacaoController {
 
         return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
     }
+
+    @RequestMapping(value = ContextUrls.GET_ANALISE_ENTREVISTA_PENDENTE, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getAnaliseEntrevistaPendente(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_ANALISTA")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+
+    @RequestMapping(value = ContextUrls.GET_ANALISE_CAPTACAO_PENDENTE, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getAnaliseCaptacaoPendente(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_ANALISTA")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISECAPTACAO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+
+    @RequestMapping(value = ContextUrls.GET_NOTIFICACOES_AGUARDANDO_ARQUIVAMENTO, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getNotificacoesAguardandoArquivamento(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_ANALISTA")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOARQUIVAMENTO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
 }
