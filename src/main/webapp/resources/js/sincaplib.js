@@ -303,6 +303,7 @@ function getUrlMetodoControlador(tableId){
         tabelaAnalisarEntrevista: "/sincap/processo/getAnaliseEntrevistaPendente",
         tabelaAnalisarCaptacao: "/sincap/processo/getAnaliseCaptacaoPendente",
         tabelaNotificacoesAguardandoArquivamento: "/sincap/processo/getNotificacoesAguardandoArquivamento"
+
     };
 
     $.each(tabelasPossiveis, function(key,value){
@@ -327,7 +328,7 @@ function buildTable(tableId){
             bPaginate: true,
             bLengthChange: true,
             bFilter: true,
-            bInfo: false,
+            bInfo: true,
             "ajax": location.origin + urlMetodoControlador,
             "columns": [
                 { "data": "protocolo" },
@@ -348,6 +349,9 @@ function buildTable(tableId){
         }
     );
 
+    //Tentando configurar com o Boostrap 2
+
+
     //Adicionando as classes do bootstrap à tabela
     $(tableId)
         .removeClass('display')
@@ -356,29 +360,7 @@ function buildTable(tableId){
     //Tornando a tabela flexivel à tela
     $(tableId).attr("width","100%");
 
-    //Traduzindo o Show 'n' entries do label do select
-    $(tableId+"_length label").html(
-        $(tableId+"_length label").html().replace("Show","Mostrar")
-            .replace("entries","linhas")
-    );
-
-    //Traduzindo o Search do label do input de busca
-    $(tableId+"_filter label").html(
-        $(tableId+"_filter label").html().replace("Search","Buscar")
-    );
-
-    //Traduzindo os botões da paginação
-    $(tableId+"_paginate").html(
-        $(tableId+"_paginate").html().replace("Previous","Anterior")
-            .replace("Next","Próximo")
-    );
-
-
-    //Centralizando o componente de paginação
-    $(tableId+'_paginate')
-        .removeClass()
-        .addClass("pagination pagination-centered")
-
+    $(tableId).attr("style","padding-left = 40px")
 
     //Criando o link para redirecionamento ao clique no botão
     $(tableId + ' tbody').on( 'click', 'a',
@@ -390,9 +372,10 @@ function buildTable(tableId){
     );
 
 
+    /*
     setInterval( function () {
         table.ajax.reload();
-    }, 2500 );
+    }, 2500 );*/
 }
 
 /*
