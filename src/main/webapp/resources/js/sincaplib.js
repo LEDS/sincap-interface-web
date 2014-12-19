@@ -256,7 +256,7 @@ function ajaxGetNovasNotificacoes() {
                 // Acrescenta um item ao painel, com os dados da notificação.
                 itens[idx] =
                     "<input hidden=\"hidden\" id=\"id\" name=\"id\" value=" + id +"/>"
-                    +  "<a href=\"" + location.origin + url + "\" class=\"item\">"
+                    + "<a href=\"" + location.origin + url + "\" class=\"item\">"
                     + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
                     + "<i class=\"icon-envelope-alt\"></i>" + estado
                     + "</a>";

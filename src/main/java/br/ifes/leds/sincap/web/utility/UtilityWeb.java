@@ -13,6 +13,9 @@ import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.*;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
+import org.joda.time.*;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
@@ -24,6 +27,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.text.DateFormat;
 import java.util.*;
+
+import static org.joda.time.Hours.hoursBetween;
 
 @Component
 public class UtilityWeb {
@@ -154,6 +159,17 @@ public class UtilityWeb {
         return tiposNaoDoacao;
     }
 
+    public List<SelectItem> getEscolaridadeSelectItem() {
+        List<SelectItem> escolaridadeSelectItem = new ArrayList<>();
+
+        for (Escolaridade escolaridade : Escolaridade.values()) {
+            escolaridadeSelectItem
+                    .add(new SelectItem(escolaridade, escolaridade.name()));
+        }
+
+        return escolaridadeSelectItem;
+    }
+
     public void getBancoOlhos(ModelMap model, AplBancoOlhos aplBancoOlhos) {
 
         List<BancoOlhos> listaBancoOlhos;
@@ -222,9 +238,7 @@ public class UtilityWeb {
             mensagem.setId(notificacao.getId());
             mensagem.setCodigo(notificacao.getCodigo());
             mensagem.setEstado(notificacao.getUltimoEstado().getEstadoNotificacao().getNome());
-            mensagem.setTempo(dfo.format(
-                    Calendar.getInstance().getTimeInMillis() - notificacao.getDataAbertura().getTimeInMillis()
-            ));
+            mensagem.setTempo(this.formatToHHMMSSTString(notificacao.getDataAbertura()));
             criarUrlRelativa(mensagem);
             mensagens.add(mensagem);
         }
@@ -243,6 +257,7 @@ public class UtilityWeb {
         String correcao = "Correção";
         String analise = "Análise";
 
+        /*Criar link para notificações de óbito*/
         if(status.contains(obito)){
             partialUrl+= ContextUrls.APP_NOTIFICACAO_OBITO;
             if(status.contains(correcao)){
@@ -250,6 +265,7 @@ public class UtilityWeb {
             }else if(status.contains(analise)){
                 partialUrl+=ContextUrls.APP_ANALISAR;
             }
+        /*Criar link para notificações de entrevista*/
         }else if(status.contains(entrevista)){
             partialUrl+=ContextUrls.APP_NOTIFICACAO_ENTREVISTA;
             if(status.contains(analise)){
@@ -259,6 +275,7 @@ public class UtilityWeb {
             }else{
                 partialUrl+=ContextUrls.ADICIONAR;
             }
+        /*Criar link para notificações de captação*/
         }else if(status.contains(captacao)){
             partialUrl+=ContextUrls.APP_NOTIFICACAO_CAPTACAO;
             if(status.contains(analise)){
@@ -299,6 +316,20 @@ public class UtilityWeb {
         }
 
         return idade;
+    }
+
+    public String formatToHHMMSSTString(Calendar dataAbertura){
+        DateTime abertura = new DateTime(dataAbertura);
+        DateTime now = DateTime.now();
+        Period period = new Period(abertura, now);
+        PeriodFormatter HHMMSSFormater = new PeriodFormatterBuilder()
+                .printZeroAlways()
+                .minimumPrintedDigits(2)
+                .appendHours().appendSeparator(":")
+                .appendMinutes().appendSeparator(":")
+                .appendSeconds().
+        toFormatter(); // produce thread-safe formatter
+        return HHMMSSFormater.print(period);
     }
 
 }
