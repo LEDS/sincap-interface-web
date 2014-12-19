@@ -9,6 +9,19 @@
     <!--@elvariable id="listaBairroItem" type="java.util.List"-->
 
     <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.tipoObito']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu
+                    id="obito-tipoObito"
+                    value="#{processo.obito.tipoObito}">
+                <f:selectItem itemLabel="#{msg['obito.tipoObito.selecione']}"/>
+                <f:selectItems value="#{tiposObito}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
         <input type="text" id="obito-paciente-nome" name="obito.paciente.nome"
                autofocus="autofocus" class="span8" value="#{processo.obito.paciente.nome}"/>
@@ -76,6 +89,18 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.registroHospitalar']}*"/>
+        <h:inputText id="obito-paciente-registroHospitalar" styleClass="span8"
+                     value="#{processo.obito.paciente.registroHospitalar}"/>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.prontuario']}*"/>
+        <h:inputText id="obito-paciente-numeroProntuario" styleClass="span8"
+                     value="#{processo.obito.paciente.numeroProntuario}"/>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.profissao']}*"/>
         <h:inputText id="obito-paciente-profissao" styleClass="span8" value="#{processo.obito.paciente.profissao}"/>
     </h:panelGroup>
@@ -87,12 +112,6 @@
         <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}*"/>
         <h:inputText id="obito-paciente-nacionalidade" styleClass="span8"
                      value="#{processo.obito.paciente.nacionalidade}"/>
-    </h:panelGroup>
-
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.paciente.prontuario']}*"/>
-        <h:inputText id="obito-paciente-numeroProntuario" styleClass="span8"
-                     value="#{processo.obito.paciente.numeroProntuario}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">

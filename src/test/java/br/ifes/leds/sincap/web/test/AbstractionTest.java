@@ -6,6 +6,7 @@ import br.ifes.leds.reuse.endereco.cgd.CidadeRepository;
 import br.ifes.leds.reuse.endereco.cgd.EstadoRepository;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Escolaridade;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.*;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
@@ -46,6 +47,7 @@ public abstract class AbstractionTest {
                         .doacaoAutorizada(true)
                         .dataEntrevista(new DateTime(2014, 9, 27, 11, 11).toCalendar(Locale.getDefault()))
                         .responsavel(ResponsavelDTO.builder()
+                                .grauEscolaridade(Escolaridade.ENSINO_SUPERIOR_INCOMPLETO)
                                 .nome("Responsável")
                                 .documentoSocial(DocumentoComFotoDTO.builder()
                                         .documento("65165325864")

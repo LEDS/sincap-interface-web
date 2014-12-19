@@ -7,6 +7,10 @@
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
 
     <div class="field-box">
+        <h:outputLabel value="#{msg['obito.tipoObito']}"/>
+        <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.tipoObito}"/>
+    </div>
+    <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nome}"/>
     </div>
@@ -56,6 +60,11 @@
         <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nacionalidade}"/>
     </div>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.registroHospitalar']}*"/>
+        <h:inputText readonly="true" id="obito-paciente-registroHospitalar" styleClass="span8"
+                     value="#{processo.obito.paciente.registroHospitalar}"/>
+    </h:panelGroup>
     <div class="field-box">
         <h:outputLabel value="#{msg['obito.paciente.prontuario']}"/>
         <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.numeroProntuario}"/>

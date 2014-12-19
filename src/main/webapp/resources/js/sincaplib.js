@@ -129,6 +129,12 @@ function ajaxGetHospitais() {
                 $("#hospital").append("<option value='" + id + "'>" + valor /*aparece para o usuario*/ + "</option>");
             });
 
+            if(response.length != 0){
+                $('#select-hospitais').show();
+            }else{
+                $('#select-hospitais').hide();
+            }
+
         },
         error: function (response, status, error) {
             var $result = $('#result').html("");

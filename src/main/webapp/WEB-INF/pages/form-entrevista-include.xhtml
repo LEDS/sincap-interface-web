@@ -195,13 +195,15 @@
             <h:outputLabel value="#{msg['responsavel.text.religiao']}*"/>
             <h:inputText styleClass="span8" id="entrevista-responsavel-religiao" value="#{processo.entrevista.responsavel.religiao}"/>
         </h:panelGroup>
-        <div class="ui-select span5">
-            <h:selectOneMenu id="entrevista-responsavel-grauEscolaridade"
-                             value="#{processo.entrevista.responsavel.grauEscolaridade}">
-                <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
-                <f:selectItems value="#{grauEscolaridade}"/>
-            </h:selectOneMenu>
-        </div>
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}*"/>
+            <div class="ui-select span5">
+                <h:selectOneMenu id="entrevista-responsavel-grauEscolaridade" value="#{processo.entrevista.responsavel.grauEscolaridade}">
+                    <f:selectItem itemValue="" itemLabel="#{msg['responsavel.text.selecioneGrauEscolaridade']}"/>
+                    <f:selectItems value="#{grauEscolaridade}"/>
+                </h:selectOneMenu>
+            </div>
+        </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
             <h:inputText styleClass="cep span8" id="entrevista-responsavel-endereco-cep"

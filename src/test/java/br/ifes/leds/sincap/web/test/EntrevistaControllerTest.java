@@ -97,7 +97,7 @@ public class EntrevistaControllerTest extends AbstractionTest {
                 .param("entrevista.responsavel.sexo", entrevista.getEntrevista().getResponsavel().getSexo().toString())
                 .param("entrevista.responsavel.profissao", entrevista.getEntrevista().getResponsavel().getProfissao())
                 .param("entrevista.responsavel.religiao", entrevista.getEntrevista().getResponsavel().getReligiao())
-                .param("entrevista.responsavel.grauEscolaridade", entrevista.getEntrevista().getResponsavel().getGrauEscolaridade())
+                .param("entrevista.responsavel.grauEscolaridade", entrevista.getEntrevista().getResponsavel().getGrauEscolaridade().toString())
                 .param("entrevista.responsavel.endereco.numero", entrevista.getEntrevista().getResponsavel().getEndereco().getNumero())
                 .param("entrevista.responsavel.endereco.cep", entrevista.getEntrevista().getResponsavel().getEndereco().getCep())
                 .param("entrevista.responsavel.endereco.complemento", entrevista.getEntrevista().getResponsavel().getEndereco().getComplemento())
