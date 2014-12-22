@@ -360,8 +360,6 @@ function buildTable(tableId){
     //Tornando a tabela flexivel à tela
     $(tableId).attr("width","100%");
 
-    $(tableId).attr("style","padding-left = 40px")
-
     //Criando o link para redirecionamento ao clique no botão
     $(tableId + ' tbody').on( 'click', 'a',
         function () {
@@ -370,94 +368,8 @@ function buildTable(tableId){
             window.location=location.origin+data.urlRelativa;
         }
     );
-
-
-    /*
-    setInterval( function () {
-        table.ajax.reload();
-    }, 2500 );*/
-}
-
-/*
-function getAnalisarObito(tableId, urlMetodoControlador) {
-
-    var tableId = '#tabelaAnalisarObito';
-
-    var urlMetodoControlador = "/sincap/processo/getAnaliseObitoPendente";
-
-    var table = $(tableId).DataTable(
-        {
-            "dom": '<"top"f>rt<"bottom"lp><"clear">',
-            bPaginate: true,
-            bLengthChange: true,
-            bFilter: true,
-            bInfo: false,
-            "ajax": location.origin + urlMetodoControlador,
-            "columns": [
-                { "data": "protocolo" },
-                { "data": "dataNotificacao" },
-                { "data": "dataObito" },
-                { "data": "paciente" },
-                { "data": "hospital" },
-                { "data": "notificador" },
-                {
-                  "data": null,
-                  "targets": -1,
-                  "defaultContent": "<a class=\"btn-flat default\" href=\"#\"> " +
-                                        "<i class=\"icon-file\"></i>"+
-                                        "Analisar"+
-                                    "</a>"
-                }
-            ]
-        }
-    );
-
-    //Adicionando as classes do bootstrap à tabela
-    $(tableId)
-        .removeClass('display')
-        .addClass('table table-striped table-bordered no-wrap responsive')
-
-    //Tornando a tabela flexivel à tela
-    $(tableId).attr("width","100%");
-
-    //Traduzindo o Show 'n' entries do label do select
-    $(tableId+"_length label").html(
-        $(tableId+"_length label").html().replace("Show","Mostrar")
-                                         .replace("entries","linhas")
-    );
-
-    //Traduzindo o Search do label do input de busca
-    $(tableId+"_filter label").html(
-        $(tableId+"_filter label").html().replace("Search","Buscar")
-    );
-
-    //Traduzindo os botões da paginação
-    $(tableId+"_paginate").html(
-        $(tableId+"_paginate").html().replace("Previous","Anterior")
-                                     .replace("Next","Próximo")
-    );
-
-
-    //Centralizando o componente de paginação
-    $(tableId+'_paginate')
-        .removeClass()
-        .addClass("pagination pagination-centered")
-
-
-    //Criando o link para redirecionamento ao clique no botão
-    $(tableId + ' tbody').on( 'click', 'a',
-        function () {
-            var data = table.row( $(this).parents('tr') ).data();
-
-            window.location=location.origin+data.urlRelativa;
-        }
-    );
-
-    alert($(tableId+"_paginate").html());
-
 
     setInterval( function () {
         table.ajax.reload();
     }, 2500 );
 }
-*/
