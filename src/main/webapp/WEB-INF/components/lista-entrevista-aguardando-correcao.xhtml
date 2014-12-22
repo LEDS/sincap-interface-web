@@ -7,7 +7,7 @@
 
                 <!-- Tabela de Notificações -->
                 <h:dataTable id="listaProcessos" value="#{processos}" var="processo" rows="#{quantidade}"
-                    styleClass="table table-hover table-striped">
+                             styleClass="table table-hover table-striped">
                     <!-- Protocolo -->
                     <h:column>
                         <f:facet name="header">
@@ -15,6 +15,15 @@
                         </f:facet>
 
                         <h:outputText value="#{processo.codigo}" />
+                    </h:column>
+
+                    <!-- Paciente -->
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Paciente" />
+                        </f:facet>
+
+                        <h:outputText value="#{processo.obito.paciente.nome}" />
                     </h:column>
 
                     <!-- Data de Notificação -->
@@ -39,14 +48,7 @@
                         </h:outputText>
                     </h:column>
 
-                    <!-- Paciente -->
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Paciente" />
-                        </f:facet>
 
-                        <h:outputText value="#{processo.obito.paciente.nome}" />
-                    </h:column>
 
 
                     <!-- Hospital -->

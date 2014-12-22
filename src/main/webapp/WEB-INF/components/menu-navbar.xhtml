@@ -17,7 +17,29 @@
                href="#{request.contextPath}#{contextUrls.index}">
                 <h:graphicImage library="img" name="logo.png" class="logo"/>
             </a>
+<!-- Elementos a esquerda -->
+            <!-- Nomes das funções -->
+            <ul class="nav pull-left">
+                <h:panelGroup
+                        rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
+                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
+                        Página do notificador: #{request.getSession().getAttribute('user').nome}
+                    </h5>
+                </h:panelGroup>
+                <h:panelGroup
+                        rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
+                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
+                        Página do analista: #{request.getSession().getAttribute('user').nome}
+                    </h5>
+                </h:panelGroup>
+                <h:panelGroup
+                        rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
+                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
+                        Página do captador: #{request.getSession().getAttribute('user').nome}
+                    </h5>
+                </h:panelGroup>
 
+            </ul>
             <!-- Elementos a direita -->
             <ul class="nav pull-right">
                 <!-- Search Bar -->

@@ -99,7 +99,7 @@
 
         <!-- Notificações com óbito aguardando correção -->
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
-            <br/><h2>Óbito aguardando correção</h2><br/>
+            <br/><h2>Óbito Aguardando Correção</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-corrigir-obito.xhtml">
                 <ui:param name="processos" value="#{processosObitoAguardandoCorrecao}"/>
             </ui:include>
