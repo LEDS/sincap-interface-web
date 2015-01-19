@@ -38,6 +38,12 @@
             href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,600,700,800'
             rel='stylesheet' type='text/css'/>
 
+    <style type="text/css">
+        #loginErro{
+            color: #ff0000;
+        }
+    </style>
+
 </h:head>
 
 <h:body>
@@ -54,6 +60,9 @@
                       name="f"
                       method="post">
 
+                    <h:panelGroup rendered="#{loginErro}">
+                        <span id="loginErro">Login inválido, por favor digite o usuário correto!</span>
+                    </h:panelGroup>
                     <input id="username" name="username" class="span12" type="text" placeholder="CPF"
                            onblur="ajaxGetHospitais();"
                            title="#{msg['login.text.usuario']}" autofocus="true" />
