@@ -50,16 +50,21 @@ public class SignInController {
                              @RequestParam(value = "hospital", defaultValue = "") Long idHospital) {
 
         Funcionario func = aplPrincipal.validarLogin(username);
-        UsuarioSessao usuarioSessao = new UsuarioSessao();
+        if(func != null){
+            UsuarioSessao usuarioSessao = new UsuarioSessao();
 
-        //Guardando os dados do usuario da sessao
-        usuarioSessao.setIdHospital(idHospital);
-        usuarioSessao.setIdUsuario(func.getId());
-        usuarioSessao.setCpfUsuario(func.getCpf());
-        usuarioSessao.setNome(func.getNome());
-        session.setAttribute("user", usuarioSessao);
+            //Guardando os dados do usuario da sessao
+            usuarioSessao.setIdHospital(idHospital);
+            usuarioSessao.setIdUsuario(func.getId());
+            usuarioSessao.setCpfUsuario(func.getCpf());
+            usuarioSessao.setNome(func.getNome());
+            session.setAttribute("user", usuarioSessao);
 
-        return "forward:/j_spring_security_check";
+            return "forward:/j_spring_security_check";
+        }
+
+        return "signin";
+
     }
 
     @RequestMapping("403")
