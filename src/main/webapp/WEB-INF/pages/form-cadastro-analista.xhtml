@@ -22,7 +22,7 @@
                         <div class="step-content">
                             <form id="form-cadastro-analista"
                                   action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.salvar}#{contextUrls.app_analista}"
-                                  method="post">
+                                  method="post" >
 
                                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
 
@@ -50,7 +50,7 @@
                                     <h:inputText id="documentoSocial-documento" value="#{analist.documentoSocial.documento}"/>
                                 </h:panelGroup>
                                 <h:panelGroup layout="block" styleClass="field-box">
-                                    <h:outputLabel value="#{msg['funcionario.tipoDocumentoSocial']}*"/>
+                                    <h:outputLabel value="#{msg['funcionario.tipoDocumentoSocial']}"/>
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
