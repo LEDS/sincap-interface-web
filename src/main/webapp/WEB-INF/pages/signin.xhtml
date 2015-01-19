@@ -5,6 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -39,7 +40,7 @@
             rel='stylesheet' type='text/css'/>
 
     <style type="text/css">
-        #loginErro{
+        .loginErro{
             color: #ff0000;
         }
     </style>
@@ -61,11 +62,15 @@
                       method="post">
 
                     <h:panelGroup rendered="#{loginErro}">
-                        <span id="loginErro">Login inválido, por favor digite o usuário correto!</span>
+                        <span class="loginErro">Login inválido, por favor digite o usuário correto!</span>
                     </h:panelGroup>
                     <input id="username" name="username" class="span12" type="text" placeholder="CPF"
                            onblur="ajaxGetHospitais();"
                            title="#{msg['login.text.usuario']}" autofocus="true" />
+
+                    <h:panelGroup rendered="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+                            <span class="loginErro">Login inválido, por favor digite a senha correto!</span>
+                    </h:panelGroup>
                     <input id="password" name="password" class="span12" type="password" placeholder="Senha"
                            title="#{msg['login.text.senha']}"/>
 
