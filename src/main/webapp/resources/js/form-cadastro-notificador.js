@@ -17,7 +17,10 @@ $("#form-cadastro-notificador").validate({
         cpf:{
             required: true
         },
-        documentoSocial:{
+        'documentoSocial.documento':{
+            required: true
+        },
+        'documentoSocial.tipoDocumentoComFoto':{
             required: true
         },
         'telefone.numero':{
@@ -34,8 +37,11 @@ $("#form-cadastro-notificador").validate({
         'cpf': {
             required: "Por favor, insira o CPF"
         },
-        'documentoSocial': {
+        'documentoSocial.documento': {
             required: "Por favor, insira o Documento Social"
+        },
+        'documentoSocial.tipoDocumentoComFoto':{
+            required: "Por favor, insira o tipo do Documento Social"
         },
         'telefone.numero': {
             required: "Por favor, insira o telefone"
