@@ -8,6 +8,7 @@ import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,20 +47,27 @@ public class SignInController {
 
     @RequestMapping(value = "autenticar", method = RequestMethod.POST)
     public String autenticar(HttpSession session,
+                             ModelMap model,
                              @RequestParam("username") String username,
                              @RequestParam(value = "hospital", defaultValue = "") Long idHospital) {
 
         Funcionario func = aplPrincipal.validarLogin(username);
-        UsuarioSessao usuarioSessao = new UsuarioSessao();
+        if(func != null){
+            UsuarioSessao usuarioSessao = new UsuarioSessao();
 
-        //Guardando os dados do usuario da sessao
-        usuarioSessao.setIdHospital(idHospital);
-        usuarioSessao.setIdUsuario(func.getId());
-        usuarioSessao.setCpfUsuario(func.getCpf());
-        usuarioSessao.setNome(func.getNome());
-        session.setAttribute("user", usuarioSessao);
+            //Guardando os dados do usuario da sessao
+            usuarioSessao.setIdHospital(idHospital);
+            usuarioSessao.setIdUsuario(func.getId());
+            usuarioSessao.setCpfUsuario(func.getCpf());
+            usuarioSessao.setNome(func.getNome());
+            session.setAttribute("user", usuarioSessao);
 
-        return "forward:/j_spring_security_check";
+            return "forward:/j_spring_security_check";
+        }
+
+        model.addAttribute("loginErro", true);
+        return "signin";
+
     }
 
     @RequestMapping("403")
