@@ -5,7 +5,6 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
@@ -13,25 +12,17 @@ import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.*;
 import static br.ifes.leds.sincap.web.controller.ContextUrls.INDEX;
-import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -123,7 +114,7 @@ public class IndexController {
     private void seForNotificadorOuCaptador(ModelMap model, List<String> autoridades, UsuarioSessao usuarioSessao) {
         if (autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")) {
             List<ProcessoNotificacao> processosObitoAguardandoEntrevista = aplProcessoNotificacao
-                    .retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario());
+                    .retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
             List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
                     .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
 

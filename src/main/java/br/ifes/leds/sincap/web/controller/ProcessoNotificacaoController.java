@@ -82,13 +82,13 @@ public class ProcessoNotificacaoController {
 
         if(autoridades.contains("ROLE_NOTIFICADOR")){
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO));
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario()));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
         }else if(autoridades.contains("ROLE_CAPTADOR")){
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO));
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario()));
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario()));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
         }else if(autoridades.contains("ROLE_ANALISTA")){
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA));
