@@ -136,6 +136,7 @@ public class FuncionarioController {
         model.addAttribute("listaHospitais", listaHospitais);
         model.addAttribute("listaHospitaisNotificador", getLongBooleanMap(notificador, listaHospitais));
         model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+        utilityWeb.preencherEndereco(mapper.map(notificador.getEndereco(), EnderecoDTO.class), model);
 
         return "form-cadastro-notificador";
     }

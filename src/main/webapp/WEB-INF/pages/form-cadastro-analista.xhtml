@@ -54,7 +54,7 @@
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
-                                                         value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
+                                                         value="#{analist.documentoSocial.tipoDocumentoComFoto}">
                                             <f:selectItem
                                                     itemLabel="#{msg['funcionario.selecioneTipoDocumentoSocial']}"/>
                                             <f:selectItems value="#{tipoDocumentosComFotos}"/>
@@ -126,7 +126,7 @@
                                 <br></br><br></br>
                                 <h:panelGroup layout="block" styleClass="field-box">
                                     <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
-                                    <h:inputText id="endereco-logradrouro" value="#{analist.endereco.logradouro}"/>
+                                    <h:inputText id="endereco-logradouro" value="#{analist.endereco.logradouro}"/>
                                 </h:panelGroup>
 
                                 <h:panelGroup layout="block" styleClass="field-box">
