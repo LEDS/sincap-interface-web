@@ -37,7 +37,12 @@
 
                                 <h:panelGroup layout="block" styleClass="field-box">
                                     <h:outputLabel value="#{msg['funcionario.senha']}"/>
-                                    <h:inputSecret id="senha" value="#{analist.senha}"/>
+                                    <h:inputSecret id="senha" name="senha" value="#{analist.senha}"/>
+                                </h:panelGroup>
+
+                                <h:panelGroup layout="block" styleClass="field-box">
+                                    <h:outputLabel value="#{msg['funcionario.confirma.senha']}"/>
+                                    <h:inputSecret name="confirmar-senha" id="confirmar-senha" />
                                 </h:panelGroup>
 
                                 <h:panelGroup layout="block" styleClass="field-box">

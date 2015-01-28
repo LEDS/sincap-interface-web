@@ -35,7 +35,12 @@
                             <h:inputText id="nome"  value="#{captador.nome}"/>
 
                             <h:outputLabel value="#{msg['funcionario.senha']}"/>
-                            <h:inputSecret id="senha" value="#{captador.senha}"/>
+                            <h:inputSecret id="senha" name="senha" value="#{captador.senha}"/>
+
+                            <h:panelGroup layout="block" styleClass="field-box">
+                                <h:outputLabel value="#{msg['funcionario.confirma.senha']}"/>
+                                <h:inputSecret name="confirmar-senha" id="confirmar-senha" />
+                            </h:panelGroup>
 
                             <h:outputLabel value="#{msg['funcionario.cpf']}"/>
                             <h:inputText id="cpf"  type="text" value="#{captador.cpf}"/>

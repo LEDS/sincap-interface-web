@@ -25,10 +25,15 @@ $("#form-cadastro-analista").validate({
         'telefone.numero':{
             required: true
         },
-         'senha':{
-             required:true
-         }
-
+        'senha':{
+            required:true,
+            minlength: 5
+        },
+        'confirmar.senha':{
+            required: true,
+            equalTo: "#senha",
+            minlength: 5
+        }
     },
     messages: {
         'nome': {
@@ -47,7 +52,13 @@ $("#form-cadastro-analista").validate({
             required: "Por favor, insira o telefone"
         },
         'senha':{
-            required: "Por favor informe a senha"
+            required: "Por favor informe a senha",
+            minlength: "A senha deve conter no mínimo 5 caracteres."
+        },
+        'confirmar.senha': {
+            required: "O campo confirmação de senha é obrigatório.",
+            equalTo: "O campo confirmação de senha deve ser identico ao campo senha.",
+            minlength: "A senha deve conter no mínimo 5 caracteres."
         }
     },
     submitHandler: function (form) {
