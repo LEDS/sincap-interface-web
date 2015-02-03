@@ -10,6 +10,8 @@
             <h:panelGroup styleClass="row-fluid form-wrapper">
                 <h:dataTable id="causas-table" value="#{listaCausasNaoDoacao}" var="causa"
                              rows="#{quantidade}" styleClass="table table-hover table-striped">
+
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Nome" />
@@ -24,21 +26,18 @@
                     </h:column>
                     <!-- Botões -->
                     <h:column>
-                            <!-- <f:facet name="header">
-                                <h:outputText value="Editar Causa" />
-                            </f:facet>-->
-
                         <form style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.editar}/#{causa.id}" method="get">
+                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                             <button type="submit"><i class="icon-edit"></i></button>
                         </form>
                     </h:column>
                     
                     <h:column>
                          <form  style="width:0.5px;" id="formulario-causa-nao-doacao-#{causa.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_causa_nao_doacao}#{contextUrls.apagar}/#{causa.id}" method="post">
-                            <button type="submit"><i class="icon-trash"></i></button>
+                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                             <button type="submit"><i class="icon-trash"></i></button>
                         </form>
                     </h:column>
-                    
                 </h:dataTable>
             </h:panelGroup>
         </h:panelGroup>
