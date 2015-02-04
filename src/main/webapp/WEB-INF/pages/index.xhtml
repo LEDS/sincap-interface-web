@@ -91,7 +91,7 @@
 
         <!-- Notificações com óbito pendente de análise -->
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-            <br/><h2>Análise de Óbito Pendente</h2><br/>
+            <br/><h2>Óbitos pendentes</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-analisar-obito.xhtml">
                 <ui:param name="processos" value="#{processosObitoAnalisePendente}"/>
             </ui:include>
@@ -99,7 +99,7 @@
 
         <!-- Notificações com óbito aguardando correção -->
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
-            <br/><h2>Óbito Aguardando Correção</h2><br/>
+            <br/><h2>Correção de Óbito</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-corrigir-obito.xhtml">
                 <ui:param name="processos" value="#{processosObitoAguardandoCorrecao}"/>
             </ui:include>
@@ -110,8 +110,8 @@
             <ui:include src="/WEB-INF/components/lista-obito-aguardando-entrevista.xhtml">
                 <ui:param name="listaProcessosNotificacao" value="#{processosObitoAguardandoEntrevista}"/>
             </ui:include>
+            <br/><h2>Correção de entrevista</h2><br/>
 
-            <br/><h2>Entrevista Aguardando Correção</h2><br/>
             <!-- Notificações com entrevista pendente de análise -->
             <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-correcao.xhtml">
                 <ui:param name="processos" value="#{processosEntrevistaAguardandoCorrecao}" />
@@ -119,7 +119,7 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-            <br/><h2>Análise de Entrevista Pendente</h2><br/>
+            <br/><h2>Entrevistas pendentes</h2><br/>
             <!-- Notificações com entrevista pendente de análise -->
             <ui:include src="/WEB-INF/components/lista-processos-analisar-entrevista.xhtml">
                 <ui:param name="processos" value="#{processosEntrevistaAnalisePendente}" />
@@ -127,7 +127,7 @@
         </h:panelGroup>
 
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-            <br/><h2>Análise de Captação Pendente</h2><br/>
+            <br/><h2>Captações pendentes</h2><br/>
             <!-- Notificações com captação pendente de análise -->
             <ui:include src="/WEB-INF/components/lista-processos-analisar-captacao.xhtml">
                 <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
@@ -140,14 +140,14 @@
                 <ui:param name="listaProcessosNotificacao" value="#{processosEntrevistasAguardandoCaptacao}"/>
             </ui:include>
 
-            <br/><h2>Captação aguardando correção</h2><br/>
+            <br/><h2>Correção de captação</h2><br/>
             <ui:include src="/WEB-INF/components/lista-processos-corrigir-captacao.xhtml">
                 <ui:param name="processos" value="#{processosCaptacoesAguardandoCorrecao}"/>
             </ui:include>
         </h:panelGroup>
 
         <h:panelGroup rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-            <br/><h2>Notificações Aguardando Arquivamento</h2><br/>
+            <br/><h2>Arquivamento de notificações</h2><br/>
             <!-- Notificações aguardando o arquivamento -->
             <ui:include src="/WEB-INF/components/lista-processos-aguardando-arquivamento.xhtml">
                 <ui:param name="processos" value="#{processosAguardandoArquivamento}" />
