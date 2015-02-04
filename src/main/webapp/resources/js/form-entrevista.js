@@ -211,6 +211,7 @@ $(function () {
         $btnNext = $('.wizard-actions .btn-next'),
         $btnFinish = $(".wizard-actions .btn-finish");
 
+    $btnPrev.hide();
     $wizard.wizard().on('finished', function (e) {
         // wizard complete code
         console.log("finish");
@@ -224,7 +225,13 @@ $(function () {
 
         if (step.step === 1) {
             $btnPrev.hide();
-        } else if (step.step === 3) {
+            $btnNext.show();
+            $btnFinish.hide();
+        } else if (step.step === 2) {
+            $btnPrev.show();
+            $btnNext.show();
+        } else if (step.step ===3 ) {
+            $btnPrev.show();
             $btnNext.hide();
             $btnFinish.show();
         }
