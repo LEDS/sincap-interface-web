@@ -18,10 +18,7 @@
 <!--@elvariable id="doacaoAutorizada" type="java.lang.Boolean"-->
 <!--@elvariable id="tipoDocumentos" type="java.util.List"-->
 
-<br/>
-
-    <h:panelGroup id="divDoacaoAutorizada" layout="block">
-        <br/><h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
+        <h:outputLabel><b>#{msg['entrevista.text.reponsavelLegal']}</b></h:outputLabel>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.nome']}*"/>
             <h:inputText id="entrevista-responsavel-nome" styleClass="span8"
@@ -179,6 +176,4 @@
         <h:panelGroup rendered="#{menorIdade}">
             <ui:include src="/WEB-INF/components/responsavel2.xhtml"/>
         </h:panelGroup>
-
-    </h:panelGroup>
         </ui:composition>
