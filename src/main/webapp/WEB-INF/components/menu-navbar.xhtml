@@ -90,7 +90,7 @@
                 </h:panelGroup>
                 <!-- Logout -->
                 <li class="settings hidden-phone">
-                    <a href="#" role="button" onclick="document.getElementById('logout').submit()">
+                    <a href="#" role="button" onclick="confirmarSaida()">
                         <i class="icon-off"/>
                     </a>
                 </li>
@@ -110,6 +110,12 @@
         {
             setInterval(ajaxGetNovasNotificacoes, 2500);
         });
+
+        function confirmarSaida() {
+            if (confirm("Deseja sair?")== true) {
+                document.getElementById('logout').submit();
+            };
+        };
     </script>
 
 </ui:composition>
