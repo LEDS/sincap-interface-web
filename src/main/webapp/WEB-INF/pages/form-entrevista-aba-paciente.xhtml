@@ -18,6 +18,8 @@
     <!--@elvariable id="doacaoAutorizada" type="java.lang.Boolean"-->
     <!--@elvariable id="tipoDocumentos" type="java.util.List"-->
 
+    <h:outputLabel><b>#{msg['entrevista.text.paciente']}</b></h:outputLabel>
+    <br/>
     <!-- Para manter os objetos quando buscar do banco de dados. -->
     <input type="hidden" id="id" name="id" value="#{processo.id}"/>
 
@@ -32,16 +34,7 @@
     </h:inputHidden>
     <br/>
     <h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
-            <!--@elvariable id="nomePaciente" type="java.lang.String"-->
-            <h:inputText readonly="true" styleClass="span8" id="paciente-nome"
-                         value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
-        </h:panelGroup>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['notificacao.protocolo']}*"/>
-            <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}"/>
-        </h:panelGroup>
+
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}*"/>
 
@@ -70,6 +63,18 @@
                     <f:selectItems value="#{listaAspectoEstrutural}"/>
                 </h:selectOneMenu>
             </div>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
+            <!--@elvariable id="nomePaciente" type="java.lang.String"-->
+            <h:inputText readonly="true" styleClass="span8" id="paciente-nome"
+                         value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['notificacao.protocolo']}*"/>
+            <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}"/>
         </h:panelGroup>
 
         <h:panelGroup id="divEntrevistaRealizada" layout="block">
@@ -119,6 +124,85 @@
                 </h:inputText>
             </h:panelGroup>
 
+
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.profissao']}*"/>
+                <h:inputText id="obito-paciente-profissao" styleClass="span8" value="#{processo.obito.paciente.profissao}"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.religiao']}"/>
+                <h:inputText id="obito-paciente-religiao" styleClass="span8" value="#{processo.obito.paciente.religiao}"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}*"/>
+                <h:inputText id="obito-paciente-nacionalidade" styleClass="span8"
+                             value="#{processo.obito.paciente.nacionalidade}"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.mae']}*"/>
+                <h:inputText id="obito-paciente-nomeMae" styleClass="span8" value="#{processo.obito.paciente.nomeMae}"/>
+            </h:panelGroup>
+
+            <div class="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}*"/>
+
+                <div class="ui-select span5">
+                    <h:selectOneMenu
+                            id="obito-paciente-endereco-estado"
+                            value="#{processo.obito.paciente.endereco.estado}"
+                            onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
+                        <f:selectItem itemLabel="#{msg['responsavel.dropdown.uf']}"/>
+                        <f:selectItems value="#{listaEstadoItem}"/>
+                    </h:selectOneMenu>
+                </div>
+            </div>
+
+            <div class="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}*"/>
+
+                <div class="ui-select span5">
+                    <h:selectOneMenu
+                            id="obito-paciente-endereco-cidade"
+                            value="#{processo.obito.paciente.endereco.cidade}"
+                            onchange="ajaxGetBairros('#obito-paciente-endereco-cidade', '#obito-paciente-endereco-bairro')">
+                        <f:selectItem itemLabel="#{msg['obito.paciente.dropDown.cidade']}"/>
+                        <f:selectItems value="#{listaCidadeItem}"/>
+                    </h:selectOneMenu>
+                </div>
+            </div>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}*"/>
+
+                <div class="ui-select span5">
+                    <h:selectOneMenu
+                            id="obito-paciente-endereco-bairro"
+                            value="#{processo.obito.paciente.endereco.bairro}">
+                        <f:selectItem itemLabel="#{msg['obito.paciente.dropDown.bairro']}"/>
+                        <f:selectItems value="#{listaBairroItem}"/>
+                    </h:selectOneMenu>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.cep']}*"/>
+                <h:inputText id="obito-paciente-endereco-cep" styleClass="cep span8"
+                             value="#{processo.obito.paciente.endereco.cep}"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.logradouro']}"/>
+                <h:inputText id="obito-paciente-endereco-logradouro" styleClass="span8"
+                             value="#{processo.obito.paciente.endereco.logradouro}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.endereco.numero']}"/>
+                <h:inputText id="obito-paciente-endereco-numero" styleClass="span8" value="#{processo.obito.paciente.endereco.numero}"/>
+            </h:panelGroup>
 
             <!--@elvariable id="menorIdade" type="java.lang.Boolean"-->
             <h:panelGroup rendered="#{menorIdade}">
