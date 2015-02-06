@@ -7,6 +7,8 @@ $(document).ready(function() {
 
     if(document.getElementById("doacaoAutorizada:1").checked) {
         $('#divDoacaoAutorizada').hide();
+        $('#btn-next').hide();
+        $('#btn-finish').show();
     } else {
         $('#divDoacaoNaoAutorizada').hide();
     }
@@ -40,6 +42,15 @@ $(document).ready(function() {
     $('#doacaoAutorizada\\:1').click(function () {
         $('#divDoacaoNaoAutorizada').fadeIn();
         $('#divDoacaoAutorizada').fadeOut();
+    });
+
+    $('#doacaoAutorizada\\:0').change(function () {
+        $('#btn-finish').hide();
+        $('#btn-next').show();
+    });
+    $('#doacaoAutorizada\\:1').change(function () {
+        $('#btn-next').hide();
+        $('#btn-finish').show();
     });
 });
 
