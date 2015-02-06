@@ -338,13 +338,13 @@ $("#notifEntrevista").validate({
             required: "Por favor, insira o estao civil do responsavel"
         },
         'entrevista.responsavel.telefone.numero': {
-            required: "Por favor, insira o telefone1 do responsavel"
+            required: "Por favor, insira o telefone 1 do responsavel"
         },
         'entrevista.responsavel.telefone2.numero': {
-            required: "Por favor, insira o telefone2 do responsavel"
+            required: "Por favor, insira o telefone 2 do responsavel"
         },
 
-        'entrevista-responsavel-sexo': {
+        'entrevista.responsavel.sexo': {
             required: "Por favor, insira o sexo do responsavel"
         },
         'entrevista.responsavel.profissao': {
@@ -371,73 +371,73 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.endereco.bairro': {
             required: "Por favor, selecione o bairro do responsavel"
         },
-        'entrevista-responsavel-endereco-logradouro': {
+        'entrevista.responsavel.endereco.logradouro': {
             required: "Por favor, insira o logradouro"
         },
 
-        'entrevista-responsavel-endereco-numero': {
+        'entrevista.responsavel.endereco.numero': {
             required: "Por favor, insira o número"
         },
 
         //Dados do 2º Responsavel Legal
-        'entrevista-responsavel2-nome': {
+        'entrevista.responsavel2.nome': {
             required: "Por favor, insira o nome 2º do responsavel"
         },
-        'entrevista-responsavel2-dataNascimento':{
+        'entrevista.responsavel2.dataNascimento':{
             required:"Por favor, insira a data de nascimento"
         },
-        'entrevista-responsavel2-documentoSocial-documento': {
+        'entrevista.responsavel2.documentoSocial.documento': {
             required: "Por favor, insira o número do documento com foto"
         },
-        'entrevista-responsavel2-documentoSocial-tipoDocumentoComFoto': {
+        'entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto': {
             required: "Por favor, insira o tipo do documento com foto"
         },
-        'entrevista-responsavel2-parentesco': {
+        'entrevista.responsavel2.parentesco': {
             required: "Por favor, insira o parentesco do 2º responsavel"
         },
-        'entrevista-responsavel2-estadoCivil': {
+        'entrevista.responsavel2.estadoCivil': {
             required: "Por favor, insira o estao civil do 2º responsavel"
         },
-        'entrevista-responsavel2-telefone-numero': {
-            required: "Por favor, insira o telefone1 do responsavel"
+        'entrevista.responsavel2.telefone.numero': {
+            required: "Por favor, insira o telefone1 do 2º responsavel"
         },
-        'entrevista-responsavel2-telefone2-numero': {
-            required: "Por favor, insira o telefone2 do responsavel"
-        },
-
-        'entrevista-responsavel2-sexo': {
-            required: "Por favor, insira o sexo do responsavel"
-        },
-        'entrevista-responsavel2-profissao': {
-            required: "Por favor, insira a profissao do responsavel"
-        },
-        'entrevista-responsavel2-religiao': {
-            required: "Por favor, insira a religiao do responsavel"
-        },
-        'entrevista-responsavel2-grauEscolaridade': {
-            required: "Por favor, insira o grau de escolaridade do responsavel"
-        },
-        'entrevista-responsavel2-endereco-cep': {
-            required: "Por favor, insira o cep do responsavel"
-        },
-        'entrevista-responsavel2-nacionalidade': {
-            required: "Por favor, insira a nacionalidade do responsavel"
-        },
-        'entrevista-responsavel2-endereco-estado': {
-            required: "Por favor, selecione o uf do responsavel"
-        },
-        'entrevista-responsavel2-endereco-cidade': {
-            required: "Por favor, selecione a cidade do responsavel"
-        },
-        'entrevista-responsavel2-endereco-bairro': {
-            required: "Por favor, selecione o bairro do responsavel"
-        },
-        'entrevista-responsavel2-endereco-logradouro': {
-            required: "Por favor, insira o logradouro"
+        'entrevista.responsavel2.telefone2.numero': {
+            required: "Por favor, insira o telefone2 do 2º responsavel"
         },
 
-        'entrevista-responsavel2-endereco-numero': {
-            required: "Por favor, insira o número"
+        'entrevista.responsavel2.sexo': {
+            required: "Por favor, insira o sexo do 2º responsavel"
+        },
+        'entrevista.responsavel2.profissao': {
+            required: "Por favor, insira a profissao do 2º responsavel"
+        },
+        'entrevista.responsavel2.religiao': {
+            required: "Por favor, insira a religiao do 2º responsavel"
+        },
+        'entrevista.responsavel2.grauEscolaridade': {
+            required: "Por favor, insira o grau de escolaridade do 2º responsavel"
+        },
+        'entrevista.responsavel2.endereco.cep': {
+            required: "Por favor, insira o cep do 2º responsavel"
+        },
+        'entrevista.responsavel2.nacionalidade': {
+            required: "Por favor, insira a nacionalidade do 2º responsavel"
+        },
+        'entrevista.responsavel2.endereco.estado': {
+            required: "Por favor, selecione o uf do 2º responsavel"
+        },
+        'entrevista.responsavel2.endereco.cidade': {
+            required: "Por favor, selecione a cidade do 2º responsavel"
+        },
+        'entrevista.responsavel2-endereco.bairro': {
+            required: "Por favor, selecione o bairro do 2º responsavel"
+        },
+        'entrevista.responsavel2.endereco.logradouro': {
+            required: "Por favor, insira o logradouro do 2º responsavel"
+        },
+
+        'entrevista.responsavel2.endereco.numero': {
+            required: "Por favor, insira o número do 2º responsavel"
         },
 
         //Dados 1° testemunha
@@ -452,7 +452,7 @@ $("#notifEntrevista").validate({
         },
         //Dados 2° testemunha
         'entrevista.testemunha2.nome': {
-            required: "Por favor, insira o nome da segunga testemunha"
+            required: "Por favor, insira o nome da 2º testemunha"
         },
         'entrevista.testemunha2.documentoSocial.documento': {
             required: "Por favor, insira o número do documento com foto"
