@@ -76,6 +76,7 @@ $("#notifEntrevista").validate({
     errorPlacement: fieldBoxValidatorError,
     success: fieldBoxValidatorSuccess,
     rules: {
+        /*Dados do Paciente*/
         entrevistaRealizada: {
             required: true
         },
@@ -94,8 +95,37 @@ $("#notifEntrevista").validate({
         causaNaoDoacao: {
             required: true
         },
-
-        //Dados do Responsavel Legal
+        'obito.paciente.profissao':{
+            required: true
+        },
+        'obito.paciente.religiao':{
+            required: true
+        },
+        'obito.paciente.nacionalidade':{
+            required: true
+        },
+        'obito.paciente.nomeMae':{
+            required: true
+        },
+        'obito.paciente.endereco.estado':{
+            required: true
+        },
+        'obito.paciente.endereco.cidade':{
+            required: true
+        },
+        'obito.paciente.endereco.bairro':{
+            required: true
+        },
+        'obito.paciente.endereco.cep':{
+            required: true
+        },
+        'obito.paciente.endereco.logradouro':{
+            required: true
+        },
+        'obito.paciente.endereco.numero':{
+            required: true
+        },
+        /*Dados do Responsavel*/
         'entrevista.responsavel.nome': {
             required: true,
             minlength: 3
@@ -184,6 +214,36 @@ $("#notifEntrevista").validate({
         },
         recusaFamiliar: {
             required: "Por favor, selecione uma recusaFamiliar"
+        },
+        'obito.paciente.profissao':{
+            required: "Por favor, informe a profissão."
+        },
+        'obito.paciente.religiao':{
+            required: "Por favor, informe a religião."
+        },
+        'obito.paciente.nacionalidade':{
+            required: "Por favor, informe a nacionalidade."
+        },
+        'obito.paciente.nomeMae':{
+            required: "Por favor, informe o nome da mãe."
+        },
+        'obito.paciente.endereco.estado':{
+            required: "Por favor, informe o endereço do Paciente."
+        },
+        'obito-paciente-endereco-cidade':{
+            required: "Por favor, informe a cidade do Paciente."
+        },
+        'obito.paciente.endereco.bairro':{
+            required: "Por favor, informe o bairro do Paciente."
+        },
+        'obito.paciente.endereco.cep':{
+            required: "Por favor, informe o cep do Paciente."
+        },
+        'obito.paciente.endereco.logradouro':{
+            required: "Por favor, informe o logradouro do Paciente."
+        },
+        'obito.paciente.endereco.numero':{
+            required: "Por favor, informe o numero do Paciente."
         },
         //Dados do Responsavel Legal
         'entrevista.responsavel.nome': {
