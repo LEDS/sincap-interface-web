@@ -466,7 +466,6 @@ $("#notifEntrevista").validate({
     }
 
 });
-
 $(function () {
     var $wizard = $('#fuelux-wizard'),
         $btnPrev = $('.wizard-actions .btn-prev'),
@@ -498,12 +497,15 @@ $(function () {
             $btnFinish.show();
         }
     });
-
     $btnPrev.on('click', function () {
         $wizard.wizard('previous');
     });
-    $btnNext.on('click', function () {
-        $wizard.wizard('next');
+
+    $btnNext.click(function (){
+        var notifEntrevista = $("#notifEntrevista");
+        if (notifEntrevista.valid()) {
+            $wizard.wizard('next');
+        }
     });
 
     $(".wizard-actions .btn-finish").click(function () {
