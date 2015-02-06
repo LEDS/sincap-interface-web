@@ -1,3 +1,48 @@
+$(document).ready(function() {
+    if(document.getElementById("entrevistaRealizada:1").checked) {
+        $('#divEntrevistaRealizada').hide();
+    } else {
+        $('#divEntrevistaNaoRealizada').hide();
+    }
+
+    if(document.getElementById("doacaoAutorizada:1").checked) {
+        $('#divDoacaoAutorizada').hide();
+    } else {
+        $('#divDoacaoNaoAutorizada').hide();
+    }
+
+    document.getElementById("entrevista-responsavel-telefone-numero").addEventListener("keydown", function (e) {
+        if(e.key === 'Tab') {
+            e.preventDefault();
+            document.getElementById("entrevista-responsavel-telefone2-numero").focus();
+        }
+    });
+
+    document.getElementById("entrevista-responsavel-telefone2-numero").addEventListener("keydown", function (e) {
+        if(e.key === 'Tab') {
+            e.preventDefault();
+            document.getElementById("entrevista-responsavel-profissao").focus();
+        }
+    });
+
+    $('#entrevistaRealizada\\:0').click(function () {
+        $('#divEntrevistaRealizada').fadeIn();
+        $('#divEntrevistaNaoRealizada').fadeOut();
+    });
+    $('#entrevistaRealizada\\:1').click(function () {
+        $('#divEntrevistaNaoRealizada').fadeIn();
+        $('#divEntrevistaRealizada').fadeOut();
+    });
+    $('#doacaoAutorizada\\:0').click(function () {
+        $('#divDoacaoAutorizada').fadeIn();
+        $('#divDoacaoNaoAutorizada').fadeOut();
+    });
+    $('#doacaoAutorizada\\:1').click(function () {
+        $('#divDoacaoNaoAutorizada').fadeIn();
+        $('#divDoacaoAutorizada').fadeOut();
+    });
+});
+
 function init () {
     definirMascaras();
     definirEstilo();
@@ -242,5 +287,12 @@ $(function () {
     });
     $btnNext.on('click', function () {
         $wizard.wizard('next');
+    });
+
+    $(".wizard-actions .btn-finish").click(function () {
+        var notifEntrevista = $("#notifEntrevista");
+        if (notifEntrevista.valid()) {
+            notifEntrevista.submit();
+        }
     });
 });
