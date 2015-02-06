@@ -24,6 +24,7 @@
             <h:inputText id="entrevista-responsavel-nome" styleClass="span8"
                          value="#{processo.entrevista.responsavel.nome}"/>
         </h:panelGroup>
+
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.dataNascimento']}*"/>
             <h:inputText styleClass="dataNascimento span8" id="entrevista-responsavel-dataNascimento"
@@ -31,11 +32,13 @@
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
         </h:panelGroup>
+
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.documento']}*"/>
             <h:inputText id="entrevista-responsavel-documentoSocial-documento" styleClass="span8"
                          value="#{processo.entrevista.responsavel.documentoSocial.documento}"/>
         </h:panelGroup>
+
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}*"/>
 

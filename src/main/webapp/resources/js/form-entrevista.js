@@ -151,6 +151,10 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.telefone2.numero': {
             required: true
         },
+        'entrevista.responsavel.sexo':{
+            required:true
+        },
+
         'entrevista.responsavel.profissao': {
             required: true
         },
@@ -175,6 +179,75 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.endereco.bairro': {
             required: true
         },
+        'entrevista.responsavel.endereco.logradouro':{
+            required:true
+        },
+        'entrevista.responsavel.endereco.numero':{
+            required:true
+        },
+
+        //Dados 2º responsável legal
+
+        'entrevista.responsavel2.nome': {
+            required: true,
+            minlength: 3
+        },
+        'entrevista.responsavel2.dataNascimento':{
+            required:true
+        },
+        'entrevista.responsavel2.documentoSocial.documento': {
+            required: true
+        },
+        'entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto': {
+            required: true
+        },
+        'entrevista.responsavel2.parentesco': {
+            required: true
+        },
+        'entrevista.responsavel2.estadoCivil': {
+            required: true
+        },
+        'entrevista.responsavel2.telefone.numero': {
+            required: true
+        },
+        'entrevista.responsavel2.telefone2.numero': {
+            required: true
+        },
+        'entrevista.responsavel2.sexo':{
+            required:true
+        },
+
+        'entrevista.responsavel2.profissao': {
+            required: true
+        },
+        'entrevista.responsavel2.religiao': {
+            required: true
+        },
+        'entrevista.responsavel2.grauEscolaridade': {
+            required: true
+        },
+        'entrevista.responsavel2.endereco.cep': {
+            required: true
+        },
+        'entrevista.responsavel2.nacionalidade': {
+            required: true
+        },
+        'entrevista.responsavel2.endereco.estado': {
+            required: true
+        },
+        'entrevista.responsavel2.endereco.cidade': {
+            required: true
+        },
+        'entrevista.responsavel2.endereco.bairro': {
+            required: true
+        },
+        'entrevista.responsavel2.endereco.logradouro':{
+            required:true
+        },
+        'entrevista.responsavel2.endereco.numero':{
+            required:true
+        },
+
         //Dados 1° testemunha
         'entrevista.testemunha1.nome': {
             required: true
@@ -270,6 +343,10 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.telefone2.numero': {
             required: "Por favor, insira o telefone2 do responsavel"
         },
+
+        'entrevista-responsavel-sexo': {
+            required: "Por favor, insira o sexo do responsavel"
+        },
         'entrevista.responsavel.profissao': {
             required: "Por favor, insira a profissao do responsavel"
         },
@@ -294,6 +371,75 @@ $("#notifEntrevista").validate({
         'entrevista.responsavel.endereco.bairro': {
             required: "Por favor, selecione o bairro do responsavel"
         },
+        'entrevista-responsavel-endereco-logradouro': {
+            required: "Por favor, insira o logradouro"
+        },
+
+        'entrevista-responsavel-endereco-numero': {
+            required: "Por favor, insira o número"
+        },
+
+        //Dados do 2º Responsavel Legal
+        'entrevista-responsavel2-nome': {
+            required: "Por favor, insira o nome 2º do responsavel"
+        },
+        'entrevista-responsavel2-dataNascimento':{
+            required:"Por favor, insira a data de nascimento"
+        },
+        'entrevista-responsavel2-documentoSocial-documento': {
+            required: "Por favor, insira o número do documento com foto"
+        },
+        'entrevista-responsavel2-documentoSocial-tipoDocumentoComFoto': {
+            required: "Por favor, insira o tipo do documento com foto"
+        },
+        'entrevista-responsavel2-parentesco': {
+            required: "Por favor, insira o parentesco do 2º responsavel"
+        },
+        'entrevista-responsavel2-estadoCivil': {
+            required: "Por favor, insira o estao civil do 2º responsavel"
+        },
+        'entrevista-responsavel2-telefone-numero': {
+            required: "Por favor, insira o telefone1 do responsavel"
+        },
+        'entrevista-responsavel2-telefone2-numero': {
+            required: "Por favor, insira o telefone2 do responsavel"
+        },
+
+        'entrevista-responsavel2-sexo': {
+            required: "Por favor, insira o sexo do responsavel"
+        },
+        'entrevista-responsavel2-profissao': {
+            required: "Por favor, insira a profissao do responsavel"
+        },
+        'entrevista-responsavel2-religiao': {
+            required: "Por favor, insira a religiao do responsavel"
+        },
+        'entrevista-responsavel2-grauEscolaridade': {
+            required: "Por favor, insira o grau de escolaridade do responsavel"
+        },
+        'entrevista-responsavel2-endereco-cep': {
+            required: "Por favor, insira o cep do responsavel"
+        },
+        'entrevista-responsavel2-nacionalidade': {
+            required: "Por favor, insira a nacionalidade do responsavel"
+        },
+        'entrevista-responsavel2-endereco-estado': {
+            required: "Por favor, selecione o uf do responsavel"
+        },
+        'entrevista-responsavel2-endereco-cidade': {
+            required: "Por favor, selecione a cidade do responsavel"
+        },
+        'entrevista-responsavel2-endereco-bairro': {
+            required: "Por favor, selecione o bairro do responsavel"
+        },
+        'entrevista-responsavel2-endereco-logradouro': {
+            required: "Por favor, insira o logradouro"
+        },
+
+        'entrevista-responsavel2-endereco-numero': {
+            required: "Por favor, insira o número"
+        },
+
         //Dados 1° testemunha
         'entrevista.testemunha1.nome': {
             required: "Por favor, insira o nome"
