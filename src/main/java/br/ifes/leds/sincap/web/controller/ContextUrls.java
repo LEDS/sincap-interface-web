@@ -72,6 +72,10 @@ public class ContextUrls {
     public static final String GET_CONTRA_INDICACAO = "/getContraIndicacoesMedicas";
     public static final String GET_NOTIFICAR_INTERESSADOS = "/getNotificarInteressados";
     public static final String RLT_ATIVIDADE_MENSAL = "/atividade-mensal";
+    public static final String GET_ANALISE_OBITO_PENDENTE = "/getAnaliseObitoPendente";
+    public static final String GET_ANALISE_ENTREVISTA_PENDENTE = "/getAnaliseEntrevistaPendente";
+    public static final String GET_ANALISE_CAPTACAO_PENDENTE = "/getAnaliseCaptacaoPendente";
+    public static final String GET_NOTIFICACOES_AGUARDANDO_ARQUIVAMENTO = "/getNotificacoesAguardandoArquivamento";
 
     /**
      * Subsistemas
@@ -127,5 +131,9 @@ public class ContextUrls {
     String get_setores = GET_SETORES;
     String get_contra_indicacao = GET_CONTRA_INDICACAO;
     String get_notificar_interessados = GET_NOTIFICAR_INTERESSADOS;
+    String get_analise_obito_pendente = GET_ANALISE_OBITO_PENDENTE;
+    String get_analise_entrevista_pendente = GET_ANALISE_ENTREVISTA_PENDENTE;
+    String get_analise_captacao_pendente = GET_ANALISE_CAPTACAO_PENDENTE;
+    String get_notificacoes_aguardando_arquivamento = GET_NOTIFICACOES_AGUARDANDO_ARQUIVAMENTO;
     String logout = LOGOUT;
 }
