@@ -318,3 +318,5 @@ div.FixedHeader_Cloned table {
 	margin: 0 !important
 }
 
+.pull-left{float:left!important;}
+.pull-right{float:right!important;}

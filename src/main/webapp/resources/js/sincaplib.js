@@ -330,7 +330,7 @@ function buildTable(tableId){
 
     var table = $(tableId).DataTable(
         {
-            "dom": '<"top"f>rt<"bottom"lp><"clear">',
+            "dom": '<"pull-left"f><"pull-right"l>tip',
             bPaginate: true,
             bLengthChange: true,
             bFilter: true,
@@ -346,7 +346,8 @@ function buildTable(tableId){
                 {
                     "data": null,
                     "targets": -1,
-                    "defaultContent": "<a class=\"btn-flat default\" href=\"#\"> " +
+                    "defaultContent"
+                        : "<a class=\"btn-flat default\" href=\"#\"> " +
                         "<i class=\"icon-file\"></i>"+
                         "Analisar"+
                         "</a>"
@@ -355,16 +356,9 @@ function buildTable(tableId){
         }
     );
 
-    //Tentando configurar com o Boostrap 2
 
-
-    //Adicionando as classes do bootstrap à tabela
-    $(tableId)
-        .removeClass('display')
-        .addClass('table table-striped table-bordered no-wrap responsive')
-
-    //Tornando a tabela flexivel à tela
-    $(tableId).attr("width","100%");
+    /*//Tornando a tabela flexivel à tela
+    $(tableId).attr("width","100%");*/
 
     //Criando o link para redirecionamento ao clique no botão
     $(tableId + ' tbody').on( 'click', 'a',
