@@ -330,7 +330,8 @@ function buildTable(tableId){
 
     var table = $(tableId).DataTable(
         {
-            "dom": '<"pull-left"f><"pull-right"l>tip',
+            "dom": '<"pull-left"f><"pull-right"l>t<"row-fluid"<"span6"i><"span6"p>>',
+            //"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             bPaginate: true,
             bLengthChange: true,
             bFilter: true,
@@ -372,4 +373,11 @@ function buildTable(tableId){
     setInterval( function () {
         table.ajax.reload();
     }, 2500 );
+
+    $.extend( $.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    } );
+
+    $(tableId+'_paginate').removeClass();
+    $(tableId+'_paginate').addClass('dataTables_paginate paging_bootstrap pagination');
 }
