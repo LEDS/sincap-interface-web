@@ -15,6 +15,7 @@ glassfish-web.xml
 *.log
 *.log.????-??
 
+
 # Arquivos de configuração do IntelliJ
 .idea/
 SincapInterfaceWeb.iml
