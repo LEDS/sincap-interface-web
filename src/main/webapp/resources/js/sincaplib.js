@@ -308,8 +308,12 @@ function getUrlMetodoControlador(tableId){
         tabelaAnalisarObito: "/sincap/processo/getAnaliseObitoPendente",
         tabelaAnalisarEntrevista: "/sincap/processo/getAnaliseEntrevistaPendente",
         tabelaAnalisarCaptacao: "/sincap/processo/getAnaliseCaptacaoPendente",
-        tabelaNotificacoesAguardandoArquivamento: "/sincap/processo/getNotificacoesAguardandoArquivamento"
-
+        tabelaNotificacoesAguardandoArquivamento: "/sincap/processo/getNotificacoesAguardandoArquivamento",
+        tabelaCorrigirObito: "/sincap/processo/getObitoAguardandoCorrecao",
+        tabelaObitoAguardandoEntrevista: "/sincap/processo/getObitoAguardandoEntrevista",
+        tabelaEntrevistaAguardandoCorrecao: "/sincap/processo/getEntrevistaAguardandoCorrecao",
+        tabelaEntrevistaAguardandoCaptacao: "/sincap/processo/getEntrevistaAguardandoCaptacao",
+        tabelaCaptacaoAguardandoCorrecao: "/sincap/processo/getCaptacaoAguardandoCorrecao"
     };
 
     $.each(tabelasPossiveis, function(key,value){

@@ -76,6 +76,11 @@ public class ContextUrls {
     public static final String GET_ANALISE_ENTREVISTA_PENDENTE = "/getAnaliseEntrevistaPendente";
     public static final String GET_ANALISE_CAPTACAO_PENDENTE = "/getAnaliseCaptacaoPendente";
     public static final String GET_NOTIFICACOES_AGUARDANDO_ARQUIVAMENTO = "/getNotificacoesAguardandoArquivamento";
+    public static final String GET_OBITO_AGUARDANDO_CORRECAO = "/getObitoAguardandoCorrecao";
+    public static final String GET_OBITO_AGUARDANDO_ENTREVISTA = "/getObitoAguardandoEntrevista";
+    public static final String GET_ENTREVISTA_AGUARDANDO_CORRECAO = "/getEntrevistaAguardandoCorrecao";
+    public static final String GET_ENTREVISTA_AGUARDANDO_CAPTACAO = "/getEntrevistaAguardandoCaptacao";
+    public static final String GET_CAPTACAO_AGUARDANDO_CORRECAO = "/getCaptacaoAguardadandoCorrecao";
 
     /**
      * Subsistemas
@@ -135,5 +140,10 @@ public class ContextUrls {
     String get_analise_entrevista_pendente = GET_ANALISE_ENTREVISTA_PENDENTE;
     String get_analise_captacao_pendente = GET_ANALISE_CAPTACAO_PENDENTE;
     String get_notificacoes_aguardando_arquivamento = GET_NOTIFICACOES_AGUARDANDO_ARQUIVAMENTO;
+    String get_obito_aguardando_correcao = GET_OBITO_AGUARDANDO_CORRECAO;
+    String get_obito_aguardando_entrevista = GET_OBITO_AGUARDANDO_ENTREVISTA;
+    String get_entrevista_aguardando_correcao = GET_ENTREVISTA_AGUARDANDO_CORRECAO;
+    String get_entrevista_aguardando_captacao = GET_ENTREVISTA_AGUARDANDO_CAPTACAO;
+    String get_captacao_aguardando_correcao = GET_CAPTACAO_AGUARDANDO_CORRECAO;
     String logout = LOGOUT;
 }

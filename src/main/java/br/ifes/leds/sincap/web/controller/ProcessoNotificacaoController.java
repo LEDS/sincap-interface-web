@@ -204,4 +204,106 @@ public class ProcessoNotificacaoController {
 
         return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
     }
+    @RequestMapping(value = ContextUrls.GET_OBITO_AGUARDANDO_CORRECAO, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getObitoAguardandoCorrecao(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_NOTIFICADOR")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+    @RequestMapping(value = ContextUrls.GET_OBITO_AGUARDANDO_ENTREVISTA, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getObitoAguardandoEntrevista(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOENTREVISTA);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+    @RequestMapping(value = ContextUrls.GET_ENTREVISTA_AGUARDANDO_CORRECAO, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCorrecao(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+    @RequestMapping(value = ContextUrls.GET_ENTREVISTA_AGUARDANDO_CAPTACAO, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCaptacao(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCAPTACAO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+    @RequestMapping(value = ContextUrls.GET_ENTREVISTA_AGUARDANDO_CAPTACAO, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCaptacao(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCAPTACAO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
+    @RequestMapping(value = ContextUrls.GET_CAPTACAO_AGUARDANDO_CORRECAO, method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<NotificacaoJSON> getCaptacaoAguardandoCorrecao(HttpSession session) {
+        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<ProcessoNotificacao> processos = new ArrayList<>();
+
+
+        if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO);
+        }
+
+        NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
+        notificacaoJSON.setData(utilityWeb.ProcessoToNotificacaoDTO(processos));
+
+        return new ResponseEntity<NotificacaoJSON>(notificacaoJSON, OK);
+    }
 }

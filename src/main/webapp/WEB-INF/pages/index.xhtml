@@ -159,29 +159,29 @@
             <div id="content">
                 <br/>
                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4>Óbito Aguardando Entrevista</h4></a></li>
-                    <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4>Entrevista Aguardando Correção</h4></a></li>
-                    <li><a href="#entrevistaAguardandoCaptcacao" data-toggle="tab"><h4>Entrevista Aguardando Captação</h4></a></li>
-                    <li><a href="#captacaoAguardandoCorrecao" data-toggle="tab"><h4>Captação Aguardando Correção</h4></a></li>
+                    <li><a href="#tabelaObitoAguardantoEntrevista" data-toggle="tab"><h4>Óbito Aguardando Entrevista</h4></a></li>
+                    <li><a href="#tabelaCaptacaoAguardandoCorrecao" data-toggle="tab"><h4>Entrevista Aguardando Correção</h4></a></li>
+                    <li><a href="#tabelaEntrevistaAguardandoCaptacao" data-toggle="tab"><h4>Entrevista Aguardando Captação</h4></a></li>
+                    <li><a href="#tabelaCaptacaoAguardandoCorrecao" data-toggle="tab"><h4>Captação Aguardando Correção</h4></a></li>
                 </ul>
                 <div id="my-tab-content" class="tab-content">
-                    <div class="tab-pane" id="obitoAguardantoEntrevista">
+                    <div class="tab-pane" id="tabelaObitoAguardantoEntrevista">
                         <ui:include src="/WEB-INF/components/lista-obito-aguardando-entrevista.xhtml">
                             <ui:param name="listaProcessosNotificacao" value="#{processosObitoAguardandoEntrevista}"/>
                         </ui:include>
                     </div>
-                    <div class="tab-pane" id="entrevistaAguardandoCorrecao">
+                    <div class="tab-pane" id="tabelaEntrevistaAguardandoCorrecao">
                         <!-- Notificações com entrevista pendente de análise -->
                         <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-correcao.xhtml">
                             <ui:param name="processos" value="#{processosEntrevistaAguardandoCorrecao}" />
                         </ui:include>
                     </div>
-                    <div class="tab-pane" id="entrevistaAguardandoCaptcacao">
+                    <div class="tab-pane" id="tabelaEntrevistaAguardandoCaptacao">
                         <ui:include src="/WEB-INF/components/lista-entrevista-aguardando-captacao.xhtml">
                             <ui:param name="listaProcessosNotificacao" value="#{processosEntrevistasAguardandoCaptacao}"/>
                         </ui:include>
                     </div>
-                    <div class="tab-pane" id="captacaoAguardandoCorrecao">
+                    <div class="tab-pane" id="tabelaCaptacaoAguardandoCorrecao">
                         <ui:include src="/WEB-INF/components/lista-processos-corrigir-captacao.xhtml">
                             <ui:param name="processos" value="#{processosCaptacoesAguardandoCorrecao}"/>
                         </ui:include>
@@ -201,6 +201,11 @@
                 buildTable("tabelaAnalisarEntrevista");
                 buildTable("tabelaAnalisarCaptacao");
                 buildTable("tabelaNotificacoesAguardandoArquivamento");
+                buildTable("tabelaCorrigirObito");
+                buildTable("tabelaObitoAguardandoEntrevista");
+                buildTable("tabelaEntrevistaAguardandoCorrecao");
+                buildTable("tabelaEntrevistaAguardandoCaptacao");
+                buildTable("tabelaCaptacaoAguardandoCorrecao");
                 $('#tabs').tab();
             });
         </script>
