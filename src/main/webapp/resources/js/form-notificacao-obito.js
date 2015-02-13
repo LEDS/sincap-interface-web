@@ -84,6 +84,7 @@ $("#form-setor").validate({
 
 //Validando os dados do formulario
 $("#processo").validate({
+    
     ignore: [],
     errorPlacement: fieldBoxValidatorError,
     success: fieldBoxValidatorSuccess,
@@ -104,34 +105,34 @@ $("#processo").validate({
         'obito-paciente-documentoSocial-tipoDocumentoComFoto': {
             required: true
         },
-        'obito.paciente.telefone.numero': {
-            required: true,
-            rangelength: [13, 14]
-        },
+       // 'obito.paciente.telefone.numero': {
+       //     required: true,
+       //   rangelength: [13, 14]
+       //  },
         'obito.paciente.sexo': {
             required: true
         },
         'obito.paciente.numeroSUS': {
             required: true
         },
-        'obito.paciente.profissao': {
-            required: true
-        },
-        'obito.paciente.nacionalidade': {
-            required: true
-        },
+       // 'obito.paciente.profissao': {
+       //     required: true
+       //  },
+       // 'obito.paciente.nacionalidade': {
+       //     required: true
+       // },
         'obito.paciente.numeroProntuario': {
             required: true
-        },
-        'obito.paciente.endereco.cidade': {
-            required: true
-        },
-        'obito.paciente.endereco.bairro': {
-            required: true
-        },
-        'obito.paciente.endereco.cep': {
-            required: true,
-            minlength: 9
+       // },
+       // 'obito.paciente.endereco.cidade': {
+     //       required: true
+       // },
+       // 'obito.paciente.endereco.bairro': {
+       //     required: true
+      //  },
+      //  'obito.paciente.endereco.cep': {
+      //      required: true,
+      //      minlength: 9
         },
         // Notificacao de Obito aba Obito
         dataObito: {
