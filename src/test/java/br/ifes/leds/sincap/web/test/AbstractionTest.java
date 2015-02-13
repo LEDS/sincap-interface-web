@@ -7,13 +7,13 @@ import br.ifes.leds.reuse.endereco.cgd.EstadoRepository;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Sexo;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Telefone;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Escolaridade;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.*;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.joda.time.DateTime;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,6 +27,7 @@ import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFo
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-test.xml", "classpath:spring-web-context.xml"})
 @WebAppConfiguration
+@ActiveProfiles("dev")
 public abstract class AbstractionTest {
     @Autowired
     private EstadoRepository estadoRepository;
