@@ -147,19 +147,21 @@
                 <h:inputText id="obito-paciente-nomeMae" styleClass="span8" value="#{processo.obito.paciente.nomeMae}"/>
             </h:panelGroup>
 
-            <div class="field-box">
-                <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}*"/>
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['responsavel.dropdown.uf']}*"/>
 
                 <div class="ui-select span8">
-                    <h:selectOneMenu
-                            id="obito-paciente-endereco-estado"
-                            value="#{processo.obito.paciente.endereco.estado}"
-                            onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
-                        <f:selectItem itemLabel="#{msg['responsavel.dropdown.uf']}"/>
+                    <h:selectOneMenu id="obito-paciente-endereco-estado"
+                                     value="#{processo.obito.paciente.endereco.estado}"
+                                     onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
+                        <f:selectItem itemValue=""
+                                      itemLabel="#{msg['responsavel.dropdown.uf']}"/>
                         <f:selectItems value="#{listaEstadoItem}"/>
                     </h:selectOneMenu>
                 </div>
-            </div>
+                <br/>
+                <br/>
+            </h:panelGroup>
 
             <div class="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}*"/>
@@ -173,6 +175,8 @@
                         <f:selectItems value="#{listaCidadeItem}"/>
                     </h:selectOneMenu>
                 </div>
+                <br/>
+                <br/>
             </div>
 
             <h:panelGroup layout="block" styleClass="field-box">
@@ -186,6 +190,8 @@
                         <f:selectItems value="#{listaBairroItem}"/>
                     </h:selectOneMenu>
                 </div>
+                <br/>
+                <br/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
@@ -204,6 +210,30 @@
                 <h:inputText id="obito-paciente-endereco-numero" styleClass="span8" value="#{processo.obito.paciente.endereco.numero}"/>
             </h:panelGroup>
 
+            <input type="hidden" name="obito.id" value="#{processo.obito.id}" />
+            <h:inputHidden id="obito-dataObito" readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
+                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+            </h:inputHidden>
+            <h:inputHidden id="obito-dataCadastro" readonly="true" styleClass="span8" value="#{processo.obito.dataCadastro.time}">
+                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+            </h:inputHidden>
+            <input type="hidden" name="obito.setor" value="#{processo.obito.setor}" />
+            <input type="hidden" name="obito.hospital" value="#{processo.obito.hospital}" />
+            <input type="hidden" name="obito.primeiraCausaMortis" value="#{processo.obito.primeiraCausaMortis}" />
+            <input type="hidden" name="obito.segundaCausaMortis" value="#{processo.obito.segundaCausaMortis}" />
+            <input type="hidden" name="obito.terceiraCausaMortis" value="#{processo.obito.terceiraCausaMortis}" />
+            <input type="hidden" name="obito.quartaCausaMortis" value="#{processo.obito.quartaCausaMortis}" />
+            <input type="hidden" name="obito.aptoDoacao" value="#{processo.obito.aptoDoacao}" />
+            <input type="hidden" name="obito.corpoEncaminhamento" value="#{processo.obito.corpoEncaminhamento}" />
+            <input type="hidden" name="obito.tipoObito" value="#{processo.obito.tipoObito}" />
+            <input type="hidden" name="obito.idadePaciente" value="#{processo.obito.idadePaciente}" />
+
+            <input type="hidden" name="obito.paciente.id" value="#{processo.obito.paciente.id}" />
+            <input type="hidden" name="obito.paciente.numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}" />
+            <input type="hidden" name="obito.paciente.documentoSocial.documento" value="#{processo.obito.paciente.documentoSocial.documento}" />
+            <input type="hidden" name="obito.paciente.documentoSocial.tipoDocumentoComFoto" value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}" />
+            <input type="hidden" name="obito.paciente.numeroSUS" value="#{processo.obito.paciente.numeroSUS}" />
+            <input type="hidden" name="obito.paciente.sexo" value="#{processo.obito.paciente.sexo}" />
 
         </h:panelGroup>
     </h:panelGroup>

@@ -5,6 +5,7 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
@@ -15,6 +16,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
+import org.dozer.Mapper;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +55,8 @@ public class NotificacaoEntrevistaController {
     private AplCadastroInterno aplCadastroInterno;
     @Autowired
     private UtilityWeb utilityWeb;
+    @Autowired
+    private Mapper mapper;
 
     @RequestMapping(value = ADICIONAR + "/{idProcesso}", method = GET)
     public String loadFormEntrevistaGetMethod(ModelMap model, @PathVariable Long idProcesso) {
@@ -95,6 +99,8 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
 
             model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
+
+            utilityWeb.preencherEndereco(mapper.map(processo.getObito().getPaciente().getEndereco(), EnderecoDTO.class), model);
         } catch (Exception ignored) {
 
         }

@@ -29,7 +29,13 @@ function focus(selector, next) {
 
 function fieldBoxValidatorError(error, element) {
     var $element = $(element);
+
     var $parent = $element.parent(".field-box");
+
+    if ($parent.length == 0){
+        var $parent = $element.parent(".ui-select").parent(".field-box");
+    }
+
     if (!$parent.hasClass("error")) {
         $parent.addClass("error");
         $parent.append("<span class='alert-msg'></span>");
@@ -42,6 +48,10 @@ function fieldBoxValidatorError(error, element) {
 function fieldBoxValidatorSuccess(label, element) {
     var $element = $(element);
     var $parent = $element.parent(".field-box");
+    if ($parent.length == 0){
+        var $parent = $element.parent(".ui-select").parent(".field-box");
+    }
+
     if ($parent.hasClass("error")) {
         $parent.removeClass("error");
         $parent.find("span").remove();

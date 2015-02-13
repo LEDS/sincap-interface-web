@@ -286,7 +286,7 @@ $("#notifEntrevista").validate({
             required: "Por favor, selecione  o problema estrutural do responsavel"
         },
         recusaFamiliar: {
-            required: "Por favor, selecione uma recusaFamiliar"
+            required: "Por favor, selecione uma Recusa Familiar"
         },
         'obito.paciente.profissao':{
             required: "Por favor, informe a profissão."
@@ -301,9 +301,9 @@ $("#notifEntrevista").validate({
             required: "Por favor, informe o nome da mãe."
         },
         'obito.paciente.endereco.estado':{
-            required: "Por favor, informe o endereço do Paciente."
+            required: "Por favor, informe o estado do Paciente."
         },
-        'obito-paciente-endereco-cidade':{
+        'obito.paciente.endereco.cidade':{
             required: "Por favor, informe a cidade do Paciente."
         },
         'obito.paciente.endereco.bairro':{
