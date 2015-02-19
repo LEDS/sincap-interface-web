@@ -15,26 +15,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- dataTables -->
-    <h:outputStylesheet library="css" name="dataTables.bootstrap.css"/>
-
-
     <!-- bootstrap -->
     <h:outputStylesheet library="css" name="bootstrap/bootstrap.css"/>
     <h:outputStylesheet library="css" name="bootstrap/bootstrap-responsive.css"/>
     <h:outputStylesheet library="css" name="bootstrap/bootstrap-overrides.css"/>
     <h:outputStylesheet library="css" name="form-wizard.css"/>
 
-    <!-- libraries -->
-    <h:outputStylesheet library="css" name="lib/jquery-ui-1.10.2.custom.css"/>
-    <h:outputStylesheet library="css" name="lib/font-awesome.css"/>
-    <h:outputStylesheet library="css" name="lib/select2.css"/>
-    <h:outputStylesheet library="css" name="lib/uniform.default.css"/>
-
     <!-- global styles -->
     <h:outputStylesheet library="css" name="layout.css"/>
     <h:outputStylesheet library="css" name="elements.css"/>
     <h:outputStylesheet library="css" name="icons.css"/>
+
+    <!-- libraries -->
+    <h:outputStylesheet library="css" name="lib/jquery-ui-1.10.2.custom.css"/>
+    <h:outputStylesheet library="css" name="lib/font-awesome.css"/>
+
+    <!-- include dos css opcionais de cada página -->
+    <ui:insert name="#{sects.libraries}"/>
+
+    <h:outputStylesheet library="css" name="lib/select2.css"/>
+    <h:outputStylesheet library="css" name="lib/uniform.default.css"/>
+
+
 
     <!-- this page specific styles -->
     <h:outputStylesheet library="css" name="compiled/index.css"/>
@@ -83,13 +85,13 @@
             <!-- content wrapper -->
             <h:panelGroup layout="block" id="content">
 
+                <!-- Aqui entra o conteúdo da página -->
+                <ui:insert name="#{sects.content}"/>
+
                 <!-- scripts inserts -->
                 <!-- Aqui entram os includes de scripts na página -->
                 <ui:insert name="#{sects.scripts}"/>
                 <!-- end scripts inserts -->
-
-                <!-- Aqui entra o conteúdo da página -->
-                <ui:insert name="#{sects.content}"/>
 
             </h:panelGroup>
             <!-- end content wrapper -->
