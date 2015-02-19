@@ -299,3 +299,89 @@ function definirEstilo() {
     $(".control-group > select").wrap("<div class='span3'></div>");
     $("br + label").css("padding-bottom", "1em");
 }
+
+function getUrlMetodoControlador(tableId){
+
+    var urlMetodoControlador;
+
+    var tabelasPossiveis = {
+        tabelaAnalisarObito: "/sincap/processo/getAnaliseObitoPendente",
+        tabelaAnalisarEntrevista: "/sincap/processo/getAnaliseEntrevistaPendente",
+        tabelaAnalisarCaptacao: "/sincap/processo/getAnaliseCaptacaoPendente",
+        tabelaNotificacoesAguardandoArquivamento: "/sincap/processo/getNotificacoesAguardandoArquivamento",
+        tabelaCorrigirObito: "/sincap/processo/getObitoAguardandoCorrecao",
+        tabelaObitoAguardandoEntrevista: "/sincap/processo/getObitoAguardandoEntrevista",
+        tabelaEntrevistaAguardandoCorrecao: "/sincap/processo/getEntrevistaAguardandoCorrecao",
+        tabelaEntrevistaAguardandoCaptacao: "/sincap/processo/getEntrevistaAguardandoCaptacao",
+        tabelaCaptacaoAguardandoCorrecao: "/sincap/processo/getCaptacaoAguardandoCorrecao"
+    };
+
+    $.each(tabelasPossiveis, function(key,value){
+            if(tableId == key){
+                urlMetodoControlador = value;
+            }
+        }
+    );
+
+    return urlMetodoControlador;
+}
+
+function buildTable(tableId){
+
+    var urlMetodoControlador = getUrlMetodoControlador(tableId);
+
+    tableId = "#"+tableId;
+
+    var table = $(tableId).DataTable(
+        {
+            "dom": '<"pull-left"f><"pull-right"l>t<"row-fluid"<"span6"i><"span6"p>>',
+            //"sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
+            bPaginate: true,
+            bLengthChange: true,
+            bFilter: true,
+            bInfo: true,
+            "ajax": location.origin + urlMetodoControlador,
+            "columns": [
+                { "data": "protocolo" },
+                { "data": "dataNotificacao" },
+                { "data": "dataObito" },
+                { "data": "paciente" },
+                { "data": "hospital" },
+                { "data": "notificador" },
+                {
+                    "data": null,
+                    "targets": -1,
+                    "defaultContent"
+                        : "<a class=\"btn-flat default\" href=\"#\"> " +
+                        "<i class=\"icon-file\"></i>"+
+                        "Analisar"+
+                        "</a>"
+                }
+            ]
+        }
+    );
+
+
+    /*//Tornando a tabela flexivel à tela
+    $(tableId).attr("width","100%");*/
+
+    //Criando o link para redirecionamento ao clique no botão
+    $(tableId + ' tbody').on( 'click', 'a',
+        function () {
+            var data = table.row( $(this).parents('tr') ).data();
+
+            window.location=location.origin+data.urlRelativa;
+        }
+    );
+
+    setInterval( function () {
+        table.ajax.reload();
+    }, 2500 );
+
+    $.extend( $.fn.dataTableExt.oStdClasses, {
+        "sWrapper": "dataTables_wrapper form-inline"
+    } );
+
+    $(tableId+'_paginate').removeClass();
+    $(tableId+'_paginate').addClass('dataTables_paginate paging_bootstrap pagination');
+}

@@ -10,7 +10,6 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDT
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
-import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,6 +22,7 @@ import java.util.List;
 
 import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.*;
 import static br.ifes.leds.sincap.web.controller.ContextUrls.INDEX;
+import static br.ifes.leds.sincap.web.utility.UtilityWeb.authoritiesSetToStringList;
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -36,8 +36,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @SessionScoped
 public class IndexController {
 
-    @Autowired
-    private UtilityWeb utilityWeb;
     @Autowired
     AplProcessoNotificacao aplProcessoNotificacao;
 
@@ -59,7 +57,7 @@ public class IndexController {
                         @RequestParam(value = "captacaoConfirmado", defaultValue = "false") boolean captacaoConfirmado,
                         @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado) {
 
-        List<String> autoridades = utilityWeb.authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+        List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
 
         seForNotificador(model, autoridades);
         seForNotificadorOuCaptador(model, autoridades, (UsuarioSessao) session.getAttribute("user"));
