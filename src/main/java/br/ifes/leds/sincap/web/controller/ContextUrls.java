@@ -80,7 +80,7 @@ public class ContextUrls {
     public static final String GET_OBITO_AGUARDANDO_ENTREVISTA = "/getObitoAguardandoEntrevista";
     public static final String GET_ENTREVISTA_AGUARDANDO_CORRECAO = "/getEntrevistaAguardandoCorrecao";
     public static final String GET_ENTREVISTA_AGUARDANDO_CAPTACAO = "/getEntrevistaAguardandoCaptacao";
-    public static final String GET_CAPTACAO_AGUARDANDO_CORRECAO = "/getCaptacaoAguardadandoCorrecao";
+    public static final String GET_CAPTACAO_AGUARDANDO_CORRECAO = "/getCaptacaoAguardandoCorrecao";
 
     /**
      * Subsistemas
