@@ -11335,7 +11335,7 @@
 			 *      } );
 			 *    } );
                  */
-                "sSearch": "Buscar:",
+                "sSearch": "Buscar:  ",
 
 
                 /**
