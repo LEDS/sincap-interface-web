@@ -73,6 +73,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("problemasEstruturais", (long) 0);
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
             model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
+            model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
 
         } catch (Exception ignored) {
 
@@ -116,7 +117,7 @@ public class NotificacaoEntrevistaController {
                                    @DateTimeFormat(pattern = "HH:mm") @RequestParam("horaEntrevista") LocalTime horaEntrevista,
                                    @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
                                    @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
-                                   @RequestParam("paciente.nome") String nomePaciente,
+//                                   @RequestParam("paciente.nome") String nomePaciente,
                                    @ModelAttribute("processo") ProcessoNotificacaoDTO processo) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
@@ -126,16 +127,27 @@ public class NotificacaoEntrevistaController {
         }
 
         if (processo.getEntrevista().isEntrevistaRealizada()) {
-            processo.setCausaNaoDoacao(recusaFamiliar);
+            if (!processo.getEntrevista().isDoacaoAutorizada()) {
+                processo.setCausaNaoDoacao(recusaFamiliar);
+                processo.getEntrevista().setResponsavel(null);
+                processo.getEntrevista().setResponsavel2(null);
+                processo.getEntrevista().setTestemunha1(null);
+                processo.getEntrevista().setTestemunha2(null);
+            }
         } else {
             processo.setCausaNaoDoacao(problemasEstruturais);
+            processo.getEntrevista().setResponsavel(null);
+            processo.getEntrevista().setResponsavel2(null);
+            processo.getEntrevista().setTestemunha1(null);
+            processo.getEntrevista().setTestemunha2(null);
+            processo.getEntrevista().setDataEntrevista(null);
         }
 
         try {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
         } catch (ViolacaoDeRIException e) {
-            model.addAttribute("nomePaciente", nomePaciente);
+//            model.addAttribute("nomePaciente", nomePaciente);
             addAtributosIniciais(model, processo);
             utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
             utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
