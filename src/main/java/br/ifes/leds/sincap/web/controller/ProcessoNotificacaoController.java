@@ -77,17 +77,23 @@ public class ProcessoNotificacaoController {
     @RequestMapping(value = ContextUrls.GET_NOTIFICAR_INTERESSADOS, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<List<Map>> getNotificarInteressados(HttpSession session) {
+
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+
         List<ProcessoNotificacao> notificacoesInteressados = new ArrayList<>();
+
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR")){
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO));
+
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOOBITO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
+
         }else if(autoridades.contains("ROLE_CAPTADOR")){
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA));
-            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO));
+
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOCAPTACACAO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital()));
         }else if(autoridades.contains("ROLE_ANALISTA")){
@@ -136,10 +142,11 @@ public class ProcessoNotificacaoController {
     @ResponseBody
     public ResponseEntity<NotificacaoJSON> getAnaliseObitoPendente() {
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
+
         List<ProcessoNotificacao> processosObitoAnalisePendente = new ArrayList<>();
 
-
         if(autoridades.contains("ROLE_ANALISTA")){
+
             processosObitoAnalisePendente = aplProcessoNotificacao
                     .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO);
         }
@@ -205,14 +212,16 @@ public class ProcessoNotificacaoController {
     }
     @RequestMapping(value = ContextUrls.GET_OBITO_AGUARDANDO_CORRECAO, method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<NotificacaoJSON> getObitoAguardandoCorrecao() {
+    public ResponseEntity<NotificacaoJSON> getObitoAguardandoCorrecao(HttpSession session) {
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
         List<ProcessoNotificacao> processos = new ArrayList<>();
 
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR")){
-            processos = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO);
+
+            processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOOBITO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
+
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
@@ -222,14 +231,14 @@ public class ProcessoNotificacaoController {
     }
     @RequestMapping(value = ContextUrls.GET_OBITO_AGUARDANDO_ENTREVISTA, method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<NotificacaoJSON> getObitoAguardandoEntrevista() {
+    public ResponseEntity<NotificacaoJSON> getObitoAguardandoEntrevista(HttpSession session) {
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
         List<ProcessoNotificacao> processos = new ArrayList<>();
 
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
-            processos = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOENTREVISTA);
+            processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOOBITO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
@@ -239,14 +248,17 @@ public class ProcessoNotificacaoController {
     }
     @RequestMapping(value = ContextUrls.GET_ENTREVISTA_AGUARDANDO_CORRECAO, method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCorrecao() {
+    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCorrecao(HttpSession session) {
+
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
         List<ProcessoNotificacao> processos = new ArrayList<>();
 
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
-            processos = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
+
+            processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
+
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
@@ -257,14 +269,17 @@ public class ProcessoNotificacaoController {
 
     @RequestMapping(value = ContextUrls.GET_ENTREVISTA_AGUARDANDO_CAPTACAO, method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCaptacao() {
+    public ResponseEntity<NotificacaoJSON> getEntrevistaAguardandoCaptacao(HttpSession session) {
+
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
         List<ProcessoNotificacao> processos = new ArrayList<>();
 
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
-            processos = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCAPTACAO);
+
+            processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
+
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
@@ -275,14 +290,17 @@ public class ProcessoNotificacaoController {
 
     @RequestMapping(value = ContextUrls.GET_CAPTACAO_AGUARDANDO_CORRECAO, method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<NotificacaoJSON> getCaptacaoAguardandoCorrecao() {
+    public ResponseEntity<NotificacaoJSON> getCaptacaoAguardandoCorrecao(HttpSession session) {
+
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
         List<ProcessoNotificacao> processos = new ArrayList<>();
 
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
-            processos = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO);
+
+            processos =  aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOCAPTACACAO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
+
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
