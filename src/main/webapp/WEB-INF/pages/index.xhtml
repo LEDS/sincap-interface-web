@@ -103,9 +103,9 @@
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4>Óbito Pendente</h4></a></li>
-                            <li><a href="#arquivamento" data-toggle="tab"><h4>Arquivamento</h4></a></li>
-                            <li><a href="#captacaoPendente" data-toggle="tab"><h4>Captação Pendente</h4></a></li>
                             <li><a href="#entrevistaPendente" data-toggle="tab"><h4>Entrevista Pendente</h4></a></li>
+                            <li><a href="#captacaoPendente" data-toggle="tab"><h4>Captação Pendente</h4></a></li>
+                            <li><a href="#arquivamento" data-toggle="tab"><h4>Arquivamento</h4></a></li>
                         </ul>
                     </div>
                     <div id="my-tab-content" class="tab-content">
@@ -113,12 +113,6 @@
                         <div class="tab-pane active" id="obitoPendente">
                             <ui:include src="/WEB-INF/components/lista-processos-analisar-obito.xhtml">
                                 <!--<ui:param name="processos" value="#{processosObitoAnalisePendente}"/> -->
-                            </ui:include>
-                        </div>
-                        <div class="tab-pane" id="arquivamento">
-                            <!-- Notificações aguardando o arquivamento -->
-                            <ui:include src="/WEB-INF/components/lista-processos-aguardando-arquivamento.xhtml">
-                                <ui:param name="processos" value="#{processosAguardandoArquivamento}" />
                             </ui:include>
                         </div>
                         <div class="tab-pane" id="captacaoPendente">
@@ -131,6 +125,12 @@
                             <!-- Notificações com entrevista pendente de análise -->
                             <ui:include src="/WEB-INF/components/lista-processos-analisar-entrevista.xhtml">
                                 <ui:param name="processos" value="#{processosEntrevistaAnalisePendente}" />
+                            </ui:include>
+                        </div>
+                        <div class="tab-pane" id="arquivamento">
+                            <!-- Notificações aguardando o arquivamento -->
+                            <ui:include src="/WEB-INF/components/lista-processos-aguardando-arquivamento.xhtml">
+                                <ui:param name="processos" value="#{processosAguardandoArquivamento}" />
                             </ui:include>
                         </div>
                     </div>
