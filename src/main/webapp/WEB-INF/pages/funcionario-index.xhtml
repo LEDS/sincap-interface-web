@@ -15,56 +15,59 @@
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
 
-        <div id="pad-wrapper" class="datatables-page">
-            <div id="content">
-                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                    <li class="active"><a href="#analista" data-toggle="tab"><h4>Cadastrar Analista</h4></a></li>
-                    <li><a href="#notificador" data-toggle="tab"><h4>Cadastrar Notificador</h4></a></li>
-                    <li><a href="#captador" data-toggle="tab"><h4>Cadastrar Captador</h4></a></li>
-                </ul>
+        <div id="content">
+            <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                <li class="active"><a href="#analista" data-toggle="tab"><h4>Cadastrar Analista</h4></a></li>
+                <li><a href="#notificador" data-toggle="tab"><h4>Cadastrar Notificador</h4></a></li>
+                <li><a href="#captador" data-toggle="tab"><h4>Cadastrar Captador</h4></a></li>
+            </ul>
+        </div>
+        <div id="my-tab-content" class="tab-content">
+            <div id="analista" class="tab-pane active">
+                <!-- Inserir o conteúdo da tabela -->
+                <ui:include src="/WEB-INF/components/lista-funcionario-analista.xhtml">
+                    <ui:param name="analista" value="#{analistas}" />
+                </ui:include>
+                <a class="btn-flat pull-right success new-product add-user"
+                   href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_analista}">
+                    #{msg['causa-nao-doacao.nova-causa']}
+                </a>
             </div>
-            <div id="my-tab-content" class="tab-content">
-                <div id="analista" class="tab-pane active">
-                    <!-- Inserir o conteúdo da tabela -->
-                    <ui:include src="/WEB-INF/components/lista-funcionario-analista.xhtml">
-                        <ui:param name="analista" value="#{analistas}" />
+            <div id="notificador" class="tab-pane">
+                <div>
+                    <ui:include src="/WEB-INF/components/lista-funcionario-notificador.xhtml">
+                        <ui:param name="analista" value="#{notificadores}" />
                     </ui:include>
+                </div>
+                <div>
                     <a class="btn-flat pull-right success new-product add-user"
-                       href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_analista}">
+                       href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_notificador}">
                         #{msg['causa-nao-doacao.nova-causa']}
                     </a>
                 </div>
-                <div id="notificador" class="tab-pane">
-                    <div>
-                        <ui:include src="/WEB-INF/components/lista-funcionario-notificador.xhtml">
-                            <ui:param name="notificador" value="#{notificadores}" />
-                        </ui:include>
-                    </div>
-                    <div>
-                        <a class="btn-flat pull-right success new-product add-user"
-                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_notificador}">
-                            #{msg['causa-nao-doacao.nova-causa']}
-                        </a>
-                    </div>
-                </div>
-                <div id="captador" class="tab-pane">
-                    <ui:include src="/WEB-INF/components/lista-funcionario-captador.xhtml">
-                        <ui:param name="captador" value="#{captadores}" />
-                    </ui:include>
-                    <a class="btn-flat pull-right success new-product add-user"
-                       href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_captador}">
-                        #{msg['causa-nao-doacao.nova-causa']}
-                    </a>
-                </div>
+            </div>
+            <div id="captador" class="tab-pane">
+                <ui:include src="/WEB-INF/components/lista-funcionario-captador.xhtml">
+                    <ui:param name="analista" value="#{captadores}" />
+                </ui:include>
+                <a class="btn-flat pull-right success new-product add-user"
+                   href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_captador}">
+                    #{msg['causa-nao-doacao.nova-causa']}
+                </a>
             </div>
         </div>
+
     </ui:define>
-    <ui:insert name="#{sects.scripts}">
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('#tabs').tab();
+    <ui:define name="#{sects.customScripts}">
+        <h:outputScript library="js" name="jquery.dataTables.js"/>
+    </ui:define>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#analista-table').dataTable({
+                "sPaginationType": "full_numbers"
             });
-        </script>
-    </ui:insert>
+            $('#tabs').tab();
+        });
+    </script>
     <!-- Fim do conteúdo -->
 </ui:composition>
