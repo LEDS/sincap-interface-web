@@ -238,7 +238,7 @@ public class ProcessoNotificacaoController {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
-            processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOOBITO, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
+            processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
