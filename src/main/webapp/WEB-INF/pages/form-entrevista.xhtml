@@ -91,7 +91,8 @@
                 </button>
             </div>
         </form>
-
-        <h:outputScript library="js" name="form-entrevista.js" />
+        <ui:define name="#{sects.customScripts}">
+            <h:outputScript library="js" name="form-entrevista.js" />
+        </ui:define>
     </ui:define>
 </ui:composition>
