@@ -151,7 +151,11 @@
             </div>
         </div>
     </div>
-    <h:outputScript library="js" name="form-cadastro-notificador.js"/>
 </ui:define>
+    <!--Custom scripts-->
+    <ui:define name="#{sects.customScripts}">
+        <h:outputScript library="js" name="form-cadastro-notificador.js"/>
+    </ui:define>
+
 
 </ui:composition>
