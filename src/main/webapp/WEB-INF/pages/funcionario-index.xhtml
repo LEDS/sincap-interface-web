@@ -4,6 +4,14 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html">
 
+
+    <!-- Include dos css específicos de cada página -->
+    <ui:define name="#{sects.libraries}">
+        <h:outputStylesheet library="css" name="lib/jquery.dataTables.css"/>
+        <h:outputStylesheet library="css" name="compiled/datatables.css"/>
+    </ui:define>
+
+
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
         #{msg['index.title']}
@@ -14,7 +22,7 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
-
+    <h:panelGroup layout="block" id="pad-wrapper">
         <div id="content">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                 <li class="active"><a href="#analista" data-toggle="tab"><h4>Cadastrar Analista</h4></a></li>
@@ -56,18 +64,19 @@
                 </a>
             </div>
         </div>
-
+    </h:panelGroup>
     </ui:define>
+    <!--Include dos scripts customizados de cada página-->
     <ui:define name="#{sects.customScripts}">
-        <h:outputScript library="js" name="jquery.dataTables.js"/>
-    </ui:define>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#analista-table').dataTable({
-                "sPaginationType": "full_numbers"
+        <h:outputScript name="jquery.dataTables.js" library="js" />
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#analista-table').dataTable({
+                    "sPaginationType": "full_numbers"
+                });
             });
-            $('#tabs').tab();
-        });
-    </script>
+        </script>
+    </ui:define>
+
     <!-- Fim do conteúdo -->
 </ui:composition>
