@@ -406,6 +406,19 @@ input.search{
 	color: #696d73;
 	font-style: italic;
 }
+
+#pad-wrapper h4.aba-centralizada {
+	margin: 0 0 0 0px;
+	color: #696d73;
+	font-style: italic;
+}
+
+a.btn-flat.success.btn-inner-datatable{
+	margin-left: 25px;
+	margin-bottom: -20px;
+	margin-top: 10px;
+}
+
 .content {
 	min-width: 400px;
 	min-height: 620px;

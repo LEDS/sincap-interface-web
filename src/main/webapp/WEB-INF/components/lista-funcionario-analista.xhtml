@@ -6,6 +6,10 @@
 
     <!-- main container -->
     <h:panelGroup layout="block" styleClass="container-fluid">
+        <a class="btn-flat success btn-inner-datatable"
+           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_analista}">
+            <i class="icon-plus"></i>Cadastrar
+        </a>
         <h:panelGroup id="pad-wrapper" layout="block" styleClass="datatables-page">
             <h:panelGroup layout="block" styleClass="row-fluid">
                 <h:dataTable id="analista-table" value="#{analistas}" var="analist"
