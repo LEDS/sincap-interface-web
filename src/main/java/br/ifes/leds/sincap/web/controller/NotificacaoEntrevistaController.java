@@ -117,7 +117,6 @@ public class NotificacaoEntrevistaController {
                                    @DateTimeFormat(pattern = "HH:mm") @RequestParam("horaEntrevista") LocalTime horaEntrevista,
                                    @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
                                    @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
-//                                   @RequestParam("paciente.nome") String nomePaciente,
                                    @ModelAttribute("processo") ProcessoNotificacaoDTO processo) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
@@ -126,31 +125,30 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
         }
 
-        if (processo.getEntrevista().isEntrevistaRealizada()) {
-            if (!processo.getEntrevista().isDoacaoAutorizada()) {
-                processo.setCausaNaoDoacao(recusaFamiliar);
-                processo.getEntrevista().setResponsavel(null);
-                processo.getEntrevista().setResponsavel2(null);
-                processo.getEntrevista().setTestemunha1(null);
-                processo.getEntrevista().setTestemunha2(null);
-            }
-        } else {
+        if (!processo.getEntrevista().isEntrevistaRealizada()) {
             processo.setCausaNaoDoacao(problemasEstruturais);
             processo.getEntrevista().setResponsavel(null);
             processo.getEntrevista().setResponsavel2(null);
             processo.getEntrevista().setTestemunha1(null);
             processo.getEntrevista().setTestemunha2(null);
             processo.getEntrevista().setDataEntrevista(null);
+        } else if (!processo.getEntrevista().isDoacaoAutorizada()) {
+            processo.setCausaNaoDoacao(recusaFamiliar);
+            processo.getEntrevista().setResponsavel(null);
+            processo.getEntrevista().setResponsavel2(null);
+            processo.getEntrevista().setTestemunha1(null);
+            processo.getEntrevista().setTestemunha2(null);
         }
 
         try {
             processo.getEntrevista().setFuncionario(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarEntrevista(processo, usuarioSessao.getIdUsuario());
         } catch (ViolacaoDeRIException e) {
-//            model.addAttribute("nomePaciente", nomePaciente);
             addAtributosIniciais(model, processo);
             utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
-            utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+            if (processo.getEntrevista().getResponsavel() != null && processo.getEntrevista().getResponsavel().getEndereco() != null) {
+                utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
+            }
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
             model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
 
@@ -194,7 +192,9 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("entrevistaRealizada", processo.getEntrevista().isEntrevistaRealizada());
         model.addAttribute("doacaoAutorizada", processo.getEntrevista().isDoacaoAutorizada());
 
-        model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
+        if (processo.getObito().getPaciente().getDataNascimento() != null) {
+            model.addAttribute("menorIdade", utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(), processo.getObito().getDataObito().getTime()) < 18);
+        }
         model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
 
         return "form-entrevista";
@@ -244,7 +244,9 @@ public class NotificacaoEntrevistaController {
         // Adiciona o processo ao modelo da página.
         model.addAttribute("processo", processo);
         model.addAttribute("entrevista", true);
-        model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
+        if (processo.getObito().getPaciente().getDataNascimento() != null) {
+            model.addAttribute("menorIdade", utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(), processo.getObito().getDataObito().getTime()) < 18);
+        }
 
         return "analise-processo-notificacao";
     }

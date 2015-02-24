@@ -64,12 +64,13 @@
                     <f:selectItems value="#{listaAspectoEstrutural}"/>
                 </h:selectOneMenu>
             </div>
+            <br/><br/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
-            <h:inputText  styleClass="span8" id="paciente-nome"
-                         value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
+            <h:inputText styleClass="span8" id="obito-paciente-nome"
+                         value="#{processo.obito.paciente.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="field-box">
@@ -213,14 +214,16 @@
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Data Internaçao"/>
-                <h:inputText id="obito-paciente-datainternacao" readonly="true" styleClass="span8" value="#{processo.obito.paciente.dataInternacao.time}">
+                <h:inputText id="obito-paciente-dataInternacao" readonly="true" styleClass="span8"
+                             value="#{processo.obito.paciente.dataInternacao.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Data Nascimento"/>
-                <h:inputText id="obito-paciente-dataNascimento"  styleClass="span8" value="#{processo.obito.paciente.dataNascimento.time}">
+                <h:inputText id="obito-paciente-dataNascimento" styleClass="dataNascimento span8"
+                             value="#{processo.obito.paciente.dataNascimento.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGroup>

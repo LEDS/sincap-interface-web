@@ -79,6 +79,9 @@ function init() {
             entrevistaRealizada: {
                 required: true
             },
+            problemasEstruturais: {
+                required: true
+            },
             doacaoAutorizada: {
                 required: true
             },
@@ -294,6 +297,9 @@ function init() {
         },
         messages: {
             entrevistaRealizada: {
+                required: "Por favor, selecione uma opcao"
+            },
+            problemasEstruturais: {
                 required: "Por favor, selecione uma opcao"
             },
             doacaoAutorizada: {
