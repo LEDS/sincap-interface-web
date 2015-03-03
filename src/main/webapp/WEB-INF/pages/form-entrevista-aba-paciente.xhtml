@@ -18,6 +18,7 @@
     <!--@elvariable id="doacaoAutorizada" type="java.lang.Boolean"-->
     <!--@elvariable id="tipoDocumentos" type="java.util.List"-->
 
+
     <h:outputLabel><b>#{msg['entrevista.text.paciente']}</b></h:outputLabel>
     <br/>
     <!-- Para manter os objetos quando buscar do banco de dados. -->
@@ -63,13 +64,13 @@
                     <f:selectItems value="#{listaAspectoEstrutural}"/>
                 </h:selectOneMenu>
             </div>
+            <br/><br/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
-            <!--@elvariable id="nomePaciente" type="java.lang.String"-->
-            <h:inputText readonly="true" styleClass="span8" id="paciente-nome"
-                         value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
+            <h:inputText styleClass="span8" id="obito-paciente-nome"
+                         value="#{processo.obito.paciente.nome}"/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="field-box">
@@ -106,11 +107,12 @@
                         <f:selectItems value="#{listaRecusaFamiliar}"/>
                     </h:selectOneMenu>
                 </div>
+                <br/><br/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}*"/>
-                <h:inputText styleClass="dataEntrevista span8" id="dataEntrevista"
+                <h:inputText styleClass="dataEntrevista span8" name="dataEntrevista" id="dataEntrevista"
                              value="#{processo.entrevista.dataEntrevista.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
@@ -210,30 +212,83 @@
                 <h:inputText id="obito-paciente-endereco-numero" styleClass="span8" value="#{processo.obito.paciente.endereco.numero}"/>
             </h:panelGroup>
 
-            <input type="hidden" name="obito.id" value="#{processo.obito.id}" />
-            <h:inputHidden id="obito-dataObito" readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
-                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-            </h:inputHidden>
-            <h:inputHidden id="obito-dataCadastro" readonly="true" styleClass="span8" value="#{processo.obito.dataCadastro.time}">
-                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-            </h:inputHidden>
-            <input type="hidden" name="obito.setor" value="#{processo.obito.setor}" />
-            <input type="hidden" name="obito.hospital" value="#{processo.obito.hospital}" />
-            <input type="hidden" name="obito.primeiraCausaMortis" value="#{processo.obito.primeiraCausaMortis}" />
-            <input type="hidden" name="obito.segundaCausaMortis" value="#{processo.obito.segundaCausaMortis}" />
-            <input type="hidden" name="obito.terceiraCausaMortis" value="#{processo.obito.terceiraCausaMortis}" />
-            <input type="hidden" name="obito.quartaCausaMortis" value="#{processo.obito.quartaCausaMortis}" />
-            <input type="hidden" name="obito.aptoDoacao" value="#{processo.obito.aptoDoacao}" />
-            <input type="hidden" name="obito.corpoEncaminhamento" value="#{processo.obito.corpoEncaminhamento}" />
-            <input type="hidden" name="obito.tipoObito" value="#{processo.obito.tipoObito}" />
-            <input type="hidden" name="obito.idadePaciente" value="#{processo.obito.idadePaciente}" />
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="Data Internaçao"/>
+                <h:inputText id="obito-paciente-dataInternacao" readonly="true" styleClass="span8"
+                             value="#{processo.obito.paciente.dataInternacao.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+            </h:panelGroup>
 
-            <input type="hidden" name="obito.paciente.id" value="#{processo.obito.paciente.id}" />
-            <input type="hidden" name="obito.paciente.numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}" />
-            <input type="hidden" name="obito.paciente.documentoSocial.documento" value="#{processo.obito.paciente.documentoSocial.documento}" />
-            <input type="hidden" name="obito.paciente.documentoSocial.tipoDocumentoComFoto" value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}" />
-            <input type="hidden" name="obito.paciente.numeroSUS" value="#{processo.obito.paciente.numeroSUS}" />
-            <input type="hidden" name="obito.paciente.sexo" value="#{processo.obito.paciente.sexo}" />
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="Data Nascimento"/>
+                <h:inputText id="obito-paciente-dataNascimento" styleClass="dataNascimento span8"
+                             value="#{processo.obito.paciente.dataNascimento.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="Numero Prontuario"/>
+                <h:inputText  styleClass="span8" id="obito-paciente-numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}"/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="Numero SUS"/>
+                <h:inputText  styleClass="span8" id="obito-paciente-numeroSUS" value="#{processo.obito.paciente.numeroSUS}"/>
+             </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
+
+                <div class="span8">
+                    <label class="radio">
+                        <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:0" value="MASCULINO"
+                               checked="true"/>
+                        #{msg['paciente.radioButton.sexo.masc']}
+                    </label>
+                    <label class="radio">
+                        <input type="radio" name="obito.paciente.sexo" id="obito-paciente-sexo:1" value="FEMININO"/>
+                        #{msg['paciente.radioButton.sexo.fem']}
+                    </label>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}*"/>
+
+                <div class="ui-select span8">
+                    <h:selectOneMenu id="obito-paciente-estadoCivil"
+                                     value="#{processo.obito.paciente.estadoCivil}">
+                        <f:selectItem itemValue=""
+                                      itemLabel="#{msg['responsavel.dropdown.estadoCivil']}"/>
+                        <f:selectItems value="#{listaEstadosCivis}"/>
+                    </h:selectOneMenu>
+                </div>
+                <br/><br/>
+            </h:panelGroup>
+
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+
+                <div class="ui-select span8">
+                    <h:selectOneMenu
+                            id="obito-paciente-documentoSocial-tipoDocumentoComFoto"
+                            value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
+                        <f:selectItem itemLabel="#{msg['responsavel.text.selecioneTipoDocumento']}"/>
+                        <f:selectItems value="#{tipoDocumentos}"/>
+                    </h:selectOneMenu>
+                </div>
+                <br/><br/>
+            </h:panelGroup>
+
+            <h:panelGroup layout="block" styleClass="field-box">
+                <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+                <h:inputText id="obito-paciente-documentoSocial-documento" styleClass="span8"
+                             value="#{processo.obito.paciente.documentoSocial.documento}"/>
+            </h:panelGroup>
+
 
         </h:panelGroup>
     </h:panelGroup>
