@@ -1,3 +1,6 @@
+# Arquivos de miniatura do windows
+Thumbs.db
+
 # Arquivos da build do maven.
 /target
 
