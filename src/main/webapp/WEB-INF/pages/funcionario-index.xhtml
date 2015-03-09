@@ -57,15 +57,44 @@
         <h:outputScript name="jquery.dataTables.js" library="js" />
         <script type="text/javascript">
             $(document).ready(function() {
+                var nomes = ["#analista-table","#notificador-table","#captador-table"];
+                var i = 0;
+                while(i != nomes.length){
+                    $(nomes[i]).dataTable({
+                        "sPaginationType": "full_numbers",
+                        "columns": [
+                            { "width": "33%" },
+                            { "width": "33%" },
+                            { "width": "33%" }
+                        ]
+                    });
+
+                    i++;
+                }
+
+
+
+                /*
                 $('#analista-table').dataTable({
-                    "sPaginationType": "full_numbers"
+                    "sPaginationType": "full_numbers",
+                    "columns": [
+                        { "width": "30%" },
+                        { "width": "30%" },
+                        { "width": "40%" }
+                    ]
                 });
                 $('#notificador-table').dataTable({
-                    "sPaginationType": "full_numbers"
+                    "sPaginationType": "full_numbers",
+                    "columns": [
+                        { "width": "30%" },
+                        { "width": "30%" },
+                        { "width": "40%" }
+                    ]
                 });
                 $('#captador-table').dataTable({
                     "sPaginationType": "full_numbers"
                 });
+                */
             });
         </script>
     </ui:define>

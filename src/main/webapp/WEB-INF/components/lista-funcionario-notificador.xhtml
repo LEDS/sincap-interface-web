@@ -25,23 +25,32 @@
                         <h:outputText value="CPF" />
                     </f:facet>
                     #{notificador.cpf}
-                </h:column>
-                <!-- Botões -->
-                <h:column>
-                    <form style="width:0.5px;" id="formulario-cadastro-notificador-#{notificador.id}"
-                          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_notificador}/#{notificador.id}"
-                          method="get">
-                        <button type="submit"><i class="icon-edit"></i></button>
-                    </form>
+
                 </h:column>
 
-                <h:column>
-                    <form style="width:0.5px;" id="formulario-cadastro-notificador-#{notificador.id}"
-                          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_notificador}/#{notificador.id}"
-                          method="post">
-                        <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-                        <button type="submit"><i class="icon-trash"></i></button>
-                    </form>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="AÇÕES"/>
+                        </f:facet>
+
+                    <!-- Botões -->
+                    <h:column>
+                        <div class="span12">
+                            <div class="span6">
+                                <form id="formulario-cadastro-notificador-#{notificador.id}">
+                                    <a class="btn-flat primary" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_notificador}/#{notificador.id}">
+                                        <i class="icon-edit"></i>Editar</a>
+                                </form>
+                            </div>
+                            <div class="span6">
+                                <form id="formulario-cadastro-notificador-#{notificador.id}">
+                                    <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                                    <a class="btn-flat danger" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_notificador}/#{notificador.id}">
+                                        <i class="icon-remove"></i>Excluir</a>
+                                </form>
+                            </div>
+                        </div>
+                    </h:column>
                 </h:column>
             </h:dataTable>
         </h:panelGroup>
