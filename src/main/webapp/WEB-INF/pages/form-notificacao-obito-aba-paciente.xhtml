@@ -95,15 +95,4 @@
         <h:inputText id="obito-paciente-numeroProntuario" styleClass="span8"
                      value="#{processo.obito.paciente.numeroProntuario}"/>
     </h:panelGroup>
-
-
-    <script type="text/javascript">
-        focus('#obito-paciente-telefone-numero', "#obito-paciente-sexo\\:0");
-        $("#obito-paciente-endereco-logradouro").keypress(function (event) {
-            if (event.key === "Tab") {
-                $("#btn-next").click();
-                $("#obito-dataObito").focus();
-            }
-        });
-    </script>
 </ui:composition>

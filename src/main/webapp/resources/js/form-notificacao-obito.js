@@ -75,6 +75,44 @@
                 $("#obito-paciente-numeroSUS").rules('add', {required: true});
             }
         });
+
+        if(document.getElementById("obito-aptoDoacao:0").checked) {
+            $("#divCausaNaoDoacao").hide();
+        }
+
+        function getIdade(){
+
+            datIni = new Date(document.getElementById("obito-paciente-dataNascimento").value);
+            datFim = new Date(document.getElementById("obito-dataObito").value);
+
+            return (Math.floor(Math.ceil(Math.abs(datIni.getTime() - datFim.getTime()) / (1000 * 3600 * 24)) / 365.25));
+
+        }
+
+        function setInaptoDoacao(){
+            idade = getIdade();
+            if (!(idade > 2) || idade > 23){
+                document.getElementById("obito-aptoDoacao:1").click();
+                document.getElementById("causaNaoDoacao").value = 17;
+            }
+        }
+
+        focus('#obito-paciente-telefone-numero', "#obito-paciente-sexo\\:0");
+        $("#obito-paciente-endereco-logradouro").keypress(function (event) {
+            if (event.key === "Tab") {
+                $("#btn-next").click();
+                $("#obito-dataObito").focus();
+            }
+        });
+
+        var $divCausaNaoDoacao = $("#divCausaNaoDoacao");
+        document.getElementById("obito-aptoDoacao:0").addEventListener("click", function () {
+            $divCausaNaoDoacao.fadeOut();
+        });
+        document.getElementById("obito-aptoDoacao:1").addEventListener("click", function () {
+            $divCausaNaoDoacao.fadeIn();
+        });
+
     });
 
     $("#form-setor").validate({
