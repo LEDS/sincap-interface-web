@@ -17,9 +17,11 @@
             $btnFinish.hide();
 
             if (step.step === 1) {
+                window.scrollTo(0,0);
                 $btnPrev.hide();
                 $btnPrev.attr("disabled", "disabled");
             } else if (step.step === 2) {
+                window.scrollTo(0,0);
                 $btnNext.hide();
                 $btnPrev.show();
                 $btnFinish.show();

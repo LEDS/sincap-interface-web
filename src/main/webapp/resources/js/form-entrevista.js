@@ -538,13 +538,16 @@ function init() {
             $btnFinish.hide();
 
             if (step.step === 1) {
+                window.scrollTo(0,0);
                 $btnPrev.hide();
                 $btnNext.show();
                 $btnFinish.hide();
             } else if (step.step === 2) {
+                window.scrollTo(0,0);
                 $btnPrev.show();
                 $btnNext.show();
             } else if (step.step ===3 ) {
+                window.scrollTo(0,0);
                 $btnPrev.show();
                 $btnNext.hide();
                 $btnFinish.show();
