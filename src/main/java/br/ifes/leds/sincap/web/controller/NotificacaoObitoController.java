@@ -55,6 +55,7 @@ public class NotificacaoObitoController {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
         utilityWeb.preencherTipoObito(model);
+        utilityWeb.preencherEncaminhamento(model);
         utilityWeb.preencherEstados(model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
@@ -72,6 +73,7 @@ public class NotificacaoObitoController {
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
         utilityWeb.preencherTipoObito(model);
+        utilityWeb.preencherEncaminhamento(model);
         utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
@@ -94,6 +96,7 @@ public class NotificacaoObitoController {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
             utilityWeb.preencherTipoObito(model);
+            utilityWeb.preencherEncaminhamento(model);
             return "form-notificacao-obito";
         }
 

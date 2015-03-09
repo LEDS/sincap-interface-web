@@ -35,6 +35,19 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.CorpoEncaminhamento']}"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu
+                    id="obito-CorpoEncaminhamento"
+                    value="#{processo.obito.CorpoEncaminhamento}">
+                <f:selectItem itemLabel="#{msg['obito.CorpoEncaminhamento.tipoEncaminhamento']}"/>
+                <f:selectItems value="#{corpoEncaminhamento}"/>
+            </h:selectOneMenu>
+        </div>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.motivos1']}*"/>
         <h:inputText id="obito-primeiraCausaMortis" styleClass="span8"
                      value="#{processo.obito.primeiraCausaMortis.nome}"/>
