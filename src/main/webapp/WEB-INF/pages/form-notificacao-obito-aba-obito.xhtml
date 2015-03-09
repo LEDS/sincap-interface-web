@@ -35,14 +35,14 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.CorpoEncaminhamento']}"/>
+        <h:outputLabel value="#{msg['obito.CorpoEncaminhamento']}*"/>
 
         <div class="ui-select span5">
             <h:selectOneMenu
-                    id="obito-CorpoEncaminhamento"
-                    value="#{processo.obito.CorpoEncaminhamento}">
+                    id="obito-corpoEncaminhamento"
+                    value="#{processo.obito.corpoEncaminhamento}">
                 <f:selectItem itemLabel="#{msg['obito.CorpoEncaminhamento.tipoEncaminhamento']}"/>
-                <f:selectItems value="#{corpoEncaminhamento}"/>
+                <f:selectItems value="#{listaCorpoEncaminhamento}"/>
             </h:selectOneMenu>
         </div>
     </h:panelGroup>
