@@ -105,6 +105,8 @@
             }
         });
 
+
+
         var $divCausaNaoDoacao = $("#divCausaNaoDoacao");
         document.getElementById("obito-aptoDoacao:0").addEventListener("click", function () {
             $divCausaNaoDoacao.fadeOut();
@@ -114,6 +116,20 @@
         });
 
     });
+
+    $("#obito-corpoEncaminhamento").change(function (){
+        var $divCausasMortis = $("#divCausasMortis");
+
+        if((document.getElementById("obito-corpoEncaminhamento").value == "SVO") || (document.getElementById("obito-corpoEncaminhamento").value == "IML"))
+        {
+            $divCausasMortis.fadeOut();
+        }
+        else
+        {
+            $divCausasMortis.fadeIn();
+        }
+    });
+
 
     $("#form-setor").validate({
         rules: {
