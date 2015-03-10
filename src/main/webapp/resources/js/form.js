@@ -4,7 +4,12 @@
 
 $(document).ready(function () {
     setNames();
-    $("input:checkbox, input:radio").uniform();
+    if($('input:checkbox').size() != 0){
+        $('input:checkbox').uniform();
+    }
+    if($('input:radio').size() != 0){
+        $('input:radio').uniform();
+    }
 });
 
 function setNames() {

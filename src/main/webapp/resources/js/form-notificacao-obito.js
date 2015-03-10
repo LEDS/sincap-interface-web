@@ -4,7 +4,7 @@
             $btnPrev = $('.wizard-actions .btn-prev'),
             $btnNext = $('.wizard-actions .btn-next'),
             $btnFinish = $(".wizard-actions .btn-finish");
-
+        $btnPrev.hide();
         $wizard.wizard().on('finished', function (e) {
             // wizard complete code
             console.log("finish");
@@ -17,9 +17,11 @@
             $btnFinish.hide();
 
             if (step.step === 1) {
+                $btnPrev.hide();
                 $btnPrev.attr("disabled", "disabled");
             } else if (step.step === 2) {
                 $btnNext.hide();
+                $btnPrev.show();
                 $btnFinish.show();
             }
         });
