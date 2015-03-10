@@ -536,7 +536,7 @@ function init() {
             $btnPrev.removeAttr("disabled");
             $btnNext.show();
             $btnFinish.hide();
-
+            $(window).scrollTop($('body').offset().top);
             if (step.step === 1) {
                 $btnPrev.hide();
                 $btnNext.show();
