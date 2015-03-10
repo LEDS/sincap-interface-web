@@ -330,6 +330,7 @@ function buildTable(tableId){
 
     var urlMetodoControlador = getUrlMetodoControlador(tableId);
 
+    var qtdDados = "qtdDados-"+tableId;
     tableId = "#"+tableId;
 
     var table = $(tableId).DataTable(
@@ -357,6 +358,10 @@ function buildTable(tableId){
     );
 
 
+    $(tableId).on('init.dt', function(){
+       document.getElementById(qtdDados).innerHTML = table.rows().data().length;
+    });
+
     //Criando o link para redirecionamento ao clique no botão
     $(tableId + ' tbody').on( 'click', 'a',
         function () {
@@ -368,5 +373,6 @@ function buildTable(tableId){
 
     setInterval( function () {
         table.ajax.reload();
+
     }, 2500 );
 }
