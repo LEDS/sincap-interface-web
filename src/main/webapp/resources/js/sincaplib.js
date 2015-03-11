@@ -358,9 +358,11 @@ function buildTable(tableId){
     );
 
 
-    $(tableId).on('init.dt', function(){
+    $(tableId).on('draw.dt', function(){
        document.getElementById(qtdDados).innerHTML = table.rows().data().length;
     });
+
+
 
     //Criando o link para redirecionamento ao clique no botão
     $(tableId + ' tbody').on( 'click', 'a',

@@ -12,6 +12,14 @@ body {
 	padding: 0px;
 	/*-webkit-font-smoothing: antialiased;*/
 }
+
+.badge {
+	font-size: 14px;
+	background-color: #888888;
+	padding: 3px 9px;
+	vertical-align: middle;
+	font-weight: inherit;
+}
 h1,h2,h3,h4,h5 {
 	margin: 0;
 	line-height: inherit;
