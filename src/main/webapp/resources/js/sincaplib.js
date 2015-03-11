@@ -357,9 +357,20 @@ function buildTable(tableId){
         }
     );
 
+    var warningColor = "#f0ad4e";
+    var dangerColor = "#d9534f";
+    var badgeDefaultColor = '#888';
 
     $(tableId).on('draw.dt', function(){
-       document.getElementById(qtdDados).innerHTML = table.rows().data().length;
+        var qtdLinhas = table.rows().data().length;
+           if(qtdLinhas < 5){
+               document.getElementById(qtdDados).style.backgroundColor = badgeDefaultColor;
+           } else if (qtdLinhas < 10 ) {
+               document.getElementById(qtdDados).style.backgroundColor = warningColor;
+           }else{
+               document.getElementById(qtdDados).style.backgroundColor = dangerColor;
+           }
+            document.getElementById(qtdDados).innerHTML = qtdLinhas;
     });
 
 
