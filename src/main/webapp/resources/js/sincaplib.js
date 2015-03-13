@@ -109,6 +109,7 @@ function ajaxGetHospitais() {
     $.ajax({
         type: "get",
         url: location.origin + "/sincap/getHospitais?cpf=" + val,
+        async: false,
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
@@ -129,7 +130,7 @@ function ajaxGetHospitais() {
                 $("#hospital").append("<option value='" + id + "'>" + valor /*aparece para o usuario*/ + "</option>");
             });
 
-            if(response.length != 0){
+            if(response.length !== 0){
                 $('#select-hospitais').show();
             }else{
                 $('#select-hospitais').hide();
