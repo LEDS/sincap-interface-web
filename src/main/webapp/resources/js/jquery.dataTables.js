@@ -11346,7 +11346,7 @@
                  *  @dtopt Language
                  *  @name DataTable.defaults.language.searchPlaceholder
                  */
-                "sSearchPlaceholder": "Paciente, Hospital, Protocolo...",
+                "sSearchPlaceholder": "Busque por qualquer coluna...",
 
 
                 /**

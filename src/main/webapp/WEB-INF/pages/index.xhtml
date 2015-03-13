@@ -102,14 +102,14 @@
                 <div id="pad-wrapper" class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4>Óbito Pendente</h4></a></li>
-                            <li><a href="#entrevistaPendente" data-toggle="tab"><h4>Entrevista Pendente</h4></a></li>
-                            <li><a href="#captacaoPendente" data-toggle="tab"><h4>Captação Pendente</h4></a></li>
-                            <li><a href="#arquivamento" data-toggle="tab"><h4>Arquivamento</h4></a></li>
+                            <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4 class="aba-centralizada">Óbito Pendente <span class="badge" id="qtdDados-tabelaAnalisarObito"></span></h4></a></li>
+                            <li><a href="#entrevistaPendente" data-toggle="tab"><h4 class="aba-centralizada">Entrevista Pendente <span class="badge" id="qtdDados-tabelaAnalisarEntrevista"></span></h4></a></li>
+                            <li><a href="#captacaoPendente" data-toggle="tab"><h4 class="aba-centralizada">Captação Pendente <span class="badge" id="qtdDados-tabelaAnalisarCaptacao"></span></h4></a></li>
+                            <li><a href="#arquivamento" data-toggle="tab"><h4 class="aba-centralizada">Arquivamento <span class="badge" id="qtdDados-tabelaNotificacoesAguardandoArquivamento"></span></h4></a></li>
                         </ul>
                     </div>
                     <div id="my-tab-content" class="tab-content">
-                    <!-- Conteúdo das abas do analista -->
+                    <!-- Conteúdo das abas do analista b-->
                         <div class="tab-pane active" id="obitoPendente">
                             <ui:include src="/WEB-INF/components/lista-processos-analisar-obito.xhtml">
                                 <!--<ui:param name="processos" value="#{processosObitoAnalisePendente}"/> -->
@@ -141,9 +141,9 @@
                 <div id="pad-wrapper" class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class="active"><a href="#obitoAguardandoCorrecao" data-toggle="tab"><h4>Óbito Aguardando Correção</h4></a></li>
-                            <li><a href="#obitoAguardandoEntrevista" data-toggle="tab"><h4>Óbito Aguardando Entrevista</h4></a></li>
-                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4>Entrevista Aguardando Correção</h4></a></li>
+                            <li class="active"><a href="#obitoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de óbito <span class="badge" id="qtdDados-tabelaCorrigirObito"></span></h4></a></li>
+                            <li><a href="#obitoAguardandoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">Entrevista pendente <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
+                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de entrevista <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCorrecao"></span></h4></a></li>
                         </ul>
                         <div id="my-tab-content" class="tab-content">
                             <div class="tab-pane active" id="obitoAguardandoCorrecao">
@@ -170,10 +170,10 @@
                 <div id="pad-wrapper" class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class="active"><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4>Óbito Aguardando Entrevista</h4></a></li>
-                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4>Entrevista Aguardando Correção</h4></a></li>
-                            <li><a href="#entrevistaAguardandoCaptacao" data-toggle="tab"><h4>Entrevista Aguardando Captação</h4></a></li>
-                            <li><a href="#captacaoAguardandoCorrecao" data-toggle="tab"><h4>Captação Aguardando Correção</h4></a></li>
+                            <li class="active"><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">Entrevista pendente <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
+                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de entrevista <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCorrecao"></span></h4></a></li>
+                            <li><a href="#entrevistaAguardandoCaptacao" data-toggle="tab"><h4 class="aba-centralizada">Captações pendentes <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCaptacao"></span></h4></a></li>
+                            <li><a href="#captacaoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de captação <span class="badge" id="qtdDados-tabelaCaptacaoAguardandoCorrecao"></span></h4></a></li>
                         </ul>
                         <div id="my-tab-content" class="tab-content">
                             <div class="tab-pane active" id="obitoAguardantoEntrevista">
@@ -206,7 +206,7 @@
 
     </ui:define>
 
-    <ui:define name="#{sects.scripts}">
+    <ui:define name="#{sects.customScripts}">
         <h:outputScript library="js" name="jquery.dataTables.js"/>
 
         <script type="text/javascript">

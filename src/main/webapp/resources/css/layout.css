@@ -1,3 +1,8 @@
+
+div#content * > input, textarea {
+	text-transform: uppercase !important;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	background-color: #f7f7f7;
@@ -6,6 +11,14 @@ body {
 	font-size: 12px;
 	padding: 0px;
 	/*-webkit-font-smoothing: antialiased;*/
+}
+
+.badge {
+	font-size: 14px;
+	background-color: #888888;
+	padding: 3px 9px;
+	vertical-align: middle;
+	font-weight: inherit;
 }
 h1,h2,h3,h4,h5 {
 	margin: 0;
@@ -406,6 +419,19 @@ input.search{
 	color: #696d73;
 	font-style: italic;
 }
+
+#pad-wrapper h4.aba-centralizada {
+	margin: 0 0 0 0px;
+	color: #696d73;
+	font-style: italic;
+}
+
+a.btn-flat.success.btn-inner-datatable{
+	margin-left: 25px;
+	margin-bottom: -20px;
+	margin-top: 10px;
+}
+
 .content {
 	min-width: 400px;
 	min-height: 620px;

@@ -330,31 +330,76 @@ function buildTable(tableId){
 
     var urlMetodoControlador = getUrlMetodoControlador(tableId);
 
+    var qtdDados = "qtdDados-"+tableId;
     tableId = "#"+tableId;
 
-    var table = $(tableId).DataTable(
-        {
-            "ajax": location.origin + urlMetodoControlador,
-            "columns": [
-                { "data": "protocolo" },
-                { "data": "dataNotificacao" },
-                { "data": "dataObito" },
-                { "data": "paciente" },
-                { "data": "hospital" },
-                { "data": "notificador" },
-                {
-                    "data": null,
-                    "targets": -1,
-                    "defaultContent"
-                        : "<a class=\"btn-flat default\" href=\"#\"> " +
-                        "<i class=\"icon-file\"></i>"+
-                        "Analisar"+
-                        "</a>"
-                }
-            ],
-            "sPaginationType": "full_numbers"
-        }
-    );
+    //Verificacao para montar uma tabela com dados diferentes. data contem os valores retornados do NotificacaoJSON
+    if(tableId === "#tabelaObitoAguardandoEntrevista"){
+        var table = $(tableId).DataTable(
+            {
+                "ajax": location.origin + urlMetodoControlador,
+                "columns": [
+                    { "data": "protocolo" },
+                    { "data": "paciente" },
+                    { "data": "dataObito" },
+                    { "data": "horaObito" },
+                    { "data": "dataNotificacao" },
+                    { "data": "horaNotificacao" },
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "defaultContent"
+                            : "<a class=\"btn-flat default\" href=\"#\"> " +
+                            "<i class=\"icon-file\"></i>"+
+                            "Analisar"+
+                            "</a>"
+                    }
+                ],
+                "sPaginationType": "full_numbers"
+            }
+        );
+    }else{
+        var table = $(tableId).DataTable(
+            {
+                "ajax": location.origin + urlMetodoControlador,
+                "columns": [
+                    { "data": "protocolo" },
+                    { "data": "dataNotificacao" },
+                    { "data": "dataObito" },
+                    { "data": "paciente" },
+                    { "data": "hospital" },
+                    { "data": "notificador" },
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "defaultContent"
+                            : "<a class=\"btn-flat default\" href=\"#\"> " +
+                            "<i class=\"icon-file\"></i>"+
+                            "Analisar"+
+                            "</a>"
+                    }
+                ],
+                "sPaginationType": "full_numbers"
+            }
+        );
+    }
+
+    var warningColor = "#f0ad4e";
+    var dangerColor = "#d9534f";
+    var badgeDefaultColor = '#888';
+
+    $(tableId).on('draw.dt', function(){
+        var qtdLinhas = table.rows().data().length;
+           if(qtdLinhas < 5){
+               document.getElementById(qtdDados).style.backgroundColor = badgeDefaultColor;
+           } else if (qtdLinhas < 10 ) {
+               document.getElementById(qtdDados).style.backgroundColor = warningColor;
+           }else{
+               document.getElementById(qtdDados).style.backgroundColor = dangerColor;
+           }
+            document.getElementById(qtdDados).innerHTML = qtdLinhas;
+    });
+
 
 
     //Criando o link para redirecionamento ao clique no botão
@@ -368,5 +413,6 @@ function buildTable(tableId){
 
     setInterval( function () {
         table.ajax.reload();
+
     }, 2500 );
 }
