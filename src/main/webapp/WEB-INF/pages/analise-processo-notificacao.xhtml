@@ -134,12 +134,16 @@
                 sendPost(url);
             });
             $("#btn-recusar").click(function () {
+                if (confirm("Deseja recusar notificação?")==true){
                 var url = $(".url").val() + "#{contextUrls.recusar}";
                 sendPost(url);
+                };
             });
             $("#btn-confirmar").click(function () {
+                if (confirm("Deseja confirmar notificação?")==true){
                 var url = $(".url").val() + "#{contextUrls.confirmar}";
                 sendPost(url);
+                };
             });
 
             thisDocument = $(document).keypress(function (event) {
