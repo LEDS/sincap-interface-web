@@ -57,7 +57,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}"/>
-        <h:inputText styleClass="data span8" id="obito-paciente-dataInternacao"
+        <h:inputText styleClass="data span8 fillOnDblClick" id="obito-paciente-dataInternacao"
                      value="#{processo.obito.paciente.dataInternacao.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>

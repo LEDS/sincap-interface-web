@@ -112,7 +112,7 @@
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}*"/>
-                <h:inputText styleClass="dataEntrevista span8" name="dataEntrevista" id="dataEntrevista"
+                <h:inputText styleClass="dataEntrevista span8 fillOnDblClick" name="dataEntrevista" id="dataEntrevista"
                              value="#{processo.entrevista.dataEntrevista.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
