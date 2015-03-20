@@ -9,7 +9,7 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.data']}*"/>
-        <h:inputText styleClass="data span8" onblur="setInaptoDoacao()" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
+        <h:inputText styleClass="data span8 fillOnDblClick" onblur="setInaptoDoacao()" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
     </h:panelGroup>
@@ -77,9 +77,11 @@
     <div id="divCausaNaoDoacao" class="field-box">
         <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
 
-        <div class="ui-select span5">
+        <div class="span5">
             <h:selectOneMenu
                     id="causaNaoDoacao"
+                    style="width: 10cm"
+                    styleClass="select2"
                     value="#{processo.causaNaoDoacao}">
                 <f:selectItem itemLabel="#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}"/>
                 <f:selectItems value="#{listaCausaNaoDoacao}"/>

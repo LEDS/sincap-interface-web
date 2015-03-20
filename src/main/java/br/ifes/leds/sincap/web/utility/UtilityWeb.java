@@ -397,15 +397,18 @@ public class UtilityWeb {
 
     public List<NotificacaoDTO> ProcessoToNotificacaoDTO(List<ProcessoNotificacao> notificacoes) {
         List<NotificacaoDTO> notificacoesDTO = new ArrayList<>();
-        DateFormat dfo = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        DateFormat dmy = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        DateFormat hr = new java.text.SimpleDateFormat("HH:mm");
 
         for (ProcessoNotificacao notificacao : notificacoes) {
             NotificacaoDTO notificacaoDTO = new NotificacaoDTO();
 
             notificacaoDTO.setProtocolo(notificacao.getCodigo());
-            notificacaoDTO.setDataNotificacao(dfo.format(notificacao.getDataAbertura().getTime()));
+            notificacaoDTO.setDataNotificacao(dmy.format(notificacao.getDataAbertura().getTime()));
+            notificacaoDTO.setHoraNotificacao(hr.format(notificacao.getDataAbertura().getTime()));
             notificacaoDTO.setPaciente(notificacao.getObito().getPaciente().getNome());
-            notificacaoDTO.setDataObito(dfo.format(notificacao.getObito().getDataObito().getTime()));
+            notificacaoDTO.setDataObito(dmy.format(notificacao.getObito().getDataObito().getTime()));
+            notificacaoDTO.setHoraObito(hr.format(notificacao.getObito().getDataObito().getTime()));
             notificacaoDTO.setHospital(notificacao.getObito().getHospital().getNome());
             notificacaoDTO.setNotificador(notificacao.getNotificador().getNome());
             notificacaoDTO.setId(notificacao.getId());

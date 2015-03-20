@@ -51,6 +51,7 @@
     });
 
     $(document).ready(function () {
+        $('#causaNaoDoacao').select2();
         $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
         $('.tel').inputmask({
             mask: ["(99)9999-9999", "(99)99999-9999"]

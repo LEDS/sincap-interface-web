@@ -109,6 +109,7 @@ function ajaxGetHospitais() {
     $.ajax({
         type: "get",
         url: location.origin + "/sincap/getHospitais?cpf=" + val,
+        async: false,
         cache: false,
         Accept: "application/json",
         contentType: "application/json",
@@ -129,7 +130,7 @@ function ajaxGetHospitais() {
                 $("#hospital").append("<option value='" + id + "'>" + valor /*aparece para o usuario*/ + "</option>");
             });
 
-            if(response.length != 0){
+            if(response.length !== 0){
                 $('#select-hospitais').show();
             }else{
                 $('#select-hospitais').hide();
@@ -333,29 +334,56 @@ function buildTable(tableId){
     var qtdDados = "qtdDados-"+tableId;
     tableId = "#"+tableId;
 
-    var table = $(tableId).DataTable(
-        {
-            "ajax": location.origin + urlMetodoControlador,
-            "columns": [
-                { "data": "protocolo" },
-                { "data": "dataNotificacao" },
-                { "data": "dataObito" },
-                { "data": "paciente" },
-                { "data": "hospital" },
-                { "data": "notificador" },
-                {
-                    "data": null,
-                    "targets": -1,
-                    "defaultContent"
-                        : "<a class=\"btn-flat default\" href=\"#\"> " +
-                        "<i class=\"icon-file\"></i>"+
-                        "Analisar"+
-                        "</a>"
-                }
-            ],
-            "sPaginationType": "full_numbers"
-        }
-    );
+    //Verificacao para montar uma tabela com dados diferentes. data contem os valores retornados do NotificacaoJSON
+    if(tableId === "#tabelaObitoAguardandoEntrevista"){
+        var table = $(tableId).DataTable(
+            {
+                "ajax": location.origin + urlMetodoControlador,
+                "columns": [
+                    { "data": "protocolo" },
+                    { "data": "paciente" },
+                    { "data": "dataObito" },
+                    { "data": "horaObito" },
+                    { "data": "dataNotificacao" },
+                    { "data": "horaNotificacao" },
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "defaultContent"
+                            : "<a class=\"btn-flat default\" href=\"#\"> " +
+                            "<i class=\"icon-file\"></i>"+
+                            "Analisar"+
+                            "</a>"
+                    }
+                ],
+                "sPaginationType": "full_numbers"
+            }
+        );
+    }else{
+        var table = $(tableId).DataTable(
+            {
+                "ajax": location.origin + urlMetodoControlador,
+                "columns": [
+                    { "data": "protocolo" },
+                    { "data": "dataNotificacao" },
+                    { "data": "dataObito" },
+                    { "data": "paciente" },
+                    { "data": "hospital" },
+                    { "data": "notificador" },
+                    {
+                        "data": null,
+                        "targets": -1,
+                        "defaultContent"
+                            : "<a class=\"btn-flat default\" href=\"#\"> " +
+                            "<i class=\"icon-file\"></i>"+
+                            "Analisar"+
+                            "</a>"
+                    }
+                ],
+                "sPaginationType": "full_numbers"
+            }
+        );
+    }
 
     var warningColor = "#f0ad4e";
     var dangerColor = "#d9534f";
@@ -389,3 +417,17 @@ function buildTable(tableId){
 
     }, 2500 );
 }
+
+$(document).ready(function(){
+    $('input[type=text].fillOnDblClick').tooltip({
+        title : 'Para preencher com a data atual, clique duas vezes sobre o campo'
+    });
+
+    $('input[type=text].fillOnDblClick').dblclick(function() {
+        var currentTime = new Date();
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+        $(this).val(day.toString() + month.toString() + year.toString());
+    });
+});
