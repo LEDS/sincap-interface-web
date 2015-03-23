@@ -59,13 +59,25 @@
             success: fieldBoxValidatorSuccess,
             rules: {
                 //Notificacao de Obito aba Paciente
+                'obito.paciente.nome': {
+                    required: true
+                },
+                dataNascimento: {
+                    required: true
+                },
                 'obito.paciente.dataInternacao': {
+                    required: true
+                },
+                'obito.paciente.documentoSocial.documento': {
                     required: true
                 },
                 'obito.paciente.documentoSocial.tipoDocumentoComFoto': {
                     required: true
                 },
                 'obito.paciente.sexo': {
+                    required: true
+                },
+                'obito.paciente.numeroSUS': {
                     required: true
                 },
                 'obito.paciente.numeroProntuario': {
@@ -90,17 +102,48 @@
             },
             messages: {
                 //Notificacao de Obito aba Paciente
+                'obito.paciente.nome': {
+                    required: "Por favor, insira o nome do paciente"
+                },
+                dataNascimento: {
+                    required: "Por favor, insira a data de nascimento do paciente"
+                },
                 'obito.paciente.dataInternacao': {
                     required: "Por favor, insira a data de internação do paciente"
+                },
+                'obito.paciente.documentoSocial.documento': {
+                    required: "Por favor, insira um documento social do paciente"
                 },
                 'obito.paciente.documentoSocial.tipoDocumentoComFoto': {
                     required: "Por favor, insira um documento social do paciente"
                 },
+                'obito.paciente.telefone.numero': {
+                    required: "Por favor, insira um telefone do paciente",
+                    rangelength: "O telefone de ter entre 10 e 11 dígitos"
+                },
                 'obito.paciente.sexo': {
                     required: "Por favor, selecione o sexo do paciente"
                 },
+                'obito.paciente.numeroSUS': {
+                    required: "Por favor, insira o número de SUS do paciente"
+                },
+                'obito.paciente.profissao': {
+                    required: "Por favor, insira a profissão do paciente"
+                },
+                'obito.paciente.nacionalidade': {
+                    required: "Por favor, insira a nascionalidade do paciente"
+                },
                 'obito.paciente.numeroProntuario': {
                     required: "Por favor, insira o número do prontuário do paciente"
+                },
+                'obito.paciente.endereco.cidade': {
+                    required: "Por favor, insira a cidade do paciente"
+                },
+                'obito.paciente.endereco.bairro': {
+                    required: "Por favor, insira o bairro do paciente"
+                },
+                'obito.paciente.endereco.cep': {
+                    required: "Por favor, insira o cep do paciente"
                 },
                 //Notificacao de Obito aba Obito
                 dataObito: {
@@ -139,10 +182,15 @@
         tipoDocumento.addEventListener('click', function() {
             if (tipoDocumento.value === 'PNI') {
                 $("#obito-paciente-documentoSocial-documento").rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-documentoSocial-documento'));
                 $("#obito-paciente-nome").rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-nome'));
                 $("#obito-paciente-dataNascimento").rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-dataNascimento'));
                 $("#obito-paciente-nomeMae").rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-nomeMae'));
                 $("#obito-paciente-numeroSUS").rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-numeroSUS'));
             } else {
                 $("#obito-paciente-documentoSocial-documento").rules('add', {required: true});
                 $("#obito-paciente-nome").rules('add', {required: true});
