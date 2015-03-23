@@ -108,6 +108,7 @@
         </h:panelGroup>
 
         <script type="text/javascript">
+
             var nSteps = 1;
 
             if ("#{!entrevista and captacao}" == "true") {
@@ -116,7 +117,7 @@
                 nSteps = 2;
             }
 
-            if (nSteps === 1) {
+            if (nSteps == 1) {
                 var $btnNext = $('.wizard-actions .btn-next'),
                         $btnFinish = $(".wizard-actions .btn-finish");
 
@@ -156,8 +157,10 @@
                         $btnNext = $('.wizard-actions .btn-next'),
                         $btnFinish = $(".wizard-actions .btn-finish");
 
+                $btnPrev.hide();
                 $wizard.wizard().on('finished', function (e) {
                     // wizard complete code
+                    console.log("finish");
                 }).on("changed", function (e) {
                     var step = $wizard.wizard("selectedItem");
                     // reset states
@@ -166,14 +169,27 @@
                     $btnNext.show();
                     $btnFinish.hide();
 
+                    $(window).scrollTop($('body').offset().top);
                     if (step.step === 1) {
+                        $btnPrev.hide();
+                        $btnNext.show();
+                        $btnFinish.hide();
+                    } else if (step.step === 2) {
+                        $btnPrev.show();
+                        $btnNext.show();
+                    } else if (step.step ===3 ) {
+                        $btnPrev.show();
+                        $btnNext.hide();
+                        $btnFinish.show();
+                    }
+
+                    if (step.step == 1) {
                         $btnPrev.attr("disabled", "disabled");
-                    } else if (step.step === nSteps) {
+                    } else if (step.step == nSteps) {
                         $btnNext.hide();
                         $btnFinish.show();
                     }
                 });
-
                 $btnPrev.on('click', function () {
                     $wizard.wizard('previous');
                 });
