@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition template="/WEB-INF/templates/form.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <!-- Título da página -->
+    <ui:define name="#{sects.title}">
+        #{msg['relatorios.title']}
+    </ui:define>
+    <!--Fim título da página-->
+
+
+    <!-- Formulário de entrevista -->
+    <ui:define name="#{sects.formContent}">
+        <form id="possibilidade-doacao-tecido" class="form-horizontal"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}"
+              method="post">
+
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+
+            <h1 align="center">Possibilidades de Doação de Tecidos</h1>
+
+            <br></br><br></br><br></br>
+
+            <h:panelGrid columns="7">
+                <h:outputLabel for="datIni" value="A partir de:"/>
+                <h:outputLabel value=" "/>
+                <h:inputText type = "date" id="datIni" name="datIni" value="#{dataInicial.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+                <h:outputLabel value=" "/>
+                <h:outputLabel value=" "/>
+                <h:outputLabel for= "datFim" value="Até:"/>
+                <h:inputText type = "date" id="datFim" name="datFim" value="#{dataFinal.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </h:inputText>
+            </h:panelGrid>
+
+            <br></br><br></br>
+
+            <button type="submit" class="btn-glow success btn-finish">
+                Enviar
+            </button>
+
+        </form>
+        <br></br><br></br>
+
+        <div class="tab-content">
+        <ui:include src="../components/lista-possibilidade-doacao-tecido.xhtml"/>
+    </div>
+
+
+                    <!--Mudar name depois -->
+
+        <h:outputScript library="js" name="total-doacao-instituicao.js"/>
+    </ui:define>
+
+
+</ui:composition>

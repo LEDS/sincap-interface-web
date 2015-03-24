@@ -30,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static br.ifes.leds.sincap.web.controller.ContextUrls.RLT_POSSIBILIDADE_DOACAO_TECIDO;
+
 @Controller
 @RequestMapping(ContextUrls.RELATORIOS)
 @SessionScoped
@@ -51,6 +53,12 @@ public class RelatoriosController {
     AplFuncionario aplFuncionario;
     @Autowired
     AplRelatorio aplRelatorio;
+
+
+    @RequestMapping(value = RLT_POSSIBILIDADE_DOACAO_TECIDO)
+    public String rltPossibilidadeDoacaoTecido() {
+        return "possibilidade-doacao-tecido";
+    }
 
     @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA + ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO, method = RequestMethod.GET)
     public String carregarFormTermoDoacao(ModelMap model) {
