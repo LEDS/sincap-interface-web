@@ -132,51 +132,6 @@ public class RelatoriosController {
         return "form-termo-de-autorizacao";
     }
 
-
-    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.GET)
-    public String carregarRelatorioIndex(ModelMap model) {
-
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-
-        model.addAttribute("listInstituicao", in);
-
-        return "total-doacao-instituicao";
-    }
-
-    @RequestMapping(value = ContextUrls.RLT_TOTAL_DOACAO_INSTITUICAO, method = RequestMethod.POST)
-    public String ExibirRelatorio(ModelMap model, @RequestParam(value = "hospitais", required = false, defaultValue = "-1") List<Long> lh, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datIni") Calendar dataInicial, @DateTimeFormat(pattern = "dd/MM/yyyy") @RequestParam("datFim") Calendar dataFinal) {
-
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        List<TotalDoacaoInstituicao> listtdi = new ArrayList<>();
-        List<InstituicaoNotificadora> listInstituicaoSelected = aplInstituicaoNotificadora.obter(lh);
-
-        model.addAttribute("dataInicial", dataInicial);
-        model.addAttribute("dataFinal", dataFinal);
-
-
-        model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(in, listInstituicaoSelected));
-
-
-        if (lh.get(0) == -1) {
-            for (InstituicaoNotificadora i : in) {
-                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i.getId(), dataInicial, dataFinal);
-                listtdi.add(tdi);
-            }
-        } else {
-            for (Long i : lh) {
-                TotalDoacaoInstituicao tdi = aplRelatorio.relatorioTotalDoacaoInstituicao(i, dataInicial, dataFinal);
-                listtdi.add(tdi);
-            }
-        }
-
-        model.addAttribute("listInstituicao", in);
-        model.addAttribute("listaTotaldi", listtdi);
-
-
-        //TODO: Substituir pelo endereco do formulario!
-        return "total-doacao-instituicao";
-    }
-
     @RequestMapping(value = ContextUrls.RLT_QUALIFICACAO_RECUSA_FAMILIAR, method = RequestMethod.GET)
     public String carregarRelatorioRecusaIndex(ModelMap model) {
 
