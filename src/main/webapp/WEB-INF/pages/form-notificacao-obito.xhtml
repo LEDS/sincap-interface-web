@@ -34,43 +34,60 @@
                 </li>
             </ul>
         </div>
-        <div class="step-content">
-            <form id="processo" class="form-horizontal"
-                  action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
-                  method="post">
-                <div class="step-pane active" id="step1">
-                    <div class="row-fluid form-wrapper">
-                        <div class="span8">
-                            <div class="inline-input">
-                                <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
+        <div class="step-content" >
+            <div class="principal" style="float:left;">
+                <form id="processo" class="form-horizontal"
+                      action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
+                      method="post" >
+                    <div class="step-pane active" id="step1">
+                        <div class="row-fluid form-wrapper">
+                            <div class="span8">
+                                <div class="inline-input">
+                                    <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="step-pane" id="step2">
-                    <div class="row-fluid form-wrapper">
-                        <div class="span8">
-                            <div class="inline-input">
-                                <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
+                    <div class="step-pane" id="step2">
+                        <div class="row-fluid form-wrapper">
+                            <div class="span8">
+                                <div class="inline-input">
+                                    <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <input type="hidden" name="id" value="#{processo.id}" />
+                    <input type="hidden" name="id" value="#{processo.id}" />
 
-                <!-- Salva a data de abertura, se houver -->
-                <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
-                </h:inputHidden>
+                    <!-- Salva a data de abertura, se houver -->
+                    <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
+                    </h:inputHidden>
 
-                <h:inputHidden id="obito-dataCadastro" value="#{processo.obito.dataCadastro.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
-                </h:inputHidden>
+                    <h:inputHidden id="obito-dataCadastro" value="#{processo.obito.dataCadastro.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
+                    </h:inputHidden>
 
-                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-            </form>
+                    <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                </form>
+            </div>
+
+            <div class="comentario" style="float:right;position: absolute;margin-left: 65%;">
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <h:inputText id="nome" value="#{processo.notificador.nome}"/>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <h:outputLabel value="#{msg['comentario.estado']}"/>
+                </h:panelGroup>
+
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <h:outputLabel value="#{msg['comentario.estado']}"/>
+                </h:panelGroup>
+            </div>
         </div>
-        <div class="wizard-actions">
+
+        <div class="wizard-actions" style="position: relative">
             <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
                 <i class="icon-chevron-left"/> Anterior
             </button>
