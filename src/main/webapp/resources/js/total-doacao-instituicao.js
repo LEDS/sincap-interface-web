@@ -6,13 +6,9 @@ jQuery.validator.addMethod("isValid", function (value, element) {
 
 }, "* Data final deve ser maior do que a inicial.");
 
-
-
-$(document).ready(function () {
-    $('#datIni').inputmask("dd/mm/yyyy", {placeholder: "_"});
-    $('#datFim').inputmask("dd/mm/yyyy", {placeholder: "_"});
+$('.datepicker').datepicker( {language: "pt-BR", format: "dd/mm/yyyy"} ).on('changeDate', function (ev) {
+    $(this).datepicker('hide');
 });
-
 
 $(".select2").select2({
     placeholder: "Escolha as Instituições"
