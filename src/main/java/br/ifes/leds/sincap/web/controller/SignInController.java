@@ -56,6 +56,7 @@ public class SignInController {
             UsuarioSessao usuarioSessao = new UsuarioSessao();
 
             //Guardando os dados do usuario da sessao
+            usuarioSessao.setFuncionario(func);
             usuarioSessao.setIdHospital(idHospital);
             usuarioSessao.setIdUsuario(func.getId());
             usuarioSessao.setCpfUsuario(func.getCpf());
