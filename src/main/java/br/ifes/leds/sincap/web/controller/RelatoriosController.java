@@ -3,20 +3,15 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
-import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.*;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
-import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.faces.bean.SessionScoped;
-import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.List;
 
@@ -131,50 +125,4 @@ public class RelatoriosController {
         return "form-termo-de-autorizacao";
     }
 
-    @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.GET)
-    public String carregarRelatorioAtividadeMensal(ModelMap model) {
-        List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
-        model.addAttribute("listInstituicao", in);
-        return "rel-atividade-mensal";
-    }
-
-    @RequestMapping(value = ContextUrls.RLT_ATIVIDADE_MENSAL, method = RequestMethod.POST)
-    public String ExibirRelatorioAtividadeMensal(ModelMap model, HttpSession sessao, @DateTimeFormat(pattern = "MM/yyyy") @RequestParam("datMes") Calendar dataMes) {
-
-        UsuarioSessao usuario = (UsuarioSessao) sessao.getAttribute("user");
-        Calendar dataInicial = Calendar.getInstance();
-        Calendar dataFinal = Calendar.getInstance();
-
-        dataInicial.set(dataMes.get(Calendar.YEAR), dataMes.get(Calendar.MONTH), dataMes.get(Calendar.DAY_OF_MONTH));
-        dataFinal.set(dataMes.get(Calendar.YEAR), dataMes.get(Calendar.MONTH), dataMes.get(Calendar.DAY_OF_MONTH));
-
-        dataInicial.set(Calendar.DAY_OF_MONTH, 1);
-
-        dataFinal.add(Calendar.MONTH, 1);
-        dataFinal.set(Calendar.DAY_OF_MONTH, 1);
-        dataFinal.add(Calendar.DAY_OF_MONTH, -1);
-
-        List<FaixaEtaria> listaFaixa = aplRelatorio.retornaFaixaEtaria(usuario.getIdHospital(), dataInicial, dataFinal);
-        model.addAttribute("listaFaixa", listaFaixa);
-
-        List<ObitoCardio> liObito = aplRelatorio.retornaObitoCardio(usuario.getIdHospital(), dataInicial, dataFinal);
-        model.addAttribute("liObito", liObito);
-
-        List<ObitosMeTurno> listaObitosME = aplRelatorio.retornaObitosMeTurno(usuario.getIdHospital(), dataInicial, dataFinal);
-        model.addAttribute("listaObitosME", listaObitosME);
-
-        List<NaoDoacaoCIHDOTT> recusaFamiliar = aplRelatorio.naoDoacaoMensal(usuario.getIdHospital(), dataInicial, dataFinal, TipoNaoDoacao.RECUSA_FAMILIAR);
-        model.addAttribute("listaNaoDoacaoFamiliar", recusaFamiliar);
-
-        List<NaoDoacaoCIHDOTT> problemaMedico = aplRelatorio.naoDoacaoMensal(usuario.getIdHospital(), dataInicial, dataFinal, TipoNaoDoacao.CONTRAINDICACAO_MEDICA);
-        model.addAttribute("listaProbMedico", problemaMedico);
-
-        List<NaoDoacaoCIHDOTT> problemaEstrutural = aplRelatorio.naoDoacaoMensal(usuario.getIdHospital(), dataInicial, dataFinal, TipoNaoDoacao.PROBLEMAS_ESTRUTURAIS);
-        model.addAttribute("listaProblemaEstrutural", problemaEstrutural);
-
-
-        model.addAttribute("datMes", dataMes);
-
-        return "rel-atividade-mensal";
-    }
 }
