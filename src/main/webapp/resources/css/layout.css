@@ -1,4 +1,10 @@
 
+div.comentario * > textarea{
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 div#content * > input, textarea {
 	text-transform: uppercase !important;
 }

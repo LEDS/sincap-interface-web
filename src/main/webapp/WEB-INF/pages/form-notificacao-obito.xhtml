@@ -4,7 +4,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:sincap="http://java.sun.com/jsf/composite/sincap"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
     <ui:param name="obito" value="true"/>
 
@@ -35,7 +36,7 @@
             </ul>
         </div>
         <div class="step-content" >
-            <div class="principal" style="float:left;">
+            <div class="principal span7" style="float:left;">
                 <form id="processo" class="form-horizontal"
                       action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
                       method="post" >
@@ -70,33 +71,72 @@
 
                     <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                 </form>
+                <div class="wizard-actions">
+                    <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
+                        <i class="icon-chevron-left"/> Anterior
+                    </button>
+                    <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
+                        Próximo <i class="icon-chevron-right"/>
+                    </button>
+                    <button type="button" class="btn-flat success btn-finish">
+                        #{msg['obito.button.finalizar']}
+                    </button>
+                </div>
             </div>
 
-            <div class="comentario" style="float:right;position: absolute;margin-left: 55%;">
-                <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputText id="nomeNotificador" style="font-size: 13px;font-weight:bold; " value="#{nomeUsuario}"/>
-                </h:panelGroup>
 
-                <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel style="font-style: italic" value="#{msg['comentario.estado']} notificação"/>
-                </h:panelGroup>
+            <div class="comentario span4">
+                <div id="comment-container">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                               <td>
+                                   <div class="row-fluid">
+                                       <div class="span2">
+                                            <img class="img-circle avatar hidden-phone" src="http://lorempixel.com/output/people-q-c-45-45-8.jpg"/>
+                                       </div>
+                                       <div class="span10">
+                                           <span><strong>Alejandra Castillo</strong></span><br/>
+                                           <span><em>No momento de notificacao</em></span><br/>
+                                           <span>14:31 04/03/15</span><br/>
+                                       </div>
+                                   </div>
+                                   <br/>
+                                   <div class="row-fluid">
+                                       <div class="span10 offset2">
+                                            Mensagem de texto qualquer que representa um comentário sem significado.
+                                       </div>
+                                   </div>
+                               </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <img class="img-circle avatar hidden-phone" src="http://lorempixel.com/output/people-q-c-45-45-7.jpg"/>
+                                        </div>
+                                        <div class="span10">
+                                            <span><strong>Jennifer Duarte</strong></span><br/>
+                                            <span><em>No momento de notificacao</em></span><br/>
+                                            <span>14:32 04/03/15</span><br/>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row-fluid">
+                                        <div class="span10 offset2">
+                                            Mensagem qualquer da Jennifer que representa um comentário sem significado.
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <h:panelGroup layout="block" styleClass="field-box">
-                    <h:inputTextarea styleClass="span 5" style="width: 500px;" rows="5" value="#{descricaoComentario}"/>
-                </h:panelGroup>
+                    <h:panelGroup layout="block" styleClass="field-box">
+                        <h:inputTextarea  rows="3" value="#{descricaoComentario}" p:placeholder="Insira seu comentário aqui..."/>
+                    </h:panelGroup>
+                </div>
             </div>
-        </div>
-
-        <div class="wizard-actions" style="position: relative">
-            <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
-                <i class="icon-chevron-left"/> Anterior
-            </button>
-            <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
-                Próximo <i class="icon-chevron-right"/>
-            </button>
-            <button type="button" class="btn-flat success btn-finish">
-                #{msg['obito.button.finalizar']}
-            </button>
         </div>
 
         <script>
