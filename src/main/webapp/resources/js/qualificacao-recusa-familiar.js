@@ -1,8 +1,11 @@
-jQuery.validator.addMethod("isValid", function (value, element) {
-    var dataIni = $('#datIni').val();
-    var dataFim = $('#datFim').val();
+jQuery.validator.addMethod("isValid", function () {
+    var dataIni = String($('#datIni').val()).split("/");
+    var dataFim = String($('#datFim').val()).split("/");
 
-    return Date.parse(dataIni) <= Date.parse(dataFim);
+    dataIni = dataIni[1] + "/" + dataIni[0] + "/" + dataIni[2];
+    dataFim = dataFim[1] + "/" + dataFim[0] + "/" + dataFim[2];
+
+    return Date.parse(String(dataIni)) <= Date.parse(String(dataFim));
 
 }, "* Data final deve ser maior do que a inicial.");
 

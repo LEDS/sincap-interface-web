@@ -11,6 +11,10 @@
     </ui:define>
     <!--Fim título da página-->
 
+    <ui:define name="#{sects.libraries}">
+        <h:outputStylesheet library="css" name="lib/bootstrap.datepicker.css"/>
+    </ui:define>
+
      <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <form id="total-nao-doacao-instituicao" class="form-horizontal"
@@ -24,13 +28,13 @@
             <h:panelGrid columns="7">
                 <h:outputLabel value="A partir de:"/>
                 <h:outputLabel value=" "/>
-                <h:inputText id="datIni" name="datIni" value="#{dataInicial.time}">
+                <h:inputText id="datIni" styleClass="datepicker" name="datIni" value="#{dataInicial.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value="Até:"/>
-                <h:inputText id="datFim" name="datFim" value="#{dataFinal.time}">
+                <h:inputText id="datFim" styleClass="datepicker" name="datFim" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGrid>
@@ -50,8 +54,13 @@
                 <ui:include src="../components/lista-total-nao-doacao-instituicao.xhtml"/>
             </div>
 
-        <h:outputScript library="js" name="total-doacao-instituicao.js" />
     </ui:define>
 
+    <ui:define name="#{sects.customScripts}">
+        <h:outputScript library="js" name="bootstrap.datepicker.js"/>
+        <h:outputScript library="js" name="bootstrap-datepicker.pt-BR.js"/>
+        <h:outputScript library="js" name="configure-datepicker.js"/>
+        <h:outputScript library="js" name="total-doacao-instituicao.js" />
+    </ui:define>
 
 </ui:composition>

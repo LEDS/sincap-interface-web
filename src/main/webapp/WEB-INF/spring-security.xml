@@ -22,6 +22,7 @@
         <intercept-url pattern="/captacao.*" access="ROLE_CAPTADOR"/>
         <intercept-url pattern="/admin.*" access="ROLE_ADMIN"/>
         <intercept-url pattern="/processo.*" access="ROLE_ANALISTA"/>
+        <intercept-url pattern="/relatorio.*" access="ROLE_ANALISTA, ROLE_CAPTADOR, ROLE_NOTIFICADOR"/>
         <intercept-url pattern="/processo.*" access="ROLE_ANALISTA, ROLE_CAPTADOR, ROLE_NOTIFICADOR"/>
         <intercept-url pattern="^.*excluir.*$" access="ROLE_ANALISTA"/>
         <intercept-url pattern="^.*arquivar.*$" access="ROLE_ANALISTA"/>

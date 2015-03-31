@@ -1,5 +1,6 @@
 package br.ifes.leds.sincap.web.model;
 
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Funcionario;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import lombok.*;
 import lombok.experimental.Builder;
@@ -20,6 +21,7 @@ public class UsuarioSessao implements Serializable {
     private static final long serialVersionUID = 1L;
     private Long idUsuario;
     private Long idHospital;
+    private Funcionario funcionario;
     private String cpfUsuario;
     private ProcessoNotificacao notificacao;
     private int etapaNotifica;
