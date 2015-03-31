@@ -90,10 +90,18 @@
         <h:outputLabel value="#{msg['responsavel.text.religiao']}*"/>
         <h:inputText styleClass="span8" id="entrevista-responsavel2-religiao" value="#{processo.entrevista.responsavel2.religiao}"/>
     </h:panelGroup>
+
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}*"/>
-        <h:inputText styleClass="span8" id="entrevista-responsavel2-grauEscolaridade" value="#{processo.entrevista.responsavel2.grauEscolaridade}"/>
+        <div class="ui-select span5">
+            <h:selectOneMenu id="entrevista-responsavel2-grauEscolaridade" value="#{processo.entrevista.responsavel2.grauEscolaridade}">
+                <f:selectItem itemValue="" itemLabel="#{msg['responsavel.text.selecioneGrauEscolaridade']}"/>
+                <f:selectItems value="#{grauEscolaridade}"/>
+            </h:selectOneMenu>
+        </div>
+        <br/><br/>
     </h:panelGroup>
+
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['responsavel.text.cep']}*"/>
         <h:inputText styleClass="cep span8" id="entrevista-responsavel2-endereco-cep"
