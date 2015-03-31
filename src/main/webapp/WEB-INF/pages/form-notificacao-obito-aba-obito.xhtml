@@ -36,28 +36,42 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.obito.motivos1']}*"/>
-        <h:inputText id="obito-primeiraCausaMortis" styleClass="span8"
-                     value="#{processo.obito.primeiraCausaMortis.nome}"/>
+        <h:outputLabel value="#{msg['obito.CorpoEncaminhamento']}*"/>
+
+        <div class="ui-select span5">
+            <h:selectOneMenu
+                    id="obito-corpoEncaminhamento"
+                    value="#{processo.obito.corpoEncaminhamento}">
+                <f:selectItem itemLabel="#{msg['obito.CorpoEncaminhamento.tipoEncaminhamento']}"/>
+                <f:selectItems value="#{listaCorpoEncaminhamento}"/>
+            </h:selectOneMenu>
+        </div>
     </h:panelGroup>
 
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.obito.motivos2']}*"/>
-        <h:inputText id="obito-segundaCausaMortis" styleClass="span8"
-                     value="#{processo.obito.segundaCausaMortis.nome}"/>
-    </h:panelGroup>
+    <div id="divCausasMortis" class="field-box">
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos1']}*"/>
+            <h:inputText id="obito-primeiraCausaMortis" styleClass="span8"
+                         value="#{processo.obito.primeiraCausaMortis.nome}"/>
+        </h:panelGroup>
 
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
-        <h:inputText id="obito-terceiraCausaMortis" styleClass="span8"
-                     value="#{processo.obito.terceiraCausaMortis.nome}"/>
-    </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos2']}*"/>
+            <h:inputText id="obito-segundaCausaMortis" styleClass="span8"
+                         value="#{processo.obito.segundaCausaMortis.nome}"/>
+        </h:panelGroup>
 
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
-        <h:inputText id="obito-quartaCausaMortis" styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
-    </h:panelGroup>
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
+            <h:inputText id="obito-terceiraCausaMortis" styleClass="span8"
+                         value="#{processo.obito.terceiraCausaMortis.nome}"/>
+        </h:panelGroup>
 
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
+            <h:inputText id="obito-quartaCausaMortis" styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
+        </h:panelGroup>
+    </div>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}*"/>
 
@@ -89,13 +103,4 @@
             </h:selectOneMenu>
         </div>
     </div>
-    <script>
-        var $divCausaNaoDoacao = $("#divCausaNaoDoacao");
-        document.getElementById("obito-aptoDoacao:0").addEventListener("click", function () {
-            $divCausaNaoDoacao.fadeOut();
-        });
-        document.getElementById("obito-aptoDoacao:1").addEventListener("click", function () {
-            $divCausaNaoDoacao.fadeIn();
-        });
-    </script>
 </ui:composition>

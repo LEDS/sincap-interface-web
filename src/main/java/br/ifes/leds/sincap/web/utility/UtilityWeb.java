@@ -138,6 +138,17 @@ public class UtilityWeb {
         return tipos;
     }
 
+    public List<SelectItem> getCorpoEncaminhamento(){
+        List<SelectItem> listEncaminhamento = new ArrayList<>();
+
+        for (CorpoEncaminhamento encaminhento : CorpoEncaminhamento.values()) {
+            listEncaminhamento.add(new SelectItem(encaminhento,encaminhento.name()));
+        }
+
+        return listEncaminhamento;
+    }
+
+
     public List<SelectItem> getTipoObitoSelectItem() {
         List<SelectItem> tipos = new ArrayList<>();
 
@@ -152,7 +163,6 @@ public class UtilityWeb {
     public void preencherTipoObito(ModelMap model) {
         model.addAttribute("tiposObito", this.getTipoObitoSelectItem());
     }
-
 
 
     public List<SelectItem> getEstadoCivilSelectItem() {

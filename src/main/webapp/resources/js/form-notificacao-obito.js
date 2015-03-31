@@ -168,6 +168,23 @@
         });
     };
 
+    var show_hide_contraindicacoes = function() {
+        var opt_apto_doacao = document.getElementById('obito-aptoDoacao:0');
+        var opt_inapto_doacao = document.getElementById('obito-aptoDoacao:1');
+
+        opt_apto_doacao.addEventListener('click', function() {
+            var divCausaNaoDoacao = $("#divCausaNaoDoacao");
+            var causaNaoDoacao = $("#causaNaoDoacao");
+            divCausaNaoDoacao.hide();
+            causaNaoDoacao.val(0);
+            causaNaoDoacao.select2();
+        });
+
+        opt_inapto_doacao.addEventListener('click', function () {
+            $("#divCausaNaoDoacao").show();
+        });
+    };
+
     $(document).ready(function () {
         $('#causaNaoDoacao').select2();
         $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -200,5 +217,6 @@
             }
         });
         validar_form();
+        show_hide_contraindicacoes();
     });
 })();
