@@ -72,17 +72,17 @@
                 </form>
             </div>
 
-            <div class="comentario" style="float:right;position: absolute;margin-left: 65%;">
+            <div class="comentario" style="float:right;position: absolute;margin-left: 55%;">
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:inputText id="nome" value="#{processo.notificador.nome}"/>
+                    <h:outputText id="nomeNotificador" style="font-size: 13px;font-weight:bold; " value="#{nomeUsuario}"/>
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['comentario.estado']}"/>
+                    <h:outputLabel style="font-style: italic" value="#{msg['comentario.estado']} notificação"/>
                 </h:panelGroup>
 
                 <h:panelGroup layout="block" styleClass="field-box">
-                    <h:outputLabel value="#{msg['comentario.estado']}"/>
+                    <h:inputTextarea styleClass="span 5" style="width: 500px;" rows="5" value="#{descricaoComentario}"/>
                 </h:panelGroup>
             </div>
         </div>

@@ -2,6 +2,7 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
@@ -59,6 +60,7 @@ public class NotificacaoObitoController {
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
+        model.addAttribute("nomeUsuario",usuarioSessao.getNome());
 
         return "form-notificacao-obito";
     }
