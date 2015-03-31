@@ -14,7 +14,9 @@
                             <h:outputText value="Data" />
                         </f:facet>
 
-                        <h:outputText value="#{total.nomeInstituicao}" />
+                        <h:outputText value="#{total.data.time}" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{timeZone}"/>
+                        </h:outputText>
                     </h:column>
 
                     <!-- Hora -->
@@ -23,15 +25,19 @@
                             <h:outputText value="Hora" />
                         </f:facet>
 
-                        <!--trocar <h:outputText value="#{total.numeroNotificacao}" /> -->
+                        <h:outputText value="#{total.data.time}" >
+                            <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
+                        </h:outputText>
+
                     </h:column>
+
                     <!-- Nome do paciente -->
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="Nome do paciente" />
                         </f:facet>
 
-                    <!--trocar <h:outputText value="#{total.numeroEntrevista}" /> -->
+                    <h:outputText value="#{total.nome}" />
                  </h:column>
                  <!-- Idade -->
                     <h:column>
@@ -39,7 +45,7 @@
                             <h:outputText value="Idade" />
                         </f:facet>
 
-                    <!--trocar <h:outputText value="#{total.numeroRecusa}" /> -->
+                    <h:outputText value="#{total.idade}" />
                  </h:column>
                  <!-- Causa do óbito-->
                     <h:column>
@@ -47,7 +53,7 @@
                             <h:outputText value="Causa do óbito" />
                         </f:facet>
 
-                    <!--trocar <h:outputText value="#{total.numeroDoacao}" /> -->
+                     <h:outputText value="#{total.causaObito}" />
                  </h:column>
                  <!-- Setor do óbito -->
                     <h:column>
@@ -55,7 +61,7 @@
                             <h:outputText value="Setor do óbito" />
                         </f:facet>
 
-                    <!--trocar <h:outputText value="#{total.percentualEfetivacao} %" /> -->
+                    <h:outputText value="#{total.setorObito} " />
                  </h:column>
 
                  <!-- Doação de Tecidos -->
@@ -64,7 +70,7 @@
                             <h:outputText value="Doação de Tecidos" />
                         </f:facet>
 
-                    <!--trocar <h:outputText value="#{total.percentualEfetivacao} %" /> -->
+                     <h:outputText value="#{total.doaTecido} " />
                  </h:column>
 
                  <!-- Causa de não doação -->
@@ -73,7 +79,7 @@
                             <h:outputText value="Causa de não doação" />
                         </f:facet>
 
-                    <!--trocar   <h:outputText value="#{total.percentualEfetivacao} %" /> -->
+                    <h:outputText value="#{total.causaNaoDoacao} " />
                    </h:column>
 
                    <!-- Observações -->
@@ -82,7 +88,7 @@
                             <h:outputText value="Observações" />
                         </f:facet>
 
-                        <!--trocar   <h:outputText value="#{total.percentualEfetivacao} %" /> -->
+                        <h:outputText value="#{total.observacao} " />
                        </h:column>
                    </h:dataTable>
 

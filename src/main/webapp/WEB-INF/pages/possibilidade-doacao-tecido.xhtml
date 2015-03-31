@@ -15,7 +15,7 @@
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <form id="possibilidade-doacao-tecido" class="form-horizontal"
-              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_possibilidade_doacao_tecido}"
               method="post">
 
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
@@ -25,16 +25,16 @@
             <br></br><br></br><br></br>
 
             <h:panelGrid columns="7">
-                <h:outputLabel for="datIni" value="A partir de:"/>
+                <h:outputLabel for="dataInicial" value="A partir de:"/>
                 <h:outputLabel value=" "/>
-                <h:inputText type = "date" id="datIni" name="datIni" value="#{dataInicial.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                <h:inputText type = "date" id="dataInicial" name="dataInicial" value="#{dataInicial.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
                 </h:inputText>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
-                <h:outputLabel for= "datFim" value="Até:"/>
-                <h:inputText type = "date" id="datFim" name="datFim" value="#{dataFinal.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                <h:outputLabel for= "dataFinal" value="Até:"/>
+                <h:inputText type = "date" id="dataFinal" name="dataFinal" value="#{dataFinal.time}">
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
                 </h:inputText>
             </h:panelGrid>
 
@@ -54,8 +54,10 @@
 
                     <!--Mudar name depois -->
 
-        <h:outputScript library="js" name="total-doacao-instituicao.js"/>
     </ui:define>
 
+    <ui:define name="#{sects.customScripts}">
+        <h:outputScript library="js" name="relatoriocronologia.js"/>
+    </ui:define>
 
 </ui:composition>
