@@ -1,11 +1,15 @@
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplNotificador;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplComentario;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
@@ -25,10 +29,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
 import static org.springframework.http.HttpStatus.OK;
@@ -49,6 +50,10 @@ public class NotificacaoObitoController {
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private UtilityWeb utilityWeb;
+    @Autowired
+    private AplComentario aplComentario;
+    @Autowired
+    private AplNotificador aplNotificador;
 
     @RequestMapping(value = ADICIONAR, method = GET)
     public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
@@ -60,8 +65,9 @@ public class NotificacaoObitoController {
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
-        model.addAttribute("nomeUsuario",usuarioSessao.getNome());
-
+        Notificador funcionario = aplProcessoNotificacao.getProcessoNotificacao(new Long(1029)).getNotificador();
+        Comentario comentario = new Comentario(aplProcessoNotificacao.getProcessoNotificacao(new Long(1029)),funcionario, Calendar.getInstance(), "Qualquer string ae");
+        aplComentario.cadastrar(comentario);
         return "form-notificacao-obito";
     }
 
@@ -77,6 +83,7 @@ public class NotificacaoObitoController {
         utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+        model.addAttribute("comentarios", aplComentario.obterByProcessoNotificacao(idProcesso));
         addAttributesToModel(model, processo);
 
         return "form-notificacao-obito";
@@ -92,6 +99,7 @@ public class NotificacaoObitoController {
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
+
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
