@@ -5,7 +5,7 @@
         <h:panelGroup layout="block" id="comment-container">
             <h:panelGroup layout="block" id="table-delimiter">
                 <!-- Tabela de Notificações -->
-                <h:dataTable value="#{comentarios}" var="comentario"
+                <h:dataTable value="#{processo.comentarios}" var="comentario"
                     styleClass="table table-hover table-striped">
                     <!-- Protocolo -->
                     <h:column>
@@ -29,7 +29,7 @@
                 </h:dataTable>
             </h:panelGroup>
             <h:panelGroup layout="block" styleClass="field-box">
-                <h:inputTextarea  rows="3" value="#{descricaoComentario}"/>
+                <h:inputTextarea id="descricaoComentario" rows="3" value="#{descricaoComentario}"/>
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>

@@ -35,11 +35,11 @@
                 </li>
             </ul>
         </div>
-        <div class="step-content" >
+        <div class="step-content">
+            <form id="processo" class="form-horizontal"
+                  action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
+                  method="post" >
             <div class="principal span7" style="float:left;">
-                <form id="processo" class="form-horizontal"
-                      action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
-                      method="post" >
                     <div class="step-pane active" id="step1">
                         <div class="row-fluid form-wrapper">
                             <div class="span12">
@@ -70,7 +70,7 @@
                     </h:inputHidden>
 
                     <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-                </form>
+
                 <div class="wizard-actions">
                     <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
                         <i class="icon-chevron-left"/> Anterior
@@ -85,8 +85,9 @@
             </div>
 
             <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                <ui:param name="comentarios" value="#{comentarios}"/>
+                <ui:param name="processo" value="#{processo}"/>
             </ui:include>
+            </form>
         </div>
 
         <script>

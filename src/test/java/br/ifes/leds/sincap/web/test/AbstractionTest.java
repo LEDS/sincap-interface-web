@@ -27,7 +27,7 @@ import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoDocumentoComFo
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-test.xml", "classpath:spring-web-context.xml"})
 @WebAppConfiguration
-@ActiveProfiles("dev")
+@ActiveProfiles("prod")
 public abstract class AbstractionTest {
     @Autowired
     private EstadoRepository estadoRepository;

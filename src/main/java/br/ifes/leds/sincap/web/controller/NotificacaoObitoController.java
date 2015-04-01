@@ -59,15 +59,15 @@ public class NotificacaoObitoController {
     public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
                                           @RequestParam(value = "erro", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+        String descricaoComentario = "";
 
         utilityWeb.preencherTipoObito(model);
         utilityWeb.preencherEstados(model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
-        Notificador funcionario = aplProcessoNotificacao.getProcessoNotificacao(new Long(1029)).getNotificador();
-        Comentario comentario = new Comentario(aplProcessoNotificacao.getProcessoNotificacao(new Long(1029)),funcionario, Calendar.getInstance(), "Qualquer string ae");
-        aplComentario.cadastrar(comentario);
+        model.addAttribute("descricaoComentario",descricaoComentario);
+
         return "form-notificacao-obito";
     }
 
@@ -83,7 +83,6 @@ public class NotificacaoObitoController {
         utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
-        model.addAttribute("comentarios", aplComentario.obterByProcessoNotificacao(idProcesso));
         addAttributesToModel(model, processo);
 
         return "form-notificacao-obito";
@@ -93,12 +92,16 @@ public class NotificacaoObitoController {
     @RequestMapping(value = SALVAR, method = POST)
     public String salvarFormNovaNotificacao(ModelMap model, HttpSession session,
                                             @Valid @ModelAttribute ProcessoNotificacaoDTO processo,
+                                            @ModelAttribute String descricaoComentario,
                                             BindingResult bindingResult) {
         if (!bindingResult.hasErrors()){
             UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
-            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
+            Comentario comentario = new Comentario(aplNotificador.obterNotificador(usuarioSessao.getIdUsuario()),
+                                                    Calendar.getInstance(),
+                                                    descricaoComentario);
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(),comentario);
 
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
