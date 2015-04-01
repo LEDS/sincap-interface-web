@@ -85,6 +85,7 @@ public class NotificacaoObitoController {
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         addAttributesToModel(model, processo);
 
+
         return "form-notificacao-obito";
     }
 
@@ -98,9 +99,12 @@ public class NotificacaoObitoController {
             UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
-            Comentario comentario = new Comentario(aplNotificador.obterNotificador(usuarioSessao.getIdUsuario()),
-                                                    Calendar.getInstance(),
-                                                    descricaoComentario);
+            Comentario comentario = new Comentario();
+
+            comentario.setFuncionario(aplNotificador.obterNotificador(usuarioSessao.getIdUsuario()));
+            comentario.setDataComentario(Calendar.getInstance());
+            comentario.setDescricao(descricaoComentario);
+            
             aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(),comentario);
 
         } else {
