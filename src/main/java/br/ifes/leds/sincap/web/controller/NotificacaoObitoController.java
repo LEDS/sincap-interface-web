@@ -65,9 +65,7 @@ public class NotificacaoObitoController {
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
-        Notificador funcionario = aplProcessoNotificacao.getProcessoNotificacao(new Long(1029)).getNotificador();
-        Comentario comentario = new Comentario(aplProcessoNotificacao.getProcessoNotificacao(new Long(1029)),funcionario, Calendar.getInstance(), "Qualquer string ae");
-        aplComentario.cadastrar(comentario);
+
         return "form-notificacao-obito";
     }
 
