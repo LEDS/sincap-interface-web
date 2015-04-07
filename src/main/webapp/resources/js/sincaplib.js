@@ -424,10 +424,11 @@ $(document).ready(function(){
     });
 
     $('input[type=text].fillOnDblClick').dblclick(function() {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
         var currentTime = new Date();
         var month = currentTime.getMonth() + 1;
         var day = currentTime.getDate();
         var year = currentTime.getFullYear();
-        $(this).val(day.toString() + month.toString() + year.toString());
+        $(this).val(pad(day.toString()) + pad(month.toString()) + year.toString());
     });
 });
