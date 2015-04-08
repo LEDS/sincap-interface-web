@@ -41,6 +41,26 @@
 
             <br></br><br></br>
 
+            <h:panelGrid rendered="#{request.isUserInRole('ROLE_ANALISTA')}"  columns="2">
+
+                <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
+
+                <h:panelGroup layout="block" styleClass="field-box">
+                    <div class="span5">
+                        <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
+                            <option>
+                                <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao">
+                                    <option selected="#{listInstituicaoSelected[instituicao.id]?'selected':''}" value="#{instituicao.id}">#{instituicao.nome}</option>
+                                </ui:repeat>
+                            </option>
+                        </select>
+                    </div>
+                </h:panelGroup>
+            </h:panelGrid>
+
+            <br></br><br></br>
+
+
             <button type="submit" class="btn-glow success btn-finish">
                 Enviar
             </button>
