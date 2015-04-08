@@ -79,6 +79,7 @@ public abstract class RelatoriosTemplateCtrl {
 
         model.addAttribute("listInstituicaoSelected", utilityWeb.getLongBooleanMap(todasInstituicoesNotif, listInstituicaoSelected));
         model.addAttribute("listInstituicao", todasInstituicoesNotif);
+
         return view();
     }
 
