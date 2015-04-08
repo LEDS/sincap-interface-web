@@ -3,7 +3,7 @@
 
     <h:panelGroup layout="block" styleClass="comentario span5">
         <h:panelGroup layout="block" id="comment-container">
-            <h:panelGroup layout="block" rendered="#{processo.comentario}" id="table-delimiter">
+            <h:panelGroup layout="block" rendered="true" id="table-delimiter">
                 <!-- Tabela de Notificações -->
                 <h:dataTable value="#{processo.comentarios}" var="comentario"
                     styleClass="table table-hover table-striped">
@@ -15,14 +15,17 @@
                             </div>
                             <div class="span10">
                                 <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
-                                <span><em>#{comentario.processo.ultimoEstado}</em></span><br/>
-                                <span>#{comentario.dataComentario}</span><br/>
+                                <span>
+                                    <h:outputText value="#{comentario.dataComentario.time}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                    </h:outputText>
+                                </span><br/>
                             </div>
                         </div>
                         <br/>
                         <div class="row-fluid">
                             <div class="span10 offset2">
-                                #{comentario.descricao}
+                                <h:outputText value="#{comentario.descricao}" />
                             </div>
                         </div>
                     </h:column>
