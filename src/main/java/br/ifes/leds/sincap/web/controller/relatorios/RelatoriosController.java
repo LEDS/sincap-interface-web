@@ -1,4 +1,4 @@
-package br.ifes.leds.sincap.web.controller;
+package br.ifes.leds.sincap.web.controller.relatorios;
 
 import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.utility.Utility;
@@ -13,6 +13,7 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.RelatorioCrono
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
+import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
