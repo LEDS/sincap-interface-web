@@ -59,15 +59,14 @@ public class NotificacaoObitoController {
     public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
                                           @RequestParam(value = "erro", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
-        String descricaoComentario = "";
+
 
         utilityWeb.preencherTipoObito(model);
         utilityWeb.preencherEstados(model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
-        model.addAttribute("descricaoComentario",descricaoComentario);
-        
+
         return "form-notificacao-obito";
     }
 
