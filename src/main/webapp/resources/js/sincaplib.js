@@ -431,3 +431,7 @@ $(document).ready(function(){
         $(this).val(day.toString() + month.toString() + year.toString());
     });
 });
+
+$("descricaoComentario").change(function(){
+   $("descricaoComentarioHidden").val($(this).val());
+});
