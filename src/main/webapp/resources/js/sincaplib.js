@@ -430,8 +430,10 @@ $(document).ready(function(){
         var year = currentTime.getFullYear();
         $(this).val(day.toString() + month.toString() + year.toString());
     });
+
+    $("#form-analise").submit(function(){
+        var descricaoComentario = $('#descricaoComentario').val();
+        $("#descricaoComentarioHidden").val(descricaoComentario);
+    });
 });
 
-$("descricaoComentario").change(function(){
-   $("descricaoComentarioHidden").val($(this).val());
-});
