@@ -215,15 +215,6 @@ public class NotificacaoObitoController {
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
-        //Criando comentário
-        Comentario comentario = criaComentario(usuarioSessao, descricaoComentario);
-
-        comentario.setMomento(EstadoNotificacaoEnum.EMANALISEOBITO.toString());
-        comentario.setProcesso(aplProcessoNotificacao.getProcessoNotificacao(processo.getId()));
-
-        //Salvar comentário
-        aplProcessoNotificacao.salvarComentario(idProcesso,comentario);
-        // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?obitoConfirmado=true";
