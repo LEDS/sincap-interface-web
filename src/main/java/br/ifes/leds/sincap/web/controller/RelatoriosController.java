@@ -313,21 +313,20 @@ public class RelatoriosController {
         List<RelatorioCronologia> listaRel = new ArrayList<>();
 
 
-        for (Obito obito : obitosHosp) {
+        for (Obito obito : obitosHosp)
+        {
             listaProc.add(aplProcessoNotificacao.retornaProcesso(obito.getId()));
         }
 
 
-
-
-        for (ProcessoNotificacao processo : listaProc) {
+        for (ProcessoNotificacao processo : listaProc)
+        {
             RelatorioCronologia tdi = aplRelatorio.relatorioCronologia(processo);
             listaRel.add(tdi);
         }
 
         model.addAttribute("listaTotaldi", listaRel);
 
-        //TODO: Substituir pelo endereco do formulario!
         return "possibilidade-doacao-tecido";
     }
 }
