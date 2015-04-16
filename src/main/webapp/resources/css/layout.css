@@ -1,4 +1,16 @@
 
+div#table-delimiter {
+    height: 48em;
+    overflow-y: scroll;
+}
+
+div.comentario * > textarea{
+    resize: none;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.8em;
+}
+
 div#content * > input, textarea {
 	text-transform: uppercase !important;
 }

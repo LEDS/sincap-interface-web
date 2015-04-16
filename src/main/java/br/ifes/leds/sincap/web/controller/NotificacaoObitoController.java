@@ -2,6 +2,8 @@ package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
@@ -24,10 +26,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static br.ifes.leds.sincap.web.controller.ContextUrls.*;
 import static org.springframework.http.HttpStatus.OK;
@@ -48,11 +47,14 @@ public class NotificacaoObitoController {
     private AplProcessoNotificacao aplProcessoNotificacao;
     @Autowired
     private UtilityWeb utilityWeb;
+    @Autowired
+    private AplFuncionario aplFuncionario;
 
     @RequestMapping(value = ADICIONAR, method = GET)
     public String loadFormNovaNotificacao(ModelMap model, HttpSession session,
                                           @RequestParam(value = "erro", defaultValue = "true") boolean sucessoObito) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
 
         utilityWeb.preencherTipoObito(model);
         utilityWeb.preencherEstados(model);
@@ -78,7 +80,7 @@ public class NotificacaoObitoController {
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("listaCorpoEncaminhamento", utilityWeb.getCorpoEncaminhamento());
         addAttributesToModel(model, processo);
-
+        
         return "form-notificacao-obito";
     }
 
@@ -86,12 +88,15 @@ public class NotificacaoObitoController {
     @RequestMapping(value = SALVAR, method = POST)
     public String salvarFormNovaNotificacao(ModelMap model, HttpSession session,
                                             @Valid @ModelAttribute ProcessoNotificacaoDTO processo,
+                                            @RequestParam(value = "descricaoComentario") String descricaoComentario,
                                             BindingResult bindingResult) {
         if (!bindingResult.hasErrors()){
             UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
-            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
+
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(),criaComentario(usuarioSessao, descricaoComentario));
+
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
@@ -201,12 +206,11 @@ public class NotificacaoObitoController {
      * @param idProcesso ID do ProcessoNotificacao
      */
     @RequestMapping(value = APP_ANALISAR + ContextUrls.CONFIRMAR, method = POST)
-    public String confirmarAnaliseObito(HttpSession session, @RequestParam("id") long idProcesso) {
+    public String confirmarAnaliseObito(HttpSession session, @RequestParam("id") long idProcesso,@RequestParam(value = "descricaoComentario") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
-        // Confirmar a análise do óbito.
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?obitoConfirmado=true";
@@ -219,13 +223,13 @@ public class NotificacaoObitoController {
      */
     @RequestMapping(value = APP_ANALISAR + ContextUrls.RECUSAR, method = POST)
     public String recusarAnaliseObito(HttpSession session, @RequestParam
-            ("id") Long idProcesso) {
+            ("id") Long idProcesso,@RequestParam(value = "descricaoComentario") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
         // Recusar a notificação do óbito.
-        aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario());
+        aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario(), criaComentario(usuarioSessao, descricaoComentario));
 
         return "redirect:" + INDEX + "?obitoRecusado=true";
     }
@@ -245,5 +249,15 @@ public class NotificacaoObitoController {
         aplProcessoNotificacao.arquivarProcesso(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX;
+    }
+
+    private Comentario criaComentario(UsuarioSessao usuarioSessao, String descricaoComentario){
+        Comentario comentario = new Comentario();
+
+        comentario.setFuncionario(aplFuncionario.obter(usuarioSessao.getIdUsuario()));
+        comentario.setDataComentario(Calendar.getInstance());
+        comentario.setDescricao(descricaoComentario);
+
+        return comentario;
     }
 }

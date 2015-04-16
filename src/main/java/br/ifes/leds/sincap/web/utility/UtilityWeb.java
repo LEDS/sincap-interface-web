@@ -14,7 +14,8 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.*;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import br.ifes.leds.sincap.web.model.NotificacaoDTO;
-import org.joda.time.*;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,27 @@ import javax.validation.ConstraintViolationException;
 import java.text.DateFormat;
 import java.util.*;
 
-import static org.joda.time.Hours.hoursBetween;
-
 @Component
 public class UtilityWeb {
 
     @Autowired
     private AplEndereco aplEndereco;
+    public static HashMap<EstadoNotificacaoEnum,String> mapaEstadoNotificacao = mapaEstadoNotificacao();
+
+
+    public static HashMap<EstadoNotificacaoEnum,String> mapaEstadoNotificacao(){
+        HashMap<EstadoNotificacaoEnum,String> estados = new HashMap<>();
+
+        estados.put(EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO,"Obito");
+        estados.put(EstadoNotificacaoEnum.AGUARDANDOCORRECAOOBITO, "Obito");
+        estados.put(EstadoNotificacaoEnum.AGUARDANDOANALISEENTREVISTA,"Entrevista");
+        estados.put(EstadoNotificacaoEnum.AGUARDANDOCORRECAOENTREVISTA, "Entrevista");
+        estados.put(EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO,"Captaçao");
+        estados.put(EstadoNotificacaoEnum.AGUARDANDOCORRECAOCAPTACACAO, "Captaçao");
+
+
+        return estados;
+    }
 
     public void addConstraintViolations(ConstraintViolationException e, ModelMap model) {
         ConstraintViolation<?>[] constraintViolations = new ConstraintViolation<?>[e.getConstraintViolations().size()];
@@ -43,6 +58,8 @@ public class UtilityWeb {
         model.addAttribute("constraintViolations", constraintViolations);
         model.addAttribute("erro", true);
     }
+
+
 
     public void addConstraintViolations(Set<? extends ConstraintViolation<?>> constraintViolations, ModelMap model) {
         if (constraintViolations != null && constraintViolations.size() > 0) {

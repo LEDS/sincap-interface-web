@@ -433,4 +433,10 @@ $(document).ready(function(){
         var year = currentTime.getFullYear();
         $(this).val(pad(day.toString()) + pad(month.toString()) + year.toString());
     });
+
+    $("#form-analise").submit(function(){
+        var descricaoComentario = $('#descricaoComentario').val();
+        $("#descricaoComentarioHidden").val(descricaoComentario);
+    });
 });
+
