@@ -17,6 +17,10 @@ $(".select2").select2({
     placeholder: "Escolha as Instituições"
 });
 
+$('.datepicker').datepicker( {language: "pt-BR", format: "mm/yyyy"} ).on('changeDate', function (ev) {
+    $(this).datepicker('hide');
+});
+
 $("#rel-atividade-mensal").validate({
     rules: {
         'datMes': {

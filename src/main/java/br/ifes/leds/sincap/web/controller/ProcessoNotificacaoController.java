@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.*;
-import static br.ifes.leds.sincap.web.utility.UtilityWeb.*;
+import static br.ifes.leds.sincap.web.utility.UtilityWeb.authoritiesSetToStringList;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 

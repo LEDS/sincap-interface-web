@@ -11,6 +11,9 @@
     </ui:define>
     <!--Fim título da página-->
 
+    <ui:define name="#{sects.libraries}">
+        <h:outputStylesheet library="css" name="lib/bootstrap.datepicker.css"/>
+    </ui:define>
 
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
@@ -27,13 +30,13 @@
             <h:panelGrid columns="7">
                 <h:outputLabel for="datIni" value="A partir de:"/>
                 <h:outputLabel value=" "/>
-                <h:inputText type = "date" id="datIni" name="datIni" value="#{dataInicial.time}">
+                <h:inputText type = "date" styleClass="datepicker" id="datIni" name="datIni" value="#{dataInicial.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
                 <h:outputLabel for= "datFim" value="Até:"/>
-                <h:inputText type = "date" id="datFim" name="datFim" value="#{dataFinal.time}">
+                <h:inputText type = "date" styleClass="datepicker" id="datFim" name="datFim" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGrid>
@@ -41,7 +44,7 @@
             <br></br><br></br>
 
 
-            <h:panelGrid columns="2">
+            <h:panelGrid rendered="#{request.isUserInRole('ROLE_ANALISTA')}" columns="2">
 
                 <h:outputLabel value="#{msg['relatorio.instituicao']}"/>
 
@@ -72,8 +75,13 @@
             <ui:include src="../components/lista-qualificacao-recusa-familiar.xhtml"/>
         </div>
 
-        <h:outputScript library="js" name="qualificacao-recusa-familiar.js"/>
     </ui:define>
 
+    <ui:define name="#{sects.customScripts}">
+        <h:outputScript library="js" name="bootstrap.datepicker.js"/>
+        <h:outputScript library="js" name="bootstrap-datepicker.pt-BR.js"/>
+        <h:outputScript library="js" name="configure-datepicker.js"/>
+        <h:outputScript library="js" name="qualificacao-recusa-familiar.js"/>
+    </ui:define>
 
 </ui:composition>

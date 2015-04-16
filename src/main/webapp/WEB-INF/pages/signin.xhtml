@@ -65,7 +65,7 @@
                         <span class="loginErro">Login inválido, por favor digite o usuário correto!</span>
                     </h:panelGroup>
                     <input id="username" name="username" class="span12" type="text" placeholder="CPF"
-                           onkeydown="ajaxGetHospitais();" onblur="ajaxGetHospitais();"
+                           onkeyup="ajaxGetHospitais(this.value);"  onblur="ajaxGetHospitais(this.value);"
                            title="#{msg['login.text.usuario']}" autofocus="true" />
 
                     <h:panelGroup rendered="${not empty SPRING_SECURITY_LAST_EXCEPTION}">

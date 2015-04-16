@@ -11,6 +11,9 @@
     </ui:define>
     <!--Fim título da página-->
 
+    <ui:define name="#{sects.libraries}">
+        <h:outputStylesheet library="css" name="lib/bootstrap.datepicker.css"/>
+    </ui:define>
 
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
@@ -27,7 +30,7 @@
             <h:panelGrid columns="7">
                 <h:outputLabel id="dat" for="datMes" value="Mês:" />
                 <h:outputLabel value=" "/>
-                <h:inputText type="date" id="datMes" name="datMes" value="#{datMes.time}">
+                <h:inputText type="date" styleClass="datepicker" id="datMes" name="datMes" value="#{datMes.time}">
                     <f:convertDateTime pattern="MM/yyyy"/>
                 </h:inputText>
                 <button type="submit" class="btn-glow success btn-finish">
@@ -82,8 +85,12 @@
             <ui:include src="../components/lista-atividade-educacao-divulgacao.xhtml"/>
         </div>
 
-        <h:outputScript library="js" name="atividade-mensal.js"/>
     </ui:define>
 
+    <ui:define name="#{sects.customScripts}">
+        <h:outputScript library="js" name="bootstrap.datepicker.js"/>
+        <h:outputScript library="js" name="bootstrap-datepicker.pt-BR.js"/>
+        <h:outputScript library="js" name="atividade-mensal.js"/>
+    </ui:define>
 
 </ui:composition>

@@ -14,8 +14,8 @@ import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.*;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import br.ifes.leds.sincap.web.model.NotificacaoDTO;
-import lombok.Getter;
-import org.joda.time.*;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +29,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.text.DateFormat;
 import java.util.*;
-
-import static br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum.AGUARDANDOANALISECAPTACAO;
-import static org.joda.time.Hours.hoursBetween;
 
 @Component
 public class UtilityWeb {
@@ -158,6 +155,17 @@ public class UtilityWeb {
         return tipos;
     }
 
+    public List<SelectItem> getCorpoEncaminhamento(){
+        List<SelectItem> listEncaminhamento = new ArrayList<>();
+
+        for (CorpoEncaminhamento encaminhento : CorpoEncaminhamento.values()) {
+            listEncaminhamento.add(new SelectItem(encaminhento,encaminhento.name()));
+        }
+
+        return listEncaminhamento;
+    }
+
+
     public List<SelectItem> getTipoObitoSelectItem() {
         List<SelectItem> tipos = new ArrayList<>();
 
@@ -172,7 +180,6 @@ public class UtilityWeb {
     public void preencherTipoObito(ModelMap model) {
         model.addAttribute("tiposObito", this.getTipoObitoSelectItem());
     }
-
 
 
     public List<SelectItem> getEstadoCivilSelectItem() {

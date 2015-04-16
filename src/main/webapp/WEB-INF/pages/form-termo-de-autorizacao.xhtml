@@ -60,8 +60,8 @@
             Religião: #{pn.entrevista.responsavel.religiao} Grau de Escolaridade: #{pn.entrevista.responsavel.grauEscolaridade}<br/>
             Endereço/Rua: #{pn.entrevista.responsavel.endereco.logradouro} CEP: #{pn.entrevista.responsavel.endereco.cep} Nº:#{pn.entrevista.responsavel.endereco.numero} Bairro: #{bairroResponsavel} <br/>
             Município: #{cidadeResponsavel} Estado: #{estadoResponsavel} Telefone(s): #{pn.entrevista.responsavel.telefone.numero}<br/>
-            <b>ASSINATURA</b> ________________________________________________________________<br/>
             <br/>
+            <b>ASSINATURA</b> ________________________________________________________________<br/>
             <h:panelGroup rendered="#{not empty pn.entrevista.responsavel2}" layout="block">
                 <b>* Caso menor de 18 anos; assinatura de ambos os pais.</b><br/>
                 Nome: #{pn.entrevista.responsavel2.nome}<br/>
@@ -88,8 +88,11 @@
     <div >
         <div class="padrao">
             Testemunha 1- Nome Completo: #{pn.entrevista.testemunha1.nome}           Doc/Foto Nº: #{pn.entrevista.testemunha1.documentoSocial.documento} Tipo de doc: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}<br/>
+            <br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
+            <br/>
             Testemunha 2- Nome Completo: #{pn.entrevista.testemunha2.nome}           Doc/Foto Nº: #{pn.entrevista.testemunha2.documentoSocial.documento} Tipo de doc: #{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}<br/>
+            <br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>
@@ -97,6 +100,7 @@
         <div class="profissional">
             <b>Profissional Responsável pela Entrevista</b><br/>
             Nome Completo: #{nomeFuncionario} N° Conselho: ___________________ Data:#{dataEntrevista} Hora:#{horaEntrevista}<br/>
+            <br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
     </div>

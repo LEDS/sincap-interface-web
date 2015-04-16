@@ -101,47 +101,49 @@ function ajaxHideElement() {
     });
 }
 
-function ajaxGetHospitais() {
+function ajaxGetHospitais(cpf) {
 
-    var val = $("#username").val();
+    var val = cpf;
     $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
 
-    $.ajax({
-        type: "get",
-        url: location.origin + "/sincap/getHospitais?cpf=" + val,
-        async: false,
-        cache: false,
-        Accept: "application/json",
-        contentType: "application/json",
-        success: function (response) {
+    if (val.length === 14) {
+        $.ajax({
+            type: "get",
+            url: location.origin + "/sincap/getHospitais?cpf=" + val,
+            async: false,
+            cache: false,
+            Accept: "application/json",
+            contentType: "application/json",
+            success: function (response) {
 
-            $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
-            var id;
-            var valor;
+                $('#hospital').find('option').remove().end(); //limpa o combobox 'hospital'
+                var id;
+                var valor;
 
-            /*'response' eh o retorno da funcao do controller*/
-            $.each(response, function (idx, obj) {
-                $.each(obj, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
-                    if (key == "id")
-                        id = value;
-                    else
-                        valor = value;
+                /*'response' eh o retorno da funcao do controller*/
+                $.each(response, function (idx, obj) {
+                    $.each(obj, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
+                        if (key == "id")
+                            id = value;
+                        else
+                            valor = value;
+                    });
+                    $("#hospital").append("<option value='" + id + "'>" + valor /*aparece para o usuario*/ + "</option>");
                 });
-                $("#hospital").append("<option value='" + id + "'>" + valor /*aparece para o usuario*/ + "</option>");
-            });
 
-            if(response.length !== 0){
-                $('#select-hospitais').show();
-            }else{
-                $('#select-hospitais').hide();
+                if(response.length !== 0){
+                    $('#select-hospitais').show();
+                }else{
+                    $('#select-hospitais').hide();
+                }
+
+            },
+            error: function (response, status, error) {
+                var $result = $('#result').html("");
+                $result.html('Status' + status + "Error: " + error);
             }
-
-        },
-        error: function (response, status, error) {
-            var $result = $('#result').html("");
-            $result.html('Status' + status + "Error: " + error);
-        }
-    });
+        });
+    }
 }
 
 function ajaxGetMunicipios(estado, municipio) {
@@ -424,11 +426,12 @@ $(document).ready(function(){
     });
 
     $('input[type=text].fillOnDblClick').dblclick(function() {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
         var currentTime = new Date();
         var month = currentTime.getMonth() + 1;
         var day = currentTime.getDate();
         var year = currentTime.getFullYear();
-        $(this).val(day.toString() + month.toString() + year.toString());
+        $(this).val(pad(day.toString()) + pad(month.toString()) + year.toString());
     });
 
     $("#form-analise").submit(function(){

@@ -1,31 +1,36 @@
 jQuery.validator.addMethod("isValid", function (value, element) {
-    var dataIni = $('#datIni').val();
-    var dataFim = $('#datFim').val();
+    var dataInicial = $('#dataInicial').val();
+    var dataFinal = $('#dataFinal').val();
 
-    return Date.parse(dataIni) <= Date.parse(dataFim);
+    return Date.parse(dataInicial) <= Date.parse(dataFinal);
 
 }, "* Data final deve ser maior do que a inicial.");
 
-$(".select2").select2({
-    placeholder: "Escolha as Instituições"
+
+
+$(document).ready(function () {
+    $('#dataInicial').inputmask("dd/mm/yyyy", {placeholder: "_"});
+    $('#dataFinal').inputmask("dd/mm/yyyy", {placeholder: "_"});
 });
 
 
-$("#total-docao-instituicao").validate({
+
+
+$("#possibilidade-doacao-tecido").validate({
     rules: {
-        'datIni': {
+        'dataInicial': {
             required: true
         },
-        datFim:{
+        dataFinal:{
             required: true,
             isValid: true
         }
     },
     messages: {
-        'datIni': {
+        'dataInicial': {
             required: "Por favor, insira a data inicial."
         },
-        'datFim': {
+        'dataFinal': {
             required: "Por favor, insira a data final."
         }
     },

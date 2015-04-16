@@ -1,16 +1,12 @@
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplNotificador;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
-import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplComentario;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
@@ -52,10 +48,6 @@ public class NotificacaoObitoController {
     @Autowired
     private UtilityWeb utilityWeb;
     @Autowired
-    private AplComentario aplComentario;
-    @Autowired
-    private AplNotificador aplNotificador;
-    @Autowired
     private AplFuncionario aplFuncionario;
 
     @RequestMapping(value = ADICIONAR, method = GET)
@@ -69,6 +61,7 @@ public class NotificacaoObitoController {
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
         model.addAttribute("sucessoObito", sucessoObito);
+        model.addAttribute("listaCorpoEncaminhamento", utilityWeb.getCorpoEncaminhamento());
 
         return "form-notificacao-obito";
     }
@@ -85,6 +78,7 @@ public class NotificacaoObitoController {
         utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
         preencherSetorCausaNDoacao(model, usuarioSessao);
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+        model.addAttribute("listaCorpoEncaminhamento", utilityWeb.getCorpoEncaminhamento());
         addAttributesToModel(model, processo);
         
         return "form-notificacao-obito";
@@ -101,12 +95,14 @@ public class NotificacaoObitoController {
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
 
-            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(),criaComentario(usuarioSessao,descricaoComentario));
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(),criaComentario(usuarioSessao, descricaoComentario));
 
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
             utilityWeb.preencherTipoObito(model);
+            model.addAttribute("listaCorpoEncaminhamento", utilityWeb.getCorpoEncaminhamento());
+
             return "form-notificacao-obito";
         }
 
