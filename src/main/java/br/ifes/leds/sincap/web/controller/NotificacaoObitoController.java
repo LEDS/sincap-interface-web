@@ -1,11 +1,14 @@
 package br.ifes.leds.sincap.web.controller;
 
+import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.FuncionarioDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.SetorDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ComentarioDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
@@ -95,7 +98,11 @@ public class NotificacaoObitoController {
             processo.getObito().setHospital(usuarioSessao.getIdHospital());
             processo.setNotificador(usuarioSessao.getIdUsuario());
 
-            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(),criaComentario(usuarioSessao, descricaoComentario));
+            /*Criando o comentário*/
+            String momento = EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO.toString();
+            criarComentario(momento,descricaoComentario, usuarioSessao, processo);
+
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
 
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
@@ -207,13 +214,40 @@ public class NotificacaoObitoController {
      */
     @RequestMapping(value = APP_ANALISAR + ContextUrls.CONFIRMAR, method = POST)
     public String confirmarAnaliseObito(HttpSession session, @RequestParam("id") long idProcesso,@RequestParam(value = "descricaoComentario") String descricaoComentario) {
+
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
+        ProcessoNotificacao processoNotificacao = aplProcessoNotificacao.getProcessoNotificacao(processo.getId());
+
+        /*Criando o comentário*/
+        String momento = EstadoNotificacaoEnum.EMANALISEOBITO.toString();
+        criarComentario(momento,descricaoComentario, usuarioSessao, processo);
+
+        /*Salvando o processo*/
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?obitoConfirmado=true";
+    }
+
+    private void criarComentario(String momento, String descricaoComentario,
+                                 UsuarioSessao usuarioSessao, ProcessoNotificacaoDTO processo) {
+
+        /*Cria o DTO do funcionário a partir dos parâmetros passados*/
+        FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+        funcionarioDTO.setId(usuarioSessao.getIdUsuario());
+
+        /*Cria o DTO do comentário a partir dos parâmetros passados*/
+        ComentarioDTO comentario = new ComentarioDTO();
+        comentario.setFuncionario(funcionarioDTO);
+        comentario.setDataComentario(Calendar.getInstance());
+        comentario.setDescricao(descricaoComentario);
+        comentario.setMomento(momento);
+        comentario.setProcesso(processo.getId());
+
+        /*Faz o link entre o processo e o comentário*/
+        processo.getComentarios().add(comentario);
     }
 
     /**
@@ -228,8 +262,13 @@ public class NotificacaoObitoController {
         // Pega a notificação do banco.
         ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(idProcesso);
 
+        /*Criando o comentário*/
+        String momento = EstadoNotificacaoEnum.EMANALISEOBITO.toString();
+        criarComentario(momento,descricaoComentario, usuarioSessao, processo);
+
         // Recusar a notificação do óbito.
-        aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario(), criaComentario(usuarioSessao, descricaoComentario));
+
+        aplProcessoNotificacao.recusarAnaliseObito(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?obitoRecusado=true";
     }
@@ -249,15 +288,5 @@ public class NotificacaoObitoController {
         aplProcessoNotificacao.arquivarProcesso(processo, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX;
-    }
-
-    private Comentario criaComentario(UsuarioSessao usuarioSessao, String descricaoComentario){
-        Comentario comentario = new Comentario();
-
-        comentario.setFuncionario(aplFuncionario.obter(usuarioSessao.getIdUsuario()));
-        comentario.setDataComentario(Calendar.getInstance());
-        comentario.setDescricao(descricaoComentario);
-
-        return comentario;
     }
 }

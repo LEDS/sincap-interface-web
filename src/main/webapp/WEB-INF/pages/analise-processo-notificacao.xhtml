@@ -20,6 +20,7 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.formContent}">
+
         <div id="fuelux-wizard" class="wizard row-fluid">
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
@@ -48,6 +49,9 @@
                             <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
                         </form>
                     </div>
+                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                        <ui:param name="processo" value="#{processo}"/>
+                    </ui:include>
                 </div>
             </div>
             <div class="step-pane" id="step2">
