@@ -447,6 +447,13 @@ function buildTable(tableId){
     }, 2500 );
 }
 
+function addListenerMulti(el, s, fn) {
+    var evts = s.split(' ');
+    for (var i=0, iLen=evts.length; i<iLen; i++) {
+        el.addEventListener(evts[i], fn, false);
+    }
+}
+
 $(document).ready(function(){
     $('input[type=text].fillOnDblClick').tooltip({
         title : 'Para preencher com a data atual, clique duas vezes sobre o campo'
