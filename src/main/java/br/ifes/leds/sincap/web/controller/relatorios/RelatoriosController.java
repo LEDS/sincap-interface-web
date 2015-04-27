@@ -73,6 +73,26 @@ public class RelatoriosController {
         return "termo-de-autorizacao";
     }
 
+    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA + ContextUrls.RLT_TERMO_NAO_DOACAO, method = RequestMethod.GET)
+    public String carregarFormTermoNaoDoacao(ModelMap model) {
+        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoNaoAutorizada("");
+
+        model.addAttribute("listProcessoNotificacao", pn);
+        //TODO: Substituir pelo endereco do formulario!
+        return "termo-nao-doacao";
+    }
+
+    @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA + ContextUrls.RLT_TERMO_NAO_DOACAO, method = RequestMethod.POST)
+    public String buscarTermoNaoDoacao(ModelMap model, @RequestParam("nome") String nome) {
+        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoNaoAutorizada(nome);
+
+        model.addAttribute("listProcessoNotificacao", pn);
+
+        //TODO: Substituir pelo endereco do formulario!
+        return "termo-nao-doacao";
+    }
+
+
     @RequestMapping(value = ContextUrls.APP_NOTIFICACAO_ENTREVISTA + ContextUrls.RLT_TERMO_AUTORIZACAO_DOACAO + ContextUrls.IMPRIMIR + "/{id}", method = RequestMethod.GET)
     public String emitirTermoDoacao(ModelMap model, @PathVariable Long id) {
         ProcessoNotificacaoDTO pn = aplProcessoNotificacao.obter(id);
