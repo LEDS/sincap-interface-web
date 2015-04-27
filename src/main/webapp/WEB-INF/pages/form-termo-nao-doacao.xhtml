@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <meta charset="UTF-8"/>
+        <style type="text/css">
+
+            * {
+                font-family: Arial, sans-serif;
+                line-height: 1.3;
+                font-size: 13px;
+            }
+
+            .padrao {
+                padding: 1% 1% 1% 2%;
+                border: 1px solid #000;
+                width:95%;
+            }
+
+            .titulo{
+                color: #333399;
+                font-size:15px;
+                font-weight: bold;
+            }
+
+            table {
+                border: 1px #000 solid;
+            }
+
+            table.testemunha td, th, tr {
+                text-align: left;
+                vertical-align: middle;
+                padding: 12px 8px !important;
+            }
+
+            table.profissional_responsavel td, tr {
+                text-align: center;
+                vertical-align: top;
+                padding: 10px 10px 30px 10px !important;
+            }
+
+            th{
+                background-color: rgb(238,238,238);
+            }
+
+            td {
+                border-right: 1px #000 solid;
+                text-align: center;
+                vertical-align: middle;
+                padding: 5px 8px;
+            }
+
+            .borda_inferior {
+                border-bottom: 1px #000 solid;
+            }
+
+            td.sem_borda_direita {
+                border-right: none !important;
+            }
+
+            table.rodape {
+                border: none;
+                margin: 10px auto;
+                font-weight: bold;
+                font-size: 9px;
+            }
+
+        </style>
+    </head>
+
+    <body>
+
+        <table>
+            <tr> <!--Arrumar imagem-->
+                <td rowspan="2"><!--<h:graphicImage library="img" name="logo.png"/>-->
+                    <img src="web-evangelico-logo.png"/></td>
+                <td class="titulo" rowspan="2">Termo de Abordagem com Negativa para Doação</td>
+                <td class="borda_inferior sem_borda_direita" colspan="2">Código: CIHDOTT_FR_ </td>
+            </tr>
+
+            <tr>
+                <td>Data de elaboração:<br/>#{DATA}</td>
+                <td class="sem_borda_direita">Revisão: 0.0<br/></td>
+            </tr>
+        </table>
+            <br/>
+
+        <div class="padrao">
+            <p><strong>Eu,</strong>#{NOME} Sexo: #{SEXO}
+            Data de Nascimento: #{NASCIMENTO} portador do #{TIPO_DOCUMENTO} sob Nº #{NUMERO_DOCUMENTO}
+            Residente no endereço - Rua: #{RUA} N° #{NUMERO}
+            CEP: #{CEP} Bairro: #{BAIRRO} Município: #{CIDADE} Estado: #{ESTADO}
+            Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>não autorizo</strong> a
+            doação de órgãos e/ou tecidos para transplantes do paciente:
+            #{NOME_DO_PACIENTE}, falecido às: #{HORARIO_OBITO} do
+            dia: #{DIA_OBITO} no Hospital Evangélico de Vila Velha.
+            </p>
+        </div>
+        <br/>
+        <div class="padrao">
+            <strong>Motivo da recusa familiar</strong><br/>
+            #{MOTIVO_RECUSA_FAMILIAR}
+
+        </div>
+        <br/>
+        <div class="padrao">
+            <p>
+                <strong>Assinatura do Responsável legal:</strong> ________________________________________________________________
+                <br/>
+                Grau de parentesco: #{PARENTESCO}
+            </p>
+        </div>
+        <br/>
+
+
+        <table class="testemunha">
+            <th class="borda_inferior" colspan="2">Testemunha 01</th>
+            <tr>
+                <td class="borda_inferior">Nome Completo: #{NOME_TESTEMUNHA_1}</td>
+                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{TIPO_DOCUMENTO}<!--E número--></td>
+            </tr>
+
+            <tr>
+                <td class="sem_borda_direita" colspan="2"><strong>ASSINATURA:</strong> ________________________________________________________________</td>
+            </tr>
+        </table>
+        <br/>
+
+        <table class="testemunha">
+            <th class="borda_inferior" colspan="2">Testemunha 02</th>
+            <tr>
+                <td class="borda_inferior">Nome Completo: #{NOME_TESTEMUNHA_2}</td>
+                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{TIPO_DOCUMENTO}<!--E número--></td>
+            </tr>
+
+            <tr>
+                <td class="sem_borda_direita" colspan="2"><strong>ASSINATURA:</strong> ________________________________________________________________</td>
+            </tr>
+        </table>
+        <br/>
+
+
+        <table class="profissional_responsavel">
+            <th class="borda_inferior" colspan="2">Profissional responsável:</th>
+            <tr>
+                <td>Nome: #{NOME_RESPONSAVEL}</td>
+                <td class="sem_borda_direita">Assinatura/Carimbo:</td>
+            </tr>
+        </table>
+                <br/>
+
+        <table class="rodape">
+            <tr>
+                <td>1ª Via - (fax) Banco de Olhos e CNCDO</td>
+                <td>2ª Via- Prontuário</td>
+                <td>3ª Via - Familiares</td>
+                <td>4ª Via Pasta CIHDOTT</td>
+            </tr>
+        </table>
+
+    </body>
+</html>
