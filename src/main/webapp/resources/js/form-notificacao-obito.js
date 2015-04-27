@@ -1,4 +1,6 @@
 (function() {
+    var SEIS_HORAS = 21600000;
+
     $(function () {
         var $wizard = $('#fuelux-wizard'),
             $btnPrev = $('.wizard-actions .btn-prev'),
@@ -162,6 +164,47 @@
         });
     };
 
+    var data = function(dataBr) {
+        dataArray = dataBr.split('/');
+        dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
+        return new Date(dataEn);
+    };
+
+    var ehMais6Horas = function (dataHoraObito) {
+        return new Date() - dataHoraObito >= SEIS_HORAS;
+    };
+
+    var setInapto = function() {
+        document.getElementById('obito-aptoDoacao:1').checked = true;
+        $("#divCausaNaoDoacao").show();
+        $.uniform.update();
+    };
+
+    var setAcimaTempoMaximoRetirada = function() {
+        document.getElementById('causaNaoDoacao').value = '13';
+        $('#causaNaoDoacao').select2();
+    };
+
+    var verificarHoraObito = function(dataHoraObito) {
+        var tipoObito = document.getElementById('obito-tipoObito').value;
+
+        if(tipoObito === "PCR" && ehMais6Horas(dataHoraObito)) {
+            setInapto();
+            setAcimaTempoMaximoRetirada();
+        }
+    };
+
+    var eventoMudarHora = function () {
+        var dataObito = document.getElementById('obito-dataObito').value;
+        var horaObito = document.getElementById('horarioObito').value;
+        var dataHoraObito = dataObito + ' ' + horaObito;
+        var REGEX_DATA_HORA_PREENCHIDAS = /^\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}$/;
+
+        if(dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS)) {
+            verificarHoraObito(data(dataHoraObito));
+        }
+    };
+
     var show_hide_contraindicacoes = function() {
         var opt_apto_doacao = document.getElementById('obito-aptoDoacao:0');
         var opt_inapto_doacao = document.getElementById('obito-aptoDoacao:1');
@@ -210,6 +253,11 @@
                 $("#obito-paciente-numeroSUS").rules('add', {required: true});
             }
         });
+
+        addListenerMulti(document.getElementById('obito-dataObito'), 'change click keypress', eventoMudarHora);
+        addListenerMulti(document.getElementById('horarioObito'), 'change click keypress', eventoMudarHora);
+        addListenerMulti(document.getElementById('obito-tipoObito'), 'change click keypress', eventoMudarHora);
+
         validar_form();
         show_hide_contraindicacoes();
     });
