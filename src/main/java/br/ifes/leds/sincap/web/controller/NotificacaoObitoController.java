@@ -100,9 +100,9 @@ public class NotificacaoObitoController {
 
             /*Criando o comentário*/
             String momento = EstadoNotificacaoEnum.AGUARDANDOANALISEOBITO.toString();
-            criarComentario(momento,descricaoComentario, usuarioSessao, processo);
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
 
-            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario());
+            aplProcessoNotificacao.salvarNovaNotificacao(processo, usuarioSessao.getIdUsuario(), comentario);
 
         } else {
             setUpConstraintViolations(model, session, processo, bindingResult.getFieldErrors());
@@ -223,7 +223,8 @@ public class NotificacaoObitoController {
 
         /*Criando o comentário*/
         String momento = EstadoNotificacaoEnum.EMANALISEOBITO.toString();
-        criarComentario(momento,descricaoComentario, usuarioSessao, processo);
+        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        utilityWeb.defineNoProcesso(comentario, processo);
 
         /*Salvando o processo*/
         aplProcessoNotificacao.validarAnaliseObito(processo, usuarioSessao.getIdUsuario());
@@ -231,24 +232,6 @@ public class NotificacaoObitoController {
         return "redirect:" + INDEX + "?obitoConfirmado=true";
     }
 
-    private void criarComentario(String momento, String descricaoComentario,
-                                 UsuarioSessao usuarioSessao, ProcessoNotificacaoDTO processo) {
-
-        /*Cria o DTO do funcionário a partir dos parâmetros passados*/
-        FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
-        funcionarioDTO.setId(usuarioSessao.getIdUsuario());
-
-        /*Cria o DTO do comentário a partir dos parâmetros passados*/
-        ComentarioDTO comentario = new ComentarioDTO();
-        comentario.setFuncionario(funcionarioDTO);
-        comentario.setDataComentario(Calendar.getInstance());
-        comentario.setDescricao(descricaoComentario);
-        comentario.setMomento(momento);
-        comentario.setProcesso(processo.getId());
-
-        /*Faz o link entre o processo e o comentário*/
-        processo.getComentarios().add(comentario);
-    }
 
     /**
      * Recusa a análise.
@@ -264,7 +247,8 @@ public class NotificacaoObitoController {
 
         /*Criando o comentário*/
         String momento = EstadoNotificacaoEnum.EMANALISEOBITO.toString();
-        criarComentario(momento,descricaoComentario, usuarioSessao, processo);
+        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        utilityWeb.defineNoProcesso(comentario, processo);
 
         // Recusar a notificação do óbito.
 

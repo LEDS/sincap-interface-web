@@ -8,9 +8,11 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ComentarioDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
@@ -117,9 +119,14 @@ public class NotificacaoEntrevistaController {
                                    @DateTimeFormat(pattern = "HH:mm") @RequestParam("horaEntrevista") LocalTime horaEntrevista,
                                    @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
                                    @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
-                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo) {
+                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
+                                   @RequestParam(value = "descricaoComentario") String descricaoComentario) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        String momento = EstadoNotificacaoEnum.AGUARDANDOENTREVISTA.toString();
+        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        utilityWeb.defineNoProcesso(comentario, processo);
 
         if (dataEntrevista != null && horaEntrevista != null) {
             processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));

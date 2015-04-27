@@ -61,6 +61,9 @@
                             <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
                         </form>
                     </div>
+                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                        <ui:param name="processo" value="#{processo}"/>
+                    </ui:include>
                 </div>
             </div>
             <div class="step-pane" id="step3">
@@ -70,6 +73,9 @@
                             <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
                         </form>
                     </div>
+                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                        <ui:param name="processo" value="#{processo}"/>
+                    </ui:include>
                 </div>
             </div>
         </div>
