@@ -84,33 +84,6 @@ public class NotificacaoEntrevistaController {
         return "form-entrevista";
     }
 
-    @RequestMapping(value = ADICIONAR, method = POST)
-    public String loadFormEntrevista(ModelMap model, @RequestParam("id") Long id) {
-        try {
-            ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
-
-            utilityWeb.preencherEstados(model);
-            model.addAttribute("processo", processo);
-            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
-            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
-            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
-            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
-            model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
-            model.addAttribute("recusaFamiliar", (long) 0);
-            model.addAttribute("problemasEstruturais", (long) 0);
-
-            model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
-
-            model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
-
-            utilityWeb.preencherEndereco(mapper.map(processo.getObito().getPaciente().getEndereco(), EnderecoDTO.class), model);
-        } catch (Exception ignored) {
-
-        }
-
-        return "form-entrevista";
-    }
-
     @DefaultTimeZone
     @RequestMapping(value = SALVAR, method = POST)
     public String salvarEntrevista(ModelMap model,

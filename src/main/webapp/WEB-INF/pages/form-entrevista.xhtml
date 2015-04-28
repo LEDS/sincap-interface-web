@@ -90,6 +90,10 @@
                     #{msg['obito.button.finalizar']}
                 </button>
             </div>
+
+            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                <ui:param name="processo" value="#{processo}"/>
+            </ui:include>
         </form>
     </ui:define>
     <ui:define name="#{sects.customScripts}">
