@@ -198,6 +198,7 @@ public class NotificacaoObitoController {
     @DefaultTimeZone
     @RequestMapping(value = APP_ANALISAR + "/{idProcesso}", method = GET)
     public String analisarObito(ModelMap model, @PathVariable Long idProcesso) {
+
         // Pega a notificação do banco.
         ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
         // Adiciona o processo ao modelo da página.

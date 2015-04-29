@@ -26,7 +26,6 @@
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
             <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-            <input type="hidden" name="descricaoComentario" value="Comentario 1000" />
 
             <div id="fuelux-wizard" class="wizard row-fluid">
                 <ul class="wizard-steps">
@@ -77,6 +76,9 @@
                             </div>
                         </div>
                     </div>
+                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                        <ui:param name="processo" value="#{processo}"/>
+                    </ui:include>
                 </form>
             </div>
             <div class="wizard-actions">
@@ -90,10 +92,6 @@
                     #{msg['obito.button.finalizar']}
                 </button>
             </div>
-
-            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                <ui:param name="processo" value="#{processo}"/>
-            </ui:include>
         </form>
     </ui:define>
     <ui:define name="#{sects.customScripts}">
