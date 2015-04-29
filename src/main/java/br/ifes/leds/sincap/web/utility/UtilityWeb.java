@@ -455,8 +455,6 @@ public class UtilityWeb {
 
     public void defineNoProcesso(ComentarioDTO comentario, ProcessoNotificacaoDTO processo) {
 
-        comentario.setProcesso(processo.getId());
-
         /*Faz o link entre o processo e o comentário*/
         processo.getComentarios().add(comentario);
     }

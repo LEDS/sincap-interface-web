@@ -99,7 +99,7 @@ public class NotificacaoEntrevistaController {
 
         String momento = EstadoNotificacaoEnum.AGUARDANDOENTREVISTA.toString();
         ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
-        utilityWeb.defineNoProcesso(comentario, processo);
+        processo.getComentarios().add(comentario);
 
         if (dataEntrevista != null && horaEntrevista != null) {
             processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
