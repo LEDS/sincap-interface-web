@@ -42,42 +42,36 @@
             </ul>
         </div>
         <div class="step-content">
-            <div class="step-pane active" id="step1">
+            <div class="step-pane span8 active" id="step1">
                 <div class="row-fluid form-wrapper">
-                    <div class="span8">
+                    <div class="span12">
                         <form class="inline-input">
                             <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
                         </form>
                     </div>
-                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                        <ui:param name="processo" value="#{processo}"/>
-                    </ui:include>
                 </div>
             </div>
-            <div class="step-pane" id="step2">
+            <div class="step-pane span8" id="step2">
                 <div class="row-fluid form-wrapper">
-                    <div class="span8">
+                    <div class="span12">
                         <form class="inline-input">
                             <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
                         </form>
                     </div>
-                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                        <ui:param name="processo" value="#{processo}"/>
-                    </ui:include>
                 </div>
             </div>
-            <div class="step-pane" id="step3">
+            <div class="step-pane span8" id="step3">
                 <div class="row-fluid form-wrapper">
-                    <div class="span8">
+                    <div class="span12">
                         <form class="inline-input">
                             <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
                         </form>
                     </div>
-                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                        <ui:param name="processo" value="#{processo}"/>
-                    </ui:include>
                 </div>
             </div>
+            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                <ui:param name="processo" value="#{processo}"/>
+            </ui:include>
         </div>
         <div class="wizard-actions">
             <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
@@ -87,9 +81,9 @@
                 Próximo <i class="icon-chevron-right"></i>
             </button>
             <!--<h:panelGroup rendered="#{entrevista}">-->
-                <!--<button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">-->
-                    <!--#{msg['analise.arquivar']}-->
-                <!--</button>-->
+            <!--<button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">-->
+            <!--#{msg['analise.arquivar']}-->
+            <!--</button>-->
             <!--</h:panelGroup>-->
             <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
                 #{msg['analise.recusar']}
