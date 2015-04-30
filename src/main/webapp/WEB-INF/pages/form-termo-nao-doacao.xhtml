@@ -87,17 +87,17 @@
             </tr>
 
             <tr>
-                <td>Data de elaboração:<br/>COLOCAR_DATA</td>
+                <td>Data de elaboração:<br/><!--FALTA CHAMAR A DATA DO DIA--></td>
                 <td class="sem_borda_direita">Revisão: 0.0<br/></td>
             </tr>
         </table>
             <br/>
 
         <div class="padrao">
-            <p><strong>Eu,</strong>#{pn.entrevista.responsavel.nome} Sexo: #{pn.entrevista.responsavel.sexo}
-            Data de Nascimento: COLOCAR_NASCIMENTO portador do #{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} sob Nº #{pn.entrevista.responsavel.documentoSocial.documento}
-            Residente no endereço - Rua: #{pn.entrevista.responsavel.endereco.logradouro} N° #{pn.entrevista.responsavel.endereco.numero}
-            CEP: #{pn.entrevista.responsavel.endereco.cep} Bairro: #{bairroResponsavel} Município: #{cidadeResponsavel} Estado: #{estadoResponsavel}
+            <p><strong>Eu, </strong>#{pn.entrevista.responsavel.nome} do sexo  #{pn.entrevista.responsavel.sexo}
+            nascido no dia #{dataNascimentoResponsavel}, portador do #{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} sob Nº #{pn.entrevista.responsavel.documentoSocial.documento}
+            residente no endereço - Rua: #{pn.entrevista.responsavel.endereco.logradouro} N° #{pn.entrevista.responsavel.endereco.numero}
+            CEP: #{pn.entrevista.responsavel.endereco.cep} Bairro: #{bairroResponsavel} Município: #{cidadeResponsavel} Estado: #{estadoResponsavel}.
             Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>não autorizo</strong> a
             doação de órgãos e/ou tecidos para transplantes do paciente:
             #{pn.obito.paciente.nome}, falecido às: #{horaObito} do
@@ -107,7 +107,8 @@
         <br/>
         <div class="padrao">
             <strong>Motivo da recusa familiar</strong><br/>
-            COLOCAR_MOTIVO_RECUSA
+            <!--FALTA CHAMAR O MOTIVO DA RECUSA-->
+
 
         </div>
         <br/>
@@ -125,7 +126,7 @@
             <th class="borda_inferior" colspan="2">Testemunha 01</th>
             <tr>
                 <td class="borda_inferior">Nome Completo:  #{pn.entrevista.testemunha1.nome}</td>
-                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} Número: #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
+                <td class="borda_inferior sem_borda_direita">Documento: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
             </tr>
 
             <tr>
@@ -138,7 +139,7 @@
             <th class="borda_inferior" colspan="2">Testemunha 02</th>
             <tr>
                 <td class="borda_inferior">Nome Completo: #{pn.entrevista.testemunha2.nome}</td>
-                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} Número: #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
+                <td class="borda_inferior sem_borda_direita">Documento: #{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
             </tr>
 
             <tr>

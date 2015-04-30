@@ -75,7 +75,7 @@ public abstract class TermoTemplate {
         String dataEntrevista = utility.calendarDataToString(pn.getEntrevista().getDataEntrevista());
         String horaEntrevista = utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
 
-        //String dataNascimentoResponsavel = utility.calendarDataToString(pn.getEntrevista().getResponsavel().getDataNascimento());
+        String dataNascimentoResponsavel = utility.calendarDataToString(pn.getEntrevista().getResponsavel().getDataNascimento());
         String cidadeResponsavel = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel().getEndereco().getCidade()).getNome();
         String bairroResponsavel = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel().getEndereco().getBairro()).getNome();
         String estadoResponsavel = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel().getEndereco().getEstado()).getNome();
@@ -103,7 +103,7 @@ public abstract class TermoTemplate {
         model.addAttribute("bairroResponsavel", bairroResponsavel);
         model.addAttribute("estadoResponsavel", estadoResponsavel);
         model.addAttribute("cidadeResponsavel", cidadeResponsavel);
-        //model.addAttribute("dataNascimentoResponsavel", dataNascimentoResponsavel);
+        model.addAttribute("dataNascimentoResponsavel", dataNascimentoResponsavel);
         model.addAttribute("idadeResponsavel", idadeResponsavel);
         model.addAttribute("dataEntrevista", dataEntrevista);
         model.addAttribute("horaEntrevista", horaEntrevista);
