@@ -9,8 +9,12 @@
                 font-family: Arial, sans-serif;
                 line-height: 1.3;
                 font-size: 13px;
+                box-sizing: border-box;
             }
+            div.padrao, table {
 
+                width: 95%;
+            }
             .padrao {
                 padding: 1% 1% 1% 2%;
                 border: 1px solid #000;
@@ -19,7 +23,7 @@
 
             .titulo{
                 color: #333399;
-                font-size:15px;
+                font-size:20px;
                 font-weight: bold;
             }
 
@@ -54,15 +58,18 @@
                 border-bottom: 1px #000 solid;
             }
 
-            td.sem_borda_direita {
+            .sem_borda_direita {
                 border-right: none !important;
             }
 
             table.rodape {
-                border: none;
+                border: none !important;
                 margin: 10px auto;
                 font-weight: bold;
                 font-size: 9px;
+            }
+            table.rodape td {
+                border-right: none !important;
             }
 
         </style>
@@ -71,35 +78,36 @@
     <body>
 
         <table>
-            <tr> <!--Arrumar imagem-->
-                <td rowspan="2"><!--<h:graphicImage library="img" name="logo.png"/>-->
-                    <img src="web-evangelico-logo.png"/></td>
+            <tr>
+                <td rowspan="2">
+                    <h:graphicImage library="img" name="evangelico-logo.jpg"/>
+                </td>
                 <td class="titulo" rowspan="2">Termo de Abordagem com Negativa para Doação</td>
                 <td class="borda_inferior sem_borda_direita" colspan="2">Código: CIHDOTT_FR_ </td>
             </tr>
 
             <tr>
-                <td>Data de elaboração:<br/>#{DATA}</td>
+                <td>Data de elaboração:<br/>COLOCAR_DATA</td>
                 <td class="sem_borda_direita">Revisão: 0.0<br/></td>
             </tr>
         </table>
             <br/>
 
         <div class="padrao">
-            <p><strong>Eu,</strong>#{NOME} Sexo: #{SEXO}
-            Data de Nascimento: #{NASCIMENTO} portador do #{TIPO_DOCUMENTO} sob Nº #{NUMERO_DOCUMENTO}
-            Residente no endereço - Rua: #{RUA} N° #{NUMERO}
-            CEP: #{CEP} Bairro: #{BAIRRO} Município: #{CIDADE} Estado: #{ESTADO}
+            <p><strong>Eu,</strong>#{pn.entrevista.responsavel.nome} Sexo: #{pn.entrevista.responsavel.sexo}
+            Data de Nascimento: COLOCAR_NASCIMENTO portador do #{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} sob Nº #{pn.entrevista.responsavel.documentoSocial.documento}
+            Residente no endereço - Rua: #{pn.entrevista.responsavel.endereco.logradouro} N° #{pn.entrevista.responsavel.endereco.numero}
+            CEP: #{pn.entrevista.responsavel.endereco.cep} Bairro: #{bairroResponsavel} Município: #{cidadeResponsavel} Estado: #{estadoResponsavel}
             Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>não autorizo</strong> a
             doação de órgãos e/ou tecidos para transplantes do paciente:
-            #{NOME_DO_PACIENTE}, falecido às: #{HORARIO_OBITO} do
-            dia: #{DIA_OBITO} no Hospital Evangélico de Vila Velha.
+            #{pn.obito.paciente.nome}, falecido às: #{horaObito} do
+            dia: #{dataObito} no Hospital Evangélico de Vila Velha.
             </p>
         </div>
         <br/>
         <div class="padrao">
             <strong>Motivo da recusa familiar</strong><br/>
-            #{MOTIVO_RECUSA_FAMILIAR}
+            COLOCAR_MOTIVO_RECUSA
 
         </div>
         <br/>
@@ -107,7 +115,7 @@
             <p>
                 <strong>Assinatura do Responsável legal:</strong> ________________________________________________________________
                 <br/>
-                Grau de parentesco: #{PARENTESCO}
+                Grau de parentesco: #{pn.entrevista.responsavel.parentesco}
             </p>
         </div>
         <br/>
@@ -116,8 +124,8 @@
         <table class="testemunha">
             <th class="borda_inferior" colspan="2">Testemunha 01</th>
             <tr>
-                <td class="borda_inferior">Nome Completo: #{NOME_TESTEMUNHA_1}</td>
-                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{TIPO_DOCUMENTO}<!--E número--></td>
+                <td class="borda_inferior">Nome Completo:  #{pn.entrevista.testemunha1.nome}</td>
+                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} Número: #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
             </tr>
 
             <tr>
@@ -129,8 +137,8 @@
         <table class="testemunha">
             <th class="borda_inferior" colspan="2">Testemunha 02</th>
             <tr>
-                <td class="borda_inferior">Nome Completo: #{NOME_TESTEMUNHA_2}</td>
-                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{TIPO_DOCUMENTO}<!--E número--></td>
+                <td class="borda_inferior">Nome Completo: #{pn.entrevista.testemunha2.nome}</td>
+                <td class="borda_inferior sem_borda_direita">Tipo de documento: #{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} Número: #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
             </tr>
 
             <tr>
@@ -143,7 +151,7 @@
         <table class="profissional_responsavel">
             <th class="borda_inferior" colspan="2">Profissional responsável:</th>
             <tr>
-                <td>Nome: #{NOME_RESPONSAVEL}</td>
+                <td>Nome: #{nomeFuncionario}</td>
                 <td class="sem_borda_direita">Assinatura/Carimbo:</td>
             </tr>
         </table>
