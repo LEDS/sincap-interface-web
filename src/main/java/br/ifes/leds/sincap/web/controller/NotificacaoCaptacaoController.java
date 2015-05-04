@@ -150,8 +150,16 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
-    public String recusarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
+    public String recusarCaptacao(@RequestParam("id") Long idProcesso,
+                                  HttpSession session,
+                                  @RequestParam(value = "descricaoComentario") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
+        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+
+        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
+
         aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?captacaoRecusado=true";
@@ -170,8 +178,16 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
-    public String confirmarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
+    public String confirmarCaptacao(@RequestParam("id") Long idProcesso,
+                                    HttpSession session,
+                                    @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
+        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+
+        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
         aplProcessoNotificacao.confirmarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?captacaoConfirmado=true";
