@@ -85,7 +85,7 @@ public class NotificacaoCaptacaoController {
                                  @RequestParam(value = "captacaoRealizada", required = false) boolean captacaoRealizada,
                                  @RequestParam("dataCaptacao") String dataCaptacao,
                                  @RequestParam("horarioCaptacao") String horarioCaptacao,
-                                 @RequestParam(value = "descricaoComentario") String descricaoComentario) throws ParseException {
+                                 @RequestParam(value = "descricaoComentario" ,defaultValue = "") String descricaoComentario) throws ParseException {
         //Processo de notificacao vem incompleto, logo, ele deve ser buscado novamente
         String nomePaciente = processo.getObito().getPaciente().getNome();
         captacaoRealizada = processo.getCaptacao().isCaptacaoRealizada();
@@ -95,12 +95,12 @@ public class NotificacaoCaptacaoController {
             processo.getCaptacao().setCaptacaoRealizada(captacaoRealizada);
 
             Long idProcesso = processo.getId();
+            if(!descricaoComentario.isEmpty()) {
+                String momento = EstadoNotificacaoEnum.AGUARDANDOCAPTACAO.toString();
+                ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
 
-            String momento = EstadoNotificacaoEnum.AGUARDANDOCAPTACAO.toString();
-            ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
-
-            aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
-
+                aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+            }
             aplProcessoNotificacao.salvarCaptacao(idProcesso, processo.getCaptacao(), usuarioSessao.getIdUsuario());
         } catch (ConstraintViolationException e) {
             model.addAttribute("nomePaciente", nomePaciente);
@@ -152,14 +152,15 @@ public class NotificacaoCaptacaoController {
     @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
     public String recusarCaptacao(@RequestParam("id") Long idProcesso,
                                   HttpSession session,
-                                  @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+                                  @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
-        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
 
-        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
-
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
         aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?captacaoRecusado=true";
@@ -180,14 +181,16 @@ public class NotificacaoCaptacaoController {
     @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
     public String confirmarCaptacao(@RequestParam("id") Long idProcesso,
                                     HttpSession session,
-                                    @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+                                    @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
-        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
 
-        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
         aplProcessoNotificacao.confirmarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?captacaoConfirmado=true";
