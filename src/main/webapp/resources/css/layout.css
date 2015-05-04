@@ -23,6 +23,10 @@ div#step3{
 	margin: 0 !important;
 }
 
+.form-wrapper.inline-input.span8{
+	margin-left: 0 !important;
+}
+
 body {
 	font-family: 'Open Sans', sans-serif;
 	background-color: #f7f7f7;
