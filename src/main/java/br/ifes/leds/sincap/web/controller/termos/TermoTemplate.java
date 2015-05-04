@@ -5,6 +5,7 @@ import br.ifes.leds.reuse.utility.Utility;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
+import br.ifes.leds.sincap.gerenciaNotificacao.cgd.ProcessoNotificacaoRepository;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
@@ -16,9 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static br.ifes.leds.sincap.web.controller.ContextUrls.IMPRIMIR;
+import static java.util.Calendar.DAY_OF_MONTH;
+import static java.util.Calendar.MONTH;
+import static java.util.Calendar.YEAR;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
@@ -27,6 +33,8 @@ public abstract class TermoTemplate {
 
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
+    @Autowired
+    private ProcessoNotificacaoRepository processoNotificacaoRepository;
     @Autowired
     private Utility utility;
     @Autowired
@@ -40,9 +48,11 @@ public abstract class TermoTemplate {
 
     public abstract String viewTermo();
 
+    public abstract List<ProcessoNotificacao> consultaBancoDados(String string);
+
     @RequestMapping(method = GET)
     public final String carregarFormTermoDoacao(ModelMap model) {
-        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoAutorizada("");
+        List<ProcessoNotificacao> pn = consultaBancoDados("");
 
         model.addAttribute("listProcessoNotificacao", pn);
 
@@ -51,7 +61,7 @@ public abstract class TermoTemplate {
 
     @RequestMapping(method = POST)
     public final String buscarTermoDoacao(ModelMap model, @RequestParam("nome") String nome) {
-        List<ProcessoNotificacao> pn = aplProcessoNotificacao.obterPorPacienteNomeComEntrevistaDoacaoAutorizada(nome);
+        List<ProcessoNotificacao> pn = consultaBancoDados(nome);
 
         model.addAttribute("listProcessoNotificacao", pn);
 
@@ -62,6 +72,7 @@ public abstract class TermoTemplate {
     @RequestMapping(value = IMPRIMIR + "/{id}", method = GET)
     public final String emitirTermoDoacao(ModelMap model, @PathVariable Long id) {
         ProcessoNotificacaoDTO pn = aplProcessoNotificacao.obter(id);
+        final ProcessoNotificacao pnCompleto = processoNotificacaoRepository.findOne(id);
         String dataObito = utility.calendarDataToString(pn.getObito().getDataObito());
         String horaObito = utility.calendarHoraToString(pn.getObito().getDataObito());
         String cidadePaciente = aplEndereco.obterCidadePorID(pn.getObito().getPaciente().getEndereco().getCidade()).getNome();
@@ -73,7 +84,7 @@ public abstract class TermoTemplate {
         String hospitalCidade = h.getEndereco().getCidade().getNome();
 
         String dataEntrevista = utility.calendarDataToString(pn.getEntrevista().getDataEntrevista());
-        String horaEntrevista = utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
+        final String horaEntrevista = utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
 
         String dataNascimentoResponsavel = utility.calendarDataToString(pn.getEntrevista().getResponsavel().getDataNascimento());
         String cidadeResponsavel = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel().getEndereco().getCidade()).getNome();
@@ -116,6 +127,15 @@ public abstract class TermoTemplate {
         model.addAttribute("dataObito", dataObito);
         model.addAttribute("horaObito", horaObito);
         model.addAttribute("pn", pn);
+
+        final Map<String, String> recusaFamiliarDataAtual = new HashMap<String, String>(){{
+            final Calendar hoje = Calendar.getInstance();
+            final String dataAtual = hoje.get(DAY_OF_MONTH) + "/" + hoje.get(MONTH) + "/" + hoje.get(YEAR);
+           // put("recusaFamiliar", pnCompleto.getCausaNaoDoacao() != null ? pnCompleto.getCausaNaoDoacao().getNome() : "");
+            put("dataAtual", dataAtual);
+        }};
+
+        model.addAttribute("recusaEData", recusaFamiliarDataAtual);
 
         return viewTermo();
     }
