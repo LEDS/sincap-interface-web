@@ -94,13 +94,15 @@ public class NotificacaoEntrevistaController {
                                    @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
                                    @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
                                    @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
-                                   @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+                                   @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        String momento = EstadoNotificacaoEnum.AGUARDANDOENTREVISTA.toString();
-        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
-        processo.getComentarios().add(comentario);
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.AGUARDANDOENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+            processo.getComentarios().add(comentario);
+        }
 
         if (dataEntrevista != null && horaEntrevista != null) {
             processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
@@ -209,14 +211,15 @@ public class NotificacaoEntrevistaController {
      */
     @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
     public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session,
-                                   @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+                                   @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
-        // Confirmar a análise do óbito.
 
-        String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
-        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
 
-        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
 
         aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
@@ -230,13 +233,15 @@ public class NotificacaoEntrevistaController {
      */
     @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
     public String recusarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session,
-                                    @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+                                    @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
-        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
 
-        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
 
         aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
         return "redirect:" + INDEX + "?entrevistaRecusada=true";
@@ -249,14 +254,15 @@ public class NotificacaoEntrevistaController {
      */
     @RequestMapping(value = APP_ANALISAR + ARQUIVAR, method = POST)
     public String arquivarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session,
-                                     @RequestParam(value = "descricaoComentario") String descricaoComentario) {
+                                     @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
 
-        String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
-        ComentarioDTO comentario = utilityWeb.criarComentario(momento,descricaoComentario, usuarioSessao);
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
 
-        aplProcessoNotificacao.salvarComentario(idProcesso,mapper.map(comentario,Comentario.class));
-
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
         aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX;
