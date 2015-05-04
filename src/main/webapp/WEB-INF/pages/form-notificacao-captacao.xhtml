@@ -23,16 +23,20 @@
         <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}"
                                 msgErro="#{msg['captacao.erro']}"/>
 
-        <form id="processoCaptacao" class="span8"
+        <form id="processoCaptacao"
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
               method="post">
             <br/>
 
-            <div class="form-wrapper inline-input">
+            <div class="form-wrapper inline-input span8">
                 <div class="form-horizontal">
                     <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
                 </div>
             </div>
+
+            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                <ui:param name="processo" value="#{processo}"/>
+            </ui:include>
 
             <input type="hidden" id="id" name="id" value="#{processo.id}"/>
             <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>

@@ -73,26 +73,4 @@ public class CaptacaoControllerTest extends AbstractionTest {
         verifyNoMoreInteractions(aplProcessoNotificacao);
     }
 
-    @Test
-    @SneakyThrows
-    public void salvarCaptacaoRealizadaTest() {
-        ProcessoNotificacaoDTO captacao = criarCaptacao(true);
-
-        mockMvc.perform(post(APP_NOTIFICACAO_CAPTACAO + SALVAR)
-                .session(session)
-                .param("id", captacao.getId().toString())
-                .param("paciente.nome", "Paciente")
-                .param("captacaoRealizada", ((Boolean) captacao.getCaptacao().isCaptacaoRealizada()).toString())
-                .param("captacao.comentario", captacao.getCaptacao().getComentario())
-                .param("dataCaptacao", "03/10/2010")
-                .param("horarioCaptacao", "01:00"))
-//                302 significa que foi redirecionado. https://en.wikipedia.org/wiki/HTTP_302
-                .andExpect(status().is(302))
-                .andExpect(redirectedUrl(INDEX + "?captacaoSucesso=true"));
-
-        ArgumentCaptor<CaptacaoDTO> argumentCaptor = ArgumentCaptor.forClass(CaptacaoDTO.class);
-        verify(aplProcessoNotificacao, times(1)).salvarCaptacao(isA(Long.class), argumentCaptor.capture(), isA(Long.class));
-
-        assertThat(argumentCaptor.getValue(), equalTo(captacao.getCaptacao()));
-    }
 }
