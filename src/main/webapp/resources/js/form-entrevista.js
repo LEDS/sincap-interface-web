@@ -1,4 +1,18 @@
 $(document).ready(function() {
+    $("#msgAlertaHora").hide();
+
+    var eventoMudarHora = function () {
+        var dataEntrevista = document.getElementById('dataEntrevista').value;
+        var horaEntrevista = document.getElementById('horaEntrevista').value;
+        var horaEntre = document.getElementById('horaObito').value;
+        var dataHoraObito = dataEntrevista + ' ' + horaEntrevista;
+        var REGEX_DATA_HORA_PREENCHIDAS = /^\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}$/;
+
+        if(dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS)) {
+            verificarHoraObito(data(dataHoraObito),data(horaEntre));
+        }
+    };
+
     if(document.getElementById("entrevistaRealizada:1").checked) {
         $('#divEntrevistaRealizada').hide();
     } else {
@@ -6,11 +20,13 @@ $(document).ready(function() {
     }
 
     if(document.getElementById("doacaoAutorizada:1").checked) {
+        $("#msgAlertaHora").hide();
         $('#divDoacaoAutorizada').hide();
         $('#btn-next').hide();
         $('#btn-finish').show();
     } else {
         $('#divDoacaoNaoAutorizada').hide();
+
     }
 
     document.getElementById("entrevista-responsavel-telefone-numero").addEventListener("keydown", function (e) {
@@ -53,12 +69,46 @@ $(document).ready(function() {
         $('#btn-finish').show();
     });
 
+    addListenerMulti(document.getElementById('horaEntrevista'), 'change click keypress', eventoMudarHora);
+    addListenerMulti(document.getElementById('dataEntrevista'), 'change click keypress', eventoMudarHora);
+
+    var data = function(dataBr) {
+        dataArray = dataBr.split('/');
+        dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
+        return new Date(dataEn);
+    };
+
+    var ehMais6Horas = function (dataHoraObito,dataHoraEntrevista) {
+
+       return dataHoraEntrevista - dataHoraObito >= 21600000;
+    };
+
+    var setInapto = function() {
+        document.getElementById('entrevistaRealizada:1').checked = true;
+        $.uniform.update();
+    };
+
+    var setAcimaTempoMaximoRetirada = function() {
+        document.getElementById('problemasEstruturais').value = '20';
+        $('#problemasEstruturais').select2();
+    };
+
+    var verificarHoraObito = function(dataHoraObito,dataHoraEntrevista) {
+
+        if((document.getElementById("entrevistaRealizada:0").checked) && (document.getElementById("doacaoAutorizada:0").checked)&& ehMais6Horas(dataHoraObito,dataHoraEntrevista)) {
+            setInapto();
+            setAcimaTempoMaximoRetirada();
+            $("#msgAlertaHora").show();
+        }
+    };
+
     init();
 });
 
 function init() {
     definirMascaras();
     definirEstilo();
+
 
     function definirMascaras() {
         $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -571,4 +621,9 @@ function init() {
             }
         });
     });
+
+
+
 }
+
+

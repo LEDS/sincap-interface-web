@@ -24,6 +24,12 @@
     <!-- Para manter os objetos quando buscar do banco de dados. -->
     <input type="hidden" id="id" name="id" value="#{processo.id}"/>
 
+    <!--Campo da hora do obito para usar no JS-->
+    <h:inputHidden id="horaObito" value="#{processo.obito.dataObito.time}">
+        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
+    </h:inputHidden>
+
+
     <!-- Salva a data de abertura, se houver -->
     <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">
         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
@@ -34,6 +40,7 @@
         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
     </h:inputHidden>
     <br/>
+
     <h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
 
         <h:panelGroup layout="block" styleClass="field-box">
@@ -52,7 +59,6 @@
                 </label>
             </div>
         </h:panelGroup>
-
 
         <h:panelGroup styleClass="field-box" id="divEntrevistaNaoRealizada">
             <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}*"/>

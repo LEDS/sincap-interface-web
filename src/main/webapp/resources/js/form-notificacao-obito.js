@@ -191,6 +191,7 @@
         if(tipoObito === "PCR" && ehMais6Horas(dataHoraObito)) {
             setInapto();
             setAcimaTempoMaximoRetirada();
+            $("#msgAlertaHora").show();
         }
     };
 
@@ -215,10 +216,13 @@
             divCausaNaoDoacao.hide();
             causaNaoDoacao.val(0);
             causaNaoDoacao.select2();
+            $("#msgAlertaHora").hide();
         });
 
         opt_inapto_doacao.addEventListener('click', function () {
             $("#divCausaNaoDoacao").show();
+            eventoMudarHora();
+
         });
     };
 
@@ -253,7 +257,7 @@
                 $("#obito-paciente-numeroSUS").rules('add', {required: true});
             }
         });
-
+        $("#msgAlertaHora").hide();
         addListenerMulti(document.getElementById('obito-dataObito'), 'change click keypress', eventoMudarHora);
         addListenerMulti(document.getElementById('horarioObito'), 'change click keypress', eventoMudarHora);
         addListenerMulti(document.getElementById('obito-tipoObito'), 'change click keypress', eventoMudarHora);
