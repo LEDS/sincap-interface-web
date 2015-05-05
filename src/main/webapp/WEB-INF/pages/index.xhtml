@@ -54,6 +54,18 @@
             </div>
         </h:panelGroup>
 
+        <h:panelGroup rendered="#{doacaoNaoAutorizada}">
+            <div class="alert alert-success">
+                <i class="icon-save"/>
+                Entrevista salva com sucesso!!
+                <a target="_blank" class="btn-flat success"
+                   href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_nao_doacao}#{contextUrls.imprimir}/#{idEntrevista}">
+                    <!--<i class="icon-file"></i>-->
+                    Emitir Termo
+                </a>
+            </div>
+        </h:panelGroup>
+
         <h:panelGroup rendered="#{entrevistaConfirmada}">
             <div class="alert alert-success">
                 <i class="icon-save"/>
