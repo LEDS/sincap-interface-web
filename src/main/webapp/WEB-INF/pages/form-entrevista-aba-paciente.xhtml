@@ -29,6 +29,11 @@
         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
     </h:inputHidden>
 
+    <!--Mensagem de erro, passou 6h-->
+    <div class="field-box alert alert-error" id="msgAlertaHora">
+        <i class="icon-remove-sign"></i>
+        #{msg['obito.mensagemAlertaHora']}
+    </div>
 
     <!-- Salva a data de abertura, se houver -->
     <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">

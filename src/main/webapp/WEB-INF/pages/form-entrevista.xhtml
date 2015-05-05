@@ -26,11 +26,6 @@
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
             <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-
-            <div class="field-box alert alert-error" id="msgAlertaHora">
-                <i class="icon-remove-sign"></i>
-                #{msg['obito.mensagemAlertaHora']}
-            </div>
             <div id="fuelux-wizard" class="wizard row-fluid">
                 <ul class="wizard-steps">
                     <li data-target="#step1" class="active">

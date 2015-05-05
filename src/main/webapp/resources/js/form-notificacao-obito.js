@@ -196,6 +196,7 @@
     };
 
     var eventoMudarHora = function () {
+        $("#msgAlertaHora").hide();
         var dataObito = document.getElementById('obito-dataObito').value;
         var horaObito = document.getElementById('horarioObito').value;
         var dataHoraObito = dataObito + ' ' + horaObito;
