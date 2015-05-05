@@ -131,7 +131,7 @@ public abstract class TermoTemplate {
         final Map<String, String> recusaFamiliarDataAtual = new HashMap<String, String>(){{
             final Calendar hoje = Calendar.getInstance();
             final String dataAtual = hoje.get(DAY_OF_MONTH) + "/" + hoje.get(MONTH) + "/" + hoje.get(YEAR);
-           // put("recusaFamiliar", pnCompleto.getCausaNaoDoacao() != null ? pnCompleto.getCausaNaoDoacao().getNome() : "");
+            put("recusaFamiliar", pnCompleto.getCausaNaoDoacao() != null ? pnCompleto.getCausaNaoDoacao().getNome() : "");
             put("dataAtual", dataAtual);
         }};
 
