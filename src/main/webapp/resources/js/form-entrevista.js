@@ -1,15 +1,32 @@
 $(document).ready(function() {
     $("#msgAlertaHora").hide();
 
-    var eventoMudarHora = function () {
+    function eventoMudarHora () {
+        $("#msgAlertaHora").hide();
+        var validateArray = [];
+
         var dataEntrevista = document.getElementById('dataEntrevista').value;
+        validateArray[validateArray.length] = dataEntrevista;
         var horaEntrevista = document.getElementById('horaEntrevista').value;
-        var horaEntre = document.getElementById('horaObito').value;
-        var dataHoraObito = dataEntrevista + ' ' + horaEntrevista;
+        validateArray[validateArray.length] = horaEntrevista;
+        var dataHoraObito = document.getElementById('horaObito').value;
+        validateArray[validateArray.length] = dataHoraObito;
+        var dataHoraEntrevista = dataEntrevista + ' ' + horaEntrevista;
+        validateArray[validateArray.length] =dataHoraEntrevista;
         var REGEX_DATA_HORA_PREENCHIDAS = /^\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}$/;
 
-        if(dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS)) {
-            verificarHoraObito(data(dataHoraObito),data(horaEntre));
+        var condition = false;
+        validateArray.some(function(element, index, array){
+            if((typeof element != 'undefined') && element !== '' && element !== '__:__'){
+                condition = true;
+            }else{
+                condition = false;
+                return true;
+            }
+        });
+
+        if(dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS) && condition) {
+            verificarHoraObito(data(dataHoraObito),data(dataHoraEntrevista));
         }
     };
 
@@ -69,8 +86,8 @@ $(document).ready(function() {
         $('#btn-next').show();
     });
 
-    addListenerMulti(document.getElementById('horaEntrevista'), 'change click keypress', eventoMudarHora);
-    addListenerMulti(document.getElementById('dataEntrevista'), 'change click keypress', eventoMudarHora);
+    addListenerMulti(document.getElementById('horaEntrevista'), 'dblclick blur', eventoMudarHora);
+    addListenerMulti(document.getElementById('dataEntrevista'), 'dblclick blur', eventoMudarHora);
 
     var data = function(dataBr) {
         dataArray = dataBr.split('/');
@@ -80,7 +97,7 @@ $(document).ready(function() {
 
     var ehMais6Horas = function (dataHoraObito,dataHoraEntrevista) {
 
-       return dataHoraEntrevista - dataHoraObito >= 21600000;
+        return dataHoraEntrevista - dataHoraObito >= 21600000;
     };
 
     var setInapto = function() {
@@ -95,10 +112,14 @@ $(document).ready(function() {
 
     var verificarHoraObito = function(dataHoraObito,dataHoraEntrevista) {
 
-        if((document.getElementById("entrevistaRealizada:0").checked) && (document.getElementById("doacaoAutorizada:0").checked)&& ehMais6Horas(dataHoraObito,dataHoraEntrevista)) {
-            setInapto();
-            setAcimaTempoMaximoRetirada();
-            $("#msgAlertaHora").show();
+        var acimaDoTempo = (document.getElementById("entrevistaRealizada:0").checked)
+            && (document.getElementById("doacaoAutorizada:0").checked)
+            && ehMais6Horas(dataHoraObito,dataHoraEntrevista);
+
+        if(acimaDoTempo) {
+          $("#msgAlertaHora").show();
+        }else{
+          $("#msgAlertaHora").hide();
         }
     };
 
