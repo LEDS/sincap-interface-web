@@ -49,9 +49,9 @@ public class IndexController {
                         @RequestParam(value = "obitoConfirmado", defaultValue = "false") boolean obitoConfirmado,
                         @RequestParam(value = "obitoRecusado", defaultValue = "false") boolean obitoRecusado,
                         @RequestParam(value = "idEntrevista", required = false) Long idEntrevista,
-                        @RequestParam(value = "sucessoEntrevista", defaultValue = "false") boolean sucessoEntrevista,
                         @RequestParam(value = "entrevistaConfirmada", defaultValue = "false") boolean entrevistaConfirmada,
                         @RequestParam(value = "entrevistaRecusada", defaultValue = "false") boolean entrevistaRecusada,
+                        @RequestParam(value = "realizada", defaultValue = "false") boolean entrevistaRealizada,
                         @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento,
                         @RequestParam(value = "captacaoSucesso", defaultValue = "false") boolean captacaoSucesso,
                         @RequestParam(value = "captacaoConfirmado", defaultValue = "false") boolean captacaoConfirmado,
@@ -68,7 +68,8 @@ public class IndexController {
         model.addAttribute("obitoConfirmado", obitoConfirmado);
         model.addAttribute("obitoRecusado", obitoRecusado);
         model.addAttribute("idEntrevista", idEntrevista);
-        model.addAttribute("sucessoEntrevista", sucessoEntrevista);
+        model.addAttribute("sucessoEntrevista", idEntrevista != null? true:false);
+        model.addAttribute("entrevistaRealizada", entrevistaRealizada);
         model.addAttribute("entrevistaConfirmada", entrevistaConfirmada);
         model.addAttribute("entrevistaRecusada", entrevistaRecusada);
         model.addAttribute("captacaoSucesso", captacaoSucesso);
