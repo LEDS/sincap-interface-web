@@ -346,6 +346,7 @@ public class UtilityWeb {
         String captacao = "Captação";
         String correcao = "Correção";
         String analise = "Análise";
+        String arquivmanento = "Arquivamento";
 
         /*Criar link para notificações de óbito*/
         if(status.contains(obito)){
@@ -375,6 +376,8 @@ public class UtilityWeb {
             }else{
                 partialUrl+=ContextUrls.ADICIONAR;
             }
+        } else if(status.contains(arquivmanento)){
+            partialUrl+=ContextUrls.APP_PROCESSO + ContextUrls.ARQUIVAR;
         }
 
         mensagem.setUrlRelativa(partialUrl+"/"+mensagem.getId());

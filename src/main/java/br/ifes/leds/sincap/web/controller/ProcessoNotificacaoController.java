@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -40,13 +37,13 @@ public class ProcessoNotificacaoController {
     @Autowired
     private AplProcessoNotificacao aplProcessoNotificacao;
 
-    @RequestMapping(value = ContextUrls.ARQUIVAR, method = RequestMethod.POST)
-    public String arquivarProcesso(@RequestParam("id") Long id, HttpSession secao) {
+    @RequestMapping(value = ContextUrls.ARQUIVAR + "/{idProcesso}", method = RequestMethod.GET)
+    public String arquivarProcesso(@PathVariable Long idProcesso, HttpSession secao) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) secao.getAttribute("user");
 
-        aplProcessoNotificacao.arquivarProcessoNotificacao(id,usuarioSessao.getIdUsuario());
+        aplProcessoNotificacao.arquivarProcessoNotificacao(idProcesso,usuarioSessao.getIdUsuario());
 
-        return "redirect:" + ContextUrls.INDEX + "?sucessoExcluir=true";
+        return "redirect:" + ContextUrls.INDEX + "?sucessoArquivamento=true";
     }
 
     @RequestMapping(value = ContextUrls.EXCLUIR, method = RequestMethod.POST)
@@ -60,10 +57,10 @@ public class ProcessoNotificacaoController {
         return "redirect:" + ContextUrls.APP_BUSCAR + ContextUrls.BUSCAR_TODOS + "?sucessoExcluir=true";
     }
 
-    @RequestMapping(value = ContextUrls.EXIBIR, method = RequestMethod.GET)
-    public String exibirProcesso(ModelMap model, @RequestParam("idProcesso") Long id){
+    @RequestMapping(value = ContextUrls.EXIBIR + "/{idProcesso}", method = RequestMethod.GET)
+    public String exibirProcesso(ModelMap model, @PathVariable Long idProcesso){ //, @RequestParam("idProcesso") Long id
 
-        ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(id);
+        ProcessoNotificacao processo = aplProcessoNotificacao.getProcessoNotificacao(idProcesso);
 
         model.addAttribute("processo", processo);
         model.addAttribute("obito", true);
@@ -100,6 +97,7 @@ public class ProcessoNotificacaoController {
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA));
             notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISECAPTACAO));
+            notificacoesInteressados.addAll(aplProcessoNotificacao.retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOARQUIVAMENTO));
         }
 
         List<MensagemProcesso> mensagens = utilityWeb.ProcessoToMensagem(notificacoesInteressados);
@@ -124,7 +122,7 @@ public class ProcessoNotificacaoController {
 
     private void verificaCaptacao(ModelMap model, ProcessoNotificacao processo) {
         if(processo.getCaptacao() != null){
-            model.addAttribute("entrevista", true);
+            model.addAttribute("captacao", true);
         }else{
             model.addAttribute("captacao", false);
         }

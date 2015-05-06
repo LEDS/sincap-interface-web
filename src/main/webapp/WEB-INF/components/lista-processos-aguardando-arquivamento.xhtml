@@ -72,15 +72,17 @@
                         <f:facet name="header">
                             <h:outputText value="Arquivar" />
                         </f:facet>
-                        <form id="form" method="post" hidden="hidden" action="#{request.contextPath}/processo/arquivar">
-                            <input type="text" hidden="hidden" name="id" value="#{processo.id}"/>
+                        <form id="formulario-arquivamento-#{notificacao.id}" action="#{request.contextPath}/processo/arquivar" method="post">
+                            <input type="hidden" hidden="hidden" name="id" value="#{processo.id}"/>
                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                            <button type="submit"><i class="icon-edit"></i></button>
                         </form>
-                        <a class="btn-flat default" onclick="document.getElementById('form').submit()"
-                           href="#">
-                            <i class="icon-file"/>
-                            Arquivar
-                        </a>
+
+                        <!--<a class="btn-flat default" onclick="document.getElementById('form').submit()"-->
+                           <!--href="#">-->
+                            <!--<i class="icon-file"/>-->
+                            <!--Arquivar-->
+                        <!--</a>-->
                     </h:column>
                 </h:dataTable>
                 </h:panelGroup>
