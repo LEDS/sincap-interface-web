@@ -8,9 +8,12 @@ package br.ifes.leds.sincap.web.controller;
 import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ComentarioDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
@@ -82,33 +85,6 @@ public class NotificacaoEntrevistaController {
         return "form-entrevista";
     }
 
-    @RequestMapping(value = ADICIONAR, method = POST)
-    public String loadFormEntrevista(ModelMap model, @RequestParam("id") Long id) {
-        try {
-            ProcessoNotificacaoDTO processo = aplProcessoNotificacao.obter(id);
-
-            utilityWeb.preencherEstados(model);
-            model.addAttribute("processo", processo);
-            model.addAttribute("listaAspectoEstrutural", getListaCausaNDoacaoSelectItem(PROBLEMAS_ESTRUTURAIS));
-            model.addAttribute("listaRecusaFamiliar", getListaCausaNDoacaoSelectItem(RECUSA_FAMILIAR));
-            model.addAttribute("listaParentescos", utilityWeb.getParentescoSelectItem());
-            model.addAttribute("listaEstadosCivis", utilityWeb.getEstadoCivilSelectItem());
-            model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
-            model.addAttribute("recusaFamiliar", (long) 0);
-            model.addAttribute("problemasEstruturais", (long) 0);
-
-            model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
-
-            model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
-
-            utilityWeb.preencherEndereco(mapper.map(processo.getObito().getPaciente().getEndereco(), EnderecoDTO.class), model);
-        } catch (Exception ignored) {
-
-        }
-
-        return "form-entrevista";
-    }
-
     @DefaultTimeZone
     @RequestMapping(value = SALVAR, method = POST)
     public String salvarEntrevista(ModelMap model,
@@ -117,9 +93,16 @@ public class NotificacaoEntrevistaController {
                                    @DateTimeFormat(pattern = "HH:mm") @RequestParam("horaEntrevista") LocalTime horaEntrevista,
                                    @RequestParam(value = "recusaFamiliar", defaultValue = "") Long recusaFamiliar,
                                    @RequestParam(value = "problemasEstruturais", defaultValue = "") Long problemasEstruturais,
-                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo) {
+                                   @ModelAttribute("processo") ProcessoNotificacaoDTO processo,
+                                   @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
 
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.AGUARDANDOENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+            processo.getComentarios().add(comentario);
+        }
 
         if (dataEntrevista != null && horaEntrevista != null) {
             processo.getEntrevista().setDataEntrevista(dataEntrevista.toDateTime(horaEntrevista).toCalendar(Locale.getDefault()));
@@ -200,36 +183,6 @@ public class NotificacaoEntrevistaController {
         return "form-entrevista";
     }
 
-    @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
-    public String recusarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
-        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
-        aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
-
-        return "redirect:" + INDEX + "?entrevistaRecusada=true";
-    }
-
-    @RequestMapping(value = APP_ANALISAR + ARQUIVAR, method = POST)
-    public String arquivarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session) {
-        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
-        aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
-
-        return "redirect:" + INDEX;
-    }
-
-    private List<SelectItem> getListaCausaNDoacaoSelectItem(TipoNaoDoacao tipo) {
-        List<CausaNaoDoacaoDTO> listaCausas = aplCadastroInterno
-                .obterCausaNaoDoacao(tipo);
-        List<SelectItem> listaCausasSelIt = new ArrayList<>();
-
-        for (CausaNaoDoacaoDTO causa : listaCausas) {
-            listaCausasSelIt
-                    .add(new SelectItem(causa.getId(), causa.getNome()));
-        }
-
-        return listaCausasSelIt;
-    }
-
-
     /**
      * Fornece a página para análise.
      *
@@ -257,11 +210,74 @@ public class NotificacaoEntrevistaController {
      * @param idProcesso ID do ProcessoNotificacao
      */
     @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
-    public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session) {
+    public String confirmarAnalise(@RequestParam("id") Long idProcesso, HttpSession session,
+                                   @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
-        // Confirmar a análise do óbito.
+
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
+
         aplProcessoNotificacao.validarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?entrevistaConfirmada=true";
+    }
+
+    /**
+     * Recusa a análise.
+     *
+     * @param idProcesso ID do ProcessoNotificacao
+     */
+    @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
+    public String recusarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session,
+                                    @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
+
+        aplProcessoNotificacao.recusarAnaliseEntrevista(idProcesso, usuarioSessao.getIdUsuario());
+        return "redirect:" + INDEX + "?entrevistaRecusada=true";
+    }
+
+    /**
+     * Envia o processo para arquivamento
+     *
+     * @param idProcesso ID do ProcessoNotificacao
+     */
+    @RequestMapping(value = APP_ANALISAR + ARQUIVAR, method = POST)
+    public String arquivarEntrevista(@RequestParam("id") Long idProcesso, HttpSession session,
+                                     @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
+        UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISEENTREVISTA.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
+        aplProcessoNotificacao.finalizarProcesso(idProcesso, usuarioSessao.getIdUsuario());
+
+        return "redirect:" + INDEX;
+    }
+
+    private List<SelectItem> getListaCausaNDoacaoSelectItem(TipoNaoDoacao tipo) {
+        List<CausaNaoDoacaoDTO> listaCausas = aplCadastroInterno
+                .obterCausaNaoDoacao(tipo);
+        List<SelectItem> listaCausasSelIt = new ArrayList<>();
+
+        for (CausaNaoDoacaoDTO causa : listaCausas) {
+            listaCausasSelIt
+                    .add(new SelectItem(causa.getId(), causa.getNome()));
+        }
+
+        return listaCausasSelIt;
     }
 }

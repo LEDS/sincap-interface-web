@@ -8,12 +8,16 @@ import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
 import br.ifes.leds.reuse.persistence.ObjetoPersistente;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.BancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.dto.FuncionarioDTO;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplBancoOlhos;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.*;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ComentarioDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.MensagemProcesso;
 import br.ifes.leds.sincap.web.model.NotificacaoDTO;
+import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
@@ -447,6 +451,28 @@ public class UtilityWeb {
         }
 
         return notificacoesDTO;
+    }
+
+    public void defineNoProcesso(ComentarioDTO comentario, ProcessoNotificacaoDTO processo) {
+
+        /*Faz o link entre o processo e o comentário*/
+        processo.getComentarios().add(comentario);
+    }
+
+    public ComentarioDTO criarComentario(String momento, String descricaoComentario,
+                                          UsuarioSessao usuarioSessao) {
+
+        /*Cria o DTO do funcionário a partir dos parâmetros passados*/
+        FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
+        funcionarioDTO.setId(usuarioSessao.getIdUsuario());
+
+        /*Cria o DTO do comentário a partir dos parâmetros passados*/
+        ComentarioDTO comentario = new ComentarioDTO();
+        comentario.setFuncionario(funcionarioDTO);
+        comentario.setDataComentario(Calendar.getInstance());
+        comentario.setDescricao(descricaoComentario);
+        comentario.setMomento(momento);
+        return comentario;
     }
 
 }

@@ -8,7 +8,7 @@
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
         <!--@elvariable id="nomePaciente" type="java.lang.String"-->
-        <h:inputText readonly="true" styleClass="span8" id="paciente-nome"
+        <h:inputText readonly="true" styleClass="span8" id="obito-paciente-nome"
                      value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
@@ -20,12 +20,12 @@
         <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}*"/>
         <div class="span8">
             <label class="radio">
-                <input type="radio" name="captacaoRealizada" id="captacaoRealizada:0" value="true"
+                <input type="radio" name="captacao.captacaoRealizada" id="captacaoRealizada:0" value="true"
                        checked="true"/>
                 #{msg['captacao.radioButton.corneasCaptadas.sim']}
             </label>
             <label class="radio">
-                <input type="radio" name="captacaoRealizada" id="captacaoRealizada:1" value="false"/>
+                <input type="radio" name="captacao.captacaoRealizada" id="captacaoRealizada:1" value="false"/>
                 #{msg['captacao.radioButton.corneasCaptadas.nao']}
             </label>
         </div>
@@ -59,10 +59,4 @@
         </h:panelGroup>
     </h:panelGroup>
 
-    <!--TODO: Inserir id e value-->
-    <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.comentarios']}"/>
-        <h:inputTextarea id="captacao-comentario" class="span8" value="#{processo.captacao.comentario}"
-                         style="margin: 0px 0px 10px; width: 450px; height: 100px;" rows="5"/>
-    </h:panelGroup>
 </ui:composition>

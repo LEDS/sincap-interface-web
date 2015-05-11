@@ -1,14 +1,18 @@
 package br.ifes.leds.sincap.web.controller;
 
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.EstadoNotificacaoEnum;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.TipoNaoDoacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.CausaNaoDoacaoDTO;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ComentarioDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.TransactionSystemException;
@@ -47,6 +51,8 @@ public class NotificacaoCaptacaoController {
     private br.ifes.leds.reuse.utility.Utility utilityEntities;
     @Autowired
     private UtilityWeb utilityWeb;
+    @Autowired
+    private Mapper mapper;
 
     @RequestMapping(value = ADICIONAR + "/{idProcesso}", method = GET)
     public String loadFormCaptacaoGetMethod(ModelMap model, @PathVariable Long idProcesso) {
@@ -76,17 +82,26 @@ public class NotificacaoCaptacaoController {
     @RequestMapping(value = SALVAR, method = POST)
     public String salvarCaptacao(HttpSession session, ModelMap model,
                                  @ModelAttribute ProcessoNotificacaoDTO processo,
-                                 @RequestParam("captacaoRealizada") boolean captacaoRealizada,
-                                 @RequestParam("paciente.nome") String nomePaciente,
+                                 @RequestParam(value = "captacaoRealizada", required = false) boolean captacaoRealizada,
                                  @RequestParam("dataCaptacao") String dataCaptacao,
-                                 @RequestParam("horarioCaptacao") String horarioCaptacao) throws ParseException {
+                                 @RequestParam("horarioCaptacao") String horarioCaptacao,
+                                 @RequestParam(value = "descricaoComentario" ,defaultValue = "") String descricaoComentario) throws ParseException {
         //Processo de notificacao vem incompleto, logo, ele deve ser buscado novamente
+        String nomePaciente = processo.getObito().getPaciente().getNome();
+        captacaoRealizada = processo.getCaptacao().isCaptacaoRealizada();
         try {
             UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
             processo.getCaptacao().setDataCaptacao(utilityEntities.stringToCalendar(dataCaptacao, horarioCaptacao));
             processo.getCaptacao().setCaptacaoRealizada(captacaoRealizada);
 
-            aplProcessoNotificacao.salvarCaptacao(processo.getId(), processo.getCaptacao(), usuarioSessao.getIdUsuario());
+            Long idProcesso = processo.getId();
+            if(!descricaoComentario.isEmpty()) {
+                String momento = EstadoNotificacaoEnum.AGUARDANDOCAPTACAO.toString();
+                ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+
+                aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+            }
+            aplProcessoNotificacao.salvarCaptacao(idProcesso, processo.getCaptacao(), usuarioSessao.getIdUsuario());
         } catch (ConstraintViolationException e) {
             model.addAttribute("nomePaciente", nomePaciente);
             setUpConstraintViolations(model, processo, captacaoRealizada, dataCaptacao, horarioCaptacao, e);
@@ -135,8 +150,17 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = APP_ANALISAR + RECUSAR, method = POST)
-    public String recusarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
+    public String recusarCaptacao(@RequestParam("id") Long idProcesso,
+                                  HttpSession session,
+                                  @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
         aplProcessoNotificacao.recusarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?captacaoRecusado=true";
@@ -155,8 +179,18 @@ public class NotificacaoCaptacaoController {
     }
 
     @RequestMapping(value = APP_ANALISAR + CONFIRMAR, method = POST)
-    public String confirmarCaptacao(@RequestParam("id") Long idProcesso, HttpSession session) {
+    public String confirmarCaptacao(@RequestParam("id") Long idProcesso,
+                                    HttpSession session,
+                                    @RequestParam(value = "descricaoComentario",defaultValue = "") String descricaoComentario) {
+
         UsuarioSessao usuarioSessao = (UsuarioSessao) session.getAttribute("user");
+
+        if(!descricaoComentario.isEmpty()) {
+            String momento = EstadoNotificacaoEnum.EMANALISECAPTACAO.toString();
+            ComentarioDTO comentario = utilityWeb.criarComentario(momento, descricaoComentario, usuarioSessao);
+
+            aplProcessoNotificacao.salvarComentario(idProcesso, mapper.map(comentario, Comentario.class));
+        }
         aplProcessoNotificacao.confirmarAnaliseCaptacao(idProcesso, usuarioSessao.getIdUsuario());
 
         return "redirect:" + INDEX + "?captacaoConfirmado=true";
