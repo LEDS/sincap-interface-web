@@ -77,9 +77,6 @@
                 'obito.paciente.sexo': {
                     required: true
                 },
-                'obito.paciente.numeroSUS': {
-                    required: true
-                },
                 'obito.paciente.numeroProntuario': {
                     required: true
                 },
@@ -123,9 +120,6 @@
                 },
                 'obito.paciente.sexo': {
                     required: "Por favor, selecione o sexo do paciente"
-                },
-                'obito.paciente.numeroSUS': {
-                    required: "Por favor, insira o número de SUS do paciente"
                 },
                 'obito.paciente.profissao': {
                     required: "Por favor, insira a profissão do paciente"
