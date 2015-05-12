@@ -1,4 +1,35 @@
 $(document).ready(function() {
+    $("#msgAlertaHora").hide();
+
+    function eventoMudarHora () {
+        $("#msgAlertaHora").hide();
+        var validateArray = [];
+
+        var dataEntrevista = document.getElementById('dataEntrevista').value;
+        validateArray[validateArray.length] = dataEntrevista;
+        var horaEntrevista = document.getElementById('horaEntrevista').value;
+        validateArray[validateArray.length] = horaEntrevista;
+        var dataHoraObito = document.getElementById('horaObito').value;
+        validateArray[validateArray.length] = dataHoraObito;
+        var dataHoraEntrevista = dataEntrevista + ' ' + horaEntrevista;
+        validateArray[validateArray.length] =dataHoraEntrevista;
+        var REGEX_DATA_HORA_PREENCHIDAS = /^\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}$/;
+
+        var condition = false;
+        validateArray.some(function(element, index, array){
+            if((typeof element != 'undefined') && element !== '' && element !== '__:__'){
+                condition = true;
+            }else{
+                condition = false;
+                return true;
+            }
+        });
+
+        if(dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS) && condition) {
+            verificarHoraObito(data(dataHoraObito),data(dataHoraEntrevista));
+        }
+    };
+
     if(document.getElementById("entrevistaRealizada:1").checked) {
         $('#divEntrevistaRealizada').hide();
     } else {
@@ -6,11 +37,13 @@ $(document).ready(function() {
     }
 
     if(document.getElementById("doacaoAutorizada:1").checked) {
+        $("#msgAlertaHora").hide();
         $('#divDoacaoAutorizada').hide();
         $('#btn-next').hide();
         $('#btn-finish').show();
     } else {
         $('#divDoacaoNaoAutorizada').hide();
+
     }
 
     document.getElementById("entrevista-responsavel-telefone-numero").addEventListener("keydown", function (e) {
@@ -53,12 +86,50 @@ $(document).ready(function() {
         $('#btn-finish').show();
     });
 
+    addListenerMulti(document.getElementById('horaEntrevista'), 'dblclick blur', eventoMudarHora);
+    addListenerMulti(document.getElementById('dataEntrevista'), 'dblclick blur', eventoMudarHora);
+
+    var data = function(dataBr) {
+        dataArray = dataBr.split('/');
+        dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
+        return new Date(dataEn);
+    };
+
+    var ehMais6Horas = function (dataHoraObito,dataHoraEntrevista) {
+
+        return dataHoraEntrevista - dataHoraObito >= 21600000;
+    };
+
+    var setInapto = function() {
+        document.getElementById('entrevistaRealizada:1').checked = true;
+        $.uniform.update();
+    };
+
+    var setAcimaTempoMaximoRetirada = function() {
+        document.getElementById('problemasEstruturais').value = '20';
+        $('#problemasEstruturais').select2();
+    };
+
+    var verificarHoraObito = function(dataHoraObito,dataHoraEntrevista) {
+
+        var acimaDoTempo = (document.getElementById("entrevistaRealizada:0").checked)
+            && (document.getElementById("doacaoAutorizada:0").checked)
+            && ehMais6Horas(dataHoraObito,dataHoraEntrevista);
+
+        if(acimaDoTempo) {
+          $("#msgAlertaHora").show();
+        }else{
+          $("#msgAlertaHora").hide();
+        }
+    };
+
     init();
 });
 
 function init() {
     definirMascaras();
     definirEstilo();
+
 
     function definirMascaras() {
         $('.dataEntrevista').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -571,4 +642,9 @@ function init() {
             }
         });
     });
+
+
+
 }
+
+

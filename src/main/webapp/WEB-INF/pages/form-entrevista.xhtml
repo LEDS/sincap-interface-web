@@ -2,9 +2,8 @@
 <ui:composition template="/WEB-INF/templates/form.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:sincap="http://java.sun.com/jsf/composite/sincap">
+        >
 
     <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
 
@@ -23,39 +22,36 @@
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
         <div class="span12">
-            <form id="notifEntrevista" class="form-horizontal"
-                  action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
-                <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
-                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-
-                <div id="fuelux-wizard" class="wizard row-fluid">
-                    <ul class="wizard-steps">
-                        <li data-target="#step1" class="active">
-                            <span class="step">1</span>
-                            <span class="title">#{msg['paciente.aba.text.titulo']}</span>
-                        </li>
-                        <li data-target="#step2" >
-                            <span class="step">2</span>
-                            <span class="title">#{msg['responsavel.aba.text.titulo']}</span>
-                        </li>
-                        <li data-target="#step3">
-                            <span class="step">3</span>
-                            <span class="title">#{msg['testemunha.aba.text.titulo']}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="step-content">
-                    <form id="processo" class="form-horizontal"
-                          action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
-                          method="post">
-                        <div class="principal span8" style="float:left;">
-                            <div class="step-pane active" id="step1">
-                                <div class="row-fluid form-wrapper">
-                                    <div class="">
-                                        <div class="inline-input">
-                                                <div class="tab-content">
-                                                    <ui:include src="form-entrevista-aba-paciente.xhtml"/>
-                                                </div>
+        <form id="notifEntrevista" class="form-horizontal"
+              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
+            <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
+            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+            <div id="fuelux-wizard" class="wizard row-fluid">
+                <ul class="wizard-steps">
+                    <li data-target="#step1" class="active">
+                        <span class="step">1</span>
+                        <span class="title">#{msg['paciente.aba.text.titulo']}</span>
+                    </li>
+                    <li data-target="#step2" >
+                        <span class="step">2</span>
+                        <span class="title">#{msg['responsavel.aba.text.titulo']}</span>
+                    </li>
+                    <li data-target="#step3">
+                        <span class="step">3</span>
+                        <span class="title">#{msg['testemunha.aba.text.titulo']}</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="step-content">
+                <form id="processo" class="form-horizontal"
+                      action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
+                      method="post">
+                    <div class="step-pane active" id="step1">
+                        <div class="row-fluid form-wrapper">
+                            <div class="span8">
+                                <div class="inline-input">
+                                        <div class="tab-content">
+                                            <ui:include src="form-entrevista-aba-paciente.xhtml"/>
                                         </div>
                                     </div>
                                 </div>
