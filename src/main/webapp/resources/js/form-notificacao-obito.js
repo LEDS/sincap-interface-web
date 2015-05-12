@@ -189,13 +189,18 @@
         $('.cpf').inputmask('999.999.999-99');
         $('.cep').mask('99999-999');
 
-        var encamaminhamento = $("#obito-corpoEncaminhamento").value;
+        var encaminhamento = document.getElementById('obito-corpoEncaminhamento');
 
-        if ((encamaminhamento ==='SVO') || (encamaminhamento === 'IML')){
+        encaminhamento.addEventListener('click', function() {
+            if ((encaminhamento.value === 'SVO') || (encaminhamento.value === 'IML')) {
 
-            $("#obito.primeiraCausaMortis").rules('remove');
-            fieldBoxValidatorSuccess(null, document.getElementById('obito.primeiraCausaMortis'));
-        }
+                $("#obito-primeiraCausaMortis").rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito.primeiraCausaMortis'));
+            }else {
+                $("#obito-primeiraCausaMortis").rules('add', {required: true});
+            }
+        });
+
         var tipoDocumento = document.getElementById('obito-paciente-documentoSocial-tipoDocumentoComFoto');
         tipoDocumento.addEventListener('click', function() {
             if (tipoDocumento.value === 'PNI') {
