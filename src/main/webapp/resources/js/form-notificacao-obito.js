@@ -191,7 +191,7 @@
 
         var encaminhamento = document.getElementById('obito-corpoEncaminhamento');
 
-        encaminhamento.addEventListener('click', function() {
+        encaminhamento.addEventListener('change', function() {
             if ((encaminhamento.value === 'SVO') || (encaminhamento.value === 'IML')) {
 
                 $("#obito-primeiraCausaMortis").rules('remove');
