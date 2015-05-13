@@ -28,7 +28,7 @@
                 <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
-                <div id="fuelux-wizard" class="wizard row-fluid">
+                <div id="fuelux-wizard" class="wizard row-fluid text-center">
                     <ul class="wizard-steps">
                         <li data-target="#step1" class="active">
                             <span class="step">1</span>
@@ -45,25 +45,22 @@
                     </ul>
                 </div>
                 <div class="step-content">
-                    <div class="row">
+                    <!--Configurações do form à partir daqui-->
+                    <div class="row form-wrapper inline-input">
                         <form id="processo" class="form-horizontal"
                               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
                               method="post">
-                            <div class="principal span8" style="float:left;">
+                            <div class="principal span8 column">
                                 <div class="step-pane active" id="step1">
-                                    <div class="row-fluid form-wrapper">
-                                        <div class="">
-                                            <div class="inline-input">
-                                                    <div class="tab-content">
-                                                        <ui:include src="form-entrevista-aba-paciente.xhtml"/>
-                                                    </div>
-                                            </div>
+                                    <div>
+                                        <div class="tab-content">
+                                            <ui:include src="form-entrevista-aba-paciente.xhtml"/>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="step-pane" id="step2">
                                     <div class="row-fluid form-wrapper">
-                                        <div class="span8">
+                                        <div>
                                             <div class="inline-input">
                                                 <ui:include src="form-entrevista-aba-responsavel.xhtml"/>
                                             </div>
