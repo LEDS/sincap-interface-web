@@ -1,6 +1,6 @@
 
 div#table-delimiter {
-    height: 48em;
+    height: 100%;
     overflow-y: scroll;
 }
 

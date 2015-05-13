@@ -5,34 +5,83 @@
         <h:panelGroup layout="block" id="comment-container">
             <h:panelGroup layout="block" rendered="true" id="table-delimiter">
                 <!-- Tabela de Notificações -->
-                <h:dataTable value="#{processo.comentarios}" var="comentario"
+                <h:dataTable rendered="#{processo.comentarios != null}" value="#{processo.comentarios}" var="comentario"
                     styleClass="table table-hover table-striped">
                     <!-- Protocolo -->
                     <h:column>
-                        <div class="row-fluid">
-                            <div class="span12">
-                                <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
-                                <span>No momento de <h:outputText value="#{comentario.momento}" /></span> <br />
-                                <span>
-                                    <h:outputText value="#{comentario.dataComentario.time}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                                    </h:outputText>
-                                </span><br/>
+
+                        <h:panelGroup style="text-align: right; margin: 5px" rendered="#{comentario.funcionario.id == request.getSession().getAttribute('user').idUsuario}" layout="block">
+                            <div class="row-fluid">
+                                <div class="span10">
+                                    <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
+                                    <span>No momento de <h:outputText value="#{comentario.momento}" /></span> <br />
+                                    <span>
+                                        <h:outputText value="#{comentario.dataComentario.time}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                        </h:outputText>
+                                    </span><br/>
+                                </div>
+                                <div class="span2">
+                                    <h:graphicImage library="img" name="avatar_padrao.jpg" class="img-circle avatar hidden-phone"/>
+                                </div>
                             </div>
-                        </div>
-                        <br/>
-                        <div class="row-fluid">
-                            <div class="span10 offset2">
-                                <h:outputText value="#{comentario.descricao}" />
+                            <br/>
+                            <div class="row-fluid">
+                                <div class="span10">
+                                    <h:outputText value="#{comentario.descricao}" />
+                                </div>
                             </div>
-                        </div>
+                        </h:panelGroup>
+                        <h:panelGroup  style="text-align: left; margin: 5px" rendered="#{comentario.funcionario.id != request.getSession().getAttribute('user').idUsuario}" layout="block">
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <h:graphicImage library="img" name="avatar_padrao.jpg" class="img-circle avatar hidden-phone"/>
+                                </div>
+                                <div class="span10">
+                                    <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
+                                    <span>No momento de <h:outputText value="#{comentario.momento}" /></span> <br />
+                                    <span>
+                                        <h:outputText value="#{comentario.dataComentario.time}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                        </h:outputText>
+                                    </span><br/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row-fluid">
+                                <div class="span10 offset2">
+                                    <h:outputText value="#{comentario.descricao}" />
+                                </div>
+                            </div>
+                        </h:panelGroup>
                     </h:column>
                 </h:dataTable>
             </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="field-box">
-                <span><b><h:outputLabel value="#{msg['comentario.titulo.principal']}"/></b></span>
+            <h:panelGroup layout="block" id="area-comentario" styleClass="field-box">
                 <h:inputTextarea id="descricaoComentario" name="descricaoComentario" rows="3" value="#{descricaoComentario}"/>
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>
+    <script>
+        function redimensionarAreaDeComentarios(){
+            var umComentario = $('div#comment-container * > tr').first();
+            if(umComentario !== ''){
+                var alturaDiv = $('.step-pane.active').height();
+                var alturaAreaComentario = $('#area-comentario').height();
+                var alturaTotalComentario = alturaDiv - alturaAreaComentario;
+                var alturaUmComentario = umComentario.height();
+
+                alturaTotalComentario = Math.ceil(alturaTotalComentario/alturaUmComentario);
+                alturaTotalComentario = alturaTotalComentario*alturaUmComentario;
+
+                console.log('altura-step-pane',alturaDiv);
+                console.log('altura-area-comentario',alturaAreaComentario);
+                console.log('altura-total-comentario',alturaTotalComentario);
+                $('#table-delimiter').attr('style','height: '+alturaTotalComentario+'px');
+            }
+        }
+        $(document).ready(function () {
+            setTimeout(redimensionarAreaDeComentarios,50);
+        });
+    </script>
 </ui:composition>
