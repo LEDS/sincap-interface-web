@@ -6,7 +6,7 @@
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
     <!--@elvariable id="listaSetor" type="java.util.List"-->
     <!--@elvariable id="listaCausaNaoDoacao" type="java.util.List"-->
-
+    <h4 class="section-title"><span>Dados do Óbito</span></h4>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.data']}*"/>
         <div class="span8">
@@ -76,7 +76,6 @@
         <div class="span8">
             <h:selectOneMenu
                     id="causaNaoDoacao"
-                    style="width: 100%"
                     styleClass="select2 span8"
                     value="#{processo.causaNaoDoacao}">
                 <f:selectItem itemLabel="#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}"/>
