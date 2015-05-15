@@ -1,3 +1,7 @@
+#the-sticky-div.sticky {
+    position: fixed;
+    top: 0;
+}
 
 h4.section-title {
     margin-bottom: 30px !important;

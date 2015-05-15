@@ -1,7 +1,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:panelGroup layout="block" styleClass="comentario span4">
+    <div id="the-sticky-div">
+        <h:panelGroup layout="block" styleClass="comentario span4">
         <div class="row">
             <h4 class="section-title pull-right"><span>Comentários</span></h4>
         </div>
@@ -65,7 +66,19 @@
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>
+    </div>
     <script>
+        var $sticky = $('#the-sticky-div');
+
+        function resizeDivOnScreenResize() {
+            var divComentario = $('div#the-sticky-div > div.comentario'),
+                widthDivComentario = divComentario.width(),
+                widthDivPrincipal = $('div.principal').width();
+
+            $sticky.css("margin-left", widthDivPrincipal);
+            divComentario.width(widthDivComentario);
+        };
+
         function redimensionarAreaDeComentarios(){
             var umComentario = $('div#comment-container * > tr').first();
             if(umComentario !== ''){
@@ -79,9 +92,33 @@
 
                 $('#table-delimiter').attr('style','height: '+alturaTotalComentario+'px');
             }
-        }
+        };
+
         $(document).ready(function () {
             setTimeout(redimensionarAreaDeComentarios,50);
+            //tornarComentarioFlutuante();
+        });
+//        $( window ).resize(function(){
+//            resizeDivOnScreenResize();
+//        });
+
+        var $window = $(window),
+                $stickyEl = $('#the-sticky-div'),
+                elTop = $stickyEl.offset().top;
+
+        $( window ).scroll(function () {
+            var divComentario = $('div#the-sticky-div > div.comentario'),
+                    widthDivComentario = divComentario.width(),
+                    widthDivPrincipal = $('div.principal').width();
+
+            $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
+
+            if($window.scrollTop() > elTop) {
+                $stickyEl.css("margin-left", widthDivPrincipal);
+                divComentario.width(widthDivComentario);
+            }else{
+                $stickyEl.css("margin-left", 0);
+            }
         });
     </script>
 </ui:composition>
