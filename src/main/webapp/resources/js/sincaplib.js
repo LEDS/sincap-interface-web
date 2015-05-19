@@ -420,6 +420,11 @@ function buildTable(tableId){
     }, 2500 );
 }
 
+function buildDateBrEn(dataBr){
+    dataArray = dataBr.split('/');
+    dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
+    return new Date(dataEn)
+}
 function addListenerMulti(el, s, fn) {
     var evts = s.split(' ');
     for (var i=0, iLen=evts.length; i<iLen; i++) {
