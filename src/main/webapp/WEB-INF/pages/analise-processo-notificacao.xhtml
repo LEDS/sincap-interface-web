@@ -25,74 +25,77 @@
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
                     <span class="step">1</span>
-                    <span class="title">Dados do <br/> óbito</span>
+                    <span class="title">Óbito</span>
                 </li>
                 <h:panelGroup layout="block" rendered="#{entrevista || captacao}">
                     <li data-target="#step2">
                         <span class="step">2</span>
-                        <span class="title">Dados da <br/> entrevista</span>
+                        <span class="title">Entrevista</span>
                     </li>
                 </h:panelGroup>
                 <h:panelGroup layout="block" rendered="#{captacao}">
                     <li data-target="#step3">
                         <span class="step">3</span>
-                        <span class="title">Dados da <br/>captação</span>
+                        <span class="title">Captação</span>
                     </li>
                 </h:panelGroup>
             </ul>
         </div>
-        <div class="step-content">
-            <div class="step-pane span8 active" id="step1">
-                <div class="row-fluid form-wrapper">
-                    <div class="span12">
-                        <form class="inline-input">
-                            <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
-                        </form>
+        <div class="row">
+            <div class="step-content">
+                <div class="step-pane span8 active" id="step1">
+                    <div class="row-fluid form-wrapper">
+                        <div class="principal span12">
+                            <form class="inline-input">
+                                <ui:include src="/WEB-INF/components/view-analise-obito.xhtml"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="step-pane span8" id="step2">
-                <div class="row-fluid form-wrapper">
-                    <div class="span12">
-                        <form class="inline-input">
-                            <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
-                        </form>
+                <div class="step-pane span8" id="step2">
+                    <div class="row-fluid form-wrapper">
+                        <div class="span12">
+                            <form class="inline-input">
+                                <ui:include src="/WEB-INF/components/view-analise-entrevista.xhtml"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="step-pane span8" id="step3">
-                <div class="row-fluid form-wrapper">
-                    <div class="span12">
-                        <form class="inline-input">
-                            <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
-                        </form>
+                <div class="step-pane span8" id="step3">
+                    <div class="row-fluid form-wrapper">
+                        <div class="span12">
+                            <form class="inline-input">
+                                <ui:include src="/WEB-INF/components/view-analise-captacao.xhtml"/>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                    <ui:param name="processo" value="#{processo}"/>
+                </ui:include>
             </div>
-            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                <ui:param name="processo" value="#{processo}"/>
-            </ui:include>
         </div>
-        <div class="wizard-actions">
-            <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
-                <i class="icon-chevron-left"></i> Anterior
-            </button>
-            <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
-                Próximo <i class="icon-chevron-right"></i>
-            </button>
-            <!--<h:panelGroup rendered="#{entrevista}">-->
-            <!--<button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">-->
-            <!--#{msg['analise.arquivar']}-->
-            <!--</button>-->
-            <!--</h:panelGroup>-->
-            <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
-                #{msg['analise.recusar']}
-            </button>
-            <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
-                #{msg['analise.confirmar']}
-            </button>
+        <div class="row">
+            <div class="wizard-actions text-center">
+                <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
+                    <i class="icon-chevron-left"></i> Anterior
+                </button>
+                <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
+                    Próximo <i class="icon-chevron-right"></i>
+                </button>
+                <!--<h:panelGroup rendered="#{entrevista}">-->
+                <!--<button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">-->
+                <!--#{msg['analise.arquivar']}-->
+                <!--</button>-->
+                <!--</h:panelGroup>-->
+                <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
+                    #{msg['analise.recusar']}
+                </button>
+                <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
+                    #{msg['analise.confirmar']}
+                </button>
+            </div>
         </div>
-
         <form id="form-analise" hidden="hidden" method="post">
             <input hidden="hidden" id="id" name="id" value="#{processo.id}"/>
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />

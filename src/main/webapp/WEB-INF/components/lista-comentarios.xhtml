@@ -62,7 +62,7 @@
                 </h:dataTable>
             </h:panelGroup>
             <h:panelGroup layout="block" id="area-comentario">
-                <h:inputTextarea id="descricaoComentario" name="descricaoComentario" rows="2" value="#{descricaoComentario}"/>
+                <textarea id="descricaoComentario" name="descricaoComentario" rows="3" maxlength="250">#{descricaoComentario}</textarea>
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>
@@ -79,8 +79,25 @@
             divComentario.width(widthDivComentario);
         };
 
+
+        function redimensionarAreaDeComentarios(){
+            var comentarios = $('div#comment-container * > tr');
+            var tableDelimiter = $('#table-delimiter');
+            if(comentarios != ''){
+                if(comentarios.length > 1){
+                   var comsHeight = comentarios[0].clientHeight + comentarios[1].clientHeight;
+                   tableDelimiter.attr('style','height:'+comsHeight+'px');
+                }else{
+                    tableDelimiter.attr('style','height:'+comentarios.first().clientHeight+'px');
+                }
+            }
+        }
+
+        /*
         function redimensionarAreaDeComentarios(){
             var umComentario = $('div#comment-container * > tr').first();
+            var qtdComentarios = $('div#comment-container * > tr').length;
+            var tableDelimiter = $('#table-delimiter').height();
             if(umComentario !== ''){
                 var alturaDiv = $('.step-pane.active').height();
                 var alturaAreaComentario = $('#area-comentario').height();
@@ -92,15 +109,11 @@
 
                 $('#table-delimiter').attr('style','height: '+alturaTotalComentario+'px');
             }
-        };
+        };*/
 
         $(document).ready(function () {
             setTimeout(redimensionarAreaDeComentarios,50);
-            //tornarComentarioFlutuante();
         });
-//        $( window ).resize(function(){
-//            resizeDivOnScreenResize();
-//        });
 
         var $window = $(window),
                 $stickyEl = $('#the-sticky-div'),
@@ -109,7 +122,7 @@
         $( window ).scroll(function () {
             var divComentario = $('div#the-sticky-div > div.comentario'),
                     widthDivComentario = divComentario.width(),
-                    widthDivPrincipal = $('div.principal').width();
+                    widthDivPrincipal = $('div.step-pane.active').width();
 
             $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
 
