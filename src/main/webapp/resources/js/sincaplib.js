@@ -420,6 +420,11 @@ function buildTable(tableId){
     }, 2500 );
 }
 
+function buildDateBrEn(dataBr){
+    dataArray = dataBr.split('/');
+    dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
+    return new Date(dataEn)
+}
 $(document).ready(function(){
     $('input[type=text].fillOnDblClick').tooltip({
         title : 'Para preencher com a data atual, clique duas vezes sobre o campo'
