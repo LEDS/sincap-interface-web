@@ -1,4 +1,10 @@
 
+h5.field-box {
+    color: #696d73;
+    font-style: italic;
+    margin-bottom: 10px !important;
+}
+
 #table-delimiter > table {
     margin: 0px;
 }

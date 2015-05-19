@@ -68,17 +68,11 @@
     </h:panelGroup>
     </div>
     <script>
-        var $sticky = $('#the-sticky-div');
-
-        function resizeDivOnScreenResize() {
-            var divComentario = $('div#the-sticky-div > div.comentario'),
-                widthDivComentario = divComentario.width(),
-                widthDivPrincipal = $('div.principal').width();
-
-            $sticky.css("margin-left", widthDivPrincipal);
-            divComentario.width(widthDivComentario);
-        };
-
+        /***
+         * Essa função define o tamanho da div de acordo com a quantidade
+         * de comentários existentes
+         *
+        ***/
 
         function redimensionarAreaDeComentarios(){
             var comentarios = $('div#comment-container * > tr');
@@ -93,45 +87,28 @@
             }
         }
 
-        /*
-        function redimensionarAreaDeComentarios(){
-            var umComentario = $('div#comment-container * > tr').first();
-            var qtdComentarios = $('div#comment-container * > tr').length;
-            var tableDelimiter = $('#table-delimiter').height();
-            if(umComentario !== ''){
-                var alturaDiv = $('.step-pane.active').height();
-                var alturaAreaComentario = $('#area-comentario').height();
-                var alturaTotalComentario = alturaDiv - alturaAreaComentario;
-                var alturaUmComentario = umComentario.height();
-
-                alturaTotalComentario = Math.ceil(alturaTotalComentario/alturaUmComentario);
-                alturaTotalComentario = alturaTotalComentario*alturaUmComentario;
-
-                $('#table-delimiter').attr('style','height: '+alturaTotalComentario+'px');
-            }
-        };*/
-
         $(document).ready(function () {
             setTimeout(redimensionarAreaDeComentarios,50);
         });
 
         var $window = $(window),
-                $stickyEl = $('#the-sticky-div'),
-                elTop = $stickyEl.offset().top;
+            $stickyDiv = $('#the-sticky-div'),
+            stickyTop = $stickyDiv.offset().top,
+            divComentario = $('div#the-sticky-div > div.comentario');
 
-        $( window ).scroll(function () {
-            var divComentario = $('div#the-sticky-div > div.comentario'),
-                    widthDivComentario = divComentario.width(),
-                    widthDivPrincipal = $('div.step-pane.active').width();
+        $window.scroll(function () {
+            var widthDivComentario = divComentario.width(),
+                widthDivPrincipal = $('div.step-pane.active').width();
 
-            $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
+            $stickyDiv.toggleClass('sticky', $window.scrollTop() > stickyTop);
 
-            if($window.scrollTop() > elTop) {
-                $stickyEl.css("margin-left", widthDivPrincipal);
+            if($window.scrollTop() > stickyTop) {
+                $stickyDiv.css("margin-left", widthDivPrincipal);
                 divComentario.width(widthDivComentario);
             }else{
-                $stickyEl.css("margin-left", 0);
+                $stickyDiv.css("margin-left", 0);
             }
         });
+
     </script>
 </ui:composition>
