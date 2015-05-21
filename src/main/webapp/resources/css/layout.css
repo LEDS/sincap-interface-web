@@ -1,4 +1,22 @@
 
+/* Insere margem acima e abaixo em todos os elementos do tipo */
+h4.section-title {
+	margin-bottom: 30px !important;
+	margin-top: 30px !important;
+}
+
+/* Aplica regra para inserir margem somente abaixo do elemento */
+div.step-pane.active > * div.row:first-child > h4.section-title{
+	margin-bottom: 30px !important;
+	margin-top: 0px !important;
+}
+
+/* Aplica regra para inserir margem somente acima do elemento */
+div.step-pane.active > * div.row:last-of-type > h4.section-title{
+	margin-top: 30px !important;
+	margin-bottom: 0px !important;
+}
+
 h5.field-box {
     color: #696d73;
     font-style: italic;
@@ -12,10 +30,6 @@ h5.field-box {
 #the-sticky-div.sticky {
     position: fixed;
     top: 0;
-}
-
-h4.section-title {
-    margin-bottom: 30px !important;
 }
 
 h4.section-title > span{
