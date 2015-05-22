@@ -340,6 +340,7 @@ function buildTable(tableId){
     if(tableId === "#tabelaObitoAguardandoEntrevista"){
         var table = $(tableId).DataTable(
             {
+                "dom":'<"span12"<"row-fluid datatables-top"lf><"row-fluid datatables-middle"t><"row-fluid datatables-bottom"ip>>',
                 "ajax": location.origin + urlMetodoControlador,
                 "columns": [
                     { "data": "protocolo" },
@@ -349,6 +350,7 @@ function buildTable(tableId){
                     { "data": "dataNotificacao" },
                     { "data": "horaNotificacao" },
                     {
+                        "className": "center-important",
                         "data": null,
                         "targets": -1,
                         "defaultContent"
@@ -364,6 +366,7 @@ function buildTable(tableId){
     }else{
         var table = $(tableId).DataTable(
             {
+                "dom":'<"span12"<"row-fluid datatables-top"lf><"row-fluid datatables-middle"t><"row-fluid datatables-bottom"ip>>',
                 "ajax": location.origin + urlMetodoControlador,
                 "columns": [
                     { "data": "protocolo" },
@@ -373,6 +376,7 @@ function buildTable(tableId){
                     { "data": "hospital" },
                     { "data": "notificador" },
                     {
+                        "className": "center-important",
                         "data": null,
                         "targets": -1,
                         "defaultContent"

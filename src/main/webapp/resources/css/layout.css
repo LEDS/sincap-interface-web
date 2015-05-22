@@ -1,4 +1,14 @@
 
+.center-important{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+div.flash-message{
+    padding: 0px 25px;
+    margin-top: 25px;
+}
+
 /* Insere margem acima e abaixo em todos os elementos do tipo */
 h4.section-title {
 	margin-bottom: 30px !important;
