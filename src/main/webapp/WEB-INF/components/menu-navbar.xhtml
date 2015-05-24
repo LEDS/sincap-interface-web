@@ -13,7 +13,8 @@
             </h:commandButton>
 
             <!-- Logo do sincap -->
-            <a class="brand"
+            <a id="logo-navbar"
+               class="brand"
                href="#{request.contextPath}#{contextUrls.index}">
                 <h:graphicImage library="img" name="logo-NOVA_BLUE_RESIZE.png" class="logo"/>
             </a>
@@ -109,8 +110,8 @@
 
         $(document).ready(function()
         {
-            setInterval(ajaxGetNovasNotificacoes, 2500);
-            //getAnalisarObito();
+            //setInterval(ajaxGetNovasNotificacoes, 2500);
+            ajaxGetNovasNotificacoes();
         });
 
         function confirmarSaida() {

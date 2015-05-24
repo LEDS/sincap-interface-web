@@ -4,24 +4,21 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:panelGroup rendered="#{sucessoObito}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Obito salvo com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Obito cadastrado com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{obitoConfirmado}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Obito confirmado com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Obito confirmado com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{obitoRecusado}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Obito recusado com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Obito recusado com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{sucessoEntrevista}" layout="block" styleClass="flash-message">
@@ -39,44 +36,38 @@
     </h:panelGroup>
 
     <h:panelGroup rendered="#{entrevistaConfirmada}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Entrevista confirmada com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Entrevista confirmada com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{entrevistaRecusada}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Entrevista recusada com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value=" Entrevista recusada com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{captacaoSucesso}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Captação salva com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Captação salva com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{captacaoConfirmado}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Captação confirmada com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Captação confirmada com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{captacaoRecusado}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Captação recusada com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Captação recusada com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{sucessoArquivamento}" layout="block" styleClass="flash-message">
-        <div class="alert alert-success">
-            <i class="icon-save"/>
-            Arquivado com sucesso!
-        </div>
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Arquivado com sucesso!" />
+        </ui:include>
     </h:panelGroup>
 </ui:composition>
