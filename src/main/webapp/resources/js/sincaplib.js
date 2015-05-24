@@ -378,11 +378,10 @@ function buildTable(tableId){
                         "className": "center-important",
                         "data": null,
                         "targets": -1,
-                        "defaultContent"
-                            : "<a class=\"btn-flat default\" href=\"#\"> " +
-                            "<i class=\"icon-file\"></i>"+
-                            "Analisar"+
-                            "</a>"
+                        "defaultContent":
+                        "<a class='btn-flat default' href='#'> " +
+                            "<i class='icon-ok' style='margin: 0px !important;'></i>"+
+                        "</a>"
                     }
                 ],
                 "sPaginationType": "full_numbers"
@@ -404,11 +403,10 @@ function buildTable(tableId){
                         "className": "center-important",
                         "data": null,
                         "targets": -1,
-                        "defaultContent"
-                            : "<a class=\"btn-flat default\" href=\"#\"> " +
-                            "<i class=\"icon-file\"></i>"+
-                            "Analisar"+
-                            "</a>"
+                        "defaultContent":
+                        "<a class='btn-flat default' href='#'> " +
+                            "<i class='icon-ok' style='margin: 0px !important;'></i>"+
+                        "</a>"
                     }
                 ],
                 "sPaginationType": "full_numbers"
