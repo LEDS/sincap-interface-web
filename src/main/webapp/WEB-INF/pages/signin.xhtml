@@ -74,18 +74,17 @@
                     <input id="password" name="password" class="span12" type="password" placeholder="Senha"
                            title="#{msg['login.text.senha']}"/>
 
-                    <div id="select-hospitais">
-                    <h:outputLabel value="Hospital"/>
+                    <div id="select-hospitais" style="margin-top: 20px !important">
+                        <h:outputLabel value="Hospital"/>
 
-                    <div class="ui-select" id="hospitais">
-                        <h:selectOneMenu id="hospital" value="#{usuario.hospital}"
-                                         title="#{msg['login.text.hospital']}">
-
-                        </h:selectOneMenu>
+                        <div class="span12" id="hospitais">
+                            <h:selectOneMenu styleClass="span12 text-center" id="hospital" value="#{usuario.hospital}"
+                                             title="#{msg['login.text.hospital']}">
+                            </h:selectOneMenu>
+                        </div>
                     </div>
-                    </div>
 
-                    <br/><br/>
+                    <br/>
 
                     <!--<a href="#" class="forgot">#{msg['login.btn.esqueceuSenha']}</a>-->
 

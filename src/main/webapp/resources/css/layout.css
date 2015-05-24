@@ -1,3 +1,7 @@
+form#signInForm * > div#hospitais{
+	margin-left: 0px;
+	margin-bottom: 20px;
+}
 a#logo-navbar{
 	padding: 10px 20px !important;
 }
