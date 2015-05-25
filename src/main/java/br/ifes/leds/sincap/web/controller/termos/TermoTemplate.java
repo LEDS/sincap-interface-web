@@ -86,16 +86,31 @@ public abstract class TermoTemplate {
         String dataEntrevista = utility.calendarDataToString(pn.getEntrevista().getDataEntrevista());
         final String horaEntrevista = utility.calendarHoraToString(pn.getEntrevista().getDataEntrevista());
 
-        String dataNascimentoResponsavel = utility.calendarDataToString(pn.getEntrevista().getResponsavel().getDataNascimento());
-        String cidadeResponsavel = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel().getEndereco().getCidade()).getNome();
-        String bairroResponsavel = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel().getEndereco().getBairro()).getNome();
-        String estadoResponsavel = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel().getEndereco().getEstado()).getNome();
+        if(pn.getEntrevista().getResponsavel()!= null){
+            String dataNascimentoResponsavel = utility.calendarToString(pn.getEntrevista().getResponsavel().getDataNascimento());
+            String cidadeResponsavel = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel().getEndereco().getCidade()).getNome();
+            String bairroResponsavel = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel().getEndereco().getBairro()).getNome();
+            String estadoResponsavel = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel().getEndereco().getEstado()).getNome();
+            Integer idadeResponsavel = utility.calculaIdade(pn.getEntrevista().getResponsavel().getDataNascimento(), Calendar.getInstance());
+            model.addAttribute("bairroResponsavel", bairroResponsavel);
+            model.addAttribute("estadoResponsavel", estadoResponsavel);
+            model.addAttribute("cidadeResponsavel", cidadeResponsavel);
+            model.addAttribute("dataNascimentoResponsavel", dataNascimentoResponsavel);
+            model.addAttribute("idadeResponsavel", idadeResponsavel);
+        }else{
+            model.addAttribute("bairroResponsavel", "");
+            model.addAttribute("estadoResponsavel", "");
+            model.addAttribute("cidadeResponsavel", "");
+            model.addAttribute("dataNascimentoResponsavel", "");
+            model.addAttribute("idadeResponsavel", "");
+        }
+
 
         if (pn.getEntrevista().getResponsavel2() != null) {
             String cidadeResponsavel2 = aplEndereco.obterCidadePorID(pn.getEntrevista().getResponsavel2().getEndereco().getCidade()).getNome();
             String bairroResponsavel2 = aplEndereco.obterBairroPorID(pn.getEntrevista().getResponsavel2().getEndereco().getBairro()).getNome();
             String estadoResponsavel2 = aplEndereco.obterEstadosPorID(pn.getEntrevista().getResponsavel2().getEndereco().getEstado()).getNome();
-            String dataNascimentoResponavel2 = utility.calendarDataToString(pn.getEntrevista().getResponsavel2().getDataNascimento());
+            String dataNascimentoResponavel2 = utility.calendarToString(pn.getEntrevista().getResponsavel2().getDataNascimento());
 
             Integer idadeResponsavel2 = utility.calculaIdade(pn.getEntrevista().getResponsavel2().getDataNascimento(), Calendar.getInstance());
 
@@ -108,14 +123,11 @@ public abstract class TermoTemplate {
         String nomeFuncinario = aplFuncionario.obter(pn.getEntrevista().getFuncionario()).getNome();
 
         int idadePaciente = utility.calculaIdade(pn.getObito().getPaciente().getDataNascimento(), pn.getObito().getDataObito());
-        Integer idadeResponsavel = utility.calculaIdade(pn.getEntrevista().getResponsavel().getDataNascimento(), Calendar.getInstance());
+
 
         model.addAttribute("nomeFuncionario", nomeFuncinario);
-        model.addAttribute("bairroResponsavel", bairroResponsavel);
-        model.addAttribute("estadoResponsavel", estadoResponsavel);
-        model.addAttribute("cidadeResponsavel", cidadeResponsavel);
-        model.addAttribute("dataNascimentoResponsavel", dataNascimentoResponsavel);
-        model.addAttribute("idadeResponsavel", idadeResponsavel);
+
+
         model.addAttribute("dataEntrevista", dataEntrevista);
         model.addAttribute("horaEntrevista", horaEntrevista);
         model.addAttribute("hospitalNome", hospitalNome);
@@ -126,11 +138,13 @@ public abstract class TermoTemplate {
         model.addAttribute("idadePaciente", idadePaciente);
         model.addAttribute("dataObito", dataObito);
         model.addAttribute("horaObito", horaObito);
+        model.addAttribute("hospital","evangelico");
         model.addAttribute("pn", pn);
+
 
         final Map<String, String> recusaFamiliarDataAtual = new HashMap<String, String>(){{
             final Calendar hoje = Calendar.getInstance();
-            final String dataAtual = hoje.get(DAY_OF_MONTH) + "/" + hoje.get(MONTH) + "/" + hoje.get(YEAR);
+            final String dataAtual = hoje.get(DAY_OF_MONTH) + "/" + (hoje.get(MONTH)+1) + "/" + hoje.get(YEAR);
             put("recusaFamiliar", pnCompleto.getCausaNaoDoacao() != null ? pnCompleto.getCausaNaoDoacao().getNome() : "");
             put("dataAtual", dataAtual);
         }};
