@@ -55,7 +55,8 @@ public class IndexController {
                         @RequestParam(value = "sucessoArquivamento", defaultValue = "false") boolean sucessoArquivamento,
                         @RequestParam(value = "captacaoSucesso", defaultValue = "false") boolean captacaoSucesso,
                         @RequestParam(value = "captacaoConfirmado", defaultValue = "false") boolean captacaoConfirmado,
-                        @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado) {
+                        @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado,
+                        @RequestParam(value = "doacaoNaoAutorizada", defaultValue = "false") boolean doacaoNaoAutorizada){
 
         List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
 
@@ -76,6 +77,7 @@ public class IndexController {
         model.addAttribute("captacaoConfirmado", captacaoConfirmado);
         model.addAttribute("captacaoRecusado", captacaoRecusado);
         model.addAttribute("sucessoArquivamento", sucessoArquivamento);
+        model.addAttribute("doacaoNaoAutorizada", doacaoNaoAutorizada);
 
         return "index";
     }

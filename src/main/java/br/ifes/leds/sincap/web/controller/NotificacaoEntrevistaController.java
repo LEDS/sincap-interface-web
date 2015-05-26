@@ -138,7 +138,16 @@ public class NotificacaoEntrevistaController {
             return "form-entrevista";
         }
 
+<<<<<<< HEAD
         return "redirect:" + INDEX + "?idEntrevista=" + processo.getId() + "&realizada=" + processo.getEntrevista().isEntrevistaRealizada();
+=======
+        if(processo.getEntrevista().isDoacaoAutorizada()) {
+            return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
+
+        } else {
+            return "redirect:" + INDEX + "?doacaoNaoAutorizada=true&idEntrevista=" + processo.getId();
+        }
+>>>>>>> termo-nao-doacao
     }
 
     private void addAtributosIniciais(ModelMap model, ProcessoNotificacaoDTO processo) {
