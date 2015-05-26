@@ -227,6 +227,8 @@
         });
     };
 
+
+
     $(document).ready(function () {
         $('#causaNaoDoacao').select2();
         $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -236,7 +238,7 @@
         $('.hora').inputmask('hh:mm');
         $('.cpf').inputmask('999.999.999-99');
         $('.cep').mask('99999-999');
-        
+
         var tipoDocumento = document.getElementById('obito-paciente-documentoSocial-tipoDocumentoComFoto');
         tipoDocumento.addEventListener('click', function() {
             if (tipoDocumento.value === 'PNI') {
@@ -258,6 +260,14 @@
                 $("#obito-paciente-numeroSUS").rules('add', {required: true});
             }
         });
+
+        var corpo_encaminhamento = document.getElementById('obito-corpoEncaminhamento');
+        corpo_encaminhamento.addEventListener('change', function() {
+            if(corpo_encaminhamento.value !== 'NAO_ENCAMINHADO'){
+                $("#obito-primeiraCausaMortis").rules('remove');
+            }
+        });
+
         $("#msgAlertaHora").hide();
         addListenerMulti(document.getElementById('obito-dataObito'), 'change click keypress', eventoMudarHora);
         addListenerMulti(document.getElementById('horarioObito'), 'change click keypress', eventoMudarHora);
