@@ -138,7 +138,7 @@ public abstract class TermoTemplate {
         model.addAttribute("idadePaciente", idadePaciente);
         model.addAttribute("dataObito", dataObito);
         model.addAttribute("horaObito", horaObito);
-        model.addAttribute("hospital","evangelico");
+        model.addAttribute("cnes",h.getCnes());
         model.addAttribute("pn", pn);
 
 
