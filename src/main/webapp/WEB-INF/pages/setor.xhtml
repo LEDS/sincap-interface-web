@@ -12,13 +12,18 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
-        <h:panelGroup layout="block" styleClass="container-fluid">
-            <h2 class="text-center">#{msg['setor.title.visualizar']}</h2>
-            <a class="btn-flat success" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}#{contextUrls.adicionar}">
-               <i class="icon-plus"></i>
-            </a>
-            <br/>
-            <ui:include src="/WEB-INF/components/lista-setores.xhtml" />
-        </h:panelGroup>
+        <div id="pad-wrapper">
+            <h:panelGroup layout="block" styleClass="container-fluid">
+                <h2 class="title text-center">#{msg['setor.title.visualizar']}</h2>
+                    <div class="row-fluid">
+                        <a class="btn-flat success pull-right" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}#{contextUrls.adicionar}">
+                           <i class="icon-plus"></i>
+                           Novo
+                        </a>
+
+                        <ui:include src="/WEB-INF/components/lista-setores.xhtml" />
+                    </div>
+            </h:panelGroup>
+        </div>
     </ui:define>
 </ui:composition>
