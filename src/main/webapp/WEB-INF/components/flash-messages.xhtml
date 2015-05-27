@@ -1,0 +1,73 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:panelGroup rendered="#{sucessoObito}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Obito cadastrado com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{obitoConfirmado}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Obito confirmado com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{obitoRecusado}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Obito recusado com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{sucessoEntrevista}" layout="block" styleClass="flash-message">
+        <div class="alert alert-success">
+            <i class="icon-save"/>
+            Entrevista salva com sucesso!
+            <h:panelGroup rendered="#{entrevistaRealizada}">
+                <a target="_blank" class="btn-flat success"
+                   href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}#{contextUrls.imprimir}/#{idEntrevista}">
+                    <!--<i class="icon-file"></i>-->
+                    Emitir Termo
+                </a>
+            </h:panelGroup>
+        </div>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{entrevistaConfirmada}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Entrevista confirmada com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{entrevistaRecusada}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value=" Entrevista recusada com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{captacaoSucesso}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Captação salva com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{captacaoConfirmado}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Captação confirmada com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{captacaoRecusado}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Captação recusada com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+
+    <h:panelGroup rendered="#{sucessoArquivamento}" layout="block" styleClass="flash-message">
+        <ui:include src="flash-message.xhtml">
+            <ui:param name="messageText" value="Arquivado com sucesso!" />
+        </ui:include>
+    </h:panelGroup>
+</ui:composition>

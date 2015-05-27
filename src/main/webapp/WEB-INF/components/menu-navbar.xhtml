@@ -13,32 +13,34 @@
             </h:commandButton>
 
             <!-- Logo do sincap -->
-            <a class="brand"
+            <a id="logo-navbar"
+               class="brand"
                href="#{request.contextPath}#{contextUrls.index}">
-                <h:graphicImage library="img" name="logo.png" class="logo"/>
+                <h:graphicImage library="img" name="logo-NOVA_BLUE_RESIZE.png" class="logo"/>
             </a>
 <!-- Elementos a esquerda -->
             <!-- Nomes das funções -->
             <ul class="nav pull-left">
-                <h:panelGroup
-                        rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
-                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
-                        Página do notificador: #{request.getSession().getAttribute('user').nome}
-                    </h5>
-                </h:panelGroup>
-                <h:panelGroup
-                        rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
-                        Página do analista: #{request.getSession().getAttribute('user').nome}
-                    </h5>
-                </h:panelGroup>
-                <h:panelGroup
-                        rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
-                    <h5 class="navbar-text" id="mensagemNomeUsuario" style="color:azure">
-                        Página do captador: #{request.getSession().getAttribute('user').nome}
-                    </h5>
-                </h:panelGroup>
-
+                <li class="hidden-phone">
+                    <h:panelGroup
+                            rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
+                        <a id="mensagemNomeUsuario" style="color:azure; border-left: none">
+                            Página do notificador: #{request.getSession().getAttribute('user').nome}
+                        </a>
+                    </h:panelGroup>
+                    <h:panelGroup
+                            rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
+                        <a id="mensagemNomeUsuario" style="color:azure; border-left: none">
+                            Página do analista: #{request.getSession().getAttribute('user').nome}
+                        </a>
+                    </h:panelGroup>
+                    <h:panelGroup
+                            rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
+                        <a id="mensagemNomeUsuario" style="color:azure; border-left: none">
+                            Página do captador: #{request.getSession().getAttribute('user').nome}
+                        </a>
+                    </h:panelGroup>
+                </li>
             </ul>
             <!-- Elementos a direita -->
             <ul class="nav pull-right">
@@ -108,8 +110,8 @@
 
         $(document).ready(function()
         {
-            setInterval(ajaxGetNovasNotificacoes, 2500);
-            //getAnalisarObito();
+            //setInterval(ajaxGetNovasNotificacoes, 2500);
+            ajaxGetNovasNotificacoes();
         });
 
         function confirmarSaida() {

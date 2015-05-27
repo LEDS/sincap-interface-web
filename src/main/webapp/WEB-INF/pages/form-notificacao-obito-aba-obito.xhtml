@@ -6,26 +6,31 @@
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
     <!--@elvariable id="listaSetor" type="java.util.List"-->
     <!--@elvariable id="listaCausaNaoDoacao" type="java.util.List"-->
-
+    <h4 class="section-title"><span>Dados do Óbito</span></h4>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.data']}*"/>
+        <div class="span8">
         <h:inputText styleClass="data span8 fillOnDblClick" onblur="setInaptoDoacao()" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.horario']}*"/>
+        <div class="span8">
         <h:inputText styleClass="hora span8" id="horarioObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
         </h:inputText>
+        </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}*"/>
 
-        <div class="ui-select span5">
+        <div class="span8">
             <h:selectOneMenu
+                    styleClass="span8"
                     id="obito-setor"
                     value="#{processo.obito.setor}">
                 <f:selectItem itemLabel="#{msg['obito.obito.dropDown.setor.escolha']}"/>
@@ -37,8 +42,9 @@
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.CorpoEncaminhamento']}*"/>
-        <div class="ui-select span5">
+        <div class="span8">
             <h:selectOneMenu
+                    styleClass="span8"
                     id="obito-corpoEncaminhamento"
                     value="#{processo.obito.corpoEncaminhamento}">
                 <f:selectItem itemLabel="#{msg['obito.CorpoEncaminhamento.tipoEncaminhamento']}"/>
@@ -47,30 +53,6 @@
         </div>
     </h:panelGroup>
 
-    <div id="divCausasMortis" class="field-box">
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos1']}*"/>
-            <h:inputText id="obito-primeiraCausaMortis" styleClass="span8"
-                         value="#{processo.obito.primeiraCausaMortis.nome}"/>
-        </h:panelGroup>
-
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos2']}"/>
-            <h:inputText id="obito-segundaCausaMortis" styleClass="span8"
-                         value="#{processo.obito.segundaCausaMortis.nome}"/>
-        </h:panelGroup>
-
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
-            <h:inputText id="obito-terceiraCausaMortis" styleClass="span8"
-                         value="#{processo.obito.terceiraCausaMortis.nome}"/>
-        </h:panelGroup>
-
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
-            <h:inputText id="obito-quartaCausaMortis" styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
-        </h:panelGroup>
-    </div>
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}*"/>
 
@@ -91,15 +73,48 @@
     <div id="divCausaNaoDoacao" class="field-box">
         <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
 
-        <div class="span5">
+        <div class="span8">
             <h:selectOneMenu
                     id="causaNaoDoacao"
-                    style="width: 10cm"
-                    styleClass="select2"
+                    styleClass="select2 span8"
                     value="#{processo.causaNaoDoacao}">
                 <f:selectItem itemLabel="#{msg['obito.obito.contraIndicacoes-Medicas.escolha']}"/>
                 <f:selectItems value="#{listaCausaNaoDoacao}"/>
             </h:selectOneMenu>
         </div>
     </div>
+
+    <div id="divCausasMortis" >
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos1']}*"/>
+            <div class="span8">
+            <h:inputText id="obito-primeiraCausaMortis" styleClass="span8"
+                         value="#{processo.obito.primeiraCausaMortis.nome}"/>
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos2']}"/>
+            <div class="span8">
+            <h:inputText id="obito-segundaCausaMortis" styleClass="span8"
+                         value="#{processo.obito.segundaCausaMortis.nome}"/>
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
+            <div class="span8">
+            <h:inputText id="obito-terceiraCausaMortis" styleClass="span8"
+                         value="#{processo.obito.terceiraCausaMortis.nome}"/>
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup layout="block" styleClass="field-box">
+            <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
+            <div class="span8">
+            <h:inputText id="obito-quartaCausaMortis" styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
+            </div>
+        </h:panelGroup>
+    </div>
+
 </ui:composition>

@@ -2,8 +2,7 @@
 <ui:composition template="/WEB-INF/templates/adm.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
+                xmlns:ui="http://java.sun.com/jsf/facelets">
     
 
     <!-- Título da página -->
@@ -14,12 +13,9 @@
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
         <h:panelGroup layout="block" styleClass="container-fluid">
-            <br/>
-            <h2>#{msg['setor.title.visualizar']}</h2>
-            <br/>
-            <br/>
+            <h2 class="text-center">#{msg['setor.title.visualizar']}</h2>
             <a class="btn-flat success" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}#{contextUrls.adicionar}">
-               <i class="icon-plus"></i> Novo
+               <i class="icon-plus"></i>
             </a>
             <br/>
             <ui:include src="/WEB-INF/components/lista-setores.xhtml" />
