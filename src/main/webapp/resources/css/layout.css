@@ -1,4 +1,8 @@
 
+div.row.filtro{
+	margin: 60px 0 30px 0;
+}
+
 div#table-delimiter {
     height: 48em;
     overflow-y: scroll;

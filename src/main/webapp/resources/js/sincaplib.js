@@ -354,7 +354,6 @@ function buildTable(tableId){
                         "defaultContent"
                             : "<a class=\"btn-flat default\" href=\"#\"> " +
                             "<i class=\"icon-file\"></i>"+
-                            "Analisar"+
                             "</a>"
                     }
                 ],
@@ -378,7 +377,6 @@ function buildTable(tableId){
                         "defaultContent"
                             : "<a class=\"btn-flat default\" href=\"#\"> " +
                             "<i class=\"icon-file\"></i>"+
-                            "Analisar"+
                             "</a>"
                     }
                 ],

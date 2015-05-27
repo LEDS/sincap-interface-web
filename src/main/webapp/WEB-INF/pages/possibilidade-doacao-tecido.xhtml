@@ -22,9 +22,9 @@
 
             <h1 align="center">Possibilidades de Doação de Tecidos</h1>
 
-            <br></br><br></br><br></br>
-
-            <h:panelGrid columns="7">
+            <div class="row filtro">
+                <div class="pull-right">
+            <h:panelGrid columns="12">
                 <h:outputLabel for="dataInicial" value="A partir de:"/>
                 <h:outputLabel value=" "/>
                 <h:inputText type = "date" id="dataInicial" name="dataInicial" value="#{dataInicial.time}">
@@ -36,16 +36,17 @@
                 <h:inputText type = "date" id="dataFinal" name="dataFinal" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
                 </h:inputText>
+                <button type="submit" class="btn-glow success btn-finish">
+                    <i class="icon-search"></i>
+                    Buscar
+                </button>
+
+
             </h:panelGrid>
-
-            <br></br><br></br>
-
-            <button type="submit" class="btn-glow success btn-finish">
-                Enviar
-            </button>
+                </div>
+            </div>
 
         </form>
-        <br></br><br></br>
 
         <div class="tab-content">
         <ui:include src="../components/lista-possibilidade-doacao-tecido.xhtml"/>
