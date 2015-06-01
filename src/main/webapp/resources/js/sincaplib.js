@@ -221,77 +221,102 @@ function ajaxGetBairros(idMunicipio, idBairro) {
  * de novas notificações.
  */
 function ajaxGetNovasNotificacoes() {
+
+    Array.prototype.diff = function(a) {
+        return this.filter(function(i) {return a.indexOf(i) < 0;});
+    };
+
     // Limpa todo o html do painel.
     $('#painelNovasNotificacoes').html("");
 
+    var notificacoes = [];
+
     // Faz a requisição ao controlador.
-    $.ajax({
-        type: "get",
-        url: location.origin + "/sincap/processo/getNotificarInteressados",
-        cache: false,
-        Accept: "application/json",
-        contentType: "application/json",
-        success: function (response) {
-            // Variável que conta o número de notificações.
-            var quantasNotificacoes = 0;
+    var buscarNotificacaoes = function(notificacoes){
+        $.ajax({
+            type: "get",
+            url: location.origin + "/sincap/processo/getNotificarInteressados",
+            cache: false,
+            Accept: "application/json",
+            contentType: "application/json",
+            success: function (response) {
 
-            // Variável que agregará os vários itens do painel.
-            var itens = [];
+                //Array que contem as notificacoes requisitadas
+                var reqNotificacoes = [];
 
-            var id;
-            var codigo;
-            var estado;
-            var tempo;
-            var url;
+                // Variável que conta o número de notificações.
+                var quantasNotificacoes = 0;
 
-            $.each(response, function (idx, notificacao) {
-                // Para cada notificação, aumenta 1 no número de notificações.
-                quantasNotificacoes += 1;
+                // Variável que agregará os vários itens do painel.
+                var itens = [];
 
-                // Pega os campos necessários da notificação.
-                $.each(notificacao, function (key, value) { //key eh o nome do campo, value eh o valor que o campo possui
-                    if (key === "id")
-                        id = value;
-                    if (key === "codigo")
-                        codigo = value;
-                    if (key === "estado")
-                        estado = value;
-                    if (key === "tempo")
-                        tempo = value;
-                    if (key === "urlRelativa")
-                        url = value;
+                var id;
+                var codigo;
+                var estado;
+                var tempo;
+                var url;
+
+                $.each(response, function (idx, notificacao) {
+
+                    //Cria um array com as notificacoes buscadas no ajax
+                    reqNotificacoes.push(notificacao);
+
+                    // Para cada notificação, aumenta 1 no número de notificações.
+                    quantasNotificacoes += 1;
+
+                    // Pega os campos necessários da notificação.
+                    id = notificacao.id;
+                    codigo = notificacao.codigo;
+                    estado = notificacao.estado;
+                    tempo = notificacao.tempo;
+                    url = notificacao.urlRelativa;
+
+                    // Acrescenta um item ao painel, com os dados da notificação.
+                    itens[idx] =
+                        "<input hidden=\"hidden\" id=\"id\" name=\"id\" value=" + id +"/>"
+                        + "<a href=\"" + location.origin + url + "\" class=\"item\">"
+                        + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
+                        + "<i class=\"icon-envelope-alt\"></i>" + estado
+                        + "</a>";
                 });
 
-                // Acrescenta um item ao painel, com os dados da notificação.
-                itens[idx] =
-                    "<input hidden=\"hidden\" id=\"id\" name=\"id\" value=" + id +"/>"
-                    + "<a href=\"" + location.origin + url + "\" class=\"item\">"
-                    + "<span class=\"time\"><i class=\"icon-time\"></i> " + tempo + "</span>"
-                    + "<i class=\"icon-envelope-alt\"></i>" + estado
-                    + "</a>";
-            });
+                var diffNotificacoes = notificacoes.diff( reqNotificacoes );
 
-            // Atualiza o contador do número de novas notificações e o título do painel.
-            $("#contador").html(quantasNotificacoes);
+                //Verifica se existe alguma diferença entre os dois arrays
+                if(diffNotificacoes.length > 0 || notificacoes.length == 0){
 
-            // Anexa o cabeçalho do painel.
-            var $painelNovasNotificacoes = $("#painelNovasNotificacoes").append(
-                    "<h3>Você tem " + quantasNotificacoes + " novas notificações</h3>");
+                    //Atualiza a variavel de notificacoes
+                    notificacoes = reqNotificacoes;
 
-            // Anexa os itens do painel.
-            $painelNovasNotificacoes.append(itens);
+                    //Limpa as notificacoes
+                    $('#painelNovasNotificacoes').html("");
 
-            // Anexa o rodapé a lista.
-            $painelNovasNotificacoes.append(
-                    "<div class=\"footer\">"
-                    + "<a href=\"" + location.origin + "/sincap/buscar/todos" + "\" class=\"logout\">Ver todas as notificações</a>"
-                    + "</div>");
-        },
-        error: function (response, status, error) {
-            $("#painelNovasNotificacoes").append(
-                "<h3>Erro no javascript do painel de novas notificações</h3>");
-        }
-    });
+                    // Atualiza o contador do número de novas notificações e o título do painel.
+                    $("#contador").html(quantasNotificacoes);
+
+                    // Anexa o cabeçalho do painel.
+                    var $painelNovasNotificacoes = $("#painelNovasNotificacoes").append(
+                        "<h3>Você tem " + quantasNotificacoes + " novas notificações</h3>");
+
+                    // Anexa os itens do painel.
+                    $painelNovasNotificacoes.append(itens);
+
+                    // Anexa o rodapé a lista.
+                    $painelNovasNotificacoes.append(
+                        "<div class=\"footer\">"
+                        + "<a href=\"" + location.origin + "/sincap/buscar/todos" + "\" class=\"logout\">Ver todas as notificações</a>"
+                        + "</div>");
+                }
+
+            },
+            error: function (response, status, error) {
+                $("#painelNovasNotificacoes").append(
+                    "<h3>Erro no javascript do painel de novas notificações</h3>");
+            }
+        });
+    };
+
+    setInterval(buscarNotificacaoes(notificacoes),2500);
 }
 
 function definirEstilo() {
@@ -340,6 +365,7 @@ function buildTable(tableId){
     if(tableId === "#tabelaObitoAguardandoEntrevista"){
         var table = $(tableId).DataTable(
             {
+                "dom":'<"span12"<"row-fluid datatables-top"lf><"row-fluid datatables-middle"t><"row-fluid datatables-bottom"ip>>',
                 "ajax": location.origin + urlMetodoControlador,
                 "columns": [
                     { "data": "protocolo" },
@@ -349,13 +375,13 @@ function buildTable(tableId){
                     { "data": "dataNotificacao" },
                     { "data": "horaNotificacao" },
                     {
+                        "className": "center-important",
                         "data": null,
                         "targets": -1,
-                        "defaultContent"
-                            : "<a class=\"btn-flat default\" href=\"#\"> " +
-                            "<i class=\"icon-file\"></i>"+
-                            "Analisar"+
-                            "</a>"
+                        "defaultContent":
+                        "<a class='btn-flat default' href='#'> " +
+                            "<i class='icon-ok' style='margin: 0px !important;'></i>"+
+                        "</a>"
                     }
                 ],
                 "sPaginationType": "full_numbers"
@@ -364,6 +390,7 @@ function buildTable(tableId){
     }else{
         var table = $(tableId).DataTable(
             {
+                "dom":'<"span12"<"row-fluid datatables-top"lf><"row-fluid datatables-middle"t><"row-fluid datatables-bottom"ip>>',
                 "ajax": location.origin + urlMetodoControlador,
                 "columns": [
                     { "data": "protocolo" },
@@ -373,13 +400,13 @@ function buildTable(tableId){
                     { "data": "hospital" },
                     { "data": "notificador" },
                     {
+                        "className": "center-important",
                         "data": null,
                         "targets": -1,
-                        "defaultContent"
-                            : "<a class=\"btn-flat default\" href=\"#\"> " +
-                            "<i class=\"icon-file\"></i>"+
-                            "Analisar"+
-                            "</a>"
+                        "defaultContent":
+                        "<a class='btn-flat default' href='#'> " +
+                            "<i class='icon-ok' style='margin: 0px !important;'></i>"+
+                        "</a>"
                     }
                 ],
                 "sPaginationType": "full_numbers"
@@ -438,5 +465,8 @@ $(document).ready(function(){
         var descricaoComentario = $('#descricaoComentario').val();
         $("#descricaoComentarioHidden").val(descricaoComentario);
     });
-});
 
+    $('div.flash-message * > i.icon-remove').first().click(function(){
+        $(this).parent().fadeOut();
+    });
+});
