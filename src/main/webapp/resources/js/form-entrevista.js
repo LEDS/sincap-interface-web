@@ -1,4 +1,5 @@
 (function () {
+    var $formulario = $('#notifEntrevista');
     var $wizard = $('#fuelux-wizard');
     var $btnPrev = $('#btn-prev');
     var $btnNext = $('#btn-next');
@@ -42,7 +43,9 @@
         $wizard.wizard('previous');
     });
     $btnNext.on('click', function () {
-        $wizard.wizard('next');
+        if ($formulario.valid()) {
+            $wizard.wizard('next');
+        }
     });
 
     // Acerta a visualização inicial da página.

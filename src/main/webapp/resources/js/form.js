@@ -35,7 +35,7 @@ function focus(selector, next) {
 var fieldBoxValidatorError = function (error, element) {
     var $element = $(element);
 
-    var $fieldBox = $element.parent().parent(".field-box");
+    var $fieldBox = $element.parents(".field-box");
     var $parent = $element.parent();
 
     if (!$fieldBox.hasClass("error")) {
@@ -50,7 +50,7 @@ var fieldBoxValidatorError = function (error, element) {
 var fieldBoxValidatorSuccess = function (label, element) {
     var $element = $(element);
 
-    var $parent = $element.parent().parent(".field-box");
+    var $parent = $element.parents(".field-box");
 
     if ($parent.hasClass("error")) {
         $parent.removeClass("error");

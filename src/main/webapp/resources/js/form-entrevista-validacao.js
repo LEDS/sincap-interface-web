@@ -1,31 +1,30 @@
 (function () {
     var regras = {
-        /*Dados do Paciente*/
-        entrevistaRealizada: {
+        'entrevista.dataCadastro': {
             required: true
         },
-        problemasEstruturais: {
+        'divEntrevistaNaoRealizada': {
             required: true
         },
-        doacaoAutorizada: {
+        'problemasEstruturais': {
             required: true
         },
-        dataEntrevista: {
+        'codigo': {
             required: true
         },
-        horaEntrevista: {
+        'recusaFamiliar': {
             required: true
         },
-        recusaFamiliar: {
+        'dataEntrevista': {
             required: true
         },
-        causaNaoDoacao: {
-            required: true
-        },
-        'obito.paciente.profissao': {
+        'horaEntrevista': {
             required: true
         },
         'obito.paciente.nome': {
+            required: true
+        },
+        'obito.paciente.profissao': {
             required: true
         },
         'obito.paciente.religiao': {
@@ -55,7 +54,7 @@
         'obito.paciente.endereco.numero': {
             required: true
         },
-        'obito.paciente.datainternacao': {
+        'obito.paciente.dataInternacao': {
             required: true
         },
         'obito.paciente.dataNascimento': {
@@ -67,22 +66,17 @@
         'obito.paciente.numeroSUS': {
             required: true
         },
-        'obito.paciente.sexo': {
-            required: true
-        },
         'obito.paciente.estadoCivil': {
-            required: true
-        },
-        'obito.paciente.documentoSocial.documento': {
             required: true
         },
         'obito.paciente.documentoSocial.tipoDocumentoComFoto': {
             required: true
         },
-        /*Dados do Responsavel*/
+        'obito.paciente.documentoSocial.documento': {
+            required: true
+        },
         'entrevista.responsavel.nome': {
-            required: true,
-            minlength: 3
+            required: true
         },
         'entrevista.responsavel.dataNascimento': {
             required: true
@@ -105,10 +99,6 @@
         'entrevista.responsavel.telefone2.numero': {
             required: true
         },
-        'entrevista.responsavel.sexo': {
-            required: true
-        },
-
         'entrevista.responsavel.profissao': {
             required: true
         },
@@ -139,12 +129,8 @@
         'entrevista.responsavel.endereco.numero': {
             required: true
         },
-
-        //Dados 2º responsável legal
-
         'entrevista.responsavel2.nome': {
-            required: true,
-            minlength: 3
+            required: true
         },
         'entrevista.responsavel2.dataNascimento': {
             required: true
@@ -167,10 +153,6 @@
         'entrevista.responsavel2.telefone2.numero': {
             required: true
         },
-        'entrevista.responsavel2.sexo': {
-            required: true
-        },
-
         'entrevista.responsavel2.profissao': {
             required: true
         },
@@ -201,25 +183,22 @@
         'entrevista.responsavel2.endereco.numero': {
             required: true
         },
-
-        //Dados 1° testemunha
         'entrevista.testemunha1.nome': {
-            required: true
-        },
-        'entrevista.testemunha1.documentoSocial.documento': {
             required: true
         },
         'entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto': {
             required: true
         },
-        //Dados 2° testemunha
+        'entrevista.testemunha1.documentoSocial.documento': {
+            required: true
+        },
         'entrevista.testemunha2.nome': {
             required: true
         },
-        'entrevista.testemunha2.documentoSocial.documento': {
+        'entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto': {
             required: true
         },
-        'entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto': {
+        'entrevista.testemunha2.documentoSocial.documento': {
             required: true
         }
     };
