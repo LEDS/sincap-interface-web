@@ -10,7 +10,7 @@
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.obito.data']}*"/>
         <div class="span8">
-        <h:inputText styleClass="data span8 fillOnDblClick" onblur="setInaptoDoacao()" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
+        <h:inputText styleClass="data span8 fillOnDblClick" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
         </h:inputText>
         </div>

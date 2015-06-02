@@ -233,7 +233,7 @@
         $('.cep').mask('99999-999');
 
         var tipoDocumento = document.getElementById('obito-paciente-documentoSocial-tipoDocumentoComFoto');
-        tipoDocumento.addEventListener('click', function () {
+        tipoDocumento.addEventListener('change', function () {
             if (tipoDocumento.value === 'PNI') {
                 $("#obito-paciente-documentoSocial-documento").rules('remove');
                 fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-documentoSocial-documento'));
@@ -256,8 +256,13 @@
 
         var corpo_encaminhamento = document.getElementById('obito-corpoEncaminhamento');
         corpo_encaminhamento.addEventListener('change', function () {
+            var $primeiraCausaMortis = $("#obito-primeiraCausaMortis");
+
             if (corpo_encaminhamento.value !== 'NAO_ENCAMINHADO') {
-                $("#obito-primeiraCausaMortis").rules('remove');
+                $primeiraCausaMortis.rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('obito-primeiraCausaMortis'));
+            } else {
+                $primeiraCausaMortis.rules('add', {required: true});
             }
         });
 
