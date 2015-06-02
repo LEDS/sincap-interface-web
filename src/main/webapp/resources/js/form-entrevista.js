@@ -48,14 +48,14 @@
     // Acerta a visualização inicial da página.
     if (getElement("entrevistaRealizada:1").checked) {
         $divEntrevistaRealizada.hide();
+        $btnFinish.show();
+        $btnNext.hide();
     } else {
         $divEntrevistaNaoRealizada.hide();
     }
 
     if (getElement("doacaoAutorizada:1").checked) {
         $divDoacaoAutorizada.hide();
-        $btnNext.hide();
-        $btnFinish.show();
     } else {
         $divDoacaoNaoAutorizada.hide();
     }
@@ -63,24 +63,24 @@
     $('#entrevistaRealizada\\:0').change(function () {
         $divEntrevistaRealizada.fadeIn();
         $divEntrevistaNaoRealizada.fadeOut();
+        $btnFinish.hide();
+        $btnNext.show();
     });
     $('#entrevistaRealizada\\:1').change(function () {
         $divEntrevistaNaoRealizada.fadeIn();
         $divEntrevistaRealizada.fadeOut();
+        $btnFinish.show();
+        $btnNext.hide();
     });
 
     $('#doacaoAutorizada\\:0').change(function () {
         $divDoacaoAutorizada.fadeIn();
         $divDoacaoNaoAutorizada.fadeOut();
-        $btnFinish.hide();
-        $btnNext.show();
     });
 
     $('#doacaoAutorizada\\:1').change(function () {
         $divDoacaoNaoAutorizada.fadeIn();
         $divDoacaoAutorizada.fadeOut();
-        $btnFinish.show();
-        $btnNext.hide();
     });
 
     $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
