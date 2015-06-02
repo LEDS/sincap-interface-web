@@ -1,6 +1,7 @@
 (function () {
     var SEIS_HORAS = 21600000;
 
+    var $formulario = $('#processo');
     var $wizard = $('#fuelux-wizard');
     var $btnPrev = $('.wizard-actions .btn-prev');
     var $btnNext = $('.wizard-actions .btn-next');
@@ -31,7 +32,9 @@
         $wizard.wizard('previous');
     });
     $btnNext.on('click', function () {
-        $wizard.wizard('next');
+        if ($formulario.valid()) {
+            $wizard.wizard('next');
+        }
     });
 
     function mergeDates() {
@@ -53,107 +56,100 @@
     //Validando os dados do formulario
     var validar_form = function () {
         $("#processo").validate({
-
-            ignore: [],
             errorPlacement: fieldBoxValidatorError,
             success: fieldBoxValidatorSuccess,
             rules: {
-                //Notificacao de Obito aba Paciente
-                'obito.paciente.nome': {
-                    required: true
-                },
-                dataNascimento: {
-                    required: true
-                },
-                'obito.paciente.dataInternacao': {
-                    required: true
-                },
-                'obito.paciente.documentoSocial.documento': {
+                'obito.tipoObito': {
                     required: true
                 },
                 'obito.paciente.documentoSocial.tipoDocumentoComFoto': {
                     required: true
                 },
-                'obito.paciente.sexo': {
+                'obito.paciente.documentoSocial.documento': {
+                    required: true
+                },
+                'obito.paciente.nome': {
+                    required: true
+                },
+                'obito.paciente.dataNascimento': {
+                    required: true
+                },
+                'obito.paciente.dataInternacao': {
+                    required: true
+                },
+                'obito.paciente.nomeMae': {
+                    required: true
+                },
+                'obito.paciente.numeroSUS': {
                     required: true
                 },
                 'obito.paciente.numeroProntuario': {
                     required: true
                 },
-                dataObito: {
+                'obito.dataObito': {
                     required: true
                 },
-                horarioObito: {
-                    required: true,
-                    minlength: 5
+                'horarioObito': {
+                    required: true
                 },
                 'obito.setor': {
                     required: true
                 },
-                'obito.primeiraCausaMortis': {
+                'obito.corpoEncaminhamento': {
                     required: true
                 },
-                'obito.aptoDoacao': {
+                'causaNaoDoacao': {
+                    required: true
+                },
+                'obito.primeiraCausaMortis': {
                     required: true
                 }
             },
             messages: {
-                //Notificacao de Obito aba Paciente
-                'obito.paciente.nome': {
-                    required: "Por favor, insira o nome do paciente"
-                },
-                dataNascimento: {
-                    required: "Por favor, insira a data de nascimento do paciente"
-                },
-                'obito.paciente.dataInternacao': {
-                    required: "Por favor, insira a data de internação do paciente"
-                },
-                'obito.paciente.documentoSocial.documento': {
-                    required: "Por favor, insira um documento social do paciente"
+                'obito.tipoObito': {
+                    required: 'Por favor, preencha o tipo do óbito'
                 },
                 'obito.paciente.documentoSocial.tipoDocumentoComFoto': {
-                    required: "Por favor, insira um documento social do paciente"
+                    required: 'Por favor, preencha o tipo do documento'
                 },
-                'obito.paciente.telefone.numero': {
-                    required: "Por favor, insira um telefone do paciente",
-                    rangelength: "O telefone de ter entre 10 e 11 dígitos"
+                'obito.paciente.documentoSocial.documento': {
+                    required: 'Por favor, preencha o documento'
                 },
-                'obito.paciente.sexo': {
-                    required: "Por favor, selecione o sexo do paciente"
+                'obito.paciente.nome': {
+                    required: 'Por favor, preencha o nome'
                 },
-                'obito.paciente.profissao': {
-                    required: "Por favor, insira a profissão do paciente"
+                'obito.paciente.dataNascimento': {
+                    required: 'Por favor, preencha a data de nascimento'
                 },
-                'obito.paciente.nacionalidade': {
-                    required: "Por favor, insira a nascionalidade do paciente"
+                'obito.paciente.dataInternacao': {
+                    required: 'Por favor, preencha a data de internação'
+                },
+                'obito.paciente.nomeMae': {
+                    required: 'Por favor, preencha o nome da mãe'
+                },
+                'obito.paciente.numeroSUS': {
+                    required: 'Por favor, preencha o número do cartão SUS'
                 },
                 'obito.paciente.numeroProntuario': {
-                    required: "Por favor, insira o número do prontuário do paciente"
+                    required: 'Por favor, preencha o número de prontuário'
                 },
-                'obito.paciente.endereco.cidade': {
-                    required: "Por favor, insira a cidade do paciente"
+                'obito.dataObito': {
+                    required: 'Por favor, preencha a data de óbito'
                 },
-                'obito.paciente.endereco.bairro': {
-                    required: "Por favor, insira o bairro do paciente"
-                },
-                'obito.paciente.endereco.cep': {
-                    required: "Por favor, insira o cep do paciente"
-                },
-                //Notificacao de Obito aba Obito
-                dataObito: {
-                    required: "Por favor, insira a data do óbito do paciente"
-                },
-                horarioObito: {
-                    required: "Por favor, insira o horário do óbito do paciente"
+                'horarioObito': {
+                    required: 'Por favor, preencha o horário do óbito'
                 },
                 'obito.setor': {
-                    required: "Por favor, insira setor onde ocorreu o óbito"
+                    required: 'Por favor, preencha o setor em que ocorreu o óbito'
+                },
+                'obito.corpoEncaminhamento': {
+                    required: 'Por favor, preencha o encaminhamento do corpo'
+                },
+                'causaNaoDoacao': {
+                    required: 'Por favor, preencha a causa de não doação'
                 },
                 'obito.primeiraCausaMortis': {
-                    required: "Por favor, insira primeiro motivo do obito"
-                },
-                'obito.aptoDoacao': {
-                    required: "Por favor, selecione o estado do paciente"
+                    required: 'Por favor, preencha a primeira causa mortis'
                 }
             },
             submitHandler: function (form) {
