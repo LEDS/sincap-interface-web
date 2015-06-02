@@ -23,7 +23,7 @@
 
         <sincap:fieldError erro="#{erro}" msgErro="#{msg['obito.erro']}" objectErrors="#{fieldErrors}"/>
 
-        <div id="fuelux-wizard" class="wizard row-fluid">
+        <div id="fuelux-wizard" class="wizard row-fluid text-center">
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
                     <span class="step">1</span>
@@ -39,54 +39,56 @@
             <form id="processo" class="form-horizontal"
                   action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.salvar}"
                   method="post" >
-            <div class="principal span7" style="float:left;">
-                    <div class="step-pane active" id="step1">
-                        <div class="row-fluid form-wrapper">
-                            <div class="span12">
-                                <div class="inline-input">
-                                    <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
+                <div class="row">
+                    <div class="principal span8" style="float:left;">
+                        <div class="step-pane active" id="step1">
+                            <div class="row-fluid form-wrapper">
+                                <div class="span12">
+                                    <div class="inline-input">
+                                        <ui:include src="form-notificacao-obito-aba-paciente.xhtml"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="step-pane" id="step2">
-                        <div class="row-fluid form-wrapper">
-                            <div class="span8">
-                                <div class="inline-input">
-                                    <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
+                        <div class="step-pane" id="step2">
+                            <div class="row-fluid form-wrapper">
+                                <div class="span12">
+                                    <div class="inline-input">
+                                        <ui:include src="form-notificacao-obito-aba-obito.xhtml"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <input type="hidden" name="id" value="#{processo.id}" />
+
+                        <!-- Salva a data de abertura, se houver -->
+                        <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
+                        </h:inputHidden>
+
+                        <h:inputHidden id="obito-dataCadastro" value="#{processo.obito.dataCadastro.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
+                        </h:inputHidden>
+
+                        <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                     </div>
-                    <input type="hidden" name="id" value="#{processo.id}" />
-
-                    <!-- Salva a data de abertura, se houver -->
-                    <h:inputHidden id="dataAbertura" value="#{processo.dataAbertura.time}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
-                    </h:inputHidden>
-
-                    <h:inputHidden id="obito-dataCadastro" value="#{processo.obito.dataCadastro.time}">
-                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
-                    </h:inputHidden>
-
-                    <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-
-                <div class="wizard-actions">
-                    <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
-                        <i class="icon-chevron-left"/> Anterior
-                    </button>
-                    <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
-                        Próximo <i class="icon-chevron-right"/>
-                    </button>
-                    <button type="button" class="btn-flat success btn-finish">
-                        #{msg['obito.button.finalizar']}
-                    </button>
+                    <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                        <ui:param name="processo" value="#{processo}"/>
+                    </ui:include>
                 </div>
-            </div>
-
-            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                <ui:param name="processo" value="#{processo}"/>
-            </ui:include>
+                <div class="row">
+                    <div class="wizard-actions text-center">
+                        <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
+                            <i class="icon-chevron-left"/> Anterior
+                        </button>
+                        <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
+                            Próximo <i class="icon-chevron-right"/>
+                        </button>
+                        <button type="button" class="btn-flat success btn-finish">
+                            #{msg['obito.button.finalizar']}
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
 

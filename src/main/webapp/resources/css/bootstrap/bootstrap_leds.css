@@ -228,13 +228,13 @@ body {
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
-  background: url("#{resource['img/bgs:landscape.jpg']}") no-repeat center center fixed;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{resource['img/bgs:landscape.jpg']}", sizingMethod='scale');
-  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{resource['img/bgs:landscape.jpg']}", sizingMethod='scale');
+  background: url("#{resource['img/bgs:bkg.jpg']}") no-repeat center center fixed;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{resource['img/bgs:bkg.jpg']}", sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="#{resource['img/bgs:bkg.jpg']}", sizingMethod='scale');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; 
+  background-size: cover;
 }
 
 a {

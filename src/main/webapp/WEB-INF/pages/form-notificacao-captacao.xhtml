@@ -28,27 +28,30 @@
               method="post">
             <br/>
 
-            <div class="form-wrapper inline-input span8">
-                <div class="form-horizontal">
-                    <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
+            <div class="row-fluid">
+                <div class="form-wrapper inline-input span8">
+                    <div class="form-horizontal">
+                        <ui:include src="form-notificacao-captacao-aba-captacao.xhtml"/>
+                    </div>
                 </div>
+                <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
+                    <ui:param name="processo" value="#{processo}"/>
+                </ui:include>
+            </div>
+            <div class="row text-center">
+                <input type="hidden" id="id" name="id" value="#{processo.id}"/>
+                <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
+
+                <!--<h:inputHidden id="captacao-dataCadastro" value="#{processo.captacao.dataCadastro.time}">-->
+                <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />-->
+                <!--</h:inputHidden>-->
+
+                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+                <input type="submit"
+                       class="btn-flat success btn-finish"
+                       value="#{msg['obito.button.finalizar']}"/>
             </div>
 
-            <ui:include src="/WEB-INF/components/lista-comentarios.xhtml">
-                <ui:param name="processo" value="#{processo}"/>
-            </ui:include>
-
-            <input type="hidden" id="id" name="id" value="#{processo.id}"/>
-            <input type="hidden" id="notificador" name="notificador" value="#{processo.notificador}"/>
-
-            <!--<h:inputHidden id="captacao-dataCadastro" value="#{processo.captacao.dataCadastro.time}">-->
-            <!--<f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />-->
-            <!--</h:inputHidden>-->
-
-            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
-            <button type="submit"
-                    class="btn-glow success btn-finish">
-                #{msg['obito.button.finalizar']}</button>
         </form>
 
         <h:outputScript library="js" name="form-notificacao-captacao.js"/>

@@ -1,3 +1,23 @@
+div.row-fluid.datatables-top{
+    margin-bottom: 30px;
+}
+
+div.row-fluid.datatables-middle{
+    margin-bottom: 40px;
+}
+
+div.row-fluid.datatables-bottom{
+
+}
+
+table.dataTable{
+    margin: 0 auto;
+    clear: both;
+    width: 100% !important;
+    margin-bottom: 35px;
+}
+
 .datatables-page {
   margin-bottom: 25px;
+  padding: 0px !important;
 }

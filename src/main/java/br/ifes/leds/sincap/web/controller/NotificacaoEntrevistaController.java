@@ -138,10 +138,10 @@ public class NotificacaoEntrevistaController {
         }
 
         if(processo.getEntrevista().isDoacaoAutorizada()) {
-            return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId()  + "&realizada=true";
+            return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
 
         } else {
-            return "redirect:" + INDEX + "?doacaoNaoAutorizada=true&idEntrevista=" + processo.getId()  + "&realizada=" + processo.getEntrevista().isEntrevistaRealizada();
+            return "redirect:" + INDEX + "?doacaoNaoAutorizada=true&idEntrevista=" + processo.getId();
         }
     }
 

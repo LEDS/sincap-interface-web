@@ -1,6 +1,62 @@
+form#signInForm * > div#hospitais{
+	margin-left: 0px;
+	margin-bottom: 20px;
+}
+a#logo-navbar{
+	padding: 10px 20px !important;
+}
+.center-important{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+div.flash-message{
+    padding: 0px 25px;
+    margin-top: 25px;
+}
+
+div.flash-message > div.alert.alert-success{
+	padding-right: 0px !important;
+}
+
+/* Insere margem acima e abaixo em todos os elementos do tipo */
+h4.section-title {
+	margin-bottom: 30px !important;
+	margin-top: 30px !important;
+}
+
+/* Aplica regra para inserir margem somente abaixo do elemento */
+div.step-pane.active > * div.row:first-child > h4.section-title{
+	margin-bottom: 30px !important;
+	margin-top: 0px !important;
+}
+
+/* Aplica regra para inserir margem somente acima do elemento */
+div.step-pane.active > * div.row:last-of-type > h4.section-title{
+	margin-top: 30px !important;
+	margin-bottom: 0px !important;
+}
+
+h5.field-box {
+    color: #696d73;
+    font-style: italic;
+    margin-bottom: 10px !important;
+}
+
+#table-delimiter > table {
+    margin: 0px;
+}
+
+#the-sticky-div.sticky {
+    position: fixed;
+    top: 0;
+}
+
+h4.section-title > span{
+    border-bottom: 2px solid #34a0ed;
+}
 
 div#table-delimiter {
-    height: 48em;
+    height: 100%;
     overflow-y: scroll;
 }
 
