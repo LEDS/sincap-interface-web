@@ -32,36 +32,31 @@ function focus(selector, next) {
     });
 }
 
-function fieldBoxValidatorError(error, element) {
+var fieldBoxValidatorError = function (error, element) {
     var $element = $(element);
 
-    var $parent = $element.parent(".field-box");
+    var $fieldBox = $element.parents(".field-box");
+    var $parent = $element.parent();
 
-    if ($parent.length == 0){
-        var $parent = $element.parent(".ui-select").parent(".field-box");
-    }
-
-    if (!$parent.hasClass("error")) {
-        $parent.addClass("error");
+    if (!$fieldBox.hasClass("error")) {
+        $fieldBox.addClass("error");
         $parent.append("<span class='alert-msg'></span>");
-        var $span = $parent.find("span");
+        var $span = $fieldBox.find("span");
         $span.append("<i class='icon-remove-sign' />");
         $span.append(error.text());
     }
-}
+};
 
-function fieldBoxValidatorSuccess(label, element) {
+var fieldBoxValidatorSuccess = function (label, element) {
     var $element = $(element);
-    var $parent = $element.parent(".field-box");
-    if ($parent.length == 0){
-        var $parent = $element.parent(".ui-select").parent(".field-box");
-    }
+
+    var $parent = $element.parents(".field-box");
 
     if ($parent.hasClass("error")) {
         $parent.removeClass("error");
         $parent.find("span").remove();
     }
-}
+};
 
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");

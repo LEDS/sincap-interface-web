@@ -720,3 +720,8 @@ a.btn-flat.success.btn-inner-datatable{
 		height: 100%;
 	}
 }
+
+.form-wrapper .alert-msg {
+	margin-left: 0;
+	margin-top: 10px;
+}

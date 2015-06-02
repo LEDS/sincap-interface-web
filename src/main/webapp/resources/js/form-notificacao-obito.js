@@ -1,39 +1,37 @@
-(function() {
+(function () {
     var SEIS_HORAS = 21600000;
 
-    $(function () {
-        var $wizard = $('#fuelux-wizard'),
-            $btnPrev = $('.wizard-actions .btn-prev'),
-            $btnNext = $('.wizard-actions .btn-next'),
-            $btnFinish = $(".wizard-actions .btn-finish");
-        $btnPrev.hide();
-        $wizard.wizard().on('finished', function (e) {
-            // wizard complete code
-            console.log("finish");
-        }).on("changed", function (e) {
-            var step = $wizard.wizard("selectedItem");
-            // reset states
-            $btnNext.removeAttr("disabled");
-            $btnPrev.removeAttr("disabled");
-            $btnNext.show();
-            $btnFinish.hide();
-            $(window).scrollTop($('body').offset().top);
-            if (step.step === 1) {
-                $btnPrev.hide();
-                $btnPrev.attr("disabled", "disabled");
-            } else if (step.step === 2) {
-                $btnNext.hide();
-                $btnPrev.show();
-                $btnFinish.show();
-            }
-        });
+    var $wizard = $('#fuelux-wizard');
+    var $btnPrev = $('.wizard-actions .btn-prev');
+    var $btnNext = $('.wizard-actions .btn-next');
+    var $btnFinish = $(".wizard-actions .btn-finish");
 
-        $btnPrev.on('click', function () {
-            $wizard.wizard('previous');
-        });
-        $btnNext.on('click', function () {
-            $wizard.wizard('next');
-        });
+    $btnPrev.hide();
+    $wizard.wizard().on('finished', function () {
+        // wizard complete code
+    }).on("changed", function () {
+        var step = $wizard.wizard("selectedItem");
+        // reset states
+        $btnNext.removeAttr("disabled");
+        $btnPrev.removeAttr("disabled");
+        $btnNext.show();
+        $btnFinish.hide();
+        $(window).scrollTop($('body').offset().top);
+        if (step.step === 1) {
+            $btnPrev.hide();
+            $btnPrev.attr("disabled", "disabled");
+        } else if (step.step === 2) {
+            $btnNext.hide();
+            $btnPrev.show();
+            $btnFinish.show();
+        }
+    });
+
+    $btnPrev.on('click', function () {
+        $wizard.wizard('previous');
+    });
+    $btnNext.on('click', function () {
+        $wizard.wizard('next');
     });
 
     function mergeDates() {
@@ -45,7 +43,7 @@
         $processo.submit();
     }
 
-    $(".wizard-actions .btn-finish").click(function () {
+    $btnFinish.click(function () {
         var processo = $("#processo");
         if (processo.valid()) {
             mergeDates();
@@ -53,7 +51,7 @@
     });
 
     //Validando os dados do formulario
-    var validar_form = function() {
+    var validar_form = function () {
         $("#processo").validate({
 
             ignore: [],
@@ -164,9 +162,9 @@
         });
     };
 
-    var data = function(dataBr) {
-        dataArray = dataBr.split('/');
-        dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
+    var data = function (dataBr) {
+        var dataArray = dataBr.split('/');
+        var dataEn = dataArray[1] + '/' + dataArray[0] + '/' + dataArray[2];
         return new Date(dataEn);
     };
 
@@ -174,21 +172,21 @@
         return new Date() - dataHoraObito >= SEIS_HORAS;
     };
 
-    var setInapto = function() {
+    var setInapto = function () {
         document.getElementById('obito-aptoDoacao:1').checked = true;
         $("#divCausaNaoDoacao").show();
         $.uniform.update();
     };
 
-    var setAcimaTempoMaximoRetirada = function() {
+    var setAcimaTempoMaximoRetirada = function () {
         document.getElementById('causaNaoDoacao').value = '13';
         $('#causaNaoDoacao').select2();
     };
 
-    var verificarHoraObito = function(dataHoraObito) {
+    var verificarHoraObito = function (dataHoraObito) {
         var tipoObito = document.getElementById('obito-tipoObito').value;
 
-        if(tipoObito === "PCR" && ehMais6Horas(dataHoraObito)) {
+        if (tipoObito === "PCR" && ehMais6Horas(dataHoraObito)) {
             setInapto();
             setAcimaTempoMaximoRetirada();
             $("#msgAlertaHora").show();
@@ -202,16 +200,16 @@
         var dataHoraObito = dataObito + ' ' + horaObito;
         var REGEX_DATA_HORA_PREENCHIDAS = /^\d{2}\/\d{2}\/\d{4}\s\d{2}:\d{2}$/;
 
-        if(dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS)) {
+        if (dataHoraObito.match(REGEX_DATA_HORA_PREENCHIDAS)) {
             verificarHoraObito(data(dataHoraObito));
         }
     };
 
-    var show_hide_contraindicacoes = function() {
+    var show_hide_contraindicacoes = function () {
         var opt_apto_doacao = document.getElementById('obito-aptoDoacao:0');
         var opt_inapto_doacao = document.getElementById('obito-aptoDoacao:1');
 
-        opt_apto_doacao.addEventListener('click', function() {
+        opt_apto_doacao.addEventListener('click', function () {
             var divCausaNaoDoacao = $("#divCausaNaoDoacao");
             var causaNaoDoacao = $("#causaNaoDoacao");
             divCausaNaoDoacao.hide();
@@ -228,7 +226,6 @@
     };
 
 
-
     $(document).ready(function () {
         $('#causaNaoDoacao').select2();
         $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
@@ -240,7 +237,7 @@
         $('.cep').mask('99999-999');
 
         var tipoDocumento = document.getElementById('obito-paciente-documentoSocial-tipoDocumentoComFoto');
-        tipoDocumento.addEventListener('click', function() {
+        tipoDocumento.addEventListener('click', function () {
             if (tipoDocumento.value === 'PNI') {
                 $("#obito-paciente-documentoSocial-documento").rules('remove');
                 fieldBoxValidatorSuccess(null, document.getElementById('obito-paciente-documentoSocial-documento'));
@@ -262,8 +259,8 @@
         });
 
         var corpo_encaminhamento = document.getElementById('obito-corpoEncaminhamento');
-        corpo_encaminhamento.addEventListener('change', function() {
-            if(corpo_encaminhamento.value !== 'NAO_ENCAMINHADO'){
+        corpo_encaminhamento.addEventListener('change', function () {
+            if (corpo_encaminhamento.value !== 'NAO_ENCAMINHADO') {
                 $("#obito-primeiraCausaMortis").rules('remove');
             }
         });

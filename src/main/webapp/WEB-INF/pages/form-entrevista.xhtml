@@ -27,6 +27,7 @@
                   action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.salvar}" method="post">
                 <!--@elvariable id="_csrf" type="org.springframework.security.web.csrf.DefaultCsrfToken"-->
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}" msgErro="#{msg['entrevista.erro']}"/>
 
                 <div id="fuelux-wizard" class="wizard row-fluid text-center">
                     <ul class="wizard-steps">
@@ -82,13 +83,13 @@
                     </div>
                     <div class="row">
                         <div class="wizard-actions text-center">
-                            <button id="btn-prev" type="button" disabled="disabled" class="btn-flat primary btn-prev">
+                            <button id="btn-prev" type="button" class="btn-flat primary btn-prev">
                                 <i class="icon-chevron-left"/> Anterior
                             </button>
                             <button id="btn-next" type="button" class="btn-flat primary btn-next" data-last="Finish">
                                 Próximo <i class="icon-chevron-right"/>
                             </button>
-                            <button id="btn-finish" type="button" class="btn-flat success btn-finish">
+                            <button id="btn-finish" type="submit" class="btn-flat success btn-finish">
                                 #{msg['obito.button.finalizar']}
                             </button>
                         </div>
@@ -102,5 +103,6 @@
     </ui:define>
     <ui:define name="#{sects.customScripts}">
         <h:outputScript library="js" name="form-entrevista.js" />
+        <h:outputScript library="js" name="form-entrevista-validacao.js" />
     </ui:define>
 </ui:composition>

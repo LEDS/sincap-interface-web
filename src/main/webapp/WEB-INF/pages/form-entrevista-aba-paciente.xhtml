@@ -111,7 +111,7 @@
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}*"/>
                 <div class="span8">
-                    <h:inputText styleClass="dataEntrevista span8 fillOnDblClick" name="dataEntrevista" id="dataEntrevista"
+                    <h:inputText styleClass="data span8 fillOnDblClick" name="dataEntrevista" id="dataEntrevista"
                                  value="#{processo.entrevista.dataEntrevista.time}">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:inputText>
@@ -121,7 +121,7 @@
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}*"/>
                 <div class="span8">
-                    <h:inputText styleClass="horaEntrevista span8" id="horaEntrevista"
+                    <h:inputText styleClass="hora span8" id="horaEntrevista"
                                  value="#{processo.entrevista.dataEntrevista.time}">
                         <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
                         <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
@@ -237,7 +237,7 @@
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Data Nascimento"/>
                 <div class="span8">
-                    <h:inputText id="obito-paciente-dataNascimento" styleClass="dataNascimento span8"
+                    <h:inputText id="obito-paciente-dataNascimento" styleClass="data span8"
                                  value="#{processo.obito.paciente.dataNascimento.time}">
                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                     </h:inputText>
