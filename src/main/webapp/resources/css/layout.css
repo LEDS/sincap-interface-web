@@ -1,3 +1,9 @@
+
+.form-fluid {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
 .center-table td,
 .center-table th {
     margin: 0 auto !important;

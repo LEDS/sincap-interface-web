@@ -18,7 +18,7 @@
                         <h2 class="text-center">#{msg['setor.title']}</h2>
                         <div class="step-content">
                             <form id="form-setor" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}#{contextUrls.salvar}"
-                                  method="post">
+                                  method="post" class="">
                                 <div class="control-group">
                                     <h:outputLabel value="#{msg['setor.text.nome']}" />
                                     <h:inputText id="nome" class="nome" value="#{setor.nome}"/>
