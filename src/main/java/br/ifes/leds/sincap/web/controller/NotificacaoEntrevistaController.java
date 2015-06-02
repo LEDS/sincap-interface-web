@@ -5,7 +5,6 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
@@ -138,7 +137,12 @@ public class NotificacaoEntrevistaController {
             return "form-entrevista";
         }
 
-        return "redirect:" + INDEX + "?idEntrevista=" + processo.getId() + "&realizada=" + processo.getEntrevista().isEntrevistaRealizada();
+        if(processo.getEntrevista().isDoacaoAutorizada()) {
+            return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
+
+        } else {
+            return "redirect:" + INDEX + "?doacaoNaoAutorizada=true&idEntrevista=" + processo.getId();
+        }
     }
 
     private void addAtributosIniciais(ModelMap model, ProcessoNotificacaoDTO processo) {
