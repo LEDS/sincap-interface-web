@@ -1,3 +1,46 @@
+div.adm-content{
+    margin-top: 40px !important;
+}
+
+.content-wrapper{
+    margin-top: 20px !important;
+}
+
+i.icon-1p05x {
+    font-size: 1.5em;
+}
+
+i.icon-fluid{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.form-fluid {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.center-table td,
+.center-table th {
+    margin: 0 auto !important;
+    float: none !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+}
+
+h2.title {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.table-margin-top {
+    margin-top: 10px;
+}
+
+.form-inside-table {
+    margin: 0px !important;
+}
+
 form#signInForm * > div#hospitais{
 	margin-left: 0px;
 	margin-bottom: 20px;
@@ -53,6 +96,10 @@ h5.field-box {
 
 h4.section-title > span{
     border-bottom: 2px solid #34a0ed;
+}
+
+div.row.filtro{
+	margin: 60px 0 30px 0;
 }
 
 div#table-delimiter {

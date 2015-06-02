@@ -12,23 +12,23 @@
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}"> 
         <h:panelGroup layout="block" styleClass="container-fluid">
-            <br/>
-            <h2>#{msg['hospital.title.visualisar']}</h2>
-            <br/>
+            <div id="pad-wrapper">
+                <h2 class="title text-center">#{msg['hospital.title.visualisar']}</h2>
 
-            <!-- Bloco de filtros -->
-            <div class="row filter-block">
-                <div class="pull-right">
-                    <!-- Botão de nova causa -->
-                    <a class="btn-flat pull-right success new-product add-user"
-                       href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.adicionar}">
-                        #{msg['hospital.novo']}
-                    </a>
+                <!-- Bloco de filtros -->
+                <div class="row filter-block">
+                    <div class="pull-right">
+                        <!-- Botão de nova causa -->
+                        <a class="btn-flat pull-right success"
+                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.adicionar}">
+                           <i class="icon-1p05x icon-plus icon-fluid"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <br/>
-            <ui:include src="/WEB-INF/components/lista-hospital.xhtml" />
+                <br/>
+                <ui:include src="/WEB-INF/components/lista-hospital.xhtml" />
+            </div>
         </h:panelGroup>
     </ui:define>
 </ui:composition>

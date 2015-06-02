@@ -5,27 +5,31 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <!-- main container -->
-    <h:panelGroup layout="block" styleClass="container-fluid">
-        <a class="btn-flat success btn-inner-datatable"
-           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_analista}">
-            <i class="icon-plus"></i>Cadastrar
-        </a>
-        <h:panelGroup id="pad-wrapper" layout="block" styleClass="datatables-page">
+    <h:panelGroup layout="block">
+        <div id="btnAdicionarOrigin-analista-table">
+            <a class="btn-flat success pull-right"
+               href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_analista}">
+                <i class="icon-1p05x icon-plus icon-fluid"></i>
+            </a>
+        </div>
+        <h:panelGroup layout="block" styleClass="datatables-page">
             <h:panelGroup layout="block" styleClass="row-fluid">
                 <h:dataTable id="analista-table" value="#{analistas}" var="analist"
                              rows="#{quantidade}" styleClass="table table-hover table-bordered table-striped">
-                    <h:column tabindex="0" rowspan="1" colspan="1">
-                        <f:facet name="header">
-                            <h:outputText  value="Nome"/>
-                        </f:facet>
-                        #{analist.nome}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="CPF" />
-                        </f:facet>
-                        #{analist.cpf}
-                    </h:column>
+
+                <h:column tabindex="0" rowspan="1" colspan="1">
+                    <f:facet name="header">
+                        <h:outputText  value="Nome"/>
+                    </f:facet>
+                    #{analist.nome}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="CPF" />
+                    </f:facet>
+                    #{analist.cpf}
+                </h:column>
 
                 <h:column>
                     <f:facet name="header">
@@ -37,13 +41,14 @@
                         <div class="row-fluid">
                             <div class="span6">
                                 <a class="btn-flat primary" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_analista}/#{analist.id}">
-                                    <i class="icon-edit"></i>Editar</a>
-
+                                    <i class="icon-1p05x icon-edit icon-fluid"></i>
+                                </a>
                             </div>
                             <div class="span6">
-                                    <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
-                                    <a class="btn-flat danger" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_analista}/#{analist.id}">
-                                        <i class="icon-remove"></i>Excluir</a>
+                                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
+                                <a class="btn-flat danger" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_analista}/#{analist.id}">
+                                    <i class="icon-1p05x icon-trash icon-fluid"></i>
+                                </a>
                             </div>
                         </div>
                     </h:column>

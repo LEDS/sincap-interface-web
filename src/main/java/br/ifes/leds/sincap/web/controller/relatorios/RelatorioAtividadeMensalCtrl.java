@@ -40,6 +40,7 @@ public class RelatorioAtividadeMensalCtrl {
     public String carregarRelatorioAtividadeMensal(ModelMap model) {
         List<InstituicaoNotificadora> in = aplInstituicaoNotificadora.obterTodasInstituicoesNotificadoras();
         model.addAttribute("listInstituicao", in);
+        model.addAttribute("renderizarDados",false);
         return "rel-atividade-mensal";
     }
 
@@ -87,6 +88,9 @@ public class RelatorioAtividadeMensalCtrl {
 
 
         model.addAttribute("datMes", dataMes);
+
+        //Permite que as divs sejam renderizadas somente no método POST
+        model.addAttribute("renderizarDados",true);
 
         return "rel-atividade-mensal";
     }

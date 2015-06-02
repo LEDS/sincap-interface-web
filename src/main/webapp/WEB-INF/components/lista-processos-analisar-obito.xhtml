@@ -1,7 +1,5 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:panelGroup layout="block" styleClass="datatables-page">
         <h:panelGroup layout="block" styleClass="row-fluid">
@@ -74,13 +72,13 @@
                                 <h:outputText value="Analisar" />
                             </f:facet>
 
-                            <a class="btn-flat default"
-                               href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.app_analisar}/#{processo.id}">
-                                <i class="icon-file"></i>
-                                Analisar
-                            </a>
-                        </h:column>
-                    </h:dataTable>
+                        <a class="btn-flat default"
+                           href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.app_analisar}/#{processo.id}">
+                            <i class="icon-file"></i>
+                            Analisar
+                        </a>
+                    </h:column>
+                </h:dataTable>
 
             </h:panelGroup>
         </h:panelGroup>

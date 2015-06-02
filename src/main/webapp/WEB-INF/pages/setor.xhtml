@@ -2,27 +2,55 @@
 <ui:composition template="/WEB-INF/templates/adm.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-        >
+                xmlns:ui="http://java.sun.com/jsf/facelets">
     
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['setor.title']}
+        Setores
     </ui:define>
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
-        <h:panelGroup layout="block" styleClass="container-fluid">
-            <br/>
-            <h2>#{msg['setor.title.visualizar']}</h2>
-            <br/>
-            <br/>
-            <a class="btn-flat success" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}#{contextUrls.adicionar}">
-               <i class="icon-plus"></i> Novo
-            </a>
-            <br/>
-            <ui:include src="/WEB-INF/components/lista-setores.xhtml" />
-        </h:panelGroup>
+        <div id="pad-wrapper">
+            <h:panelGroup layout="block" styleClass="container-fluid">
+                <h2 class="title text-center">#{msg['setor.title.visualizar']}</h2>
+                    <div class="row-fluid">
+                        <!-- Small modal -->
+                        <button type="button" class="btn-flat success pull-right" data-toggle="modal" data-target="#newSetor">
+                            <i class="icon-1p05x icon-fluid icon-plus"></i>
+                        </button>
+
+                        <div id="newSetor" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <form id="form-setor" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}#{contextUrls.salvar}"
+                                          method="post" class="form-fluid">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
+                                        <h4 class="modal-title" id="gridSystemModalLabel">Novo Setor</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                                <div class="control-group">
+                                                    <input type="text" id="nome" value="" name="nome" placeholder="Nome do Setor" />
+                                                </div>
+                                                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn-flat white" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn-flat default">Salvar</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <ui:include src="/WEB-INF/components/lista-setores.xhtml" />
+                    </div>
+            </h:panelGroup>
+        </div>
     </ui:define>
 </ui:composition>

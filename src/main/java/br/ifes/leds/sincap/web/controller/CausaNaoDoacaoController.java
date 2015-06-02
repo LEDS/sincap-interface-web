@@ -39,7 +39,7 @@ public class CausaNaoDoacaoController {
     public String index(ModelMap model) {
         List<CausaNaoDoacao> causas = aplCausaNaoDoacao.obter();
         model.addAttribute("listaCausasNaoDoacao", causas);
-
+        model.addAttribute("listaTiposNaoDoacao", utilityWeb.getTipoNaoDoacaoSelectItem());
         return "causa-nao-doacao";
     }
     
