@@ -114,6 +114,8 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setTestemunha1(null);
             processo.getEntrevista().setTestemunha2(null);
             processo.getEntrevista().setDataEntrevista(null);
+        } else if (!processo.getEntrevista().isDoacaoAutorizada()) {
+            processo.setCausaNaoDoacao(recusaFamiliar);
         }
 
         try {
