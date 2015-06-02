@@ -25,6 +25,9 @@
         'obito.paciente.profissao': {
             required: true
         },
+        'obito.paciente.nome': {
+            required: true
+        },
         'obito.paciente.religiao': {
             required: true
         },
@@ -443,8 +446,7 @@
 
     $(document).ready(function () {
         $("#notifEntrevista").validate({
-            errorPlacement: function () {
-            },
+            errorPlacement: fieldBoxValidatorError,
             success: function() {
             },
             rules: regras,

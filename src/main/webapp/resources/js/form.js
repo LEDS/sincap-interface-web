@@ -32,23 +32,20 @@ function focus(selector, next) {
     });
 }
 
-function fieldBoxValidatorError(error, element) {
+var fieldBoxValidatorError = function (error, element) {
     var $element = $(element);
 
-    var $parent = $element.parent(".field-box");
+    var $fieldBox = $element.parent().parent(".field-box");
+    var $parent = $element.parent();
 
-    if ($parent.length == 0){
-        var $parent = $element.parent(".ui-select").parent(".field-box");
-    }
-
-    if (!$parent.hasClass("error")) {
-        $parent.addClass("error");
+    if (!$fieldBox.hasClass("error")) {
+        $fieldBox.addClass("error");
         $parent.append("<span class='alert-msg'></span>");
-        var $span = $parent.find("span");
+        var $span = $fieldBox.find("span");
         $span.append("<i class='icon-remove-sign' />");
         $span.append(error.text());
     }
-}
+};
 
 function fieldBoxValidatorSuccess(label, element) {
     var $element = $(element);
