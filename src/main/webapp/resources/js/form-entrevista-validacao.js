@@ -447,11 +447,11 @@
     $(document).ready(function () {
         $("#notifEntrevista").validate({
             errorPlacement: fieldBoxValidatorError,
-            success: function() {
-            },
+            success: fieldBoxValidatorSuccess,
             rules: regras,
             messages: mensagens,
             submitHandler: function (form) {
+                form.submit();
             }
         });
     });

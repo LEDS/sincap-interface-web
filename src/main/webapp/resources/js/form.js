@@ -47,18 +47,16 @@ var fieldBoxValidatorError = function (error, element) {
     }
 };
 
-function fieldBoxValidatorSuccess(label, element) {
+var fieldBoxValidatorSuccess = function (label, element) {
     var $element = $(element);
-    var $parent = $element.parent(".field-box");
-    if ($parent.length == 0){
-        var $parent = $element.parent(".ui-select").parent(".field-box");
-    }
+
+    var $parent = $element.parent().parent(".field-box");
 
     if ($parent.hasClass("error")) {
         $parent.removeClass("error");
         $parent.find("span").remove();
     }
-}
+};
 
 function definirEstilo() {
     $(".control-group > label").addClass("control-label");
