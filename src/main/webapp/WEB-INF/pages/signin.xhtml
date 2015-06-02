@@ -54,7 +54,7 @@
 
         <div class="span4 box">
             <div class="content-wrap">
-                <h6>Log in</h6>
+                <h6>Login</h6>
 
                 <form id="signInForm"
                       action="${pageContext.request.contextPath}/sincap/autenticar"
@@ -62,20 +62,20 @@
                       method="post">
 
                     <h:panelGroup rendered="#{loginErro}">
-                        <span class="loginErro">Login inválido, por favor digite o usuário correto!</span>
+                        <span class="loginErro">Login inválido, por favor digite o usuário correto</span>
                     </h:panelGroup>
                     <input id="username" name="username" class="span12" type="text" placeholder="CPF"
                            onkeyup="ajaxGetHospitais(this.value);"  onblur="ajaxGetHospitais(this.value);"
                            title="#{msg['login.text.usuario']}" autofocus="true" />
 
                     <h:panelGroup rendered="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                            <span class="loginErro">Login inválido, por favor digite a senha correto!</span>
+                            <span class="loginErro">Login inválido, por favor digite a senha correta</span>
                     </h:panelGroup>
                     <input id="password" name="password" class="span12" type="password" placeholder="Senha"
                            title="#{msg['login.text.senha']}"/>
 
-                    <div id="select-hospitais" style="margin-top: 20px !important">
-                        <h:outputLabel value="Hospital"/>
+                   <div id="select-hospitais" style="margin-top: 10px !important">
+                       <!--   <h:outputLabel value="Hospital"/> -->
 
                         <div class="span12" id="hospitais">
                             <h:selectOneMenu styleClass="span12 text-center" id="hospital" value="#{usuario.hospital}"
@@ -89,7 +89,7 @@
                     <!--<a href="#" class="forgot">#{msg['login.btn.esqueceuSenha']}</a>-->
 
                     <button id="botaoLogin" type="submit"
-                            class="btn-glow primary login">#{msg['login.btn.entrar']}</button>
+                            class="btn-flat primary login">#{msg['login.btn.entrar']}</button>
 
                     <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
