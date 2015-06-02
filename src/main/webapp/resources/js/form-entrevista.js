@@ -83,4 +83,12 @@
         $btnNext.hide();
     });
 
+    $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
+    $('.hora').inputmask('hh:mm');
+    $('.cep').inputmask('99999-999');
+    $('.tel').inputmask({
+        mask: ["(99)9999-9999", "(99)99999-9999"]
+    });
+    $('.cpf').inputmask('999.999.999-99');
+
 }());
