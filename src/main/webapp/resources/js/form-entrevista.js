@@ -39,8 +39,8 @@ $(document).ready(function() {
     if(document.getElementById("doacaoAutorizada:1").checked) {
         $("#msgAlertaHora").hide();
         $('#divDoacaoAutorizada').hide();
-        $('#btn-next').hide();
-        $('#btn-finish').show();
+        $('#btn-next').show();
+        $('#btn-finish').hide();
     } else {
         $('#divDoacaoNaoAutorizada').hide();
 
@@ -82,8 +82,8 @@ $(document).ready(function() {
         $('#btn-next').show();
     });
     $('#doacaoAutorizada\\:1').change(function () {
-        $('#btn-next').hide();
-        $('#btn-finish').show();
+        $('#btn-finish').hide();
+        $('#btn-next').show();
     });
 
     addListenerMulti(document.getElementById('horaEntrevista'), 'dblclick blur', eventoMudarHora);
