@@ -176,7 +176,6 @@
 
     var setAcimaTempoMaximoRetirada = function () {
         document.getElementById('causaNaoDoacao').value = '13';
-        $('#causaNaoDoacao').select2();
     };
 
     var verificarHoraObito = function (dataHoraObito) {
@@ -223,7 +222,6 @@
 
 
     $(document).ready(function () {
-        $('#causaNaoDoacao').select2();
         $('.data').inputmask("dd/mm/yyyy", {placeholder: "_"});
         $('.tel').inputmask({
             mask: ["(99)9999-9999", "(99)99999-9999"]
@@ -270,7 +268,6 @@
         addListenerMulti(document.getElementById('obito-dataObito'), 'change click keypress', eventoMudarHora);
         addListenerMulti(document.getElementById('horarioObito'), 'change click keypress', eventoMudarHora);
         addListenerMulti(document.getElementById('obito-tipoObito'), 'change click keypress', eventoMudarHora);
-
         validar_form();
         show_hide_contraindicacoes();
     });
