@@ -114,12 +114,6 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setTestemunha1(null);
             processo.getEntrevista().setTestemunha2(null);
             processo.getEntrevista().setDataEntrevista(null);
-        } else if (!processo.getEntrevista().isDoacaoAutorizada()) {
-            processo.setCausaNaoDoacao(recusaFamiliar);
-            processo.getEntrevista().setResponsavel(null);
-            processo.getEntrevista().setResponsavel2(null);
-            processo.getEntrevista().setTestemunha1(null);
-            processo.getEntrevista().setTestemunha2(null);
         }
 
         try {
@@ -128,6 +122,7 @@ public class NotificacaoEntrevistaController {
         } catch (ViolacaoDeRIException e) {
             addAtributosIniciais(model, processo);
             utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
+            utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
             if (processo.getEntrevista().getResponsavel() != null && processo.getEntrevista().getResponsavel().getEndereco() != null) {
                 utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
             }
