@@ -18,13 +18,15 @@
             .padrao {
                 padding: 1% 1% 1% 2%;
                 border: 1px solid #000;
-                width:95%;
+                /*width:95%;*/
             }
 
-            .titulo{
-                color: #333399;
-                font-size:20px;
+            .titulo {
+                color: #000;
+                font-size: 20px;
                 font-weight: bold;
+                text-align: center;
+                margin-top: 20px;
             }
 
             table {
@@ -77,20 +79,7 @@
 
     <body>
 
-        <table>
-            <tr>
-                <td rowspan="2">
-                    <h:graphicImage library="img/hospitais" name="#{cnes}.jpg"/>
-                </td>
-                <td class="titulo" rowspan="2">Termo de Abordagem com Negativa para Doação</td>
-                <td class="borda_inferior sem_borda_direita" colspan="2">Código: CIHDOTT_FR_ </td>
-            </tr>
-
-            <tr>
-                <td>Data de elaboração:<br/>#{recusaEData.dataAtual}</td>
-                <td class="sem_borda_direita">Revisão: 0.0<br/></td>
-            </tr>
-        </table>
+        <div class="titulo"> Termo de Abordagem com Negativa para Doação</div>
             <br/>
 
         <div class="padrao">
@@ -101,16 +90,16 @@
             Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>não autorizo</strong> a
             doação de órgãos e/ou tecidos para transplantes do paciente:
             #{pn.obito.paciente.nome}, falecido às: #{horaObito} do
-            dia: #{dataObito} no #{hospitalNome}, #{hospitalCidade}.
-            </p>
+            dia: #{dataObito} no #{hospitalNome}, #{hospitalCidade}. </p>
         </div>
-        <br/>
+            <br/>
+
         <div class="padrao">
             <strong>Motivo da recusa familiar</strong><br/>
             #{recusaEData.recusaFamiliar}
-
         </div>
         <br/>
+
         <div class="padrao">
             <p>
                 <strong>Assinatura do Responsável legal:</strong> ________________________________________________________________
@@ -119,7 +108,6 @@
             </p>
         </div>
         <br/>
-
 
         <table class="testemunha">
             <th class="borda_inferior" colspan="2">Testemunha 01</th>
