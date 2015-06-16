@@ -21,97 +21,13 @@
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
-        <h:panelGroup rendered="#{sucessoObito}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Obito salvo com sucesso!
-            </div>
-        </h:panelGroup>
 
-        <h:panelGroup rendered="#{obitoConfirmado}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Obito confirmado com sucesso!
-            </div>
-        </h:panelGroup>
+        <!--Mensagens de sucesso ou erro (Flash Messages)-->
+        <ui:include src="/WEB-INF/components/flash-messages.xhtml"></ui:include>
 
-        <h:panelGroup rendered="#{obitoRecusado}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Obito recusado com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{sucessoEntrevista}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Entrevista salva com sucesso!
-                <a target="_blank" class="btn-flat success"
-                   href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}#{contextUrls.imprimir}/#{idEntrevista}">
-                   <!--<i class="icon-file"></i>-->
-                    Emitir Termo
-                </a>
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{doacaoNaoAutorizada}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Entrevista salva com sucesso!
-                <a target="_blank" class="btn-flat success"
-                   href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_nao_doacao}#{contextUrls.imprimir}/#{idEntrevista}">
-                    <!--<i class="icon-file"></i>-->
-                    Emitir Termo
-                </a>
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{entrevistaConfirmada}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Entrevista confirmada com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{entrevistaRecusada}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Entrevista recusada com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{captacaoSucesso}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Captação salva com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{captacaoConfirmado}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Captação confirmada com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{captacaoRecusado}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Captação recusada com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <h:panelGroup rendered="#{sucessoArquivamento}">
-            <div class="alert alert-success">
-                <i class="icon-save"/>
-                Arquivado com sucesso!
-            </div>
-        </h:panelGroup>
-
-        <!-- Notificações com óbito pendente de análise -->
-        <h:panelGroup>
+        <h:panelGroup layout="block" id="pad-wrapper">
+            <!-- Notificações com óbito pendente de análise -->
             <h:panelGroup id="abas-analista" rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
-                <div id="pad-wrapper" class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4 class="aba-centralizada">Óbito Pendente <span class="badge" id="qtdDados-tabelaAnalisarObito"></span></h4></a></li>
@@ -127,16 +43,16 @@
                                 <!--<ui:param name="processos" value="#{processosObitoAnalisePendente}"/> -->
                             </ui:include>
                         </div>
-                        <div class="tab-pane" id="captacaoPendente">
-                            <!-- Notificações com captação pendente de análise -->
-                            <ui:include src="/WEB-INF/components/lista-processos-analisar-captacao.xhtml">
-                                <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
-                            </ui:include>
-                        </div>
                         <div class="tab-pane" id="entrevistaPendente">
                             <!-- Notificações com entrevista pendente de análise -->
                             <ui:include src="/WEB-INF/components/lista-processos-analisar-entrevista.xhtml">
                                 <ui:param name="processos" value="#{processosEntrevistaAnalisePendente}" />
+                            </ui:include>
+                        </div>
+                        <div class="tab-pane" id="captacaoPendente">
+                            <!-- Notificações com captação pendente de análise -->
+                            <ui:include src="/WEB-INF/components/lista-processos-analisar-captacao.xhtml">
+                                <ui:param name="processos" value="#{processosCaptacoesAnalisePendente}" />
                             </ui:include>
                         </div>
                         <div class="tab-pane" id="arquivamento">
@@ -146,11 +62,10 @@
                             </ui:include>
                         </div>
                     </div>
-                </div>
             </h:panelGroup>
             <!-- Abas do notificador -->
             <h:panelGroup id="abas-notificador" rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
-                <div id="pad-wrapper" class="datatables-page">
+                <div class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a href="#obitoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de óbito <span class="badge" id="qtdDados-tabelaCorrigirObito"></span></h4></a></li>
@@ -179,7 +94,7 @@
                 </div>
             </h:panelGroup>
             <h:panelGroup id="abas-captador" rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
-                <div id="pad-wrapper" class="datatables-page">
+                <div class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">Entrevista pendente <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>

@@ -14,30 +14,36 @@
     <!--Fim título da página-->
 
     <ui:define name="#{sects.formHeader}">
+        <h1 align="center">
        Termo de Autorização de Doação
+        </h1>
     </ui:define>
 
     <!-- Formulário de entrevista -->
     <ui:define name="#{sects.formContent}">
-        <form id="notifEntrevista" class="form-horizontal"
-              action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}" method="post">
-            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-            <div class="step-pane active" id="step1">
-                <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
-                <input type="text" class="span3" name="nome" />
-                <button type="submit" id="submitFormulario" class="btn-flat success btn-finish">
-                    <i class="icon-search"></i>
-                    Buscar
-                </button>
+        <div class="span12">
+            <form id="notifEntrevista" class="form-horizontal"
+                  action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}" method="post">
+                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
-                <div class="tab-content">
-                    <ui:include src="../components/lista-termo-de-autorizacao.xhtml">
-                        <ui:param name="processos" value="#{listProcessoNotificacao}" />
-                    </ui:include>
-                </div>
-            </div>
-        </form>
+                    <div class="row filtro">
+                        <div class="pull-right">
+                            <input type="text" name="nome" placeholder="Nome, Protocolo, ..." />
+                            <button type="submit" class="btn-glow success btn-finish">
+                                <i class="icon-search"></i>
+                                Buscar
+                            </button>
+                        </div>
+                    </div>
 
+
+                    <div class="row">
+                        <ui:include src="../components/lista-termo-de-autorizacao.xhtml">
+                            <ui:param name="processos" value="#{listProcessoNotificacao}" />
+                        </ui:include>
+                    </div>
+            </form>
+        </div>
         <h:outputScript library="js" name="form-entrevista.js" />
     </ui:define>
 

@@ -19,57 +19,52 @@
 <!--@elvariable id="tipoDocumentos" type="java.util.List"-->
 
 <br/>
-<h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
-<h:panelGroup layout="block" styleClass="field-box">
 
+<h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper">
+    <h4 class="section-title"><span>#{msg['entrevista.text.testemunhas']}</span></h4>
+    <h5 class="field-box"><span>#{msg['entrevista.text.testemunha1']}</span></h5>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['entrevista.text.testemunha.nome']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-testemunha1-nome"
+                     value="#{processo.entrevista.testemunha1.nome}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}*"/>
+            <h:selectOneMenu id="entrevista-testemunha1-documentoSocial-tipoDocumentoComFoto"
+                             value="#{processo.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}"
+                             styleClass="span5">
+                <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
+                <f:selectItems value="#{tipoDocumentos}"/>
+            </h:selectOneMenu>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-testemunha1-documentoSocial-documento"
+                     value="#{processo.entrevista.testemunha1.documentoSocial.documento}"/>
+    </h:panelGroup>
 
-        <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha1']}</b></h:outputLabel>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['entrevista.text.testemunha.nome']}*"/>
-            <h:inputText styleClass="span8" id="entrevista-testemunha1-nome"
-                         value="#{processo.entrevista.testemunha1.nome}"/>
-        </h:panelGroup>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}*"/>
-            <h:inputText styleClass="span8" id="entrevista-testemunha1-documentoSocial-documento"
-                         value="#{processo.entrevista.testemunha1.documentoSocial.documento}"/>
-        </h:panelGroup>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}*"/>
+    <br/>
 
-            <div class="ui-select span8">
-                <h:selectOneMenu id="entrevista-testemunha1-documentoSocial-tipoDocumentoComFoto"
-                                 value="#{processo.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}">
-                    <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
-                    <f:selectItems value="#{tipoDocumentos}"/>
-                </h:selectOneMenu>
-            </div>
-            <br/><br/>
-        </h:panelGroup>
-
-        <br/><h:outputLabel><b>#{msg['entrevista.text.testemunha2']}</b></h:outputLabel>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['entrevista.text.testemunha.nome']}*"/>
-            <h:inputText styleClass="span8" id="entrevista-testemunha2-nome"
-                         value="#{processo.entrevista.testemunha2.nome}"/>
-        </h:panelGroup>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}*"/>
-            <h:inputText styleClass="span8" id="entrevista-testemunha2-documentoSocial-documento"
-                         value="#{processo.entrevista.testemunha2.documentoSocial.documento}"/>
-        </h:panelGroup>
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}*"/>
-
-            <div class="ui-select span8">
-                <h:selectOneMenu id="entrevista-testemunha2-documentoSocial-tipoDocumentoComFoto"
-                                 value="#{processo.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}">
-                    <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
-                    <f:selectItems value="#{tipoDocumentos}"/>
-                </h:selectOneMenu>
-            </div>
-            <br/><br/>
-        </h:panelGroup>
+    <h5 class="field-box"><span>#{msg['entrevista.text.testemunha2']}</span></h5>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['entrevista.text.testemunha.nome']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-testemunha2-nome"
+                     value="#{processo.entrevista.testemunha2.nome}"/>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}*"/>
+            <h:selectOneMenu id="entrevista-testemunha2-documentoSocial-tipoDocumentoComFoto"
+                             value="#{processo.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}"
+                             styleClass="span5">
+                <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
+                <f:selectItems value="#{tipoDocumentos}"/>
+            </h:selectOneMenu>
+    </h:panelGroup>
+    <h:panelGroup layout="block" styleClass="field-box">
+        <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}*"/>
+        <h:inputText styleClass="span8" id="entrevista-testemunha2-documentoSocial-documento"
+                     value="#{processo.entrevista.testemunha2.documentoSocial.documento}"/>
     </h:panelGroup>
 </h:panelGroup>
+
 </ui:composition>

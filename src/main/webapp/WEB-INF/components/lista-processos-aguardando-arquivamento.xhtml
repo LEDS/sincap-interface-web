@@ -1,8 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:panelGroup layout="block" styleClass="container-fluid">
-        <h:panelGroup layout="block" id="pad-wrapper" styleClass="datatables-page">
+        <h:panelGroup layout="block" styleClass="datatables-page">
             <h:panelGroup layout="block" styleClass="row-fluid">
                 <h:panelGroup layout="block" styleClass="span12">
                 <!-- Tabela de Notificações -->
@@ -72,21 +71,22 @@
                         <f:facet name="header">
                             <h:outputText value="Arquivar" />
                         </f:facet>
-                        <form id="form" method="post" hidden="hidden" action="#{request.contextPath}/processo/arquivar">
-                            <input type="text" hidden="hidden" name="id" value="#{processo.id}"/>
+                        <form id="formulario-arquivamento-#{notificacao.id}" action="#{request.contextPath}/processo/arquivar" method="post">
+                            <input type="hidden" hidden="hidden" name="id" value="#{processo.id}"/>
                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                            <button type="submit"><i class="icon-edit"></i></button>
                         </form>
-                        <a class="btn-flat default" onclick="document.getElementById('form').submit()"
-                           href="#">
-                            <i class="icon-file"/>
-                            Arquivar
-                        </a>
+
+                        <!--<a class="btn-flat default" onclick="document.getElementById('form').submit()"-->
+                           <!--href="#">-->
+                            <!--<i class="icon-file"/>-->
+                            <!--Arquivar-->
+                        <!--</a>-->
                     </h:column>
 
                 </h:dataTable>
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
-    </h:panelGroup>
 
 </ui:composition>

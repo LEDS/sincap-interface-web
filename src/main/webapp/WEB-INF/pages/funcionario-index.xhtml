@@ -14,7 +14,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['index.title']}
+        Funcinários
     </ui:define>
     <!-- Fim do Título -->
 
@@ -23,7 +23,8 @@
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
     <h:panelGroup layout="block" id="pad-wrapper">
-        <div id="content">
+        <h2 class="title text-center">Funcionários</h2>
+        <div id="content" class="adm-content">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                 <li class="active"><a href="#analista" data-toggle="tab"><h4 class="aba-centralizada">Cadastrar Analista</h4></a></li>
                 <li><a href="#notificador" data-toggle="tab"><h4 class="aba-centralizada">Cadastrar Notificador</h4></a></li>
@@ -54,49 +55,8 @@
     </ui:define>
     <!--Include dos scripts customizados de cada página-->
     <ui:define name="#{sects.customScripts}">
-        <h:outputScript name="jquery.dataTables.js" library="js" />
-        <script type="text/javascript">
-            $(document).ready(function() {
-                var nomes = ["#analista-table","#notificador-table","#captador-table"];
-                var i = 0;
-                while(i != nomes.length){
-                    $(nomes[i]).dataTable({
-                        "sPaginationType": "full_numbers",
-                        "columns": [
-                            { "width": "33%" },
-                            { "width": "33%" },
-                            { "width": "33%" }
-                        ]
-                    });
-
-                    i++;
-                }
-
-
-
-                /*
-                $('#analista-table').dataTable({
-                    "sPaginationType": "full_numbers",
-                    "columns": [
-                        { "width": "30%" },
-                        { "width": "30%" },
-                        { "width": "40%" }
-                    ]
-                });
-                $('#notificador-table').dataTable({
-                    "sPaginationType": "full_numbers",
-                    "columns": [
-                        { "width": "30%" },
-                        { "width": "30%" },
-                        { "width": "40%" }
-                    ]
-                });
-                $('#captador-table').dataTable({
-                    "sPaginationType": "full_numbers"
-                });
-                */
-            });
-        </script>
+        <h:outputScript name="jquery.dataTables.js" library="js"></h:outputScript>
+        <h:outputScript library="js" name="funcionario.js"></h:outputScript>
     </ui:define>
 
     <!-- Fim do conteúdo -->

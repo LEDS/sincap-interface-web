@@ -9,27 +9,27 @@
         <h:panelGroup layout="block" styleClass="span12">   
             <h:panelGroup styleClass="row-fluid form-wrapper">
                 <h:dataTable id="setores-table" value="#{listaSetores}" var="setor"
-                             rows="#{quantidade}" styleClass="table table-hover table-striped">
+                             rows="#{quantidade}" styleClass="table table-hover table-striped table-bordered table-margin-top center-table">
                     <div class="control-group">
                         <h:column>
-                            <f:facet name="header">
+                            <f:facet name="header" class="center-important">
                                 <h:outputText value="Nome" />
                             </f:facet>
                             #{setor.nome}
                         </h:column>
-                        <!-- Botões -->
-                        <!--                    TODO-->
-                        <h:column class="">
+
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Ação" />
                             </f:facet>
-                            <form name="list-form-setor" id="list-form-setor" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_setor}"
+                            <form name="list-form-setor" id="list-form-setor" class="form-inside-table" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}"
                                   method="post">
                                 <input type="hidden" id="setorId" name="id" value="#{setor.id}" />
                                 <!--                                <input type="hidden" name="setorNome" value=""-->
-                                <h:panelGroup layout="block" rendered="#{!setor.usado}">
-                                    <button class="btn-flat danger" type="submit"><i class="icon-remove" style=""></i> Excluir </button>
+                                <h:panelGroup styleClass="center-important" layout="block" rendered="#{!setor.usado}">
+                                    <button class="btn-flat danger" type="submit"><i class="icon-trash icon-1p05x icon-fluid" style=""></i></button>
                                 </h:panelGroup>
+                                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                             </form>
                         </h:column>
                     </div>

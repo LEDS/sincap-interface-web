@@ -2,8 +2,7 @@ jQuery.validator.addMethod("isValid", function (value, element) {
     var dataInicial = $('#dataInicial').val();
     var dataFinal = $('#dataFinal').val();
 
-    return Date.parse(dataInicial) <= Date.parse(dataFinal);
-
+    return buildDateBrEn(dataInicial) <= buildDateBrEn(dataFinal);
 }, "* Data final deve ser maior do que a inicial.");
 
 

@@ -5,7 +5,6 @@
  */
 package br.ifes.leds.sincap.web.controller;
 
-import br.ifes.leds.reuse.endereco.cdp.dto.EnderecoDTO;
 import br.ifes.leds.reuse.ledsExceptions.CRUDExceptions.ViolacaoDeRIException;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCadastroInterno;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Comentario;
@@ -117,10 +116,6 @@ public class NotificacaoEntrevistaController {
             processo.getEntrevista().setDataEntrevista(null);
         } else if (!processo.getEntrevista().isDoacaoAutorizada()) {
             processo.setCausaNaoDoacao(recusaFamiliar);
-            processo.getEntrevista().setResponsavel(null);
-            processo.getEntrevista().setResponsavel2(null);
-            processo.getEntrevista().setTestemunha1(null);
-            processo.getEntrevista().setTestemunha2(null);
         }
 
         try {
@@ -129,6 +124,7 @@ public class NotificacaoEntrevistaController {
         } catch (ViolacaoDeRIException e) {
             addAtributosIniciais(model, processo);
             utilityWeb.addConstraintViolations(e.getConstraintViolations(), model);
+            utilityWeb.preencherEndereco(processo.getObito().getPaciente().getEndereco(), model);
             if (processo.getEntrevista().getResponsavel() != null && processo.getEntrevista().getResponsavel().getEndereco() != null) {
                 utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
             }
@@ -139,7 +135,7 @@ public class NotificacaoEntrevistaController {
         }
 
         if(processo.getEntrevista().isDoacaoAutorizada()) {
-             return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
+            return "redirect:" + INDEX + "?sucessoEntrevista=true&idEntrevista=" + processo.getId();
 
         } else {
             return "redirect:" + INDEX + "?doacaoNaoAutorizada=true&idEntrevista=" + processo.getId();

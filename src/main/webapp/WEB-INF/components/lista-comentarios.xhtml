@@ -1,41 +1,114 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
-    <h:panelGroup layout="block" styleClass="comentario span4">
+    <div id="the-sticky-div">
+        <h:panelGroup layout="block" styleClass="comentario span4">
+        <div class="row">
+            <h4 class="section-title pull-right"><span>Comentários</span></h4>
+        </div>
         <h:panelGroup layout="block" id="comment-container">
             <h:panelGroup layout="block" rendered="true" id="table-delimiter">
                 <!-- Tabela de Notificações -->
-                <h:dataTable value="#{processo.comentarios}" var="comentario"
+                <h:dataTable rendered="#{processo.comentarios != null}" value="#{processo.comentarios}" var="comentario"
                     styleClass="table table-hover table-striped">
                     <!-- Protocolo -->
                     <h:column>
-                        <div class="row-fluid">
-                            <div class="span2">
-                                <img class="img-circle avatar hidden-phone" src="http://lorempixel.com/output/people-q-c-45-45-8.jpg"/>
+
+                        <h:panelGroup style="text-align: right; margin: 5px" rendered="#{comentario.funcionario.id == request.getSession().getAttribute('user').idUsuario}" layout="block">
+                            <div class="row-fluid">
+                                <div class="span10">
+                                    <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
+                                    <span>No momento de <h:outputText value="#{comentario.momento}" /></span> <br />
+                                    <span>
+                                        <h:outputText value="#{comentario.dataComentario.time}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                        </h:outputText>
+                                    </span><br/>
+                                </div>
+                                <div class="span2">
+                                    <h:graphicImage library="img" name="avatar_padrao.jpg" class="img-circle avatar hidden-phone"/>
+                                </div>
                             </div>
-                            <div class="span10">
-                                <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
-                                <span>No momento de <h:outputText value="#{comentario.momento}" /></span> <br />
-                                <span>
-                                    <h:outputText value="#{comentario.dataComentario.time}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
-                                    </h:outputText>
-                                </span><br/>
+                            <br/>
+                            <div class="row-fluid">
+                                <div class="span10">
+                                    <h:outputText value="#{comentario.descricao}" />
+                                </div>
                             </div>
-                        </div>
-                        <br/>
-                        <div class="row-fluid">
-                            <div class="span10 offset2">
-                                <h:outputText value="#{comentario.descricao}" />
+                        </h:panelGroup>
+                        <h:panelGroup  style="text-align: left; margin: 5px" rendered="#{comentario.funcionario.id != request.getSession().getAttribute('user').idUsuario}" layout="block">
+                            <div class="row-fluid">
+                                <div class="span2">
+                                    <h:graphicImage library="img" name="avatar_padrao.jpg" class="img-circle avatar hidden-phone"/>
+                                </div>
+                                <div class="span10">
+                                    <span><strong><h:outputText value="#{comentario.funcionario.nome}" /></strong></span><br/>
+                                    <span>No momento de <h:outputText value="#{comentario.momento}" /></span> <br />
+                                    <span>
+                                        <h:outputText value="#{comentario.dataComentario.time}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                        </h:outputText>
+                                    </span><br/>
+                                </div>
                             </div>
-                        </div>
+                            <br/>
+                            <div class="row-fluid">
+                                <div class="span10 offset2">
+                                    <h:outputText value="#{comentario.descricao}" />
+                                </div>
+                            </div>
+                        </h:panelGroup>
                     </h:column>
                 </h:dataTable>
             </h:panelGroup>
-            <h:panelGroup layout="block" styleClass="field-box">
-                <span><b><h:outputLabel value="#{msg['comentario.titulo.principal']}"/></b></span>
-                <h:inputTextarea id="descricaoComentario" name="descricaoComentario" rows="3" value="#{descricaoComentario}"/>
+            <h:panelGroup layout="block" id="area-comentario">
+                <textarea id="descricaoComentario" name="descricaoComentario" rows="3" maxlength="250">#{descricaoComentario}</textarea>
             </h:panelGroup>
         </h:panelGroup>
     </h:panelGroup>
+    </div>
+    <script>
+        /***
+         * Essa função define o tamanho da div de acordo com a quantidade
+         * de comentários existentes
+         *
+        ***/
+
+        function redimensionarAreaDeComentarios(){
+            var comentarios = $('div#comment-container * > tr');
+            var tableDelimiter = $('#table-delimiter');
+            if(comentarios != ''){
+                if(comentarios.length > 1){
+                   var comsHeight = comentarios[0].clientHeight + comentarios[1].clientHeight;
+                   tableDelimiter.attr('style','height:'+comsHeight+'px');
+                }else{
+                    tableDelimiter.attr('style','height:'+comentarios.first().clientHeight+'px');
+                }
+            }
+        }
+
+        $(document).ready(function () {
+            setTimeout(redimensionarAreaDeComentarios,50);
+        });
+
+        var $window = $(window),
+            $stickyDiv = $('#the-sticky-div'),
+            stickyTop = $stickyDiv.offset().top,
+            divComentario = $('div#the-sticky-div > div.comentario');
+
+        $window.scroll(function () {
+            var widthDivComentario = divComentario.width(),
+                widthDivPrincipal = $('div.step-pane.active').width();
+
+            $stickyDiv.toggleClass('sticky', $window.scrollTop() > stickyTop);
+
+            if($window.scrollTop() > stickyTop) {
+                $stickyDiv.css("margin-left", widthDivPrincipal);
+                divComentario.width(widthDivComentario);
+            }else{
+                $stickyDiv.css("margin-left", 0);
+            }
+        });
+
+    </script>
 </ui:composition>

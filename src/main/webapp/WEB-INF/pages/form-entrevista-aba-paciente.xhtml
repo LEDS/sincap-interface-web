@@ -19,8 +19,8 @@
     <!--@elvariable id="tipoDocumentos" type="java.util.List"-->
 
 
-    <h:outputLabel><b>#{msg['entrevista.text.paciente']}</b></h:outputLabel>
-    <br/>
+    <h4 class="section-title"><span>#{msg['entrevista.text.paciente']}</span></h4>
+
     <!-- Para manter os objetos quando buscar do banco de dados. -->
     <input type="hidden" id="id" name="id" value="#{processo.id}"/>
 
@@ -33,12 +33,10 @@
     <h:inputHidden id="entrevista-dataCadastro" value="#{processo.entrevista.dataCadastro.time}">
         <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}" />
     </h:inputHidden>
-    <br/>
-    <h:panelGroup id="entrevista" layout="block" styleClass="inline-input form-wrapper span8">
 
-        <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['entrevista.radioButton.realizada']}*"/>
-
+    <h:panelGroup id="entrevista" layout="block">
+        <h:panelGroup class="field-box">
+            <label>#{msg['entrevista.radioButton.realizada']}*</label>
             <div class="span8">
                 <label class="radio">
                     <input type="radio" name="entrevista.entrevistaRealizada" id="entrevistaRealizada:0" value="true"
@@ -53,33 +51,35 @@
             </div>
         </h:panelGroup>
 
-
-        <h:panelGroup styleClass="field-box" id="divEntrevistaNaoRealizada">
+        <h:panelGroup layout="block" styleClass="field-box" id="divEntrevistaNaoRealizada">
             <h:outputLabel value="#{msg['entrevista.dropdown.problemasEstruturais']}*"/>
 
-            <div class="ui-select span5">
-                <h:selectOneMenu id="problemasEstruturais" value="#{processo.causaNaoDoacao}">
+            <div class="span8">
+                <h:selectOneMenu styleClass="span8" id="problemasEstruturais" value="#{processo.causaNaoDoacao}">
                     <f:selectItem itemValue=""
                                   itemLabel="#{msg['entrevista.dropdown.problemasEstruturais']}"/>
                     <f:selectItems value="#{listaAspectoEstrutural}"/>
                 </h:selectOneMenu>
             </div>
-            <br/><br/>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.nome']}*"/>
-            <h:inputText styleClass="span8" id="obito-paciente-nome"
-                         value="#{processo.obito.paciente.nome}"/>
+            <label>#{msg['obito.paciente.nome']}*</label>
+            <div class="span8">
+                <h:inputText styleClass="span8" id="obito-paciente-nome"
+                             value="#{processo.obito.paciente.nome}"/>
+            </div>
         </h:panelGroup>
 
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['notificacao.protocolo']}*"/>
-            <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}"/>
+            <div class="span8">
+                <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}"/>
+            </div>
         </h:panelGroup>
 
-        <h:panelGroup id="divEntrevistaRealizada" layout="block">
-            <h:panelGroup styleClass="field-box" layout="block">
+        <h:panelGroup layout="block" id="divEntrevistaRealizada" >
+            <h:panelGroup layout="block" styleClass="field-box" >
                 <h:outputLabel value="#{msg['entrevista.radioButton.doacaoAutorizada']}*"/>
 
                 <div class="span8">
@@ -96,64 +96,73 @@
                 </div>
             </h:panelGroup>
 
-            <h:panelGroup id="divDoacaoNaoAutorizada" layout="block" styleClass="field-box">
+            <h:panelGroup layout="block" styleClass="field-box" id="divDoacaoNaoAutorizada">
                 <h:outputLabel value="#{msg['entrevista.dropdown.recusaFamiliar']}*"/>
 
-                <div class="ui-select span8">
-                    <h:selectOneMenu id="recusaFamiliar" value="#{processo.causaNaoDoacao}"
-                                     styleClass="dropdown">
+                <div class="span8">
+                    <h:selectOneMenu styleClass="span8" id="recusaFamiliar" value="#{processo.causaNaoDoacao}">
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['entrevista.dropdown.recusaFamiliar']}"/>
                         <f:selectItems value="#{listaRecusaFamiliar}"/>
                     </h:selectOneMenu>
                 </div>
-                <br/><br/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['entrevista.text.dtEntrevista']}*"/>
-                <h:inputText styleClass="dataEntrevista span8 fillOnDblClick" name="dataEntrevista" id="dataEntrevista"
-                             value="#{processo.entrevista.dataEntrevista.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:inputText>
+                <div class="span8">
+                    <h:inputText styleClass="data span8 fillOnDblClick" name="dataEntrevista" id="dataEntrevista"
+                                 value="#{processo.entrevista.dataEntrevista.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+                </div>
             </h:panelGroup>
+
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['entrevista.text.hrEntrevista']}*"/>
-                <h:inputText styleClass="horaEntrevista span8" id="horaEntrevista"
-                             value="#{processo.entrevista.dataEntrevista.time}">
-                    <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
-                    <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
-                </h:inputText>
+                <div class="span8">
+                    <h:inputText styleClass="hora span8" id="horaEntrevista"
+                                 value="#{processo.entrevista.dataEntrevista.time}">
+                        <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
+                        <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
+                    </h:inputText>
+                </div>
             </h:panelGroup>
-
-
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.profissao']}*"/>
-                <h:inputText id="obito-paciente-profissao" styleClass="span8" value="#{processo.obito.paciente.profissao}"/>
+                <div class="span8">
+                    <h:inputText id="obito-paciente-profissao" styleClass="span8" value="#{processo.obito.paciente.profissao}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.religiao']}*"/>
-                <h:inputText id="obito-paciente-religiao" styleClass="span8" value="#{processo.obito.paciente.religiao}"/>
+                <div class="span8">
+                    <h:inputText id="obito-paciente-religiao" styleClass="span8" value="#{processo.obito.paciente.religiao}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}*"/>
+                <div class="span8">
                 <h:inputText id="obito-paciente-nacionalidade" styleClass="span8"
                              value="#{processo.obito.paciente.nacionalidade}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.mae']}*"/>
-                <h:inputText id="obito-paciente-nomeMae" styleClass="span8" value="#{processo.obito.paciente.nomeMae}"/>
+                <div class="span8">
+                    <h:inputText id="obito-paciente-nomeMae" styleClass="span8" value="#{processo.obito.paciente.nomeMae}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['responsavel.dropdown.uf']}*"/>
 
-                <div class="ui-select span8">
-                    <h:selectOneMenu id="obito-paciente-endereco-estado"
+                <div class="span8">
+                    <h:selectOneMenu styleClass="span8" id="obito-paciente-endereco-estado"
                                      value="#{processo.obito.paciente.endereco.estado}"
                                      onchange="ajaxGetMunicipios('#obito-paciente-endereco-estado', '#obito-paciente-endereco-cidade')">
                         <f:selectItem itemValue=""
@@ -161,15 +170,14 @@
                         <f:selectItems value="#{listaEstadoItem}"/>
                     </h:selectOneMenu>
                 </div>
-                <br/>
-                <br/>
             </h:panelGroup>
 
-            <div class="field-box">
+            <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}*"/>
 
-                <div class="ui-select span8">
+                <div class="span8">
                     <h:selectOneMenu
+                            styleClass="span8"
                             id="obito-paciente-endereco-cidade"
                             value="#{processo.obito.paciente.endereco.cidade}"
                             onchange="ajaxGetBairros('#obito-paciente-endereco-cidade', '#obito-paciente-endereco-bairro')">
@@ -177,65 +185,77 @@
                         <f:selectItems value="#{listaCidadeItem}"/>
                     </h:selectOneMenu>
                 </div>
-                <br/>
-                <br/>
-            </div>
+            </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}*"/>
 
-                <div class="ui-select span8">
+                <div class="span8">
                     <h:selectOneMenu
+                            styleClass="span8"
                             id="obito-paciente-endereco-bairro"
                             value="#{processo.obito.paciente.endereco.bairro    }">
                         <f:selectItem itemLabel="#{msg['obito.paciente.dropDown.bairro']}"/>
                         <f:selectItems value="#{listaBairroItem}"/>
                     </h:selectOneMenu>
                 </div>
-                <br/>
-                <br/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.cep']}*"/>
-                <h:inputText id="obito-paciente-endereco-cep" styleClass="cep span8"
+                <div class="span8">
+                    <h:inputText id="obito-paciente-endereco-cep" styleClass="cep span8"
                              value="#{processo.obito.paciente.endereco.cep}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.logradouro']}*"/>
+                <div class="span8">
                 <h:inputText id="obito-paciente-endereco-logradouro" styleClass="span8"
                              value="#{processo.obito.paciente.endereco.logradouro}"/>
+                </div>
             </h:panelGroup>
+
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['obito.paciente.endereco.numero']}*"/>
+                <div class="span8">
                 <h:inputText id="obito-paciente-endereco-numero" styleClass="span8" value="#{processo.obito.paciente.endereco.numero}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Data Internaçao"/>
-                <h:inputText id="obito-paciente-dataInternacao" readonly="true" styleClass="span8"
-                             value="#{processo.obito.paciente.dataInternacao.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:inputText>
+                <div class="span8">
+                    <h:inputText id="obito-paciente-dataInternacao" readonly="true" styleClass="span8"
+                                 value="#{processo.obito.paciente.dataInternacao.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Data Nascimento"/>
-                <h:inputText id="obito-paciente-dataNascimento" styleClass="dataNascimento span8"
-                             value="#{processo.obito.paciente.dataNascimento.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:inputText>
+                <div class="span8">
+                    <h:inputText id="obito-paciente-dataNascimento" styleClass="data span8"
+                                 value="#{processo.obito.paciente.dataNascimento.time}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:inputText>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Numero Prontuario"/>
-                <h:inputText  styleClass="span8" id="obito-paciente-numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}"/>
+                <div class="span8">
+                    <h:inputText  styleClass="span8" id="obito-paciente-numeroProntuario" value="#{processo.obito.paciente.numeroProntuario}"/>
+                </div>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="Numero SUS"/>
-                <h:inputText  styleClass="span8" id="obito-paciente-numeroSUS" value="#{processo.obito.paciente.numeroSUS}"/>
+                <div class="span8">
+                    <h:inputText  styleClass="span8" id="obito-paciente-numeroSUS" value="#{processo.obito.paciente.numeroSUS}"/>
+                </div>
              </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
@@ -257,38 +277,39 @@
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}*"/>
 
-                <div class="ui-select span8">
-                    <h:selectOneMenu id="obito-paciente-estadoCivil"
-                                     value="#{processo.obito.paciente.estadoCivil}">
+                <div class="span8">
+                    <h:selectOneMenu
+                            styleClass="span8"
+                            id="obito-paciente-estadoCivil"
+                            value="#{processo.obito.paciente.estadoCivil}">
                         <f:selectItem itemValue=""
                                       itemLabel="#{msg['responsavel.dropdown.estadoCivil']}"/>
                         <f:selectItems value="#{listaEstadosCivis}"/>
                     </h:selectOneMenu>
                 </div>
-                <br/><br/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
 
-                <div class="ui-select span8">
+                <div class="span8">
                     <h:selectOneMenu
+                            styleClass="span8"
                             id="obito-paciente-documentoSocial-tipoDocumentoComFoto"
                             value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}">
                         <f:selectItem itemLabel="#{msg['responsavel.text.selecioneTipoDocumento']}"/>
                         <f:selectItems value="#{tipoDocumentos}"/>
                     </h:selectOneMenu>
                 </div>
-                <br/><br/>
             </h:panelGroup>
 
             <h:panelGroup layout="block" styleClass="field-box">
                 <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+                <div class="span8">
                 <h:inputText id="obito-paciente-documentoSocial-documento" styleClass="span8"
                              value="#{processo.obito.paciente.documentoSocial.documento}"/>
+                </div>
             </h:panelGroup>
-
-
 
         </h:panelGroup>
     </h:panelGroup>

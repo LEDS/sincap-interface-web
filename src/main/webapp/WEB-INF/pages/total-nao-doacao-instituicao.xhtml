@@ -23,9 +23,9 @@
 
             <h1 align="center">Total Não Doação Por Instituição</h1>
 
-            <br></br><br></br><br></br>
-
-            <h:panelGrid columns="7">
+            <div class="row filtro">
+            <div class="pull-right">
+            <h:panelGrid columns="12">
                 <h:outputLabel value="A partir de:"/>
                 <h:outputLabel value=" "/>
                 <h:inputText id="datIni" styleClass="datepicker" name="datIni" value="#{dataInicial.time}">
@@ -37,9 +37,15 @@
                 <h:inputText id="datFim" styleClass="datepicker" name="datFim" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
+                <button type="submit" class="btn-glow success btn-finish">
+                    <i class="icon-search"></i>
+                    Buscar
+                </button>
             </h:panelGrid>
+            </div>
+            </div>
 
-            <br></br><br></br>
+
 
             <h:panelGrid rendered="#{request.isUserInRole('ROLE_ANALISTA')}"  columns="2">
 
@@ -57,18 +63,9 @@
                     </div>
                 </h:panelGroup>
             </h:panelGrid>
-
-            <br></br><br></br>
-
-
-            <button type="submit" class="btn-glow success btn-finish">
-                Enviar
-            </button>
-
             </form>
 
 
-            <br></br><br></br>
 
             <div class="tab-content">
                 <ui:include src="../components/lista-total-nao-doacao-instituicao.xhtml"/>

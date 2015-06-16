@@ -25,23 +25,29 @@
 
             <h1 align="center">Qualificações de Recusas Familiares</h1>
 
-            <br></br><br></br><br></br>
 
-            <h:panelGrid columns="7">
-                <h:outputLabel for="datIni" value="A partir de:"/>
-                <h:outputLabel value=" "/>
-                <h:inputText type = "date" styleClass="datepicker" id="datIni" name="datIni" value="#{dataInicial.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:inputText>
-                <h:outputLabel value=" "/>
-                <h:outputLabel value=" "/>
-                <h:outputLabel for= "datFim" value="Até:"/>
-                <h:inputText type = "date" styleClass="datepicker" id="datFim" name="datFim" value="#{dataFinal.time}">
-                    <f:convertDateTime pattern="dd/MM/yyyy"/>
-                </h:inputText>
-            </h:panelGrid>
+            <div class="row filtro">
+                <div class="pull-right">
+                    <h:panelGrid columns="12">
+                        <h:outputLabel for="datIni" value="A partir de:"/>
+                        <h:outputLabel value=" "/>
+                        <h:inputText type = "date" styleClass="datepicker" id="datIni" name="datIni" value="#{dataInicial.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:inputText>
+                        <h:outputLabel value=" "/>
+                        <h:outputLabel value=" "/>
+                        <h:outputLabel for= "datFim" value="Até:"/>
+                        <h:inputText type = "date" styleClass="datepicker" id="datFim" name="datFim" value="#{dataFinal.time}">
+                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                        </h:inputText>
+                    <button type="submit" class="btn-glow success btn-finish">
+                        <i class="icon-search"></i>
+                        Buscar
+                    </button>
+                    </h:panelGrid>
+                </div>
+            </div>
 
-            <br></br><br></br>
 
 
             <h:panelGrid rendered="#{request.isUserInRole('ROLE_ANALISTA')}" columns="2">
@@ -61,15 +67,8 @@
                 </h:panelGroup>
             </h:panelGrid>
 
-
-            <br></br><br></br>
-
-            <button type="submit" class="btn-glow success btn-finish">
-                Enviar
-            </button>
-
         </form>
-        <br></br><br></br>
+
 
         <div class="tab-content">
             <ui:include src="../components/lista-qualificacao-recusa-familiar.xhtml"/>

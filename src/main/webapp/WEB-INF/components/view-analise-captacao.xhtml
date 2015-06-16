@@ -6,16 +6,29 @@
 
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
 
-    <h:panelGroup layout="block" rendered="#{processo.captacao.captacaoRealizada}" styleClass="field-box">
-        <label>Data e hora da Captação</label>
-        <h:inputText readonly="true" styleClass="span8" value="#{processo.captacao.dataCaptacao.time}">
-            <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
-        </h:inputText>
-    </h:panelGroup>
-
-    <h:panelGroup layout="block" rendered="#{not processo.captacao.captacaoRealizada}" styleClass="field-box">
-        <label>Problema Logístico</label>
-        <h:inputText readonly="true" value="#{processo.causaNaoDoacao.nome}"/>
-    </h:panelGroup>
-
+    <div class="row">
+        <h4 class="section-title"><span>Dados da Captação</span></h4>
+    </div>
+    <div class="row">
+        <h:panelGroup rendered="#{processo.captacao.captacaoRealizada}" layout="block" styleClass="field-box">
+            <label>Captação Realizada</label>
+            <h:inputText readonly="true" styleClass="span8" value="Sim">
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{not processo.captacao.captacaoRealizada}" layout="block" styleClass="field-box">
+            <label>Captação Realizada</label>
+            <h:inputText readonly="true" styleClass="span8" value="Não">
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{processo.captacao.captacaoRealizada}" styleClass="field-box">
+            <label>Data e hora da Captação</label>
+            <h:inputText readonly="true" styleClass="span8" value="#{processo.captacao.dataCaptacao.time}">
+                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+            </h:inputText>
+        </h:panelGroup>
+        <h:panelGroup layout="block" rendered="#{not processo.captacao.captacaoRealizada}" styleClass="field-box">
+            <label>Problema Logístico</label>
+            <h:inputText readonly="true" value="#{processo.causaNaoDoacao.nome}"/>
+        </h:panelGroup>
+    </div>
 </ui:composition>
