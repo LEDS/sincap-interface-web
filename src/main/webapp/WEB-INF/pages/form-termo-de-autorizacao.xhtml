@@ -30,7 +30,9 @@
                 width:95%;
                 font-size: 10pt;
             }
-
+            .dados {
+                text-transform: uppercase;
+            }
 
         </style>
     </head>
@@ -44,31 +46,35 @@
     <h5>TERMO DE AUTORIZAÇÃO DE DOAÇÃO DE MÚLTIPLOS ÓRGÃOS/TECIDOS</h5>
     <div class="padrao">
         <b>1. DOADOR:</b><br/>
-            Nome: #{pn.obito.paciente.nome}  <br/>
-            Idade: #{idadePaciente} anos Sexo: #{pn.obito.paciente.sexo} Documento com foto: #{pn.obito.paciente.documentoSocial.documento} Tipo de Documento: #{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto}<br/>
-            Endereço/Rua: #{pn.obito.paciente.endereco.logradouro} CEP: #{pn.obito.paciente.endereco.cep} N°: #{pn.obito.paciente.endereco.numero} Bairro: #{bairroPaciente} <br/>
-            Município: #{cidadePaciente} Estado: #{estadoPaciente} Nome da mãe: #{pn.obito.paciente.nomeMae}<br/>
-            Local da Captação: #{hospitalNome} Municipio: #{hospitalCidade} Religião:#{pn.obito.paciente.religiao}<br/>
-            Registro Hospitalar: #{pn.obito.paciente.numeroProntuario} Data do óbito: #{dataObito} Horário do óbito: #{horaObito}h
+            Nome: <span class="dados">#{pn.obito.paciente.nome}</span>  <br/>
+            Idade: <span class="dados">#{idadePaciente}</span> anos Sexo: <span class="dados">#{pn.obito.paciente.sexo}</span> Documento com foto: <span class="dados">#{pn.obito.paciente.documentoSocial.documento}</span> Tipo de Documento: <span class="dados">#{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto}</span><br/>
+            Endereço/Rua: <span class="dados">#{pn.obito.paciente.endereco.logradouro}</span> CEP: <span class="dados">#{pn.obito.paciente.endereco.cep}</span> N°: <span class="dados">#{pn.obito.paciente.endereco.numero}</span> Bairro: <span class="dados">#{bairroPaciente}</span> <br/>
+            Município: <span class="dados">#{cidadePaciente}</span> Estado: <span class="dados">#{estadoPaciente}</span> Nome da mãe: <span class="dados">#{pn.obito.paciente.nomeMae}</span> <br/>
+            Local da Captação: <span class="dados">#{hospitalNome}</span> Municipio: <span class="dados">#{hospitalCidade}</span> Religião: <span class="dados">#{pn.obito.paciente.religiao}</span><br/>
+            Registro Hospitalar: <span class="dados">#{pn.obito.paciente.numeroProntuario}</span> Data do óbito: <span class="dados">#{dataObito}</span> Horário do óbito: <span class="dados">#{horaObito}</span>.
     </div>
-    <div >
+    <div>
         <div class="padrao">
-           <b>2. RESPONSÁVEL PELA AUTORIZAÇÃO:</b><b style="text-align:right;font-weight: bold">    *LEI Nº 10.211/2001</b><br/>
-            <b>* Grau de Parentesco: #{pn.entrevista.responsavel.parentesco}</b><br/>
-            Nome: #{pn.entrevista.responsavel.nome}<br/>
-            Idade:#{idadeResponsavel} anos Sexo: #{pn.entrevista.responsavel.sexo} Doc/Foto Nº: #{pn.entrevista.responsavel.documentoSocial.documento} Tipo de documento: #{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} Profissão: #{pn.entrevista.responsavel.profissao}<br/>
-            Religião: #{pn.entrevista.responsavel.religiao} Grau de Escolaridade: #{pn.entrevista.responsavel.grauEscolaridade}<br/>
-            Endereço/Rua: #{pn.entrevista.responsavel.endereco.logradouro} CEP: #{pn.entrevista.responsavel.endereco.cep} Nº:#{pn.entrevista.responsavel.endereco.numero} Bairro: #{bairroResponsavel} <br/>
-            Município: #{cidadeResponsavel} Estado: #{estadoResponsavel} Telefone(s): #{pn.entrevista.responsavel.telefone.numero}<br/>
+           <b>2. RESPONSÁVEL PELA AUTORIZAÇÃO:</b><b style="text-align:right;font-weight: bold"> *LEI Nº 10.211/2001</b><br/>
+            <b>* Grau de Parentesco: <span class="dados">#{pn.entrevista.responsavel.parentesco}</span></b><br/>
+            Nome: <span class="dados">#{pn.entrevista.responsavel.nome}</span><br/>
+            Idade:<span class="dados">#{idadeResponsavel}</span> anos Sexo: <span class="dados">#{pn.entrevista.responsavel.sexo}</span> Doc/Foto Nº: <span class="dados">#{pn.entrevista.responsavel.documentoSocial.documento}</span> Tipo de documento:<span class="dados">#{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}</span> Profissão: <span class="dados">#{pn.entrevista.responsavel.profissao}</span>
+            <br/>
+            Religião: <span class="dados">#{pn.entrevista.responsavel.religiao}</span> Grau de Escolaridade: <span class="dados">#{pn.entrevista.responsavel.grauEscolaridade}</span><br/>
+            Endereço/Rua:<span class="dados"> #{pn.entrevista.responsavel.endereco.logradouro}</span> CEP: <span class="dados">#{pn.entrevista.responsavel.endereco.cep}</span> Nº:<span class="dados">#{pn.entrevista.responsavel.endereco.numero}</span> Bairro: <span class="dados">#{bairroResponsavel}</span> <br/>
+            Município: <span class="dados">#{cidadeResponsavel}</span> Estado: <span class="dados">#{estadoResponsavel}</span> Telefone(s): <span class="dados">#{pn.entrevista.responsavel.telefone.numero}</span><br/>
             <br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
             <h:panelGroup rendered="#{not empty pn.entrevista.responsavel2}" layout="block">
                 <b>* Caso menor de 18 anos; assinatura de ambos os pais.</b><br/>
-                Nome: #{pn.entrevista.responsavel2.nome}<br/>
-                Idade:#{idadeResponsavel2}anos Sexo: #{pn.entrevista.responsavel2.sexo} Doc/Foto Nº: #{pn.entrevista.responsavel2.documentoSocial.documento} Tipo de documento: #{pn.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto} Profissão: #{pn.entrevista.responsavel2.profissao}<br/>
-                Religião: #{pn.entrevista.responsavel2.religiao} Grau de Escolaridade: #{pn.entrevista.responsavel2.grauEscolaridade}<br/>
-                Endereço/Rua: #{pn.entrevista.responsavel2.endereco.logradouro} CEP: #{pn.entrevista.responsavel2.endereco.cep} N°: #{pn.entrevista.responsavel2.endereco.numero} Bairro: #{bairroResponsavel2}<br/>
-                Município: #{cidadeResponsavel2} Estado: #{estadoResponsavel2} Telefone(s): #{pn.entrevista.responsavel2.telefone.numero}<br/>
+                Nome: <span class="dados">#{pn.entrevista.responsavel2.nome}</span><br/>
+                Idade:<span class="dados">#{idadeResponsavel2}anos</span> Sexo: <span class="dados">#{pn.entrevista.responsavel2.sexo}</span> Doc/Foto Nº: <span class="dados">#{pn.entrevista.responsavel2.documentoSocial.documento}</span> Tipo de documento: <span class="dados">#{pn.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto}</span> Profissão: <span class="dados">#{pn.entrevista.responsavel2.profissao}</span>
+                <br/>
+                Religião: <span class="dados">#{pn.entrevista.responsavel2.religiao}</span> Grau de Escolaridade: <span class="dados">#{pn.entrevista.responsavel2.grauEscolaridade}</span><br/>
+                Endereço/Rua: <span class="dados">#{pn.entrevista.responsavel2.endereco.logradouro}</span> CEP: <span class="dados">#{pn.entrevista.responsavel2.endereco.cep}</span> N°: <span class="dados">#{pn.entrevista.responsavel2.endereco.numero}</span> Bairro: <span class="dados">#{bairroResponsavel2}</span>
+                <br/>
+                Município: <span class="dados">#{cidadeResponsavel2}</span> Estado: <span class="dados">#{estadoResponsavel2}</span> Telefone(s): <span class="dados">#{pn.entrevista.responsavel2.telefone.numero}</span>
+                <br/>
                 <b>ASSINATURA</b> ________________________________________________________________
             </h:panelGroup>
         </div>
@@ -87,11 +93,12 @@
     </div>
     <div >
         <div class="padrao">
-            Testemunha 1- Nome Completo: #{pn.entrevista.testemunha1.nome}           Doc/Foto Nº: #{pn.entrevista.testemunha1.documentoSocial.documento} Tipo de doc: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}<br/>
+            Testemunha 1- Nome Completo: <span class="dados">#{pn.entrevista.testemunha1.nome}</span>           Doc/Foto Nº: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.documento}</span> Tipo de doc: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}</span><br/>
             <br/>
             <b>ASSINATURA</b> ________________________________________________________________<br/>
             <br/>
-            Testemunha 2- Nome Completo: #{pn.entrevista.testemunha2.nome}           Doc/Foto Nº: #{pn.entrevista.testemunha2.documentoSocial.documento} Tipo de doc: #{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}<br/>
+            Testemunha 2- Nome Completo: <span class="dados">#{pn.entrevista.testemunha2.nome} </span>          Doc/Foto Nº: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.documento}</span> Tipo de doc: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}</span>
+            <br/>
             <br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>
@@ -99,7 +106,7 @@
     <div >
         <div class="profissional">
             <b>Profissional Responsável pela Entrevista</b><br/>
-            Nome Completo: #{nomeFuncionario} N° Conselho: ___________________ Data:#{dataEntrevista} Hora:#{horaEntrevista}<br/>
+            Nome Completo: <span class="dados">#{nomeFuncionario}</span> N° Conselho: ___________________ Data:<span class="dados">#{dataEntrevista}</span> Hora: <span class="dados">#{horaEntrevista}</span><br/>
             <br/>
             <b>ASSINATURA</b> ________________________________________________________________
         </div>

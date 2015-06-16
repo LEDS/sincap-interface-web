@@ -28,7 +28,9 @@
                 text-align: center;
                 margin-top: 20px;
             }
-
+            .dados {
+                text-transform: uppercase;
+            }
             table {
                 border: 1px #000 solid;
             }
@@ -83,20 +85,19 @@
             <br/>
 
         <div class="padrao">
-            <p><strong>Eu, </strong>#{pn.entrevista.responsavel.nome} do sexo  #{pn.entrevista.responsavel.sexo}
-            nascido no dia #{dataNascimentoResponsavel}, portador do #{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} sob Nº #{pn.entrevista.responsavel.documentoSocial.documento}
+            <p><strong>Eu, </strong><span class="dados">#{pn.entrevista.responsavel.nome}</span> do sexo <span class="dados">#{pn.entrevista.responsavel.sexo}</span>
+            nascido no dia <span class="dados">#{dataNascimentoResponsavel}</span>, portador do <span class="dados">#{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}</span> sob Nº <span class="dados">#{pn.entrevista.responsavel.documentoSocial.documento}</span>
             residente no endereço - Rua: #{pn.entrevista.responsavel.endereco.logradouro} N° #{pn.entrevista.responsavel.endereco.numero}
-            CEP: #{pn.entrevista.responsavel.endereco.cep} Bairro: #{bairroResponsavel} Município: #{cidadeResponsavel} Estado: #{estadoResponsavel}.
-            Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>não autorizo</strong> a
-            doação de órgãos e/ou tecidos para transplantes do paciente:
-            #{pn.obito.paciente.nome}, falecido às: #{horaObito} do
-            dia: #{dataObito} no #{hospitalNome}, #{hospitalCidade}. </p>
+            CEP: <span class="dados">#{pn.entrevista.responsavel.endereco.cep}</span> Bairro: <span class="dados">#{bairroResponsavel}</span> Município: <span class="dados">#{cidadeResponsavel}</span> Estado: <span class="dados">#{estadoResponsavel}</span>.
+            Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>NÃO AUTORIZO</strong> a
+            doação de órgãos e/ou tecidos para transplantes do paciente: <span class="dados">#{pn.obito.paciente.nome}</span>, falecido às: <span class="dados">#{horaObito}</span> do
+            dia: <span class="dados">#{dataObito}</span> no <span class="dados"> #{hospitalNome}</span>, <span class="dados">#{hospitalCidade}.</span> </p>
         </div>
             <br/>
 
         <div class="padrao">
-            <strong>Motivo da recusa familiar</strong><br/>
-            #{recusaEData.recusaFamiliar}
+           <strong>Motivo da recusa familiar</strong><br/>
+           <span class="dados">#{recusaEData.recusaFamiliar}</span>
         </div>
         <br/>
 
@@ -104,7 +105,7 @@
             <p>
                 <strong>Assinatura do Responsável legal:</strong> ________________________________________________________________
                 <br/>
-                Grau de parentesco: #{pn.entrevista.responsavel.parentesco}
+                Grau de parentesco: <span class="dados">#{pn.entrevista.responsavel.parentesco}</span>
             </p>
         </div>
         <br/>
@@ -112,8 +113,8 @@
         <table class="testemunha">
             <th class="borda_inferior" colspan="2">Testemunha 01</th>
             <tr>
-                <td class="borda_inferior">Nome Completo:  #{pn.entrevista.testemunha1.nome}</td>
-                <td class="borda_inferior sem_borda_direita">Documento: #{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
+                <td class="borda_inferior">Nome Completo:  <span class="dados">#{pn.entrevista.testemunha1.nome}</span> </td>
+                <td class="borda_inferior sem_borda_direita">Documento: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</span></td>
             </tr>
 
             <tr>
@@ -125,8 +126,8 @@
         <table class="testemunha">
             <th class="borda_inferior" colspan="2">Testemunha 02</th>
             <tr>
-                <td class="borda_inferior">Nome Completo: #{pn.entrevista.testemunha2.nome}</td>
-                <td class="borda_inferior sem_borda_direita">Documento: #{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</td>
+                <td class="borda_inferior">Nome Completo: <span class="dados">#{pn.entrevista.testemunha2.nome}</span></td>
+                <td class="borda_inferior sem_borda_direita">Documento: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</span></td>
             </tr>
 
             <tr>
@@ -139,7 +140,7 @@
         <table class="profissional_responsavel">
             <th class="borda_inferior" colspan="2">Profissional responsável:</th>
             <tr>
-                <td>Nome: #{nomeFuncionario}</td>
+                <td>Nome: <span class="dados">#{nomeFuncionario}</span></td>
                 <td class="sem_borda_direita">Assinatura/Carimbo:</td>
             </tr>
         </table>
