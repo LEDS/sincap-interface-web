@@ -57,22 +57,29 @@
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}"/>
         <div class="span8">
-        <h:inputText styleClass="data span8" id="obito-paciente-dataNascimento"
-                     value="#{processo.obito.paciente.dataNascimento.time}">
-            <f:convertDateTime pattern="dd/MM/yyyy"/>
-        </h:inputText>
+            <h:inputText styleClass="data span8" id="obito-paciente-dataNascimento"
+                         value="#{processo.obito.paciente.dataNascimento.time}" onchange="calculaIdade(this.value)">
+                <f:convertDateTime pattern="dd/MM/yyyy"/>
+            </h:inputText>
         </div>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}"/>
+        <h:outputLabel value="#{msg['obito.paciente.idade']}"/>
         <div class="span8">
-        <h:inputText styleClass="data span8 fillOnDblClick" id="obito-paciente-dataInternacao"
-                     value="#{processo.obito.paciente.dataInternacao.time}">
-            <f:convertDateTime pattern="dd/MM/yyyy"/>
-        </h:inputText>
+            <h:inputText readonly="true" id="obito-paciente-idade" styleClass="span8"/>
         </div>
     </h:panelGroup>
+
+     <h:panelGroup layout="block" styleClass="field-box">
+         <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}"/>
+         <div class="span8">
+         <h:inputText styleClass="data span8 fillOnDblClick" id="obito-paciente-dataInternacao"
+                      value="#{processo.obito.paciente.dataInternacao.time}">
+             <f:convertDateTime pattern="dd/MM/yyyy"/>
+         </h:inputText>
+         </div>
+     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
         <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
@@ -111,5 +118,18 @@
                      value="#{processo.obito.paciente.numeroProntuario}"/>
         </div>
     </h:panelGroup>
+
+    <script>
+
+        function calculaIdade(){
+
+            var datAtual = new Date(Date.now());
+            var datNasc = new Date(document.getElementById("obito-paciente-dataNascimento").value);
+            var idade = datAtual.getFullYear() - datNasc.getFullYear();
+
+            document.getElementById("obito-paciente-idade").setAttribute('value',idade + ' ANOS');
+        }
+
+    </script>
 
 </ui:composition>
