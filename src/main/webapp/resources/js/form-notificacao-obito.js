@@ -255,10 +255,13 @@
         var corpo_encaminhamento = document.getElementById('obito-corpoEncaminhamento');
         corpo_encaminhamento.addEventListener('change', function () {
             var $primeiraCausaMortis = $("#obito-primeiraCausaMortis");
+            $("#divCausasMortis").show();
 
             if (corpo_encaminhamento.value !== 'NAO_ENCAMINHADO') {
                 $primeiraCausaMortis.rules('remove');
+                $("#divCausasMortis").hide();
                 fieldBoxValidatorSuccess(null, document.getElementById('obito-primeiraCausaMortis'));
+
             } else {
                 $primeiraCausaMortis.rules('add', {required: true});
             }
