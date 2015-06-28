@@ -93,7 +93,11 @@ public class IndexController {
             List<ProcessoNotificacao> processosAguardandoArquivamento = aplProcessoNotificacao
                     .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOARQUIVAMENTO);
 
+            List<ProcessoNotificacao> processosObitoAguardandoEntrevista = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOENTREVISTA);
+
             model.addAttribute("processosObitoAnalisePendente", processosObitoAnalisePendente);
+            model.addAttribute("processosObitoAguardandoEntrevista", processosObitoAguardandoEntrevista);
             model.addAttribute("processosEntrevistaAnalisePendente", processosEntrevistaAnalisePendente);
             model.addAttribute("processosCaptacoesAnalisePendente", processosCaptacoesAnalisePendente);
             model.addAttribute("processosAguardandoArquivamento", processosAguardandoArquivamento);
