@@ -31,8 +31,8 @@
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                             <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4 class="aba-centralizada">Óbito Pendente <span class="badge" id="qtdDados-tabelaAnalisarObito"></span></h4></a></li>
-                            <li><a href="#entrevistaNotificar" data-toggle="tab"><h4 class="aba-centralizada">Entrevista Notificar <span class="badge" id="qtdDados-tabelaNotificarEntrevista"></span></h4></a></li>
-                            <li><a href="#entrevistaPendente" data-toggle="tab"><h4 class="aba-centralizada">Entrevista Analisar <span class="badge" id="qtdDados-tabelaAnalisarEntrevista"></span></h4></a></li>
+                            <li><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">Realizar Entrevista <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
+                            <li><a href="#entrevistaPendente" data-toggle="tab"><h4 class="aba-centralizada">Analisar Entrevista <span class="badge" id="qtdDados-tabelaAnalisarEntrevista"></span></h4></a></li>
                             <li><a href="#captacaoPendente" data-toggle="tab"><h4 class="aba-centralizada">Captação Pendente <span class="badge" id="qtdDados-tabelaAnalisarCaptacao"></span></h4></a></li>
                             <li><a href="#arquivamento" data-toggle="tab"><h4 class="aba-centralizada">Arquivamento <span class="badge" id="qtdDados-tabelaNotificacoesAguardandoArquivamento"></span></h4></a></li>
                         </ul>
@@ -44,7 +44,7 @@
                                 <!--<ui:param name="processos" value="#{processosObitoAnalisePendente}"/> -->
                             </ui:include>
                         </div>
-                        <div class="tab-pane" id="entrevistaNotificar">
+                        <div class="tab-pane" id="obitoAguardantoEntrevista">
                             <!-- Notificações com óbito aguardando entrevista-->
                             <ui:include src="/WEB-INF/components/lista-obito-aguardando-entrevista.xhtml">
                                 <ui:param name="listaProcessosNotificacao" value="#{processosObitoAguardandoEntrevista}" />
