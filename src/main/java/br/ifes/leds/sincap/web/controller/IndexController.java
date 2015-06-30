@@ -58,12 +58,6 @@ public class IndexController {
                         @RequestParam(value = "captacaoRecusado", defaultValue = "false") boolean captacaoRecusado,
                         @RequestParam(value = "doacaoNaoAutorizada", defaultValue = "false") boolean doacaoNaoAutorizada){
 
-        List<String> autoridades = authoritiesSetToStringList(getContext().getAuthentication().getAuthorities());
-
-        seForNotificador(model, autoridades);
-        seForNotificadorOuCaptador(model, autoridades, (UsuarioSessao) session.getAttribute("user"));
-        seForCaptador(model, autoridades, (UsuarioSessao) session.getAttribute("user"));
-        seForAnalista(model, autoridades);
 
         model.addAttribute("sucessoObito", sucessoObito);
         model.addAttribute("obitoConfirmado", obitoConfirmado);
@@ -80,61 +74,6 @@ public class IndexController {
         model.addAttribute("doacaoNaoAutorizada", doacaoNaoAutorizada);
 
         return "index";
-    }
-
-    private void seForAnalista(ModelMap model, List<String> autoridades) {
-        if (autoridades.contains("ROLE_ANALISTA")) {
-            List<ProcessoNotificacao> processosObitoAnalisePendente = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEOBITO);
-            List<ProcessoNotificacao> processosEntrevistaAnalisePendente = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISEENTREVISTA);
-            List<ProcessoNotificacao> processosCaptacoesAnalisePendente = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOANALISECAPTACAO);
-            List<ProcessoNotificacao> processosAguardandoArquivamento = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOARQUIVAMENTO);
-
-            List<ProcessoNotificacao> processosObitoAguardandoEntrevista = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOENTREVISTA);
-
-            model.addAttribute("processosObitoAnalisePendente", processosObitoAnalisePendente);
-            model.addAttribute("processosObitoAguardandoEntrevista", processosObitoAguardandoEntrevista);
-            model.addAttribute("processosEntrevistaAnalisePendente", processosEntrevistaAnalisePendente);
-            model.addAttribute("processosCaptacoesAnalisePendente", processosCaptacoesAnalisePendente);
-            model.addAttribute("processosAguardandoArquivamento", processosAguardandoArquivamento);
-        }
-    }
-
-    private void seForCaptador(ModelMap model, List<String> autoridades, UsuarioSessao usuarioSessao) {
-        if (autoridades.contains("ROLE_CAPTADOR")) {
-            List<ProcessoNotificacao> processosCaptacoesAguardandoCorrecao = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOCAPTACACAO);
-            List<ProcessoNotificacaoDTO> processosEntrevistasAguardandoCaptacao = aplProcessoNotificacao.
-                    retornarNotificacaoPorEstadoAtualEBancoOlhos(AGUARDANDOCAPTACAO, usuarioSessao.getIdUsuario());
-
-            model.addAttribute("processosCaptacoesAguardandoCorrecao", processosCaptacoesAguardandoCorrecao);
-            model.addAttribute("processosEntrevistasAguardandoCaptacao", processosEntrevistasAguardandoCaptacao);
-        }
-    }
-
-    private void seForNotificadorOuCaptador(ModelMap model, List<String> autoridades, UsuarioSessao usuarioSessao) {
-        if (autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")) {
-            List<ProcessoNotificacao> processosObitoAguardandoEntrevista = aplProcessoNotificacao
-                    .retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
-            List<ProcessoNotificacao> processosEntrevistaAguardandoCorrecao = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
-
-            model.addAttribute("processosObitoAguardandoEntrevista", processosObitoAguardandoEntrevista);
-            model.addAttribute("processosEntrevistaAguardandoCorrecao", processosEntrevistaAguardandoCorrecao);
-        }
-    }
-
-    private void seForNotificador(ModelMap model, List<String> autoridades) {
-        if (autoridades.contains("ROLE_NOTIFICADOR")) {
-            List<ProcessoNotificacao> processosObitoAguardandoCorrecao = aplProcessoNotificacao
-                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOOBITO);
-
-            model.addAttribute("processosObitoAguardandoCorrecao", processosObitoAguardandoCorrecao);
-        }
     }
 
 }
