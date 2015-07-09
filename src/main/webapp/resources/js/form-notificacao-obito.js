@@ -103,7 +103,11 @@
                 },
                 'obito.primeiraCausaMortis': {
                     required: true
+                },
+                'obito.descricaoComentario':{
+                    required: true
                 }
+
             },
             messages: {
                 'obito.tipoObito': {
@@ -150,6 +154,9 @@
                 },
                 'obito.primeiraCausaMortis': {
                     required: 'Por favor, preencha a primeira causa mortis'
+                },
+                'descricaoComentario':{
+                    required: 'Por favor, informe a suspeita da causa mortis'
                 }
             },
             submitHandler: function (form) {
@@ -255,6 +262,7 @@
         var corpo_encaminhamento = document.getElementById('obito-corpoEncaminhamento');
         corpo_encaminhamento.addEventListener('change', function () {
             var $primeiraCausaMortis = $("#obito-primeiraCausaMortis");
+            var $val = $("#descricaoComentario");
             $("#divCausasMortis").show();
 
             if (corpo_encaminhamento.value !== 'NAO_ENCAMINHADO') {
@@ -262,8 +270,40 @@
                 $("#divCausasMortis").hide();
                 fieldBoxValidatorSuccess(null, document.getElementById('obito-primeiraCausaMortis'));
 
+                $val.rules('add', {required: true});
+
+
+                alert("Informe a suspeita da causa mortis.");
+                document.getElementById("descricaoComentario").focus();
+                var elemento = $("#descricaoComentario");
+                elemento.tooltip({
+                    placement:'bottom',
+                    title:'* Campo requirido! '
+                });
+
+                var color = "rgb(199, 57, 57) ";
+                var span = '<span class="alert-msg"><i class="icon-remove-sign"></i>Por favor, preencha o comentário</span>';
+                var cssRule = {
+                    'border':'2px solid ' + color
+                };
+
+                elemento.css(cssRule);
+                $("#comment-container").append(span);
+                $("span.alert-msg").css("color",color);
+
+                var removeErrors = function (){
+
+                    $(" #descricaoComentario").css('border','');
+                    $(" #comment-container > span").remove();
+
+                };
+
+                addListenerMulti(document.getElementById('descricaoComentario'), 'change keypress', removeErrors);
+
             } else {
                 $primeiraCausaMortis.rules('add', {required: true});
+                $val.rules('remove');
+                fieldBoxValidatorSuccess(null, document.getElementById('descricaoComentario'));
             }
         });
 
