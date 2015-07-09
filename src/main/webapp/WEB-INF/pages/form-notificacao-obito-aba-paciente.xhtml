@@ -123,9 +123,9 @@
 
         function calculaIdade(){
 
-            var datAtual = new Date(Date.now());
             var datNasc = new Date(document.getElementById("obito-paciente-dataNascimento").value);
-            var idade = datAtual.getFullYear() - datNasc.getFullYear();
+            var datAtual = new Date(Date.now());
+            var idade= (Math.floor(Math.ceil(Math.abs(datAtual.getTime() - datNasc.getTime()) / (1000 * 3600 * 24)) / 365.25));
 
             document.getElementById("obito-paciente-idade").setAttribute('value',idade + ' ANOS');
         }
