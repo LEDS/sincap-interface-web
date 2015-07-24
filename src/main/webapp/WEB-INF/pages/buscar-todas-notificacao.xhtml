@@ -8,12 +8,12 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['sidebar.notificacao.titulo.buscar']}
+        #{msg['sincap.buscas']}
     </ui:define>
     <!--Fim título da página-->
 
     <ui:define name="#{sects.formHeader}">
-        #{msg['sidebar.notificacao.buscarTodos']}
+        #{msg['text.buscar.todos']}
     </ui:define>
 
     <!-- Formulário de entrevista -->
@@ -21,7 +21,7 @@
         <h:panelGroup rendered="#{sucessoExcluir and request.isUserInRole('ROLE_ANALISTA')}">
             <div class="alert alert-success">
                 <i class="icon-save"/>
-                Excluido com sucesso!
+                #{msg['sucesso.excluir']}
             </div>
         </h:panelGroup>
 
@@ -33,7 +33,7 @@
                 <input type="text" class="span3" name="buscar" value="#{buscar}"/>
                 <button type="submit" id="submitFormulario" class="btn-flat success btn-finish">
                     <i class="icon-search"></i>
-                    Buscar
+                    #{msg['text.buscar']}
                 </button>
             </form>
 

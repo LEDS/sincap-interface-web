@@ -23,14 +23,14 @@
         <div class="logo">
             <h1>403</h1>
         </div>
-        <p class="lead text-muted">Opa, um erro aconteceu. Proibido!</p>
+        <p class="lead text-muted"> #{msg['erro.proibido']}</p>
 
         <br/>
 
         <div class="col-lg-6 col-lg-offset-3">
             <div class="btn-group btn-group-justified">
-                <a href="#" onclick="window.history.back()" class="btn btn-info">Página anterior</a>
-                <a href="#{request.contextPath}#{contextUrls.index}" class="btn btn-warning">Página principal</a>
+                <a href="#" onclick="window.history.back()" class="btn btn-info">#{msg['botao.pagina.anterior']}</a>
+                <a href="#{request.contextPath}#{contextUrls.index}" class="btn btn-warning">#{msg['botao.pagina.principal']}</a>
             </div>
         </div>
     </div>

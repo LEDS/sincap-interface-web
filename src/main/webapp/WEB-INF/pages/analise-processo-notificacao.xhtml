@@ -7,15 +7,15 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['analise.obito.titulo']}
+        #{msg['analise.notificacao.obito']}
     </ui:define>
     <!-- Fim do Título -->
 
     <ui:define name="#{sects.formHeader}">
-        Análise de
-        <h:outputText value="Óbito" rendered="#{obito}"/>
-        <h:outputText value="Entrevista" rendered="#{entrevista}"/>
-        <h:outputText value="Captacao" rendered="#{captacao}"/>
+        #{msg['text.analise.de']}
+        <h:outputText value="#{msg['text.obito']}" rendered="#{obito}"/>
+        <h:outputText value="#{msg['text.entrevista']}" rendered="#{entrevista}"/>
+        <h:outputText value="#{msg['text.captacao']}" rendered="#{captacao}"/>
     </ui:define>
 
     <!-- Conteúdo da página -->
@@ -25,18 +25,18 @@
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
                     <span class="step">1</span>
-                    <span class="title">Óbito</span>
+                    <span class="title">#{msg['text.obito']}</span>
                 </li>
                 <h:panelGroup layout="block" rendered="#{entrevista || captacao}">
                     <li data-target="#step2">
                         <span class="step">2</span>
-                        <span class="title">Entrevista</span>
+                        <span class="title">#{msg['text.entrevista']}</span>
                     </li>
                 </h:panelGroup>
                 <h:panelGroup layout="block" rendered="#{captacao}">
                     <li data-target="#step3">
                         <span class="step">3</span>
-                        <span class="title">Captação</span>
+                        <span class="title">#{msg['text.captacao']}</span>
                     </li>
                 </h:panelGroup>
             </ul>
@@ -78,21 +78,21 @@
         <div class="row">
             <div class="wizard-actions text-center">
                 <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
-                    <i class="icon-chevron-left"></i> Anterior
+                    <i class="icon-chevron-left"></i> #{msg['botao.anterior']}
                 </button>
                 <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
-                    Próximo <i class="icon-chevron-right"></i>
+                    #{msg['botao.proximo']} <i class="icon-chevron-right"></i>
                 </button>
                 <!--<h:panelGroup rendered="#{entrevista}">-->
                 <!--<button type="button" id="btn-arquivar" class="btn-flat primary btn-finish">-->
-                <!--#{msg['analise.arquivar']}-->
+                <!--#{msg['botao.arquivar']}-->
                 <!--</button>-->
                 <!--</h:panelGroup>-->
                 <button type="button" id="btn-recusar" class="btn-flat inverse btn-finish">
-                    #{msg['analise.recusar']}
+                    #{msg['botao.recusar']}
                 </button>
                 <button type="button" id="btn-confirmar" class="btn-flat success btn-finish">
-                    #{msg['analise.confirmar']}
+                    #{msg['botao.confirmar']}
                 </button>
             </div>
         </div>

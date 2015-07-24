@@ -5,7 +5,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['analise.obito.titulo']}
+        #{msg['analise.notificacao.obito']}
     </ui:define>
     <!-- Fim do Título -->
 
@@ -14,55 +14,55 @@
         <div id="pad-wrapper">
             <div class="row-fluid">
                 <div class="span12">
-                    <h:outputLabel>#{msg['analise.captacao.titulo']}</h:outputLabel>
+                    <h:outputLabel>#{msg['analise.notificacao.captacao']}</h:outputLabel>
 
                     <!-- Se a captação foi realizada -->
                     <h:panelGroup rendered="#{processo.captacao.captacaoRealizada}">
-                        As córneas foram captadas.
+                        #{msg['sucesso.cornea.captada']}
 
-                        <h3>Data e hora da Captação:</h3>
+                        <h3>#{msg['data.hora.captacao']}</h3>
                         <h:outputText value="#{processo.captacao.dataCaptacao.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
 
 
-                        <h3>Comentários:</h3>
+                        <h3>#{msg['text.comentarios']}</h3>
                         <p>#{processo.captacao.comentario}</p>
 
                     </h:panelGroup>
 
                     <!-- Se a captação não foi realizada -->
                     <h:panelGroup rendered="#{not processo.captacao.captacaoRealizada}">
-                        As córneas não foram captadas.
+                        #{msg['erro.cornea.captada']}
 
-                        <h3>Motivo de não captação:</h3>
+                        <h3>#{msg['motivo.nao.captacao']}</h3>
                         <!--<h:outputText>#{processo.captacao}</h:outputText>-->
 
-                        <h3>Comentários:</h3>
+                        <h3>#{msg['text.comentarios']}</h3>
                         <p>#{processo.captacao.comentario}</p>
 
                     </h:panelGroup>
 
-                    <h3>ID</h3>
+                    <h3>#{msg['text.id']}</h3>
 
                     <p>#{processo.id}</p>
 
-                    <h3>Codigo:</h3>
+                    <h3>#{msg['text.codigo']}</h3>
 
                     <p>#{processo.codigo}</p>
 
-                    <h3>Paciente:</h3>
+                    <h3>#{msg['text.paciente']}</h3>
 
                     <p>#{processo.obito.paciente.nome}</p>
 
                     <h:panelGroup layout="block" id="content">
                         <a id="confirmar" class="btn-flat success"
                            href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.app_analisar}#{contextUrls.confirmar}/#{processo.id}">
-                            #{msg['analise.confirmarEArquivar']} </a>
+                            #{msg['botao.confirmar.arquivar.notificacao']} </a>
 
                         <a id="recusar" class="btn-flat inverse"
                            href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.app_analisar}#{contextUrls.recusar}/#{processo.id}">
-                           #{msg['analise.recusar']} </a>
+                           #{msg['botao.recusar.notificacao']} </a>
                     </h:panelGroup>
                 </div>
             </div>
