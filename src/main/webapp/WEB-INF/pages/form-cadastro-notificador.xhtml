@@ -6,7 +6,7 @@
 
 <!-- Título da página -->
 <ui:define name="#{sects.title}">
-    #{msg['funcionario.cadastro.notificador']}
+    #{msg['cadastro.notificador']}
 </ui:define>
 
 <!-- Conteúdo da página -->
@@ -16,7 +16,8 @@
             <div class="span12">
                 <div id="fuelux-wizard" class="wizard row-fluid">
 
-                    <h2>#{msg[titulo]}</h2>
+                    <h2>#{msg['cadastro.notificador']}</h2>
+
                     <br/>
 
                     <div class="step-content">
@@ -30,102 +31,106 @@
 
                             <h:inputHidden id="ativo" value="TRUE"/>
 
-                            <h:outputLabel value="#{msg['funcionario.nome']}"/>
+                            <h:outputLabel value="#{msg['text.nome']}"/>
                             <h:inputText id="nome" value="#{notificador.nome}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.senha']}"/>
+                            <h:outputLabel value="#{msg['text.senha']}"/>
                             <h:inputSecret id="senha" name="senha" value="#{notificador.senha}"/>
 
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.confirma.senha']}"/>
+                                <h:outputLabel value="#{msg['text.confirmar.senha']}"/>
                                 <h:inputSecret name="confirmar-senha" id="confirmar-senha" />
                             </h:panelGroup>
 
-                            <h:outputLabel value="#{msg['funcionario.cpf']}"/>
+                            <h:outputLabel value="#{msg['text.cpf']}"/>
                             <h:inputText id="cpf" value="#{notificador.cpf}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.documentoSocial']}"/>
+                            <h:outputLabel value="#{msg['text.documento']}"/>
                             <h:inputText id="documentoSocial-documento" value="#{notificador.documentoSocial.documento}"/>
 
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.tipoDocumentoSocial']}"/>
+                                <h:outputLabel value="#{msg['text.tipo.documento']}"/>
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
                                                      value="#{notificador.documentoSocial.tipoDocumentoComFoto}">
                                         <f:selectItem
-                                                itemLabel="#{msg['funcionario.selecioneTipoDocumentoSocial']}"/>
+                                                itemLabel="#{msg['selecione.tipo.documento']}"/>
                                         <f:selectItems value="#{tipoDocumentosComFotos}"/>
                                     </h:selectOneMenu>
                                 </div>
-                            </h:panelGroup><br></br><br></br>
+                            </h:panelGroup>
 
+                            <br/><br/>
 
-                            <h:outputLabel value="#{msg['funcionario.email']}"/>
+                            <h:outputLabel value="#{msg['text.email']}"/>
                             <h:inputText id="email" value="#{notificador.email}"/>
 
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.notificador.dropDown.uf']}"/>
+                                <h:outputLabel value="#{msg['text.uf']}"/>
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="endereco-estado-id"
                                                      value="#{notificador.endereco.estado.id}"
                                                      onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
                                         <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
+                                                      itemLabel="#{msg['text.uf']}"/>
                                         <f:selectItems value="#{listaEstadoItem}"/>
                                     </h:selectOneMenu>
                                 </div>
                             </h:panelGroup>
 
-                            <br></br><br></br>
+                            <br/><br/>
+
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+                                <h:outputLabel value="#{msg['text.cidade']}"/>
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="endereco-cidade-id"
                                                      value="#{notificador.endereco.cidade.id}"
                                                      onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
                                         <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+                                                      itemLabel="#{msg['text.cidade']}"/>
                                         <f:selectItems value="#{listaCidadeItem}"/>
                                     </h:selectOneMenu>
                                 </div>
                             </h:panelGroup>
 
-                            <br></br><br></br>
+                            <br/><br/>
+
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+                                <h:outputLabel value="#{msg['text.bairro']}"/>
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="endereco-bairro-id"
                                                      value="#{notificador.endereco.bairro.id}">
                                         <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+                                                      itemLabel="#{msg['text.bairro']}"/>
                                         <f:selectItems value="#{listaBairroItem}"/>
                                     </h:selectOneMenu>
                                 </div>
                             </h:panelGroup>
 
-                            <br></br><br></br>
-                            <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                            <br/><br/>
+
+                            <h:outputLabel value="#{msg['text.logradouro']}"/>
                             <h:inputText id="endereco-logradouro" value="#{notificador.endereco.logradouro}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                            <h:outputLabel value="#{msg['text.numero']}"/>
                             <h:inputText id="endereco-numero" value="#{notificador.endereco.numero}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                            <h:outputLabel value="#{msg['text.complemento']}"/>
                             <h:inputText id="endereco-complemento" value="#{notificador.endereco.complemento}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                            <h:outputLabel value="#{msg['text.cep']}"/>
                             <h:inputText id="endereco-cep" value="#{notificador.endereco.cep}"/>
 
-                            <h:outputLabel value="#{msg['funcionario.telefone']}"/>
+                            <h:outputLabel value="#{msg['text.telefone']}"/>
                             <h:inputText id="telefone-numero" value="#{notificador.telefone.numero}"/>
 
-                            <br></br><br></br>
+                            <br/><br/>
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.instituicao']}"/>
+                                <h:outputLabel value="#{msg['text.instituicao.notificadora']}"/>
 
                                 <div class="span5">
                                     <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
@@ -138,11 +143,10 @@
                                 </div>
                             </h:panelGroup>
 
-                            <br></br><br></br>
+                            <br/><br/>
 
-                            <br></br><br></br>
                             <button type="submit" class="btn-glow success btn-finish">
-                                #{msg['funcionario.salvar']}
+                                #{msg['botao.salvar']}
                             </button>
 
                         </form>

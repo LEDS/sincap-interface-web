@@ -5,30 +5,30 @@
         xmlns:ui="http://java.sun.com/jsf/facelets">
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.dto.ProcessoNotificacaoDTO"-->
 
-    <h4 class="section-title"><span>Dados da Captação</span></h4>
+    <h4 class="section-title"><span>#{msg['text.dados.captacao']}</span></h4>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+        <h:outputLabel value="#{msg['text.nome']}"/>
         <!--@elvariable id="nomePaciente" type="java.lang.String"-->
         <h:inputText readonly="true" styleClass="span8" id="obito-paciente-nome"
                      value="#{empty processo.obito.paciente.nome? nomePaciente:processo.obito.paciente.nome}"/>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['notificacao.protocolo']}"/>
+        <h:outputLabel value="#{msg['text.protocolo']}"/>
         <h:inputText readonly="true" styleClass="span8" id="codigo" value="#{processo.codigo}"/>
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.corneasCaptadas']}*"/>
+        <h:outputLabel value="#{msg['text.cornea.captada']}:*"/>
         <div class="span8">
             <label class="radio">
                 <input type="radio" name="captacao.captacaoRealizada" id="captacaoRealizada:0" value="true"
                        checked="true"/>
-                #{msg['captacao.radioButton.corneasCaptadas.sim']}
+                #{msg['text.sim']}
             </label>
             <label class="radio">
                 <input type="radio" name="captacao.captacaoRealizada" id="captacaoRealizada:1" value="false"/>
-                #{msg['captacao.radioButton.corneasCaptadas.nao']}
+                #{msg['text.nao']}
             </label>
         </div>
     </h:panelGroup>
@@ -36,11 +36,11 @@
     <!--TODO: Inserir id e value-->
     <!--Motivo da não captação - BEGIN-->
     <h:panelGroup layout="block" id="divCorneasNaoCaptadas" styleClass="field-box">
-        <h:outputLabel value="#{msg['captacao.text.aspectoLogistico']}*"/>
+        <h:outputLabel value="#{msg['text.aspecto.logistico']}*"/>
 
             <h:selectOneMenu id="causaNaoDoacao" value="#{processo.causaNaoDoacao}"
                     styleClass="span5">
-                <f:selectItem itemLabel="#{msg['captacao.selectOneMenu.label']}"/>
+                <f:selectItem itemLabel="#{msg['text.selecione']}"/>
                 <f:selectItems value="#{listaProblemasLogisticos}"/>
             </h:selectOneMenu>
     </h:panelGroup>
@@ -49,13 +49,13 @@
     <!--TODO: Inserir id e value; E aplicar a mascara-->
     <h:panelGroup layout="block" id="divCorneasCaptadas">
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['captacao.text.data']}*"/>
+            <h:outputLabel value="#{msg['text.data.captacao']}:*"/>
             <h:inputText styleClass="data span8 fillOnDblClick" id="dataCaptacao" value="#{dataCaptacao}"/>
         </h:panelGroup>
 
         <!--TODO: Inserir id e value; E aplicar a mascara-->
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['captacao.text.hora']}*"/>
+            <h:outputLabel value="#{msg['text.hora.captacao']}:*"/>
             <h:inputText styleClass="hora span8" id="horarioCaptacao" value="#{horarioCaptacao}"/>
         </h:panelGroup>
     </h:panelGroup>

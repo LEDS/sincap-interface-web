@@ -6,7 +6,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['causa-nao-doacao.titulo']}
+        #{msg['causa.nao.doacao']}
     </ui:define>
 
     <!-- Conteúdo da página -->
@@ -16,8 +16,8 @@
                 <div class="span12">
                     <div id="fuelux-wizard" class="wizard row-fluid">
 
-                        <!--<h2>#{msg['causa-nao-doacao.cadastro']}</h2>-->
-                        <h2>#{msg[titulo]}</h2>
+                        <h2>#{msg['causa.nao.doacao']}</h2>
+
                         <br/>
 
                         <div class="step-content">
@@ -25,14 +25,14 @@
                                   method="post">
 
 
-                                <h:outputLabel value="#{msg['causa-nao-doacao.nome']}" />
-                                <h:inputText id="nome" value="#{causa.nome}" />
+                                <h:outputLabel value="#{msg['text.nome']}"/>
+                                <h:inputText id="nome" value="#{causa.nome}"/>
 
-                                <h:outputLabel value="#{msg['tipo-nao-doacao.titulo']}" />
+                                <h:outputLabel value="#{msg['tipo.nao.doacao']}"/>
                                 <h:selectOneMenu  id="tipoNaoDoacao" value="#{causa.tipoNaoDoacao}"
                                                   styleClass="dropdown" >
                                     <f:selectItem itemValue=""
-                                                  itemLabel="" />
+                                                  itemLabel=""/>
                                     <f:selectItems value="#{listaTiposNaoDoacao}" />
                                 </h:selectOneMenu>
 
@@ -40,7 +40,7 @@
                                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
                                 <button type="submit" class="btn-glow success btn-finish">
-                                    #{msg['causa-nao-doacao.salvar']}
+                                    #{msg['botao.salvar']}
                                 </button>
                                 
                         </form>

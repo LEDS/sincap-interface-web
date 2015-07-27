@@ -11,17 +11,17 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['captacao.title']}
+        #{msg['sincap.captacao']}
     </ui:define>
 
     <ui:define name="#{sects.formHeader}">
-        #{msg['notificacao.msg.etapa.captacao']}
+        #{msg['text.notificacao.captacao']}
     </ui:define>
 
     <ui:define name="#{sects.formContent}">
 
         <sincap:constraintError erro="#{erro}" constraintViolations="#{constraintViolations}"
-                                msgErro="#{msg['captacao.erro']}"/>
+                                msgErro="#{msg['erro.salvar.notificacao.captacao']}"/>
 
         <form id="processoCaptacao"
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_captacao}#{contextUrls.salvar}"
@@ -49,7 +49,7 @@
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
                 <input type="submit"
                        class="btn-flat success btn-finish"
-                       value="#{msg['obito.button.finalizar']}"/>
+                       value="#{msg['botao.finalizar']}"/>
             </div>
 
         </form>

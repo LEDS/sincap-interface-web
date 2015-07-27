@@ -62,31 +62,29 @@
                       method="post">
 
                     <h:panelGroup rendered="#{loginErro}">
-                        <span class="loginErro">Login inválido, por favor digite o usuário correto</span>
+                        <span class="loginErro">#{msg['erro.usuario.login']}</span>
                     </h:panelGroup>
-                    <input id="username" name="username" class="span12" type="text" placeholder="CPF"
+                    <input id="username" name="username" class="span12" type="text" placeholder="#{msg['text.cpf']}"
                            onkeyup="ajaxGetHospitais(this.value);"  onblur="ajaxGetHospitais(this.value);"
-                           title="#{msg['login.text.usuario']}" autofocus="true" />
+                           title="#{msg['text.usuario']}" autofocus="true" />
 
                     <h:panelGroup rendered="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
-                            <span class="loginErro">Login inválido, por favor digite a senha correta</span>
+                            <span class="loginErro">#{msg['erro.senha.login']}</span>
                     </h:panelGroup>
-                    <input id="password" name="password" class="span12" type="password" placeholder="Senha"
-                           title="#{msg['login.text.senha']}"/>
+                    <input id="password" name="password" class="span12" type="password" placeholder="#{msg['text.senha']}"
+                           title="#{msg['text.senha']}"/>
 
                    <div id="select-hospitais" style="margin-top: 10px !important">
                        <!--   <h:outputLabel value="Hospital"/> -->
 
                         <div class="span12" id="hospitais">
                             <h:selectOneMenu styleClass="span12 text-center" id="hospital" value="#{usuario.hospital}"
-                                             title="#{msg['login.text.hospital']}">
+                                             title="#{msg['text.hospital']}">
                             </h:selectOneMenu>
                         </div>
                     </div>
 
                     <br/>
-
-                    <!--<a href="#" class="forgot">#{msg['login.btn.esqueceuSenha']}</a>-->
 
                     <button id="botaoLogin" type="submit"
                             class="btn-flat primary login">#{msg['botao.entrar']}</button>

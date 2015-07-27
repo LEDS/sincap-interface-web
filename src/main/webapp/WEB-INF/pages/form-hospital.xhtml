@@ -6,7 +6,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg[titulo]}
+        #{msg['text.cadastro.hospital']}
     </ui:define>
 
     <!-- Conteúdo da página -->
@@ -16,7 +16,7 @@
                 <div class="span12">
                     <div id="fuelux-wizard" class="wizard row-fluid">
 
-                        <h2>#{msg[titulo]}</h2>
+                        <h2>#{msg['text.cadastro.hospital']}</h2>
                         <br/>
 
                         <div class="step-content">
@@ -27,98 +27,101 @@
 
                                 <h:inputHidden id="id" value="#{hospital.id}" />
 
-                                <h:outputLabel value="#{msg['hospital.text.nome']}" />
+                                <h:outputLabel value="#{msg['text.nome']}" />
                                 <h:inputText id="nome" value="#{hospital.nome}" />
 
-                                <h:outputLabel value="#{msg['hospital.text.sigla']}" />
+                                <h:outputLabel value="#{msg['text.sigla']}" />
                                 <h:inputText id="sigla" value="#{hospital.sigla}" />
 
-                                <h:outputLabel value="#{msg['hospital.text.fantasia']}" />
+                                <h:outputLabel value="#{msg['text.nome.fantasia']}" />
                                 <h:inputText id="fantasia" value="#{hospital.fantasia}" />
 
-                                <h:outputLabel value="#{msg['hospital.text.cnes']}" />
+                                <h:outputLabel value="#{msg['text.cnes']}" />
                                 <h:inputText id="cnes" value="#{hospital.cnes}" />
 
-                                <h:outputLabel value="#{msg['hospital.text.email']}" />
+                                <h:outputLabel value="#{msg['text.email']}" />
                                 <h:inputText id="email" value="#{hospital.email}" />
 
                                 <h:panelGroup layout="block" styleClass="field-box">
-                                    <h:outputLabel value="#{msg['hospital.bancoOlhos']}"/>
+                                    <h:outputLabel value="#{msg['text.banco.olhos']}"/>
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="bancoOlhos-id"
                                                          value="#{hospital.bancoOlhos.id}">
                                             <f:selectItem itemValue=""
-                                                          itemLabel="#{msg['hospital.bancoOlhos']}"/>
+                                                          itemLabel="#{msg['text.banco.olhos']}"/>
                                             <f:selectItems value="#{listaBancoOlhosItem}"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </h:panelGroup>
 
-                                <br></br><br></br>
+                                <br/><br/>
 
                                 <h:panelGroup layout="block" styleClass="field-box">
-                                    <h:outputLabel value="#{msg['funcionario.notificador.dropDown.uf']}"/>
+                                    <h:outputLabel value="#{msg['text.uf']}"/>
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-estado-id"
                                                          value="#{hospital.endereco.estado.id}"
                                                          onchange="ajaxGetMunicipios('#endereco-estado-id', '#endereco-cidade-id')">
                                             <f:selectItem itemValue=""
-                                                          itemLabel="#{msg['funcionario.notificador.dropDown.uf']}"/>
+                                                          itemLabel="#{msg['text.uf']}"/>
                                             <f:selectItems value="#{listaEstadoItem}"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </h:panelGroup>
 
-                                <br></br><br></br>
+                                <br/><br/>
+
                                 <h:panelGroup layout="block" styleClass="field-box">
-                                    <h:outputLabel value="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+                                    <h:outputLabel value="#{msg['text.cidade']}"/>
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-cidade-id"
                                                          value="#{hospital.endereco.cidade.id}"
                                                          onchange="ajaxGetBairros('#endereco-cidade-id', '#endereco-bairro-id')">
                                             <f:selectItem itemValue=""
-                                                          itemLabel="#{msg['funcionario.notificador.dropDown.cidade']}"/>
+                                                          itemLabel="#{msg['text.cidade']}"/>
                                             <f:selectItems value="#{listaCidadeItem}"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </h:panelGroup>
 
-                                <br></br><br></br>
+                                <br/><br/>
                                 <h:panelGroup layout="block" styleClass="field-box">
-                                    <h:outputLabel value="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+                                    <h:outputLabel value="#{msg['text.bairro']}"/>
 
                                     <div class="ui-select span5">
                                         <h:selectOneMenu id="endereco-bairro-id"
                                                          value="#{hospital.endereco.bairro.id}">
                                             <f:selectItem itemValue=""
-                                                          itemLabel="#{msg['funcionario.notificador.dropDown.bairro']}"/>
+                                                          itemLabel="#{msg['text.bairro']}"/>
                                             <f:selectItems value="#{listaBairroItem}"/>
                                         </h:selectOneMenu>
                                     </div>
                                 </h:panelGroup>
 
-                                <br></br><br></br>
-                                <h:outputLabel value="#{msg['funcionario.endereco.logradouro']}"/>
+                                <br/><br/>
+
+                                <h:outputLabel value="#{msg['text.logradouro']}"/>
                                 <h:inputText id="endereco-logradrouro" value="#{hospital.endereco.logradouro}"/>
 
-                                <h:outputLabel value="#{msg['funcionario.endereco.numero']}"/>
+                                <h:outputLabel value="#{msg['text.numero']}"/>
                                 <h:inputText id="endereco-numero" value="#{hospital.endereco.numero}"/>
 
-                                <h:outputLabel value="#{msg['funcionario.endereco.complemento']}"/>
+                                <h:outputLabel value="#{msg['text.complemento']}"/>
                                 <h:inputText id="endereco-complemento" value="#{hospital.endereco.complemento}"/>
 
-                                <h:outputLabel value="#{msg['funcionario.endereco.cep']}"/>
+                                <h:outputLabel value="#{msg['text.cep']}"/>
                                 <h:inputText id="endereco-cep" value="#{hospital.endereco.cep}"/>
 
-                                <h:outputLabel value="#{msg['funcionario.telefone']}"/>
+                                <h:outputLabel value="#{msg['text.telefone']}"/>
                                 <h:inputText id="telefone-numero" value="#{hospital.telefone.numero}"/>
 
-                                <br></br><br></br>
+                                <br/><br/>
+
                                 <h:panelGroup layout="block" styleClass="field-box">
-                                    <h:outputLabel value="#{msg['hospital.setores']}"/>
+                                    <h:outputLabel value="#{msg['text.setor']}"/>
 
                                     <div class="span5">
                                         <select name="lsetores" style="width:350px" multiple="multiple" class="select2">
@@ -131,10 +134,10 @@
                                     </div>
                                 </h:panelGroup>
 
-                                <br></br><br></br>
+                                <br/><br/>
                                 
                                 <button type="submit" class="btn-glow success btn-finish">
-                                    #{msg['geral.button.salvar']}
+                                    #{msg['botao.salvar']}
                                 </button>
                         </form>
                         </div>
