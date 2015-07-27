@@ -7,15 +7,15 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['exibir.titulo']}
+        #{msg['sincap.exibir']}
     </ui:define>
     <!-- Fim do Título -->
 
     <ui:define name="#{sects.formHeader}">
-        Exibir
-        <h:outputText value="Óbito" rendered="#{obito}"/>
-        <h:outputText value="Entrevista" rendered="#{entrevista}"/>
-        <h:outputText value="Captacao" rendered="#{captacao}"/>
+        #{msg['text.exibir']}
+        <h:outputText value="#{msg['text.obito']}" rendered="#{obito}"/>
+        <h:outputText value="#{msg['text.entrevista']}" rendered="#{entrevista}"/>
+        <h:outputText value="#{msg['text.captacao']}" rendered="#{captacao}"/>
     </ui:define>
 
     <!-- Conteúdo da página -->
@@ -24,18 +24,18 @@
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
                     <span class="step">1</span>
-                    <span class="title">Dados do <br/> óbito</span>
+                    <span class="title">#{msg['text.dados.obito']}</span>
                 </li>
                 <h:panelGroup layout="block" rendered="#{entrevista || captacao}">
                     <li data-target="#step2">
                         <span class="step">2</span>
-                        <span class="title">Dados da <br/> entrevista</span>
+                        <span class="title">#{msg['text.dados.entrevista']}</span>
                     </li>
                 </h:panelGroup>
                 <h:panelGroup layout="block" rendered="#{captacao}">
                     <li data-target="#step3">
                         <span class="step">3</span>
-                        <span class="title">Dados da <br/>captação</span>
+                        <span class="title">#{msg['text.dados.captacao']}</span>
                     </li>
                 </h:panelGroup>
             </ul>
@@ -71,10 +71,10 @@
         </div>
         <div class="wizard-actions">
             <button type="button" id="btn-prev" disabled="disabled" class="btn-flat primary btn-prev">
-                <i class="icon-chevron-left"></i> Anterior
+                <i class="icon-chevron-left"></i> #{msg['botao.anterior']}
             </button>
             <button type="button" id="btn-next" class="btn-flat primary btn-next" data-last="Finish">
-                Próximo <i class="icon-chevron-right"></i>
+                #{msg['botao.proximo']} <i class="icon-chevron-right"></i>
             </button>
         </div>
 

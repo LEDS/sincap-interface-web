@@ -28,7 +28,7 @@
         <div class="step-pane active" id="step1">
             <form id="notif" class="form-horizontal"
                   action="#{request.contextPath}#{contextUrls.app_buscar}#{contextUrls.buscar_todos}" method="post">
-                <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+                <h:outputLabel value="#{msg['text.nome']}"/>
                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                 <input type="text" class="span3" name="buscar" value="#{buscar}"/>
                 <button type="submit" id="submitFormulario" class="btn-flat success btn-finish">

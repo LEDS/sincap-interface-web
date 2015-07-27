@@ -20,13 +20,13 @@
                     <h:panelGroup rendered="#{processo.captacao.captacaoRealizada}">
                         #{msg['sucesso.cornea.captada']}
 
-                        <h3>#{msg['data.hora.captacao']}</h3>
+                        <h3>#{msg['data.hora.captacao']}:</h3>
                         <h:outputText value="#{processo.captacao.dataCaptacao.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
                         </h:outputText>
 
 
-                        <h3>#{msg['text.comentarios']}</h3>
+                        <h3>#{msg['text.comentarios']}:</h3>
                         <p>#{processo.captacao.comentario}</p>
 
                     </h:panelGroup>
@@ -35,7 +35,7 @@
                     <h:panelGroup rendered="#{not processo.captacao.captacaoRealizada}">
                         #{msg['erro.cornea.captada']}
 
-                        <h3>#{msg['motivo.nao.captacao']}</h3>
+                        <h3>#{msg['motivo.nao.captacao']}:</h3>
                         <!--<h:outputText>#{processo.captacao}</h:outputText>-->
 
                         <h3>#{msg['text.comentarios']}</h3>
@@ -47,11 +47,11 @@
 
                     <p>#{processo.id}</p>
 
-                    <h3>#{msg['text.codigo']}</h3>
+                    <h3>#{msg['text.codigo']}:</h3>
 
                     <p>#{processo.codigo}</p>
 
-                    <h3>#{msg['text.paciente']}</h3>
+                    <h3>#{msg['text.paciente']}:</h3>
 
                     <p>#{processo.obito.paciente.nome}</p>
 

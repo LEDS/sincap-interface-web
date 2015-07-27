@@ -13,7 +13,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['causa-nao-doacao.titulo']}
+        #{msg['causa.nao.doacao']}
     </ui:define>
 
     <!-- Conteúdo da página -->
@@ -21,7 +21,7 @@
         <div id="pad-wrapper">
             <h:panelGroup layout="block" styleClass="container-fluid">
 
-                <h2 class="title text-center">#{msg['causa-nao-doacao.visualizar']}</h2>
+                <h2 class="title text-center">#{msg['causa.nao.doacao']}</h2>
 
                 <h:panelGroup rendered="#{status}">
                     <div class="alert alert-error">
@@ -44,19 +44,19 @@
                                       method="post" class="form-fluid">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">x</span></button>
-                                        <h4 class="modal-title">Nova Causa de Não Doação</h4>
+                                        <h4 class="modal-title">#{msg['nova.causa.nao.doacao']}</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="container-fluid">
                                             <div class="control-group">
-                                                <label for="nome">Nome:</label>
-                                                <input type="text" id="nome" value="" name="nome" placeholder="Insira a Causa de Não Doação..." />
+                                                <label for="nome">#{msg['text.nome']}:</label>
+                                                <input type="text" id="nome" value="" name="nome" placeholder="#{msg['insira.causa.nao.doacao']}" />
                                             </div>
-                                            <label for="tipoNaoDoacao">Tipo:</label>
+                                            <label for="tipoNaoDoacao">#{msg['text.tipo']}:</label>
                                             <h:selectOneMenu  id="tipoNaoDoacao" value="#{causa.tipoNaoDoacao}"
                                                               styleClass="dropdown" >
                                                 <f:selectItem itemValue=""
-                                                              itemLabel="Selecione o Tipo de Causa" />
+                                                              itemLabel="#{msg['selecione.tipo.causa']}" />
                                                 <f:selectItems value="#{listaTiposNaoDoacao}" />
                                             </h:selectOneMenu>
 
@@ -66,8 +66,8 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn-flat white" data-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn-flat default">Salvar</button>
+                                        <button type="button" class="btn-flat white" data-dismiss="modal">#{msg['botao.cancelar']}</button>
+                                        <button type="submit" class="btn-flat default">#{msg['botao.salvar']}</button>
                                     </div>
                                 </form>
                             </div>
