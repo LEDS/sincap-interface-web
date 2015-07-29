@@ -14,7 +14,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        Funcinários
+        #{msg['text.funcionarios']}
     </ui:define>
     <!-- Fim do Título -->
 
@@ -23,12 +23,12 @@
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
     <h:panelGroup layout="block" id="pad-wrapper">
-        <h2 class="title text-center">Funcionários</h2>
+        <h2 class="title text-center">#{msg['text.funcionarios']}</h2>
         <div id="content" class="adm-content">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                <li class="active"><a href="#analista" data-toggle="tab"><h4 class="aba-centralizada">Cadastrar Analista</h4></a></li>
-                <li><a href="#notificador" data-toggle="tab"><h4 class="aba-centralizada">Cadastrar Notificador</h4></a></li>
-                <li><a href="#captador" data-toggle="tab"><h4 class="aba-centralizada">Cadastrar Captador</h4></a></li>
+                <li class="active"><a href="#analista" data-toggle="tab"><h4 class="aba-centralizada">#{msg['cadastrar.analista']}</h4></a></li>
+                <li><a href="#notificador" data-toggle="tab"><h4 class="aba-centralizada">#{msg['cadastrar.notificador']}</h4></a></li>
+                <li><a href="#captador" data-toggle="tab"><h4 class="aba-centralizada">#{msg['cadastrar.captador']}</h4></a></li>
             </ul>
         </div>
         <div id="my-tab-content" class="tab-content">

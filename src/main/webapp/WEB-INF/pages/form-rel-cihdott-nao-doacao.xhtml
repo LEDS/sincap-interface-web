@@ -7,7 +7,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['relatorios.title']}
+        #{msg['sincap.relatorios']}
     </ui:define>
     <!--Fim título da página-->
 
@@ -17,34 +17,34 @@
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_form_rel_cihdott_nao_doacao}" method="post">
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
 
-            <h1 align="center">Causas da Não Efetivação da Doação</h1>
+            <h1 align="center">#{msg['causa.nao.efetivacao.doacao']}</h1>
 
-            <br></br><br></br><br></br>
+            <br/><br/>
 
             <h:panelGrid columns="7">
-                <h:outputLabel value="A partir de:"/>
+                <h:outputLabel value="#{msg['text.a.partir.de']}:"/>
                 <h:outputLabel value=" "/>
                 <h:inputText id="datIni" name="datIni" value="#{dataInicial.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
-                <h:outputLabel value="Até:"/>
+                <h:outputLabel value="#{msg['text.ate']}:"/>
                 <h:inputText id="datFim" name="datFim" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy"/>
                 </h:inputText>
             </h:panelGrid>
 
-            <br></br><br></br>
+            <br/><br/>
 
             <button type="submit" class="btn-glow success btn-finish">
-                Enviar
+                #{msg['botao.enviar']}
             </button>
 
         </form>
 
 
-        <br></br><br></br>
+        <br/><br/>
 
         <div class="tab-content">
             <ui:include src="../pages/tab-nao-doacao-entrevista-familiar.xhtml"/>

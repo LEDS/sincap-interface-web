@@ -13,7 +13,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['index.title']}
+        #{msg['sincap.home']}
     </ui:define>
     <!-- Fim do Título -->
 
@@ -30,10 +30,10 @@
             <h:panelGroup id="abas-analista" rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4 class="aba-centralizada">Óbito Pendente <span class="badge" id="qtdDados-tabelaAnalisarObito"></span></h4></a></li>
-                            <li><a href="#entrevistaPendente" data-toggle="tab"><h4 class="aba-centralizada">Entrevista Pendente <span class="badge" id="qtdDados-tabelaAnalisarEntrevista"></span></h4></a></li>
-                            <li><a href="#captacaoPendente" data-toggle="tab"><h4 class="aba-centralizada">Captação Pendente <span class="badge" id="qtdDados-tabelaAnalisarCaptacao"></span></h4></a></li>
-                            <li><a href="#arquivamento" data-toggle="tab"><h4 class="aba-centralizada">Arquivamento <span class="badge" id="qtdDados-tabelaNotificacoesAguardandoArquivamento"></span></h4></a></li>
+                            <li class="active"><a href="#obitoPendente" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.obito.pendente']} <span class="badge" id="qtdDados-tabelaAnalisarObito"></span></h4></a></li>
+                            <li><a href="#entrevistaPendente" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.entrevista.pendente']} <span class="badge" id="qtdDados-tabelaAnalisarEntrevista"></span></h4></a></li>
+                            <li><a href="#captacaoPendente" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.captacao.pendente']} <span class="badge" id="qtdDados-tabelaAnalisarCaptacao"></span></h4></a></li>
+                            <li><a href="#arquivamento" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.arquivamento']} <span class="badge" id="qtdDados-tabelaNotificacoesAguardandoArquivamento"></span></h4></a></li>
                         </ul>
                     </div>
                     <div id="my-tab-content" class="tab-content">
@@ -68,9 +68,9 @@
                 <div class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class="active"><a href="#obitoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de óbito <span class="badge" id="qtdDados-tabelaCorrigirObito"></span></h4></a></li>
-                            <li><a href="#obitoAguardandoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">Entrevista pendente <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
-                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de entrevista <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCorrecao"></span></h4></a></li>
+                            <li class="active"><a href="#obitoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.correcao.obito']} <span class="badge" id="qtdDados-tabelaCorrigirObito"></span></h4></a></li>
+                            <li><a href="#obitoAguardandoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.entrevista.pendente']} <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
+                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.correcao.entrevista']} <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCorrecao"></span></h4></a></li>
                         </ul>
                         <div id="my-tab-content" class="tab-content">
                             <div class="tab-pane active" id="obitoAguardandoCorrecao">
@@ -97,10 +97,10 @@
                 <div class="datatables-page">
                     <div id="content">
                         <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                            <li class="active"><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">Entrevista pendente <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
-                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de entrevista <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCorrecao"></span></h4></a></li>
-                            <li><a href="#entrevistaAguardandoCaptacao" data-toggle="tab"><h4 class="aba-centralizada">Captações pendentes <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCaptacao"></span></h4></a></li>
-                            <li><a href="#captacaoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">Correção de captação <span class="badge" id="qtdDados-tabelaCaptacaoAguardandoCorrecao"></span></h4></a></li>
+                            <li class="active"><a href="#obitoAguardantoEntrevista" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.entrevista.pendente']} <span class="badge" id="qtdDados-tabelaObitoAguardandoEntrevista"></span></h4></a></li>
+                            <li><a href="#entrevistaAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.correcao.entrevista']} <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCorrecao"></span></h4></a></li>
+                            <li><a href="#entrevistaAguardandoCaptacao" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.captacao.pendente']} <span class="badge" id="qtdDados-tabelaEntrevistaAguardandoCaptacao"></span></h4></a></li>
+                            <li><a href="#captacaoAguardandoCorrecao" data-toggle="tab"><h4 class="aba-centralizada">#{msg['text.correcao.captacao']} <span class="badge" id="qtdDados-tabelaCaptacaoAguardandoCorrecao"></span></h4></a></li>
                         </ul>
                         <div id="my-tab-content" class="tab-content">
                             <div class="tab-pane active" id="obitoAguardantoEntrevista">

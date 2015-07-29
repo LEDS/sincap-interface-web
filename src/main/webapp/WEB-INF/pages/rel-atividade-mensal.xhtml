@@ -7,7 +7,7 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['relatorios.title']}
+        #{msg['sincap.relatorios']}
     </ui:define>
     <!--Fim título da página-->
 
@@ -23,17 +23,17 @@
 
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}"/>
 
-            <h1 align="center">Atividade Mensal CIHDOTT</h1>
+            <h1 align="center">#{msg['atividade.mensal.cihdott']}</h1>
 
             <div class="row filtro">
                 <div class="pull-right offset6 span4">
-                    <h:outputLabel id="dat" for="datMes" value="Mês: " />
+                    <h:outputLabel id="dat" for="datMes" value="#{msg['text.mes']}: " />
                     <h:inputText type="date" styleClass="datepicker" id="datMes" name="datMes" value="#{datMes.time}">
                         <f:convertDateTime pattern="MM/yyyy"/>
                     </h:inputText>
                     <button type="submit" class="btn-glow success btn-finish">
                         <i class="icon-search"></i>
-                        Buscar
+                        #{msg['text.buscar']}
                     </button>
                 </div>
             </div>
@@ -43,7 +43,7 @@
         <h:panelGroup layout="block" styleClass="secao row-fluid" rendered="#{renderizarDados}">
             <div class="span12">
                 <label class ="listas" style="font-weight: bold;">
-                    Faixa Etária
+                    #{msg['text.faixa.etaria']}
                     <i class="icon-chevron-down"></i>
                 </label>
                 <ui:include src="../components/lista-faixa-etaria.xhtml"/>
@@ -53,13 +53,13 @@
         <div class="row-fluid">
 
             <h:panelGroup display="block" styleClass="secao span6" rendered="#{renderizarDados}">
-                <label class ="listas" style="font-weight: bold;">Óbitos com parada cardiorespiratória
+                <label class ="listas" style="font-weight: bold;">#{msg['obitos.parada.cardiorespiratoria']}
                     <i class="icon-chevron-down"></i>
                 </label>
                 <ui:include src="../components/lista-obitos-com-parada.xhtml"/>
             </h:panelGroup>
             <h:panelGroup display="block" styleClass="secao span6" rendered="#{renderizarDados}">
-                <label class ="listas" style="font-weight: bold;">Nº de óbitos por ME notificados à CIHDOTT
+                <label class ="listas" style="font-weight: bold;">#{msg['numero.obitos.me.notificados']}
                     <i class="icon-chevron-down"></i>
                 </label>
                 <ui:include src="../components/lista-obitosME-notificados.xhtml"/>
@@ -70,7 +70,7 @@
         <div class="row-fluid">
 
             <label class="listas" style="font-weight: bold;">
-                Causa da não efetivação da doação:
+                #{msg['text.causa.nao.efetivacao.doacao']}:
                 <i class="icon-chevron-down"></i>
             </label>
             <div class="column">
@@ -94,7 +94,7 @@
 
 
         <h:panelGroup display="block" styleClass="secao" rendered="#{renderizarDados}">
-            <label class ="listas" style="font-weight: bold;">Atividades de educação e divulgação
+            <label class ="listas" style="font-weight: bold;">#{msg['atividade.educacao.divulgacao']}
                 <i class="icon-chevron-down"></i>
             </label>
             <ui:include src="../components/lista-atividade-educacao-divulgacao.xhtml"/>
