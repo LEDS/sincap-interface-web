@@ -9,13 +9,13 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['relatorios.title']}
+        #{msg['sincap.relatorios']}
     </ui:define>
     <!--Fim título da página-->
 
     <ui:define name="#{sects.formHeader}">
         <h1 align="center">
-       Termo de Autorização de Doação
+            #{msg['termo.autorizacao.doacao']}
         </h1>
     </ui:define>
 
@@ -28,10 +28,10 @@
 
                     <div class="row filtro">
                         <div class="pull-right">
-                            <input type="text" name="nome" placeholder="Nome, Protocolo, ..." />
+                            <input type="text" name="nome" placeholder="#{msg['text.nome']}, #{msg['text.protocolo']}, ..." />
                             <button type="submit" class="btn-glow success btn-finish">
                                 <i class="icon-search"></i>
-                                Buscar
+                                #{msg['text.buscar']}
                             </button>
                         </div>
                     </div>

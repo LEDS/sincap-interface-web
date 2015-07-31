@@ -9,12 +9,12 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['relatorios.title']}
+        #{msg['sincap.relatorios']}
     </ui:define>
     <!--Fim título da página-->
 
     <ui:define name="#{sects.formHeader}">
-        Termo de Abordagem com Negativa para Doação
+        #{msg['termo.abordagem.negativa']}
     </ui:define>
 
     <!-- Formulário de entrevista -->
@@ -23,11 +23,11 @@
               action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_nao_doacao}" method="post">
             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
             <div class="step-pane active" id="step1">
-                <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+                <h:outputLabel value="#{msg['text.nome']}"/>
                 <input type="text" class="span3" name="nome" />
                 <button type="submit" id="submitFormulario" class="btn-flat success btn-finish">
                     <i class="icon-search"></i>
-                    Buscar
+                    #{msg['text.buscar']}
                 </button>
                 <br/>
                 <div class="tab-content">

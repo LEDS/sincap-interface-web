@@ -6,14 +6,14 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['text.visualizar.hospitais']}
+        #{msg['text.hospital']}
     </ui:define>
 
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}"> 
         <h:panelGroup layout="block" styleClass="container-fluid">
             <div id="pad-wrapper">
-                <h2 class="title text-center">#{msg['text.visualizar.hospitais']}</h2>
+                <h2 class="title text-center">#{msg['text.hospital']}</h2>
 
                 <!-- Bloco de filtros -->
                 <div class="row filter-block">
@@ -21,7 +21,7 @@
                         <!-- Botão de nova causa -->
                         <a class="btn-flat pull-right success"
                            href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.adicionar}">
-                           <i class="icon-1p05x icon-plus icon-fluid"></i>
+                           <i class="icon-105px icon-plus icon-fluid"></i>
                         </a>
                     </div>
                 </div>
