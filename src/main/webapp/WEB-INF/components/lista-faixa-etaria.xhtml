@@ -9,7 +9,7 @@
         <h:column>
             <f:facet name="header">
                 <br />
-                <h:outputText value="Faixa Etária" />
+                <h:outputText value="#{msg['text.faixa.etaria']}" />
             </f:facet>
             <h:outputText value="#{faixa.faixa}" />
         </h:column>
@@ -17,9 +17,9 @@
         <!-- nº -->
         <h:column>
             <f:facet name="header">
-                <h:outputText value="PCR"  />
+                <h:outputText value="#{msg['text.pcr']}"  />
                 <br />
-                <h:outputText value="Nº" />
+                <h:outputText value="#{msg['text.numero']}" />
             </f:facet>
             <h:outputText value="#{faixa.totalPCR}" />
         </h:column>
@@ -36,9 +36,9 @@
         <!-- nº -->
         <h:column>
             <f:facet name="header">
-                <h:outputText value="ME"  />
+                <h:outputText value="#{msg['text.me']}"  />
                 <br />
-                <h:outputText value="Nº" />
+                <h:outputText value="#{msg['text.pcr']}" />
             </f:facet>
             <h:outputText value="#{faixa.totalME}" />
         </h:column>

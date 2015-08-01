@@ -15,7 +15,7 @@
                              styleClass="table table-hover table-striped table-bordered table-margin-top center-table">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Nome" />
+                            <h:outputText value="#{msg['text.nome']}" />
                         </f:facet>
                         #{hospital.nome}
                     </h:column>
@@ -23,20 +23,20 @@
                     <!-- Botões -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Ações" />
+                            <h:outputText value="#{msg['text.acoes']}" />
                         </f:facet>
                         <div class="row-fluid">
                             <div class="container-fluid span6">
                                 <a id="formulario-hospital-#{hospital.id}"
                                    href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.editar}/#{hospital.id}"
                                    class="btn-flat default">
-                                   <i class="icon-fluid icon-edit icon-1p05x"></i>
+                                   <i class="icon-fluid icon-edit icon-105px"></i>
                                 </a>
                             </div>
                             <div class="container-fluid span6">
                                 <form class="form-fluid" id="formulario-hospital-#{hospital.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.apagar}/#{hospital.id}" method="post">
                                     <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-                                    <button type="submit" class="btn-flat danger"><i class="icon-fluid icon-trash icon-1p05x"></i></button>
+                                    <button type="submit" class="btn-flat danger"><i class="icon-fluid icon-trash icon-105px"></i></button>
                                 </form>
                             </div>
                         </div>

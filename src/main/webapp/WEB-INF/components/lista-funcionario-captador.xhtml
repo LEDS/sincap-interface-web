@@ -9,7 +9,7 @@
         <div id="btnAdicionarOrigin-captador-table">
             <a class="btn-flat success pull-right"
                href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.adicionar}#{contextUrls.app_captador}">
-                <i class="icon-1p05x icon-plus icon-fluid"></i>
+                <i class="icon-105px icon-plus icon-fluid"></i>
             </a>
         </div>
         <h:panelGroup layout="block" styleClass="datatables-page">
@@ -18,20 +18,20 @@
                              rows="#{quantidade}" styleClass="table table-hover table-bordered table-striped">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Nome"  />
+                            <h:outputText value="#{msg['text.nome']}"  />
                         </f:facet>
                         #{captador.nome}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="CPF" />
+                            <h:outputText value="#{msg['text.cpf']}" />
                         </f:facet>
                         #{captador.cpf}
                     </h:column>
 
             <h:column>
             <f:facet name="header">
-                <h:outputText value="AÇÕES"/>
+                <h:outputText value="#{msg['text.acoes']}"/>
             </f:facet>
 
                     <!-- Botões -->
@@ -40,14 +40,14 @@
                         <div class="span6">
                         <!-- Botões -->
                             <a class="btn-flat primary" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.editar}#{contextUrls.app_captador}/#{captador.id}">
-                                <i class="icon-1p05x icon-edit icon-fluid"></i>
+                                <i class="icon-105px icon-edit icon-fluid"></i>
                             </a>
                         </div>
 
                         <div class="span6">
                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                             <a class="btn-flat danger" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_captador}/#{captador.id}">
-                                <i class="icon-1p05x icon-trash icon-fluid"></i>
+                                <i class="icon-105px icon-trash icon-fluid"></i>
                             </a>
                         </div>
                     </div>

@@ -12,13 +12,13 @@
                              rows="#{quantidade}" styleClass="table table-hover table-striped table-bordered table-margin-top center-table">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Nome" />
+                            <h:outputText value="#{msg['text.nome']}" />
                         </f:facet>
                         #{causa.nome}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Tipo nao Doaçao" />
+                            <h:outputText value="#{msg['tipo.nao.doacao']}" />
                         </f:facet>
                         #{causa.tipoNaoDoacao}
                     </h:column>
@@ -26,7 +26,7 @@
                     <h:column>
                     <div class="row-fluid">
                         <f:facet name="header">
-                            <h:outputText value="Ações" />
+                            <h:outputText value="#{msg['text.acoes']}" />
                         </f:facet>
                         <div class="span6">
                         <form id="formulario-causa-nao-doacao-#{causa.id}"
@@ -34,7 +34,7 @@
                               method="get"
                               class="form-fluid">
                             <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-                            <button type="submit" class="btn-flat default"><i class="icon-1p05x icon-edit icon-fluid"></i></button>
+                            <button type="submit" class="btn-flat default"><i class="icon-105px icon-edit icon-fluid"></i></button>
                         </form>
                         </div>
                         <div class="span6">
@@ -43,7 +43,7 @@
                                method="post"
                                class="form-fluid">
                              <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-                             <button type="submit" class="btn-flat danger"><i class="icon-1p05x icon-trash icon-fluid"></i></button>
+                             <button type="submit" class="btn-flat danger"><i class="icon-105px icon-trash icon-fluid"></i></button>
                         </form>
                         </div>
                     </div>

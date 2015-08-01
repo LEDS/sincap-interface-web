@@ -11,19 +11,19 @@
                              rows="#{quantidade}" styleClass="table table-hover table-striped table-bordered">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Protocolo" />
+                            <h:outputText value="#{msg['text.protocolo']}" />
                         </f:facet>
                         #{notificacao.codigo}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Paciente" />
+                            <h:outputText value="#{msg['text.paciente']}" />
                         </f:facet>
                         #{notificacao.obito.paciente.nome}
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Data do Óbito" />
+                            <h:outputText value="#{msg['text.data.obito']}" />
                         </f:facet>
                         <h:outputText value="#{notificacao.obito.dataObito.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -31,7 +31,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Hora do Óbito" />
+                            <h:outputText value="#{msg['text.hora.obito']}" />
                         </f:facet>
                         <h:outputText value="#{notificacao.obito.dataObito.time}">
                             <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}" />
@@ -39,7 +39,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Data da Notificação" />
+                            <h:outputText value="#{msg['text.data.notificacao']}" />
                         </f:facet>
                         <h:outputText value="#{notificacao.dataAbertura.time}">
                             <f:convertDateTime pattern="dd/MM/yyyy" />
@@ -47,7 +47,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Hora da Notificação" />
+                            <h:outputText value="#{msg['text.hora.notificacao']}" />
                         </f:facet>
                         <h:outputText value="#{notificacao.dataAbertura.time}">
                             <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
@@ -55,7 +55,7 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Notificar Entrevista" />
+                            <h:outputText value="#{msg['text.notificar']} #{msg['text.entrevista']}" />
                         </f:facet>
                         <form id="formulario-notificar-entrevista-#{notificacao.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_entrevista}#{contextUrls.adicionar}" method="post">
                             <input type="hidden" name="id" value="#{notificacao.id}" />

@@ -5,31 +5,30 @@
 
     <h:panelGroup rendered="#{sucessoObito}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Obito cadastrado com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.obito.cadastrado']}"/>
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{obitoConfirmado}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Obito confirmado com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.obito.confirmado']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{obitoRecusado}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Obito recusado com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.obito.recusado']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{sucessoEntrevista}" layout="block" styleClass="flash-message">
         <div class="alert alert-success">
             <i class="icon-save"/>
-            Entrevista salva com sucesso!
+            #{msg['sucesso.entrevista.salva']}
             <h:panelGroup rendered="#{entrevistaRealizada}">
                 <a target="_blank" class="btn-flat success"
                    href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}#{contextUrls.imprimir}/#{idEntrevista}">
-                    <!--<i class="icon-file"></i>-->
-                    Emitir Termo
+                    #{msg['text.emitir.termo']}
                 </a>
             </h:panelGroup>
         </div>
@@ -37,37 +36,37 @@
 
     <h:panelGroup rendered="#{entrevistaConfirmada}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Entrevista confirmada com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.entrevista.confirmada']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{entrevistaRecusada}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value=" Entrevista recusada com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.entrevista.recusada']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{captacaoSucesso}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Captação salva com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.captacao.salva']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{captacaoConfirmado}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Captação confirmada com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.captacao.confirmada']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{captacaoRecusado}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Captação recusada com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.captacao.recusada']}" />
         </ui:include>
     </h:panelGroup>
 
     <h:panelGroup rendered="#{sucessoArquivamento}" layout="block" styleClass="flash-message">
         <ui:include src="flash-message.xhtml">
-            <ui:param name="messageText" value="Arquivado com sucesso!" />
+            <ui:param name="messageText" value="#{msg['sucesso.arquivar']}" />
         </ui:include>
     </h:panelGroup>
 </ui:composition>
