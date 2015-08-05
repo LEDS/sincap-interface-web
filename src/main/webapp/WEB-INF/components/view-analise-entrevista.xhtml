@@ -8,23 +8,23 @@
 
     <!--Dados da Entrevista-->
     <div class="row">
-        <h4 class="section-title"><span>Dados da Entrevista</span></h4>
+        <h4 class="section-title"><span>#{msg['text.dados.entrevista']}</span></h4>
     </div>
     <div class="row">
         <h:panelGroup styleClass="field-box" rendered="#{processo.causaNaoDoacao != null}">
-            <label>#{msg['entrevista.dropdown.problemasEstruturais']}</label>
+            <label>#{msg['text.aspecto.estrutural']}</label>
             <h:inputText styleClass="span8" readonly="true"
                          value="#{processo.causaNaoDoacao.nome}, tipo #{processo.causaNaoDoacao.tipoNaoDoacao}"/>
         </h:panelGroup>
         <div class="field-box">
-            <label>#{msg['entrevista.radioButton.doacaoAutorizada']}</label>
-            <h:inputText styleClass="span8" readonly="true" value="#{msg['entrevista.radioButton.doacaoAutorizada.sim']}"
+            <label>#{msg['text.doacao.autorizada']}</label>
+            <h:inputText styleClass="span8" readonly="true" value="#{msg['text.sim']}"
                          rendered="#{processo.entrevista.doacaoAutorizada}"/>
-            <h:inputText styleClass="span8" readonly="true" value="#{msg['entrevista.radioButton.doacaoAutorizada.nao']}"
+            <h:inputText styleClass="span8" readonly="true" value="#{msg['text.nao']}"
                          rendered="#{!processo.entrevista.doacaoAutorizada}"/>
         </div>
         <div class="field-box">
-            <label>#{msg['entrevista.text.dtEntrevista']}</label>
+            <label>#{msg['text.data.entrevista']}</label>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.dataEntrevista.time}">
                 <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
@@ -34,91 +34,91 @@
 
     <!--Dados do Responsável Legal-->
     <div class="row">
-        <h4 class="section-title"><span>Responsável Legal</span></h4>
+        <h4 class="section-title"><span>#{msg['text.dados.responsavel']}</span></h4>
     </div>
     <div class="row">
         <div class="field-box">
-            <label>#{msg['responsavel.text.nome']}</label>
+            <label>#{msg['text.nome']}</label>
             <input type="text" class="span8" readonly="readonly" value="#{processo.entrevista.responsavel.nome}"/>
         </div>
         <div class="field-box">
-            <label>#{msg['responsavel.text.dataNascimento']}</label>
+            <label>#{msg['text.data.nascimento']}</label>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.dataNascimento.time}">
                 <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
                 <f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{timeZone}"/>
             </h:inputText>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+            <h:outputLabel value="#{msg['text.documento']}"/>
             <h:inputText styleClass="span8" readonly="true"
                          value="#{processo.entrevista.responsavel.documentoSocial.documento}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+            <h:outputLabel value="#{msg['text.tipo.documento']}"/>
             <h:inputText styleClass="span8" readonly="true"
                          value="#{processo.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.dropdown.parentesco']}"/>
+            <h:outputLabel value="#{msg['text.parentesco']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.parentesco}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.dropdown.estadoCivil']}"/>
+            <h:outputLabel value="#{msg['text.estado.civil']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.estadoCivil}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.telefone1']}"/>
+            <h:outputLabel value="#{msg['text.telefone']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.telefone.numero}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
+            <h:outputLabel value="#{msg['text.telefone2']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.telefone2.numero}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.radioButton.sexo']}"/>
+            <h:outputLabel value="#{msg['text.sexo']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.entrevista.responsavel.sexo}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.profissao']}"/>
+            <h:outputLabel value="#{msg['text.profissao']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.profissao}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.religiao']}"/>
+            <h:outputLabel value="#{msg['text.religiao']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.religiao}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.grauEscolaridade']}"/>
+            <h:outputLabel value="#{msg['text.escolaridade']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.grauEscolaridade}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.nacionalidade']}"/>
+            <h:outputLabel value="#{msg['text.nacionalidade']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.nacionalidade}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.dropdown.uf']}"/>
+            <h:outputLabel value="#{msg['text.uf']}"/>
             <h:inputText styleClass="span8" readonly="true"
                          value="#{processo.entrevista.responsavel.endereco.estado.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.dropdown.cidade']}"/>
+            <h:outputLabel value="#{msg['text.cidade']}"/>
             <h:inputText styleClass="span8" readonly="true"
                          value="#{processo.entrevista.responsavel.endereco.cidade.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.dropdown.bairro']}"/>
+            <h:outputLabel value="#{msg['text.bairro']}"/>
             <h:inputText styleClass="span8" readonly="true"
                          value="#{processo.entrevista.responsavel.endereco.bairro.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.logradouro']}"/>
+            <h:outputLabel value="#{msg['text.logradouro']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.endereco.logradouro}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.numero']}"/>
+            <h:outputLabel value="#{msg['text.numero']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.endereco.numero}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.cep']}"/>
+            <h:outputLabel value="#{msg['text.cep']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.responsavel.endereco.cep}"/>
         </div>
         <!--@elvariable id="menorIdade" type="java.lang.Boolean"-->
@@ -129,38 +129,38 @@
 
     <!--Dados da Primeira Testemunha-->
     <div class="row">
-        <h4 class="section-title"><span>Primeira Testemunha</span></h4>
+        <h4 class="section-title"><span>#{msg['text.testemunha1']}</span></h4>
     </div>
     <div class="row">
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
+            <h:outputLabel value="#{msg['text.nome']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+            <h:outputLabel value="#{msg['text.documento']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.documentoSocial.documento}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+            <h:outputLabel value="#{msg['text.tipo.documento']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}"/>
         </div>
     </div>
 
     <!--Dados da Segunda Testemunha-->
     <div class="row">
-        <h4 class="section-title"><span>Segunda Testemunha</span></h4>
+        <h4 class="section-title"><span>#{msg['text.testemunha2']}</span></h4>
     </div>
     <div class="row">
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.nome']}"/>
+            <h:outputLabel value="#{msg['text.nome']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.documento']}"/>
+            <h:outputLabel value="#{msg['text.documento']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.documentoSocial.documento}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.tipoDocumento']}"/>
+            <h:outputLabel value="#{msg['text.tipo.documento']}"/>
             <h:inputText styleClass="span8" readonly="true" value="#{processo.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}"/>
         </div>
     </div>

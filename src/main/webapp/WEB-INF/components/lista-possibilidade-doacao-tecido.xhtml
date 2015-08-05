@@ -11,7 +11,7 @@
                     <!-- Data -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Data" />
+                            <h:outputText value="#{msg['text.data']}" />
                         </f:facet>
 
                         <h:outputText value="#{total.data.time}" >
@@ -22,7 +22,7 @@
                     <!-- Hora -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Hora" />
+                            <h:outputText value="#{msg['text.hora']}" />
                         </f:facet>
 
                         <h:outputText value="#{total.data.time}" >
@@ -34,7 +34,7 @@
                     <!-- Nome do paciente -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Nome do paciente" />
+                            <h:outputText value="#{msg['text.nome']}" />
                         </f:facet>
 
                     <h:outputText value="#{total.nome}" />
@@ -42,7 +42,7 @@
                  <!-- Idade -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Idade" />
+                            <h:outputText value="#{msg['text.idade']}" />
                         </f:facet>
 
                     <h:outputText value="#{total.idade}" />
@@ -50,7 +50,7 @@
                  <!-- Causa do óbito-->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Causa do óbito" />
+                            <h:outputText value="#{msg['text.causa.obito']}" />
                         </f:facet>
 
                      <h:outputText value="#{total.causaObito}" />
@@ -58,7 +58,7 @@
                  <!-- Setor do óbito -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Setor do óbito" />
+                            <h:outputText value="#{msg['text.setor.obito']}" />
                         </f:facet>
 
                     <h:outputText value="#{total.setorObito} " />
@@ -67,7 +67,7 @@
                  <!-- Doação de Tecidos -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Doação de Tecidos" />
+                            <h:outputText value="#{msg['text.doacao.tecidos']}" />
                         </f:facet>
 
                      <h:outputText value="#{total.doaTecido} " />
@@ -76,7 +76,7 @@
                  <!-- Causa de não doação -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Causa de não doação" />
+                            <h:outputText value="#{msg['causa.nao.doacao']}" />
                         </f:facet>
 
                     <h:outputText value="#{total.causaNaoDoacao} " />
@@ -85,7 +85,7 @@
                    <!-- Observações -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Observações" />
+                            <h:outputText value="#{msg['text.observacao']}" />
                         </f:facet>
 
                         <h:outputText value="#{total.observacao} " />

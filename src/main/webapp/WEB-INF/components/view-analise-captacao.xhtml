@@ -7,27 +7,27 @@
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
 
     <div class="row">
-        <h4 class="section-title"><span>Dados da Captação</span></h4>
+        <h4 class="section-title"><span>#{msg['text.dados.captacao']}</span></h4>
     </div>
     <div class="row">
         <h:panelGroup rendered="#{processo.captacao.captacaoRealizada}" layout="block" styleClass="field-box">
-            <label>Captação Realizada</label>
-            <h:inputText readonly="true" styleClass="span8" value="Sim">
+            <label>#{msg['text.captacao.realizada']}</label>
+            <h:inputText readonly="true" styleClass="span8" value="#{msg['text.sim']}">
             </h:inputText>
         </h:panelGroup>
         <h:panelGroup rendered="#{not processo.captacao.captacaoRealizada}" layout="block" styleClass="field-box">
-            <label>Captação Realizada</label>
-            <h:inputText readonly="true" styleClass="span8" value="Não">
+            <label>#{msg['text.captacao.realizada']}</label>
+            <h:inputText readonly="true" styleClass="span8" value="#{msg['text.nao']}">
             </h:inputText>
         </h:panelGroup>
         <h:panelGroup layout="block" rendered="#{processo.captacao.captacaoRealizada}" styleClass="field-box">
-            <label>Data e hora da Captação</label>
+            <label>#{msg['data.hora.captacao']}</label>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.captacao.dataCaptacao.time}">
                 <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
             </h:inputText>
         </h:panelGroup>
         <h:panelGroup layout="block" rendered="#{not processo.captacao.captacaoRealizada}" styleClass="field-box">
-            <label>Problema Logístico</label>
+            <label>#{msg['relacionados.problemas.logisticos']}</label>
             <h:inputText readonly="true" value="#{processo.causaNaoDoacao.nome}"/>
         </h:panelGroup>
     </div>

@@ -20,7 +20,7 @@
                 </h:panelGroup>
                 <a href="#{request.contextPath}#{contextUrls.index}">
                     <i class="icon-home"/>
-                    <span>#{msg['sidebar.principal']}</span>
+                    <span>#{msg['text.home']}</span>
                 </a>
             </li>
             <h:panelGroup
@@ -32,7 +32,7 @@
                     </h:panelGroup>
                     <a href="#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.adicionar}">
                         <i class="icon-edit"/>
-                        <span>#{msg['sidebar.notificacao.notificar.Obito']}</span>
+                        <span>#{msg['text.notificar']}  #{msg['text.obito']}</span>
                     </a>
                 </li>
             </h:panelGroup>
@@ -44,30 +44,30 @@
                 </h:panelGroup>
                 <a class="dropdown-toggle" href="#">
                     <i class="icon-list-alt"/>
-                    <span>#{msg['sidebar.relatorios']}</span>
-                    <i class="icon-chevron-down"/>
+                    <span>#{msg['text.relatorios']}</span>
+                <i class="icon-chevron-down"/>
                 </a>
                 <ul class="submenu">
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}">Termo de doação</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}">#{msg['termo.doacao']}</a>
                     </li>
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_nao_doacao}">Termo de não doação</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_nao_doacao}">#{msg['termo.nao.doacao']}</a>
                     </li>
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}">Total doação por Instituição</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_doacao_instituicao}">#{msg['total.doacao.instituicao']}</a>
                     </li>
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_qualificacao_recusa_familiar}">Qualificações de Recusas Familiares</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_qualificacao_recusa_familiar}">#{msg['qualificacao.recusa.familiar']}</a>
                     </li>
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_nao_doacao_instituicao}">Total Não Doação Por Instituição</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_total_nao_doacao_instituicao}">#{msg['total.nao.doacao.instituicao']}</a>
                     </li>
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_atividade_mensal}">Atividade Mensal CIHDOTT</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_atividade_mensal}">#{msg['atividade.mensal.cihdott']}</a>
                     </li>
                     <li>
-                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_possibilidade_doacao_tecido}">Relatório de óbitos</a>
+                        <a href="#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.rlt_possibilidade_doacao_tecido}">#{msg['text.relatorio.obito']}</a>
                     </li>
 
                 </ul>

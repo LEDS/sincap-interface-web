@@ -11,7 +11,7 @@
                     <!-- Protocolo -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Cartão SUS" />
+                            <h:outputText value="#{msg['text.numero.sus']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.obito.paciente.numeroSUS}" />
@@ -20,7 +20,7 @@
                     <!-- Paciente -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Paciente" />
+                            <h:outputText value="#{msg['text.paciente']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.obito.paciente.nome}" />
@@ -28,7 +28,7 @@
                     <!-- Responsavel -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Responsável" />
+                            <h:outputText value="#{msg['text.responsavel']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.obito.paciente.nomeMae}" />
@@ -37,13 +37,13 @@
                     <!-- Botão de Imprimir -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Emitir" />
+                            <h:outputText value="#{msg['text.emitir.termo']}" />
                         </f:facet>
 
                         <a target="_blank" class="btn-flat default"
                            href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.relatorios}#{contextUrls.app_notificacao_entrevista}#{contextUrls.rlt_termo_autorizacao_doacao}#{contextUrls.imprimir}/#{processo.id}">
                            <i class="icon-file"></i>
-                           Emitir
+                            #{msg['text.emitir.termo']}
                         </a>
                     </h:column>
                 </h:dataTable>

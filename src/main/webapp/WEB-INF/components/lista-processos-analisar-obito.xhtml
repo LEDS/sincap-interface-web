@@ -10,7 +10,7 @@
                         <!-- Protocolo -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Protocolo" />
+                                <h:outputText value="#{msg['text.protocolo']}" />
                             </f:facet>
 
                             <h:outputText value="#{processo.codigo}" />
@@ -19,7 +19,7 @@
                         <!-- Data de Notificação -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Data de Notificação" />
+                                <h:outputText value="#{msg['text.data.notificacao']}" />
                             </f:facet>
 
                             <h:outputText value="#{processo.dataAbertura.time}">
@@ -30,7 +30,7 @@
                         <!-- Data de Óbito -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Data do Óbito" />
+                                <h:outputText value="#{msg['text.data.obito']}" />
                             </f:facet>
 
                             <h:outputText value="#{processo.obito.dataObito.time}">
@@ -41,7 +41,7 @@
                         <!-- Paciente -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Paciente" />
+                                <h:outputText value="#{msg['text.paciente']}" />
                             </f:facet>
 
                             <h:outputText value="#{processo.obito.paciente.nome}" />
@@ -51,7 +51,7 @@
                         <!-- Hospital -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Hospital" />
+                                <h:outputText value="#{msg['text.hospital']}" />
                             </f:facet>
 
                             <h:outputText value="#{processo.obito.hospital.nome}" />
@@ -60,7 +60,7 @@
                         <!-- Notificador -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Notificador" />
+                                <h:outputText value="#{msg['text.notificador']}" />
                             </f:facet>
 
                             <h:outputText value="#{processo.notificador.nome}" />
@@ -69,13 +69,13 @@
                         <!-- Botão de Analisar -->
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Analisar" />
+                                <h:outputText value="#{msg['text.analisar']}" />
                             </f:facet>
 
                         <a class="btn-flat default"
                            href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.app_notificacao_obito}#{contextUrls.app_analisar}/#{processo.id}">
                             <i class="icon-file"></i>
-                            Analisar
+                            #{msg['text.analisar']}
                         </a>
                     </h:column>
                 </h:dataTable>

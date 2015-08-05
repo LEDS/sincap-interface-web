@@ -13,21 +13,21 @@
                     <div class="control-group">
                         <h:column>
                             <f:facet name="header" class="center-important">
-                                <h:outputText value="Nome" />
+                                <h:outputText value="#{msg['text.nome']}" />
                             </f:facet>
                             #{setor.nome}
                         </h:column>
 
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Ação" />
+                                <h:outputText value="#{msg['text.acoes']}" />
                             </f:facet>
                             <form name="list-form-setor" id="list-form-setor" class="form-inside-table" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_setor}"
                                   method="post">
                                 <input type="hidden" id="setorId" name="id" value="#{setor.id}" />
                                 <!--                                <input type="hidden" name="setorNome" value=""-->
                                 <h:panelGroup styleClass="center-important" layout="block" rendered="#{!setor.usado}">
-                                    <button class="btn-flat danger" type="submit"><i class="icon-trash icon-1p05x icon-fluid" style=""></i></button>
+                                    <button class="btn-flat danger" type="submit"><i class="icon-trash icon-105px icon-fluid" style=""></i></button>
                                 </h:panelGroup>
                                 <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
                             </form>

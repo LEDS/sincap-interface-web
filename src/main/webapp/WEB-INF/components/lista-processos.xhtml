@@ -11,7 +11,7 @@
                     <!-- Protocolo -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Protocolo" />
+                            <h:outputText value="#{msg['text.protocolo']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.codigo}" />
@@ -20,7 +20,7 @@
                     <!-- Data de Notificação -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Data de Notificação" />
+                            <h:outputText value="#{msg['text.data.notificacao']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.dataAbertura.time}">
@@ -31,7 +31,7 @@
                     <!-- Data de Óbito -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Data do Óbito" />
+                            <h:outputText value="#{msg['text.data.obito']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.obito.dataObito.time}">
@@ -42,7 +42,7 @@
                     <!-- Paciente -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Paciente" />
+                            <h:outputText value="#{msg['text.paciente']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.obito.paciente.nome}" />
@@ -52,7 +52,7 @@
                     <!-- Hospital -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Hospital" />
+                            <h:outputText value="#{msg['text.hospital']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.obito.hospital.nome}" />
@@ -61,7 +61,7 @@
                     <!-- Notificador -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Notificador" />
+                            <h:outputText value="#{msg['text.notificador']}" />
                         </f:facet>
 
                         <h:outputText value="#{processo.notificador.nome}" />
@@ -70,7 +70,7 @@
                     <!-- Detalhes -->
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Detalhes" />
+                            <h:outputText value="#{msg['text.observacao']}" />
                         </f:facet>
 
                         <a

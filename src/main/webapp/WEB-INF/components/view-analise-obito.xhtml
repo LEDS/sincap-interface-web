@@ -7,104 +7,104 @@
     <!--@elvariable id="processo" type="br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao"-->
 
     <div class="row">
-        <h4 class="section-title"><span>Dados do Óbito</span></h4>
+        <h4 class="section-title"><span>#{msg['text.dados.obito']}</span></h4>
     </div>
     <div class="row">
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.tipoObito']}"/>
+            <h:outputLabel value="#{msg['text.tipo.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.tipoObito}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.nome']}"/>
+            <h:outputLabel value="#{msg['text.nome']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.dataNascimento']}"/>
+            <h:outputLabel value="#{msg['text.data.nascimento']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.dataNascimento.time}">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.dataInternacao']}"/>
+            <h:outputLabel value="#{msg['text.data.internacao']}"/>
             <h:inputText readonly="true" styleClass="span8"
                          value="#{processo.obito.paciente.dataInternacao.time}">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.docSocial.documento']}"/>
+            <h:outputLabel value="#{msg['text.documento']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.documentoSocial.documento}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.docSocial.tipo']}"/>
+            <h:outputLabel value="#{msg['text.tipo.documento']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.documentoSocial.tipoDocumentoComFoto}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.telefone']}"/>
+            <h:outputLabel value="#{msg['text.telefone']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.telefone.numero}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.radioButton.sexo']}"/>
+            <h:outputLabel value="#{msg['text.sexo']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.sexo}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.numeroSUS']}"/>
+            <h:outputLabel value="#{msg['text.numero.sus']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.numeroSUS}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.profissao']}"/>
+            <h:outputLabel value="#{msg['text.profissao']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.profissao}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.religiao']}"/>
+            <h:outputLabel value="#{msg['text.religiao']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.religiao}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.nacionalidade']}"/>
+            <h:outputLabel value="#{msg['text.nacionalidade']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nacionalidade}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.prontuario']}"/>
+            <h:outputLabel value="#{msg['text.numero.prontuario']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.numeroProntuario}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.mae']}"/>
+            <h:outputLabel value="#{msg['text.nome.mae']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.nomeMae}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.dropDown.uf']}"/>
+            <h:outputLabel value="#{msg['text.uf']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.estado.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.dropDown.cidade']}"/>
+            <h:outputLabel value="#{msg['text.cidade']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.cidade.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.dropDown.bairro']}"/>
+            <h:outputLabel value="#{msg['text.bairro']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.bairro.nome}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.cep']}"/>
+            <h:outputLabel value="#{msg['text.cep']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.cep}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.logradouro']}"/>
+            <h:outputLabel value="#{msg['text.logradouro']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.logradouro}"/>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.paciente.endereco.numero']}"/>
+            <h:outputLabel value="#{msg['text.numero']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.paciente.endereco.numero}"/>
         </div>
 
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.data']}"/>
+            <h:outputLabel value="#{msg['text.data.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
         </div>
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.horario']}"/>
+            <h:outputLabel value="#{msg['text.hora.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.dataObito.time}">
                 <!--@elvariable id="timeZone" type="java.util.TimeZone"-->
                 <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
@@ -112,38 +112,38 @@
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.dropDown.setor']}"/>
+            <h:outputLabel value="#{msg['text.setor']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.setor.nome}" />
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos1']}"/>
+            <h:outputLabel value="#{msg['text.causa.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.primeiraCausaMortis.nome}"/>
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos2']}"/>
+            <h:outputLabel value="#{msg['text.causa2.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.segundaCausaMortis.nome}"/>
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos3']}"/>
+            <h:outputLabel value="#{msg['text.causa3.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.terceiraCausaMortis.nome}"/>
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.motivos4']}"/>
+            <h:outputLabel value="#{msg['text.causa4.obito']}"/>
             <h:inputText readonly="true" styleClass="span8" value="#{processo.obito.quartaCausaMortis.nome}"/>
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.radioButton.aptoDoacao.apto']}"/>
-            <h:inputText readonly="true" styleClass="span8" rendered="#{processo.obito.aptoDoacao}" value="Apto"/>
-            <h:inputText readonly="true" styleClass="span8" rendered="#{!processo.obito.aptoDoacao}" value="Inapto"/>
+            <h:outputLabel value="#{msg['text.apto.doacao']}"/>
+            <h:inputText readonly="true" styleClass="span8" rendered="#{processo.obito.aptoDoacao}" value="#{msg['text.apto']}"/>
+            <h:inputText readonly="true" styleClass="span8" rendered="#{!processo.obito.aptoDoacao}" value="#{msg['text.inapto']}"/>
         </div>
 
         <div class="field-box">
-            <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
+            <h:outputLabel value="#{msg['text.contra.indicacao']}"/>
             <h:inputText readonly="true" value="#{processo.causaNaoDoacao.nome}" styleClass="span8"/>
         </div>
     </div>

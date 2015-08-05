@@ -25,19 +25,19 @@
                     <h:panelGroup
                             rendered="#{request.isUserInRole('ROLE_NOTIFICADOR')}">
                         <a id="mensagemNomeUsuario" style="color:azure; border-left: none">
-                            Página do notificador: #{request.getSession().getAttribute('user').nome}
+                            #{msg['text.pagina.notificador']}: #{request.getSession().getAttribute('user').nome}
                         </a>
                     </h:panelGroup>
                     <h:panelGroup
                             rendered="#{request.isUserInRole('ROLE_ANALISTA')}">
                         <a id="mensagemNomeUsuario" style="color:azure; border-left: none">
-                            Página do analista: #{request.getSession().getAttribute('user').nome}
+                            #{msg['text.pagina.analista']}: #{request.getSession().getAttribute('user').nome}
                         </a>
                     </h:panelGroup>
                     <h:panelGroup
                             rendered="#{request.isUserInRole('ROLE_CAPTADOR')}">
                         <a id="mensagemNomeUsuario" style="color:azure; border-left: none">
-                            Página do captador: #{request.getSession().getAttribute('user').nome}
+                            #{msg['text.pagina.captador']}: #{request.getSession().getAttribute('user').nome}
                         </a>
                     </h:panelGroup>
                 </li>
@@ -68,7 +68,7 @@
                             <a href="#" class="close-icon"><i class="icon-remove-sign"></i></a>
                             <h:panelGroup id="painelNovasNotificacoes" layout
                                 ="block" styleClass="notifications">
-                                <h3>Você tem 0 notificações.</h3>
+                                <h3>#{msg['sem.notificacoes']}</h3>
 
                                 <ul>
                                 </ul>
