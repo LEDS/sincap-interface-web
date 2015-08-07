@@ -8,7 +8,7 @@
     <!--@elvariable id="listaCausaNaoDoacao" type="java.util.List"-->
     <h4 class="section-title"><span>#{msg['text.dados.obito']}</span></h4>
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['text.data.obito']}*"/>
+        <h:outputLabel value="#{msg['text.data.obito']}"/>
         <div class="span8">
         <h:inputText styleClass="data span8 fillOnDblClick" id="obito-dataObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="dd/MM/yyyy"/>
@@ -17,7 +17,7 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['text.hora.obito']}*"/>
+        <h:outputLabel value="#{msg['text.hora.obito']}"/>
         <div class="span8">
         <h:inputText styleClass="hora span8" id="horarioObito" value="#{processo.obito.dataObito.time}">
             <f:convertDateTime pattern="HH:mm" timeZone="#{timeZone}"/>
@@ -26,14 +26,14 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['text.setor']}*"/>
+        <h:outputLabel value="#{msg['text.setor']}"/>
 
         <div class="span8">
             <h:selectOneMenu
                     styleClass="span8"
                     id="obito-setor"
                     value="#{processo.obito.setor}">
-                <f:selectItem itemLabel="#{msg['selecione.setor']}*"/>
+                <f:selectItem itemLabel="#{msg['text.selecione']}"/>
                 <f:selectItems value="#{listaSetor}"/>
             </h:selectOneMenu>
         </div>
@@ -54,7 +54,7 @@
     </h:panelGroup>
 
     <h:panelGroup layout="block" styleClass="field-box">
-        <h:outputLabel value="#{msg['text.apto.doacao']}*"/>
+        <h:outputLabel value="#{msg['text.apto.doacao']}"/>
 
         <div class="span8">
             <label class="radio">
@@ -76,7 +76,7 @@
     </div>
 
     <div id="divCausaNaoDoacao" class="field-box">
-        <h:outputLabel value="#{msg['obito.obito.contraIndicacoes-Medicas']}"/>
+        <h:outputLabel value="#{msg['text.contra.indicacao']}"/>
 
         <div class="span8">
             <h:selectOneMenu
@@ -91,7 +91,7 @@
 
     <div id="divCausasMortis" >
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['text.causa1.obito']}*"/>
+            <h:outputLabel value="#{msg['text.causa1.obito']}"/>
             <div class="span8">
             <h:inputText id="obito-primeiraCausaMortis" styleClass="span8"
                          value="#{processo.obito.primeiraCausaMortis.nome}"/>

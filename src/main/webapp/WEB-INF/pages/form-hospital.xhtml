@@ -9,6 +9,13 @@
         #{msg['text.cadastro.hospital']}
     </ui:define>
 
+    <style>
+        #lsetores {
+            width: width:350px !important;
+        }
+
+    </style>
+
     <!-- Conteúdo da página -->
     <ui:define name="#{sects.content}">
         <div id="pad-wrapper">
@@ -124,7 +131,7 @@
                                     <h:outputLabel value="#{msg['text.setor']}"/>
 
                                     <div class="span5">
-                                        <select name="lsetores" style="width:350px" multiple="multiple" class="select2">
+                                        <select id="lsetores" name="lsetores" multiple="multiple" class="select2">
                                             <option>
                                                 <ui:repeat value="#{listaSetores}" varStatus="index" var="setores" >
                                                     <option selected="#{listaSetoresHospital[setores.id]?'selected':''}" value="#{setores.id}">#{setores.nome}</option>

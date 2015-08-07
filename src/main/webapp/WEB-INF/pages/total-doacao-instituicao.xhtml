@@ -5,6 +5,12 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <style>
+        #hospitais {
+            width:350px
+        }
+    </style>
+
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
         #{msg['sincap.relatorios']}
@@ -56,7 +62,7 @@
 
                 <h:panelGroup layout="block" styleClass="field-box">
                     <div class="span5">
-                        <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
+                        <select id="hospitais" name="hospitais" multiple="multiple" class="select2">
                             <option>
                                 <ui:repeat value="#{listInstituicao}" varStatus="index" var="instituicao">
                                     <option selected="#{listInstituicaoSelected[instituicao.id]?'selected':''}" value="#{instituicao.id}">#{instituicao.nome}</option>

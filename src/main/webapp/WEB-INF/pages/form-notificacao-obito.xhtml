@@ -11,11 +11,11 @@
 
     <!-- Título da página -->
     <ui:define name="#{sects.title}">
-        #{msg['busca-notificacao.title']}
+        #{msg['text.notificar']}  #{msg['text.obito']}
     </ui:define>
 
     <ui:define name="#{sects.formHeader}">
-        #{msg['notificacao.msg.etapa.obito']}
+        #{msg['text.notificar']}  #{msg['text.obito']}
     </ui:define>
 
     <!-- Conteúdo da página -->
@@ -27,11 +27,11 @@
             <ul class="wizard-steps">
                 <li data-target="#step1" class="active">
                     <span class="step">1</span>
-                    <span class="title">#{msg['paciente.aba.text.titulo']}</span>
+                    <span class="title">#{msg['text.paciente']}</span>
                 </li>
                 <li data-target="#step2">
                     <span class="step">2</span>
-                    <span class="title">#{msg['obito.aba.text.titulo']}</span>
+                    <span class="title">#{msg['text.obito']}</span>
                 </li>
             </ul>
         </div>
@@ -85,7 +85,7 @@
                             Próximo <i class="icon-chevron-right"/>
                         </button>
                         <button type="button" class="btn-flat success btn-finish">
-                            #{msg['obito.button.finalizar']}
+                            #{msg['botao.finalizar']}
                         </button>
                     </div>
                 </div>

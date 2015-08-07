@@ -42,8 +42,8 @@
 
         <h:panelGroup layout="block" styleClass="secao row-fluid" rendered="#{renderizarDados}">
             <div class="span12">
-                <label class ="listas" style="font-weight: bold;">
-                    #{msg['text.faixa.etaria']}
+                <label class ="listas">
+                    <strong>#{msg['text.faixa.etaria']}</strong>
                     <i class="icon-chevron-down"></i>
                 </label>
                 <ui:include src="../components/lista-faixa-etaria.xhtml"/>
@@ -53,13 +53,15 @@
         <div class="row-fluid">
 
             <h:panelGroup display="block" styleClass="secao span6" rendered="#{renderizarDados}">
-                <label class ="listas" style="font-weight: bold;">#{msg['obitos.parada.cardiorespiratoria']}
+                <label class ="listas">
+                    <strong>#{msg['obitos.parada.cardiorespiratoria']}</strong>
                     <i class="icon-chevron-down"></i>
                 </label>
                 <ui:include src="../components/lista-obitos-com-parada.xhtml"/>
             </h:panelGroup>
             <h:panelGroup display="block" styleClass="secao span6" rendered="#{renderizarDados}">
-                <label class ="listas" style="font-weight: bold;">#{msg['numero.obitos.me.notificados']}
+                <label class ="listas">
+                    <strong>#{msg['numero.obitos.me.notificados']}</strong>
                     <i class="icon-chevron-down"></i>
                 </label>
                 <ui:include src="../components/lista-obitosME-notificados.xhtml"/>
@@ -69,8 +71,8 @@
 
         <div class="row-fluid">
 
-            <label class="listas" style="font-weight: bold;">
-                #{msg['causa.nao.efetivacao.doacao']}:
+            <label class="listas">
+                <strong>#{msg['causa.nao.efetivacao.doacao']}:</strong>
                 <i class="icon-chevron-down"></i>
             </label>
             <div class="column">
@@ -94,7 +96,8 @@
 
 
         <h:panelGroup display="block" styleClass="secao" rendered="#{renderizarDados}">
-            <label class ="listas" style="font-weight: bold;">#{msg['atividade.educacao.divulgacao']}
+            <label class ="listas">
+                <strong>#{msg['atividade.educacao.divulgacao']}</strong>
                 <i class="icon-chevron-down"></i>
             </label>
             <ui:include src="../components/lista-atividade-educacao-divulgacao.xhtml"/>
