@@ -18,7 +18,6 @@
             .padrao {
                 padding: 1% 1% 1% 2%;
                 border: 1px solid #000;
-                /*width:95%;*/
             }
 
             .titulo {
@@ -81,77 +80,88 @@
 
     <body>
 
-        <div class="titulo"> Termo de Abordagem com Negativa para Doação</div>
-            <br/>
+        <div class="titulo"> #{msg['termo.negativo.doacao']}</div>
+        <br/>
 
         <div class="padrao">
-            <p><strong>Eu, </strong><span class="dados">#{pn.entrevista.responsavel.nome}</span> do sexo <span class="dados">#{pn.entrevista.responsavel.sexo}</span>
-            nascido no dia <span class="dados">#{dataNascimentoResponsavel}</span>, portador do <span class="dados">#{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}</span> sob Nº <span class="dados">#{pn.entrevista.responsavel.documentoSocial.documento}</span>
-            residente no endereço - Rua: #{pn.entrevista.responsavel.endereco.logradouro} N° #{pn.entrevista.responsavel.endereco.numero}
-            CEP: <span class="dados">#{pn.entrevista.responsavel.endereco.cep}</span> Bairro: <span class="dados">#{bairroResponsavel}</span> Município: <span class="dados">#{cidadeResponsavel}</span> Estado: <span class="dados">#{estadoResponsavel}</span>.
-            Informo pelo presente termo, que apesar de ter me sido dada a oportunidade, <strong>NÃO AUTORIZO</strong> a
-            doação de órgãos e/ou tecidos para transplantes do paciente: <span class="dados">#{pn.obito.paciente.nome}</span>, falecido às: <span class="dados">#{horaObito}</span> do
-            dia: <span class="dados">#{dataObito}</span> no <span class="dados"> #{hospitalNome}</span>, <span class="dados">#{hospitalCidade}.</span> </p>
+            <p><strong>#{msg['text.eu']} </strong> <span class="dados">#{pn.entrevista.responsavel.nome}</span>
+                #{msg['do.sexo']}<span class="dados">#{pn.entrevista.responsavel.sexo}</span>
+                #{msg['nascido.dia']} <span class="dados">#{dataNascimentoResponsavel}</span>
+                #{msg['portador.do']} <span class="dados">#{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto} </span>
+                #{msg['sob.numero']} <span class="dados">#{pn.entrevista.responsavel.documentoSocial.documento}</span>
+                #{msg['residente.endereco']}: #{pn.entrevista.responsavel.endereco.logradouro}
+                #{msg['text.numero']} #{pn.entrevista.responsavel.endereco.numero}
+                #{msg['text.cep']}: <span class="dados">#{pn.entrevista.responsavel.endereco.cep}</span>
+                #{msg['text.bairro']}: <span class="dados">#{bairroResponsavel}</span>
+                #{msg['text.municipio']}: <span class="dados">#{cidadeResponsavel}</span>
+                #{msg['text.estado']}: <span class="dados">#{estadoResponsavel}</span>.
+                #{msg['informo.pelo.termo']} <strong>#{msg['nao.autorizo']}</strong>
+                #{msg['doacao.paciente']} <span class="dados">#{pn.obito.paciente.nome}</span>
+                #{msg['falecido.as']} <span class="dados">#{horaObito}</span>
+                #{msg['do.dia']} <span class="dados">#{dataObito}</span>
+                #{msg['text.no']} <span class="dados"> #{hospitalNome}</span>, <span class="dados">#{hospitalCidade}.</span>
+            </p>
         </div>
-            <br/>
+        <br/>
 
         <div class="padrao">
-           <strong>Motivo da recusa familiar</strong><br/>
-           <span class="dados">#{recusaEData.recusaFamiliar}</span>
+           <strong>#{msg['motivo.recusa.familiar']}</strong>
+            <br/>
+           <span class="dados">#{recusaEData.recusaFamiliar} </span>
         </div>
         <br/>
 
         <div class="padrao">
             <p>
-                <strong>Assinatura do Responsável legal:</strong> ________________________________________________________________
+                <strong>#{msg['assinatura.responsavel.legal']}:</strong> ________________________________________________________________
                 <br/>
-                Grau de parentesco: <span class="dados">#{pn.entrevista.responsavel.parentesco}</span>
+                #{msg['text.parentesco']}: <span class="dados">#{pn.entrevista.responsavel.parentesco}</span>
             </p>
         </div>
         <br/>
 
         <table class="testemunha">
-            <th class="borda_inferior" colspan="2">Testemunha 01</th>
+            <th class="borda_inferior" colspan="2">#{msg['text.testemunha1']}</th>
             <tr>
-                <td class="borda_inferior">Nome Completo:  <span class="dados">#{pn.entrevista.testemunha1.nome}</span> </td>
-                <td class="borda_inferior sem_borda_direita">Documento: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</span></td>
+                <td class="borda_inferior">#{msg['text.nome']}:  <span class="dados">#{pn.entrevista.testemunha1.nome}</span> </td>
+                <td class="borda_inferior sem_borda_direita">#{msg['text.documento']}: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</span></td>
             </tr>
 
             <tr>
-                <td class="sem_borda_direita" colspan="2"><strong>ASSINATURA:</strong> ________________________________________________________________</td>
+                <td class="sem_borda_direita" colspan="2"><strong>#{msg['text.assinatura']}:</strong> ________________________________________________________________</td>
             </tr>
         </table>
         <br/>
 
         <table class="testemunha">
-            <th class="borda_inferior" colspan="2">Testemunha 02</th>
+            <th class="borda_inferior" colspan="2">#{msg['text.testemunha2']}</th>
             <tr>
-                <td class="borda_inferior">Nome Completo: <span class="dados">#{pn.entrevista.testemunha2.nome}</span></td>
-                <td class="borda_inferior sem_borda_direita">Documento: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</span></td>
+                <td class="borda_inferior">#{msg['text.nome']}: <span class="dados">#{pn.entrevista.testemunha2.nome}</span></td>
+                <td class="borda_inferior sem_borda_direita">#{msg['text.documento']}: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto} - #{pn.entrevista.testemunha1.documentoSocial.documento}</span></td>
             </tr>
 
             <tr>
-                <td class="sem_borda_direita" colspan="2"><strong>ASSINATURA:</strong> ________________________________________________________________</td>
+                <td class="sem_borda_direita" colspan="2"><strong>#{msg['text.assinatura']}:</strong> ________________________________________________________________</td>
             </tr>
         </table>
         <br/>
 
 
         <table class="profissional_responsavel">
-            <th class="borda_inferior" colspan="2">Profissional responsável:</th>
+            <th class="borda_inferior" colspan="2">#{msg['profissional.responsavel']}:</th>
             <tr>
-                <td>Nome: <span class="dados">#{nomeFuncionario}</span></td>
-                <td class="sem_borda_direita">Assinatura/Carimbo:</td>
+                <td>#{msg['text.nome']}: <span class="dados">#{nomeFuncionario}</span></td>
+                <td class="sem_borda_direita">#{msg['assinatura.carimbo']}:</td>
             </tr>
         </table>
-                <br/>
+        <br/>
 
         <table class="rodape">
             <tr>
-                <td>1ª Via - (fax) Banco de Olhos e CNCDO</td>
-                <td>2ª Via- Prontuário</td>
-                <td>3ª Via - Familiares</td>
-                <td>4ª Via Pasta CIHDOTT</td>
+                <td>#{msg['via.banco.olhos']}</td>
+                <td>#{msg['via.prontuario']}</td>
+                <td>#{msg['via.familiares']}</td>
+                <td>#{msg['via.cihdott']}</td>
             </tr>
         </table>
 

@@ -38,77 +38,127 @@
     </head>
 
     <h:graphicImage library="img" name="brasao.jpg"/>
-    <p id="cabecalho">GOVERNO DO ESTADO DO ESPÍRITO SANTO<br/>
-    SECRETARIA DO ESTADO DA SAÚDE<br/>
-    CENTRAL DE NOTIFICAÇÃO, CAPTAÇÃO E DISTRIBUIÇÃO DE ÓRGÃOS E TECIDOS<br/>
-    PARA TRANSPLANTES DO ESPÍRITO SANTO</p>
+    <p id="cabecalho">#{msg['governo.es']}<br/>
+    #{msg['secretaria.saude']}<br/>
+    #{msg['central.orgaos.tecidos']}<br/>
+    #{msg['transplantes.es']}</p>
 
-    <h5>TERMO DE AUTORIZAÇÃO DE DOAÇÃO DE MÚLTIPLOS ÓRGÃOS/TECIDOS</h5>
+    <h5>#{msg['termo.autorizacao.doacao.orgaos']}</h5>
     <div class="padrao">
-        <b>1. #{msg['text.doador']}:</b><br/>
-        #{msg['text.nome']}: <span class="dados">#{pn.obito.paciente.nome}</span>  <br/>
-        #{msg['text.idade']}: <span class="dados">#{idadePaciente}</span> #{msg['text.anos']} #{msg['text.sexo']}: <span class="dados">#{pn.obito.paciente.sexo}</span> #{msg['text.documento']}: <span class="dados">#{pn.obito.paciente.documentoSocial.documento}</span> #{msg['text.tipo.documento']}: <span class="dados">#{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto}</span><br/>
-        #{msg['text.endereco']}: <span class="dados">#{pn.obito.paciente.endereco.logradouro}</span> #{msg['text.cep']}: <span class="dados">#{pn.obito.paciente.endereco.cep}</span> #{msg['text.numero']}: <span class="dados">#{pn.obito.paciente.endereco.numero}</span> #{msg['text.bairro']}: <span class="dados">#{bairroPaciente}</span> <br/>
-        #{msg['text.municipio']}: <span class="dados">#{cidadePaciente}</span> #{msg['text.estado']}: <span class="dados">#{estadoPaciente}</span> #{msg['text.nome.mae']}: <span class="dados">#{pn.obito.paciente.nomeMae}</span> <br/>
-        #{msg['text.local.captacao']}: <span class="dados">#{hospitalNome}</span> #{msg['text.municipio']}: <span class="dados">#{hospitalCidade}</span> #{msg['text.religiao']}: <span class="dados">#{pn.obito.paciente.religiao}</span><br/>
-        #{msg['text.registro.hospitalar']}: <span class="dados">#{pn.obito.paciente.numeroProntuario}</span> #{msg['text.data.obito']}: <span class="dados">#{dataObito}</span> #{msg['text.hora.obito']}: <span class="dados">#{horaObito}</span>.
+        <b>1. #{msg['text.doador']}:</b> <br/>
+        #{msg['text.nome']}: <span class="dados">#{pn.obito.paciente.nome}</span><br/>
+        #{msg['text.idade']}: <span class="dados">#{idadePaciente}</span> #{msg['text.anos']}
+        #{msg['text.sexo']}: <span class="dados">#{pn.obito.paciente.sexo}</span>
+        #{msg['text.documento']}: <span class="dados">#{pn.obito.paciente.documentoSocial.documento}</span>
+        #{msg['text.tipo.documento']}: <span class="dados">#{pn.obito.paciente.documentoSocial.tipoDocumentoComFoto}</span><br/>
+        #{msg['text.endereco']}: <span class="dados">#{pn.obito.paciente.endereco.logradouro}</span>
+        #{msg['text.cep']}: <span class="dados">#{pn.obito.paciente.endereco.cep}</span>
+        #{msg['text.numero']}: <span class="dados">#{pn.obito.paciente.endereco.numero}</span>
+        #{msg['text.bairro']}: <span class="dados">#{bairroPaciente}</span> <br/>
+        #{msg['text.municipio']}: <span class="dados">#{cidadePaciente}</span>
+        #{msg['text.estado']}: <span class="dados">#{estadoPaciente}</span>
+        #{msg['text.nome.mae']}: <span class="dados">#{pn.obito.paciente.nomeMae}</span> <br/>
+        #{msg['text.local.captacao']}: <span class="dados">#{hospitalNome}</span>
+        #{msg['text.municipio']}: <span class="dados">#{hospitalCidade}</span>
+        #{msg['text.religiao']}: <span class="dados">#{pn.obito.paciente.religiao}</span><br/>
+        #{msg['text.registro.hospitalar']}: <span class="dados">#{pn.obito.paciente.numeroProntuario}</span>
+        #{msg['text.data.obito']}: <span class="dados">#{dataObito}</span>
+        #{msg['text.hora.obito']}: <span class="dados">#{horaObito}</span>.
     </div>
     <div>
         <div class="padrao">
-           <b>2. RESPONSÁVEL PELA AUTORIZAÇÃO:</b><b style="text-align:right;font-weight: bold"> *LEI Nº 10.211/2001</b><br/>
-            <b>#{msg['text.parentesco']}*: <span class="dados">#{pn.entrevista.responsavel.parentesco}</span></b><br/>
+               <b>2. #{msg['responsavel.autorizacao']}: *#{msg['lei.10.211/2001']} <br/>
+                  *#{msg['text.parentesco']}: <span class="dados">#{pn.entrevista.responsavel.parentesco}</span>
+               </b>
+           <br/>
             #{msg['text.nome']}: <span class="dados">#{pn.entrevista.responsavel.nome}</span><br/>
-            #{msg['text.idade']}:<span class="dados">#{idadeResponsavel}</span> #{msg['text.anos']}  #{msg['text.sexo']}: <span class="dados">#{pn.entrevista.responsavel.sexo}</span> #{msg['text.documento']}: <span class="dados">#{pn.entrevista.responsavel.documentoSocial.documento}</span> #{msg['text.tipo.documento']}:<span class="dados">#{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}</span> #{msg['text.profissao']}: <span class="dados">#{pn.entrevista.responsavel.profissao}</span>
+            #{msg['text.idade']}:<span class="dados">#{idadeResponsavel}</span> #{msg['text.anos']}
+            #{msg['text.sexo']}: <span class="dados">#{pn.entrevista.responsavel.sexo}</span>
+            #{msg['text.documento']}: <span class="dados">#{pn.entrevista.responsavel.documentoSocial.documento}</span>
+            #{msg['text.tipo.documento']}:<span class="dados">#{pn.entrevista.responsavel.documentoSocial.tipoDocumentoComFoto}</span>
+            #{msg['text.profissao']}: <span class="dados">#{pn.entrevista.responsavel.profissao}</span>
             <br/>
-            #{msg['text.religiao']}: <span class="dados">#{pn.entrevista.responsavel.religiao}</span> #{msg['text.escolaridade']}: <span class="dados">#{pn.entrevista.responsavel.grauEscolaridade}</span><br/>
-            #{msg['text.endereco']}:<span class="dados"> #{pn.entrevista.responsavel.endereco.logradouro}</span> #{msg['text.cep']}: <span class="dados">#{pn.entrevista.responsavel.endereco.cep}</span> #{msg['text.numero']}:<span class="dados">#{pn.entrevista.responsavel.endereco.numero}</span> #{msg['text.bairro']}: <span class="dados">#{bairroResponsavel}</span> <br/>
-            #{msg['text.municipio']}: <span class="dados">#{cidadeResponsavel}</span> #{msg['text.estado']}: <span class="dados">#{estadoResponsavel}</span> #{msg['text.telefone']}: <span class="dados">#{pn.entrevista.responsavel.telefone.numero}</span><br/>
+
+            #{msg['text.religiao']}: <span class="dados">#{pn.entrevista.responsavel.religiao}</span>
+            #{msg['text.escolaridade']}: <span class="dados">#{pn.entrevista.responsavel.grauEscolaridade}</span><br/>
+            #{msg['text.endereco']}:<span class="dados"> #{pn.entrevista.responsavel.endereco.logradouro}</span>
+            #{msg['text.cep']}: <span class="dados">#{pn.entrevista.responsavel.endereco.cep}</span>
+            #{msg['text.numero']}:<span class="dados">#{pn.entrevista.responsavel.endereco.numero}</span>
+            #{msg['text.bairro']}: <span class="dados">#{bairroResponsavel}</span> <br/>
+            #{msg['text.municipio']}: <span class="dados">#{cidadeResponsavel}</span>
+            #{msg['text.estado']}: <span class="dados">#{estadoResponsavel}</span>
+            #{msg['text.telefone']}: <span class="dados">#{pn.entrevista.responsavel.telefone.numero}</span><br/>
             <br/>
+
             <b>#{msg['text.assinatura']}</b> ________________________________________________________________<br/>
+
             <h:panelGroup rendered="#{not empty pn.entrevista.responsavel2}" layout="block">
                 <b>*#{msg['aviso.assinatura.menor.idade']} </b><br/>
                 #{msg['text.nome']}: <span class="dados">#{pn.entrevista.responsavel2.nome}</span><br/>
-                #{msg['text.idade']}:<span class="dados">#{idadeResponsavel2}#{msg['text.anos']}</span> #{msg['text.sexo']}: <span class="dados">#{pn.entrevista.responsavel2.sexo}</span> #{msg['text.documento']}: <span class="dados">#{pn.entrevista.responsavel2.documentoSocial.documento}</span> #{msg['text.tipo.documento']}: <span class="dados">#{pn.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto}</span> #{msg['text.profissao']}: <span class="dados">#{pn.entrevista.responsavel2.profissao}</span>
+                #{msg['text.idade']}:<span class="dados">#{idadeResponsavel2}#{msg['text.anos']}</span>
+                #{msg['text.sexo']}: <span class="dados">#{pn.entrevista.responsavel2.sexo}</span>
+                #{msg['text.documento']}: <span class="dados">#{pn.entrevista.responsavel2.documentoSocial.documento}</span>
+                #{msg['text.tipo.documento']}: <span class="dados">#{pn.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto}</span>
+                #{msg['text.profissao']}: <span class="dados">#{pn.entrevista.responsavel2.profissao}</span>
                 <br/>
-                #{msg['text.religiao']}: <span class="dados">#{pn.entrevista.responsavel2.religiao}</span> #{msg['text.escolaridade']}: <span class="dados">#{pn.entrevista.responsavel2.grauEscolaridade}</span><br/>
-                #{msg['text.endereco']}: <span class="dados">#{pn.entrevista.responsavel2.endereco.logradouro}</span> #{msg['text.cep']}: <span class="dados">#{pn.entrevista.responsavel2.endereco.cep}</span> #{msg['text.numero']}: <span class="dados">#{pn.entrevista.responsavel2.endereco.numero}</span> #{msg['text.bairro']}: <span class="dados">#{bairroResponsavel2}</span>
+
+                #{msg['text.religiao']}: <span class="dados">#{pn.entrevista.responsavel2.religiao}</span>
+                #{msg['text.escolaridade']}: <span class="dados">#{pn.entrevista.responsavel2.grauEscolaridade}</span><br/>
+                #{msg['text.endereco']}: <span class="dados">#{pn.entrevista.responsavel2.endereco.logradouro}</span>
+                #{msg['text.cep']}: <span class="dados">#{pn.entrevista.responsavel2.endereco.cep}</span>
+                #{msg['text.numero']}: <span class="dados">#{pn.entrevista.responsavel2.endereco.numero}</span>
+                #{msg['text.bairro']}: <span class="dados">#{bairroResponsavel2}</span>
                 <br/>
-                #{msg['text.municipio']}: <span class="dados">#{cidadeResponsavel2}</span> #{msg['text.estado']}: <span class="dados">#{estadoResponsavel2}</span> #{msg['text.telefone']}: <span class="dados">#{pn.entrevista.responsavel2.telefone.numero}</span>
+
+                #{msg['text.municipio']}: <span class="dados">#{cidadeResponsavel2}</span>
+                #{msg['text.estado']}: <span class="dados">#{estadoResponsavel2}</span>
+                #{msg['text.telefone']}: <span class="dados">#{pn.entrevista.responsavel2.telefone.numero}</span>
                 <br/>
+
                 <b>#{msg['text.assinatura']}</b> ________________________________________________________________
+
             </h:panelGroup>
         </div>
     </div>
     <div >
         <div class="padrao">
-            <p>Os Órgãos e tecidos oculares retirados serão processados e deverão ser transplantados em pacientes devidamente inscritos na lista única da CNCDO/ES, que
-                obedece aos critérios estabelecidos pelo Sistema Nacional de Transplantes, do Ministério da Saúde em conformidade com as leis e normas vigentes. Esta
-                autorização inclui a realização de exames sorológicos necessários para assegurar a viabilidade dos tecidos. Esta doação é motivada apenas por razões
-                humanitárias, não havendo expectativa de qualquer forma de compensação material. Declaro ter recebido as informações sobre todo o processo de doação,
-                bem como possíveis intercorrências (sangramento, edema, hematoma) referente à captação dos globos oculares e que não terei informações sobre os receptores.</p>
-                ( ) Somente para fins de transplantes.<br/>
-                ( ) O órgão ou tecido não utilizado para transplante devido a sua qualidade, poderá ser utilizado para fins científico(ensino/pesquisa.)<br/>
-                <b>#{msg['text.observacao']}:</b> O autorizante <b>não aceita</b> a retirada, do órgão/tecido: ________________________
+            <p>#{msg['paragrafo.explicativo']}</p>
+                #{msg['somente.fins.transplante']}<br/>
+                #{msg['fins.cientificos']}<br/>
+                <b>#{msg['text.observacao']}:</b> #{msg['text.autorizante']}
+                <b>#{msg['text.nao.aceita']}</b> #{msg['retirada.orgao.tecido']} ________________________
         </div>
     </div>
     <div >
         <div class="padrao">
-            #{msg['text.testemunha1']} - #{msg['text.nome']}: <span class="dados">#{pn.entrevista.testemunha1.nome}</span>           #{msg['text.documento']}: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.documento}</span> #{msg['text.tipo.documento']}: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}</span><br/>
+            #{msg['text.testemunha1']} - #{msg['text.nome']}: <span class="dados">#{pn.entrevista.testemunha1.nome}</span>
+            #{msg['text.documento']}: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.documento}</span>
+            #{msg['text.tipo.documento']}: <span class="dados">#{pn.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}</span><br/>
             <br/>
+
             <b>#{msg['text.assinatura']}</b> ________________________________________________________________<br/>
             <br/>
-            #{msg['text.testemunha2']} - #{msg['text.nome']}: <span class="dados">#{pn.entrevista.testemunha2.nome} </span>          #{msg['text.documento']}: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.documento}</span> #{msg['text.tipo.documento']}: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}</span>
+
+            #{msg['text.testemunha2']} - #{msg['text.nome']}: <span class="dados">#{pn.entrevista.testemunha2.nome} </span>
+            #{msg['text.documento']}: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.documento}</span>
+            #{msg['text.tipo.documento']}: <span class="dados">#{pn.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}</span><br/>
             <br/>
-            <br/>
+
             <b>#{msg['text.assinatura']}</b> ________________________________________________________________
+
         </div>
     </div>
     <div >
         <div class="profissional">
             <b>#{msg['text.responsavel.entrevista']}</b><br/>
-            #{msg['text.nome']}: <span class="dados">#{nomeFuncionario}</span> #{msg['text.numero.conselho']}: ___________________ #{msg['text.data']}:<span class="dados">#{dataEntrevista}</span> #{msg['text.hora']}: <span class="dados">#{horaEntrevista}</span><br/>
+               #{msg['text.nome']}: <span class="dados">#{nomeFuncionario}</span>
+               #{msg['text.numero.conselho']}: ___________________
+               #{msg['text.data']}:<span class="dados">#{dataEntrevista}</span>
+               #{msg['text.hora']}: <span class="dados">#{horaEntrevista}</span><br/>
             <br/>
+
             <b>#{msg['text.assinatura']}</b> ________________________________________________________________
+
         </div>
     </div>
 
