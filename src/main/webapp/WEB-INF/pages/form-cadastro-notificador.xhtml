@@ -113,7 +113,7 @@
 
                             <br/><br/>
 
-                            <h:outputLabel value="#{msg['text.logradouro']}"/>
+                            <h:outputLabel value="#{msg['text.endereco']}"/>
                             <h:inputText id="endereco-logradouro" value="#{notificador.endereco.logradouro}"/>
 
                             <h:outputLabel value="#{msg['text.numero']}"/>
@@ -133,7 +133,7 @@
                                 <h:outputLabel value="#{msg['text.instituicao.notificadora']}"/>
 
                                 <div class="span5">
-                                    <select name="hospitais" style="width:350px" multiple="multiple" class="select2">
+                                    <select id="hospitais" name="hospitais" style="width:300px" multiple="multiple" class="select2">
                                         <option>
                                             <ui:repeat value="#{listaHospitais}" varStatus="index" var="hospital" >
                                                    <option selected="#{listaHospitaisNotificador[hospital.id]?'selected':''}" value="#{hospital.id}">#{hospital.nome}</option>

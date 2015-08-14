@@ -6,7 +6,7 @@
 
 <!-- Título da página -->
 <ui:define name="#{sects.title}">
-    #{msg['funcionario.cadastro.captador']}
+    #{msg['cadastro.captador']}
 </ui:define>
 
 <!-- Conteúdo da página -->
@@ -55,7 +55,7 @@
                                     <h:selectOneMenu id="documentoSocial-tipoDocumentoComFoto"
                                                      value="#{captador.documentoSocial.tipoDocumentoComFoto}">
                                         <f:selectItem
-                                                itemLabel="#{msg['selecione.tipo.documento']}"/>
+                                                itemLabel="#{msg['text.selecione']}"/>
                                         <f:selectItems value="#{tipoDocumentosComFotos}"/>
                                     </h:selectOneMenu>
                                 </div>
@@ -63,7 +63,7 @@
 
                             <br/><br/>
 
-                            <h:outputLabel value="#{msg['text.emaill']}"/>
+                            <h:outputLabel value="#{msg['text.email']}"/>
                             <h:inputText id="email" value="#{captador.email}"/>
 
                             <h:panelGroup layout="block" styleClass="field-box">
@@ -82,7 +82,7 @@
 
                             <br/><br/>
                             <h:panelGroup layout="block" styleClass="field-box">
-                                <h:outputLabel value="#{msg['funcionario.captador.dropDown.cidade']}"/>
+                                <h:outputLabel value="#{msg['text.cidade']}"/>
 
                                 <div class="ui-select span5">
                                     <h:selectOneMenu id="endereco-cidade-id"
@@ -110,7 +110,7 @@
                             </h:panelGroup>
 
                             <br/><br/>
-                            <h:outputLabel value="#{msg['text.logradouro']}"/>
+                            <h:outputLabel value="#{msg['text.endereco']}"/>
                             <h:inputText id="endereco-logradouro" value="#{captador.endereco.logradouro}"/>
 
                             <h:outputLabel value="#{msg['text.numero']}"/>
@@ -133,7 +133,7 @@
                                     <h:selectOneMenu id="bancoOlhos-id"
                                                      value="#{captador.bancoOlhos.id}">
                                         <f:selectItem itemValue=""
-                                                      itemLabel="#{msg['text.banco.olhos']}"/>
+                                                      itemLabel="#{msg['text.selecione']}"/>
                                         <f:selectItems value="#{listaBancoOlhosItem}"/>
                                     </h:selectOneMenu>
                                 </div>
