@@ -159,6 +159,8 @@ public class UtilityWeb {
         return tipos;
     }
 
+
+
     public List<SelectItem> getCorpoEncaminhamento(){
         List<SelectItem> listEncaminhamento = new ArrayList<>();
 

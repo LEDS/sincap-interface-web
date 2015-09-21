@@ -29,7 +29,19 @@
 
                             <h:inputHidden id="id" value="#{captador.id}"/>
 
-                            <h:inputHidden id="ativo" value="TRUE"/>
+                            <!--<h:inputHidden id="ativo" value="TRUE"/>-->
+                            <h:panelGroup layout="block" styleClass="field-box"> <!--Drop Situacao-->
+                                <h:outputLabel value="#{msg['funcionario.situacao']}"/>
+
+                                <div class="ui-select span5">
+                                    <select name="status">
+                                        <option value="true">Ativo</option>
+                                        <option value="false">Inativo</option>
+                                    </select>
+                                </div>
+                            </h:panelGroup>
+
+                            <br></br><br></br>
 
                             <h:outputLabel value="#{msg['funcionario.nome']}"/>
                             <h:inputText id="nome"  value="#{captador.nome}"/>
