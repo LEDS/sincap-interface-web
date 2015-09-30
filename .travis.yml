@@ -1,0 +1,9 @@
+language: java
+
+sudo: false
+
+branches:
+  only:
+    - master
+
+script: mvn test
