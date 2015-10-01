@@ -237,6 +237,9 @@ public class ProcessoNotificacaoController {
 
         if(autoridades.contains("ROLE_NOTIFICADOR") || autoridades.contains("ROLE_CAPTADOR")){
             processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
+        } else {
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOENTREVISTA);
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
@@ -257,6 +260,9 @@ public class ProcessoNotificacaoController {
 
             processos = aplProcessoNotificacao.retornarNotificacaoPorEstadoAtualEHospital(AGUARDANDOCORRECAOENTREVISTA, usuarioSessao.getIdUsuario(), usuarioSessao.getIdHospital());
 
+        } else {
+            processos = aplProcessoNotificacao
+                    .retornarProcessoNotificacaoPorEstadoAtual(AGUARDANDOCORRECAOENTREVISTA);
         }
 
         NotificacaoJSON notificacaoJSON = new NotificacaoJSON();
