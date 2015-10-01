@@ -29,6 +29,15 @@
                         #{captador.cpf}
                     </h:column>
 
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="SITUAÇÃO" />
+                        </f:facet>
+                        <h:outputText rendered="#{captador.ativo ==  true}" value="Ativo"/>
+                        <h:outputText rendered="#{captador.ativo ==  false}" value="Inativo"/>
+
+                    </h:column>
+
             <h:column>
             <f:facet name="header">
                 <h:outputText value="AÇÕES"/>
@@ -44,12 +53,13 @@
                             </a>
                         </div>
 
-                        <div class="span6">
-                            <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
-                            <a class="btn-flat danger" href="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_captador}/#{captador.id}">
-                                <i class="icon-1p05x icon-trash icon-fluid"></i>
-                            </a>
+                        <div class="container-fluid span6">
+                            <form class="form-fluid" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_funcionario}#{contextUrls.apagar}#{contextUrls.app_captador}/#{captador.id}" method="post">
+                                <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
+                                <button type="submit" class="btn-flat danger"><i class="icon-fluid icon-trash icon-1p05x"></i></button>
+                            </form>
                         </div>
+
                     </div>
                 </h:column>
             </h:column>

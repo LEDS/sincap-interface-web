@@ -6,6 +6,7 @@ import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.InstituicaoNotificadora;
 import br.ifes.leds.sincap.controleInterno.cln.cdp.Notificador;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.*;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,8 @@ public class FuncionarioController {
     private AplInstituicaoNotificadora aplInstituicaoNotificadora;
     @Autowired
     private Mapper mapper;
+    @Autowired
+    private AplProcessoNotificacao aplProcessoNotificacao;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -65,13 +68,14 @@ public class FuncionarioController {
         model.addAttribute("titulo", titulo);
         model.addAttribute("tipoDocumentosComFotos", utilityWeb.getTipoDocumentoComFotoSelectItem());
 
+
         return "form-cadastro-analista";
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_ANALISTA, method = RequestMethod.POST)
-    public String salvarAnalista(@ModelAttribute AnalistaCNCDO analistaCNCDO, @RequestParam("admin") boolean isAdmin) {
+    public String salvarAnalista(@ModelAttribute AnalistaCNCDO analistaCNCDO, @RequestParam("admin") boolean isAdmin,@RequestParam("status") boolean ativo) {
 
-        aplAnalistaCNCDO.salvar(analistaCNCDO, isAdmin);
+        aplAnalistaCNCDO.salvar(analistaCNCDO, isAdmin, ativo);
 
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
@@ -94,7 +98,10 @@ public class FuncionarioController {
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_ANALISTA + "/{idAnalistaCNCO}", method = RequestMethod.POST)
     public String apagarAnalista(@PathVariable Long idAnalistaCNCO) {
         AnalistaCNCDO analista = aplAnalistaCNCDO.obter(idAnalistaCNCO);
-        aplAnalistaCNCDO.excluir(analista);
+        analista.setAtivo(false);
+
+        aplAnalistaCNCDO.atualizar(analista);
+
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
@@ -114,13 +121,13 @@ public class FuncionarioController {
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_NOTIFICADOR, method = RequestMethod.POST)
     public String salvarNotificador(@ModelAttribute Notificador notificador,
-                                    @RequestParam("hospitais") List<Long> hospitais) {
+                                    @RequestParam("hospitais") List<Long> hospitais,@RequestParam("status") boolean ativo) {
         for (Long l : hospitais) {
             Set<InstituicaoNotificadora> setInstituicao = notificador.getInstituicoesNotificadoras();
             setInstituicao.add(aplInstituicaoNotificadora.obter(l));
             notificador.setInstituicoesNotificadoras(setInstituicao);
         }
-        aplNotificador.salvarNotificador(notificador);
+        aplNotificador.salvarNotificador(notificador,ativo);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
@@ -155,7 +162,11 @@ public class FuncionarioController {
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_NOTIFICADOR + "/{idNotificador}", method = RequestMethod.POST)
     public String apagarNotificador(@PathVariable Long idNotificador) {
         Notificador notificador = aplNotificador.obterNotificador(idNotificador);
-        aplNotificador.delete(notificador);
+
+        notificador.setAtivo(false);
+
+        aplNotificador.atualizar(notificador);
+
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
@@ -173,8 +184,8 @@ public class FuncionarioController {
     }
 
     @RequestMapping(value = ContextUrls.SALVAR + ContextUrls.APP_CAPTADOR, method = RequestMethod.POST)
-    public String salvarCaptador(@ModelAttribute Captador captador) {
-        aplCaptador.salvar(captador);
+    public String salvarCaptador(@ModelAttribute Captador captador,@RequestParam("status") boolean ativo) {
+        aplCaptador.salvar(captador,ativo);
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 
@@ -196,7 +207,11 @@ public class FuncionarioController {
     @RequestMapping(value = ContextUrls.APAGAR + ContextUrls.APP_CAPTADOR + "/{idCaptador}", method = RequestMethod.POST)
     public String apagarCaptador(@PathVariable Long idCaptador) {
         Captador captador = aplCaptador.obter(idCaptador);
-        aplCaptador.exlcuir(captador);
+
+        captador.setAtivo(false);
+
+        aplCaptador.atualizar(captador);
+
         return "redirect:" + ContextUrls.ADMIN + ContextUrls.APP_FUNCIONARIO;
     }
 }
