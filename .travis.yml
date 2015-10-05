@@ -10,4 +10,10 @@ branches:
   only:
     - master
 
+before install:
+
+-git clone https://github.com/LEDS/sincap-entities.git
+-cd sincap-entities
+-mvn test
+
 script: mvn test
