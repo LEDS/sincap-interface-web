@@ -9,11 +9,10 @@ jdk:
 branches:
   only:
     - master
-
-before_script:
+	
+script: 
   - git clone https://github.com/LEDS/sincap-entities.git
   - cd sincap-entities
-  - mvn clean install
+  - mvn test
   - cd ../sincap-interface-web
- 	
-script: mvn test
+  - mvn test
