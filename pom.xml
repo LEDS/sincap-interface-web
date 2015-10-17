@@ -22,22 +22,12 @@
         <!--<sonar.jdbc.url>jdbc:postgresql://ledsapp.sr.ifes.edu.br:5432/sonar</sonar.jdbc.url>-->
     </properties>
     
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>Repositorio de Releases</name>
-            <url>
-	            http://ledszeppellin.sr.ifes.edu.br:82/content/repositories/releases/
-            </url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <name>Repositorios de Snapshots</name>
-            <url>
-		http://ledszeppellin.sr.ifes.edu.br:82/content/repositories/snapshots/
-            </url>
-        </snapshotRepository>
-    </distributionManagement>
+    <repositories>
+      <repository>
+	<id>Leds repository</id>
+	<url>http://ledszeppellin.sr.ifes.edu.br:82/content/groups/public/</url>
+      </repository>
+    </repositories>
 
 
     <dependencies>
