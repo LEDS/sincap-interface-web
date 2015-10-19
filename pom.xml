@@ -18,26 +18,16 @@
         <dozer.version>5.4.0</dozer.version>
         <spring.version>3.2.8.RELEASE</spring.version>
         <spring.security.version>3.2.3.RELEASE</spring.security.version>
-        <sonar.host.url>http://ledsapp.sr.ifes.edu.br:9000</sonar.host.url>
-        <sonar.jdbc.url>jdbc:postgresql://ledsapp.sr.ifes.edu.br:5432/sonar</sonar.jdbc.url>
+        <!--<sonar.host.url>http://ledsapp.sr.ifes.edu.br:9000</sonar.host.url>-->
+        <!--<sonar.jdbc.url>jdbc:postgresql://ledsapp.sr.ifes.edu.br:5432/sonar</sonar.jdbc.url>-->
     </properties>
     
-    <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>Repositorio de Releases</name>
-            <url>
-                http://ledszeppellin.sr.ifes.edu.br:8082/nexus/content/repositories/Release/
-            </url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus</id>
-            <name>Repositorios de Snapshots</name>
-            <url>
-                http://ledszeppellin.sr.ifes.edu.br:8082/nexus/content/repositories/Snapshot/
-            </url>
-        </snapshotRepository>
-    </distributionManagement>
+    <repositories>
+      <repository>
+	<id>Leds repository</id>
+	<url>http://ledszeppellin.sr.ifes.edu.br:82/content/groups/public/</url>
+      </repository>
+    </repositories>
 
 
     <dependencies>

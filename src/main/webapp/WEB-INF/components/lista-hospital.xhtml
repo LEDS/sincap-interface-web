@@ -20,11 +20,13 @@
                         #{hospital.nome}
                     </h:column>
 
-                    <!-- Botões -->
+
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{msg['text.acoes']}" />
                         </f:facet>
+
+                        <!-- Botões -->
                         <div class="row-fluid">
                             <div class="container-fluid span6">
                                 <a id="formulario-hospital-#{hospital.id}"
@@ -33,6 +35,7 @@
                                    <i class="icon-fluid icon-edit icon-105px"></i>
                                 </a>
                             </div>
+
                             <div class="container-fluid span6">
                                 <form class="form-fluid" id="formulario-hospital-#{hospital.id}" action="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{contextUrls.admin}#{contextUrls.app_hospital}#{contextUrls.apagar}/#{hospital.id}" method="post">
                                     <input type="hidden" name="#{_csrf.parameterName}" value="#{_csrf.token}" />
