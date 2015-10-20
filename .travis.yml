@@ -9,12 +9,3 @@ jdk:
 branches:
   only:
     - master
-
-before_script:
-  - git clone --depth=50 --branch=master https://github.com/LEDS/sincap-entities.git LEDS/sincap-entities
-  	
-script: 
-  - cd LEDS/sincap-entities
-  - mvn test
-  - cd LEDS/sincap-interface-web
-  - mvn test
