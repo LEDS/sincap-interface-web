@@ -15,7 +15,7 @@
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
             <h:outputLabel value="#{msg['responsavel.text.dataNascimento']}*"/>
-            <h:inputText styleClass="dataNascimento span8" id="entrevista-responsavel2-dataNascimento"
+            <h:inputText styleClass="data span8" id="entrevista-responsavel2-dataNascimento"
                          value="#{processo.entrevista.responsavel2.dataNascimento.time}">
                 <f:convertDateTime pattern="dd/MM/yyyy"/>
             </h:inputText>
@@ -32,7 +32,7 @@
                                  value="#{processo.entrevista.responsavel2.documentoSocial.tipoDocumentoComFoto}"
                                  styleClass="span5">
                     <f:selectItem itemLabel="#{msg['obito.paciente.docSocial.tipo.selecione']}"/>
-                    <f:selectItems value="#{tipoDocumentos}"/>
+                    <f:selectItems value="#{tipoDocumentosNaoPNI}"/>
                 </h:selectOneMenu>
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
@@ -63,7 +63,7 @@
                          value="#{processo.entrevista.responsavel2.telefone.numero}"/>
         </h:panelGroup>
         <h:panelGroup layout="block" styleClass="field-box">
-            <h:outputLabel value="#{msg['responsavel.text.telefone2']}*"/>
+            <h:outputLabel value="#{msg['responsavel.text.telefone2']}"/>
             <h:inputText styleClass="tel span8" id="entrevista-responsavel2-telefone2-numero"
                          value="#{processo.entrevista.responsavel2.telefone2.numero}"/>
         </h:panelGroup>

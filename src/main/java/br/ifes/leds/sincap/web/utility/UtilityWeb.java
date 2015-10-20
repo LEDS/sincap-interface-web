@@ -159,7 +159,16 @@ public class UtilityWeb {
         return tipos;
     }
 
+    public List<SelectItem> getTipoDocumentoComFotoNaoPNI() {
+        List<SelectItem> tipos = new ArrayList<>();
 
+        for (TipoDocumentoComFoto tipo : TipoDocumentoComFoto.values()) {
+            if(!(tipo.equals(TipoDocumentoComFoto.PNI)))
+                tipos.add(new SelectItem(tipo, tipo.name()));
+        }
+
+        return tipos;
+    }
 
     public List<SelectItem> getCorpoEncaminhamento(){
         List<SelectItem> listEncaminhamento = new ArrayList<>();
