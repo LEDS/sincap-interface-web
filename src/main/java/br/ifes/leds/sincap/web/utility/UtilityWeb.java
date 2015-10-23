@@ -159,7 +159,16 @@ public class UtilityWeb {
         return tipos;
     }
 
+    public List<SelectItem> getTipoDocumentoComFotoNaoPNI() {
+        List<SelectItem> tipos = new ArrayList<>();
 
+        for (TipoDocumentoComFoto tipo : TipoDocumentoComFoto.values()) {
+            if(!(tipo.equals(TipoDocumentoComFoto.PNI)))
+                tipos.add(new SelectItem(tipo, tipo.name()));
+        }
+
+        return tipos;
+    }
 
     public List<SelectItem> getCorpoEncaminhamento(){
         List<SelectItem> listEncaminhamento = new ArrayList<>();
@@ -427,7 +436,7 @@ public class UtilityWeb {
                 .appendHours().appendSeparator(":")
                 .appendMinutes().appendSeparator(":")
                 .appendSeconds().
-        toFormatter(); // produce thread-safe formatter
+                        toFormatter(); // produce thread-safe formatter
         return HHMMSSFormater.print(period);
     }
 
@@ -465,7 +474,7 @@ public class UtilityWeb {
     }
 
     public ComentarioDTO criarComentario(String momento, String descricaoComentario,
-                                          UsuarioSessao usuarioSessao) {
+                                         UsuarioSessao usuarioSessao) {
 
         /*Cria o DTO do funcionário a partir dos parâmetros passados*/
         FuncionarioDTO funcionarioDTO = new FuncionarioDTO();
