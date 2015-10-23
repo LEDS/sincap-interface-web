@@ -34,7 +34,7 @@
                              value="#{processo.entrevista.testemunha1.documentoSocial.tipoDocumentoComFoto}"
                              styleClass="span5">
                 <f:selectItem itemLabel="#{msg['selecione.tipo.documento']}"/>
-                <f:selectItems value="#{tipoDocumentos}"/>
+                <f:selectItems value="#{tipoDocumentosNaoPNI}"/>
             </h:selectOneMenu>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">
@@ -57,7 +57,7 @@
                              value="#{processo.entrevista.testemunha2.documentoSocial.tipoDocumentoComFoto}"
                              styleClass="span5">
                 <f:selectItem itemLabel="#{msg['selecione.tipo.documento']}"/>
-                <f:selectItems value="#{tipoDocumentos}"/>
+                <f:selectItems value="#{tipoDocumentosNaoPNI}"/>
             </h:selectOneMenu>
     </h:panelGroup>
     <h:panelGroup layout="block" styleClass="field-box">

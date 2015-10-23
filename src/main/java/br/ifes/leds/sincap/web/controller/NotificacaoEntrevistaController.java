@@ -74,6 +74,7 @@ public class NotificacaoEntrevistaController {
             model.addAttribute("recusaFamiliar", (long) 0);
             model.addAttribute("problemasEstruturais", (long) 0);
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+            model.addAttribute("tipoDocumentosNaoPNI", utilityWeb.getTipoDocumentoComFotoNaoPNI());
             model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
             model.addAttribute("menorIdade",utilityWeb.getIdade(processo.getObito().getPaciente().getDataNascimento().getTime(),processo.getObito().getDataObito().getTime())< 18);
 
@@ -129,6 +130,7 @@ public class NotificacaoEntrevistaController {
                 utilityWeb.preencherEndereco(processo.getEntrevista().getResponsavel().getEndereco(), model);
             }
             model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+            model.addAttribute("tipoDocumentosNaoPNI", utilityWeb.getTipoDocumentoComFotoNaoPNI());
             model.addAttribute("grauEscolaridade", utilityWeb.getEscolaridadeSelectItem());
 
             return "form-entrevista";
@@ -171,6 +173,7 @@ public class NotificacaoEntrevistaController {
         model.addAttribute("recusaFamiliar", processo.getCausaNaoDoacao());
         model.addAttribute("problemasEstruturais", processo.getCausaNaoDoacao());
         model.addAttribute("tipoDocumentos", utilityWeb.getTipoDocumentoComFotoSelectItem());
+        model.addAttribute("tipoDocumentosNaoPNI", utilityWeb.getTipoDocumentoComFotoNaoPNI());
         model.addAttribute("processo", processo);
 
         model.addAttribute("entrevistaRealizada", processo.getEntrevista().isEntrevistaRealizada());

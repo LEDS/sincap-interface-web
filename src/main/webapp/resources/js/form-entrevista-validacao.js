@@ -96,9 +96,6 @@
         'entrevista.responsavel.telefone.numero': {
             required: true
         },
-        'entrevista.responsavel.telefone2.numero': {
-            required: true
-        },
         'entrevista.responsavel.profissao': {
             required: true
         },
@@ -148,9 +145,6 @@
             required: true
         },
         'entrevista.responsavel2.telefone.numero': {
-            required: true
-        },
-        'entrevista.responsavel2.telefone2.numero': {
             required: true
         },
         'entrevista.responsavel2.profissao': {
@@ -301,10 +295,6 @@
         'entrevista.responsavel.telefone.numero': {
             required: "Por favor, insira o telefone 1 do responsavel"
         },
-        'entrevista.responsavel.telefone2.numero': {
-            required: "Por favor, insira o telefone 2 do responsavel"
-        },
-
         'entrevista.responsavel.sexo': {
             required: "Por favor, insira o sexo do responsavel"
         },
@@ -362,10 +352,6 @@
         'entrevista.responsavel2.telefone.numero': {
             required: "Por favor, insira o telefone1 do 2º responsavel"
         },
-        'entrevista.responsavel2.telefone2.numero': {
-            required: "Por favor, insira o telefone2 do 2º responsavel"
-        },
-
         'entrevista.responsavel2.sexo': {
             required: "Por favor, insira o sexo do 2º responsavel"
         },

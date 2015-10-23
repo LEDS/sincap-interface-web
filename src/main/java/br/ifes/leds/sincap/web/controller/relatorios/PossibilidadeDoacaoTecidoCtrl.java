@@ -1,19 +1,18 @@
 package br.ifes.leds.sincap.web.controller.relatorios;
 
-import br.ifes.leds.reuse.endereco.cgt.AplEndereco;
-import br.ifes.leds.reuse.utility.Utility;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplFuncionario;
-import br.ifes.leds.sincap.controleInterno.cln.cgt.AplHospital;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Hospital;
+import br.ifes.leds.sincap.controleInterno.cln.cgt.AplCaptador;
 import br.ifes.leds.sincap.controleInterno.cln.cgt.AplInstituicaoNotificadora;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.Obito;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.ProcessoNotificacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.QualificacaoRecusaFamiliar;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.relatorios.RelatorioCronologia;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplProcessoNotificacao;
 import br.ifes.leds.sincap.gerenciaNotificacao.cln.cgt.AplRelatorio;
 import br.ifes.leds.sincap.web.annotations.DefaultTimeZone;
 import br.ifes.leds.sincap.web.controller.ContextUrls;
 import br.ifes.leds.sincap.web.model.UsuarioSessao;
-import br.ifes.leds.sincap.web.utility.UtilityWeb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -28,27 +27,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static br.ifes.leds.sincap.web.controller.ContextUrls.RELATORIOS;
+
 @Controller
-@RequestMapping(ContextUrls.RELATORIOS)
+@RequestMapping(RELATORIOS)
 @SessionScoped
-public class RelatoriosController {
+public class PossibilidadeDoacaoTecidoCtrl{
 
     @Autowired
-    AplProcessoNotificacao aplProcessoNotificacao;
+    private AplRelatorio aplRelatorio;
     @Autowired
-    AplInstituicaoNotificadora aplInstituicaoNotificadora;
-    @Autowired
-    Utility utility;
-    @Autowired
-    UtilityWeb utilityWeb;
-    @Autowired
-    AplEndereco aplEndereco;
-    @Autowired
-    AplHospital aplHospital;
-    @Autowired
-    AplFuncionario aplFuncionario;
-    @Autowired
-    AplRelatorio aplRelatorio;
+    private AplProcessoNotificacao aplProcessoNotificacao;
 
 
     @RequestMapping(value = ContextUrls.RLT_POSSIBILIDADE_DOACAO_TECIDO, method = RequestMethod.GET)
@@ -56,6 +45,8 @@ public class RelatoriosController {
 
         return "possibilidade-doacao-tecido";
     }
+
+
 
     @DefaultTimeZone
     @RequestMapping(value = ContextUrls.RLT_POSSIBILIDADE_DOACAO_TECIDO, method = RequestMethod.POST)
@@ -70,9 +61,11 @@ public class RelatoriosController {
         List<ProcessoNotificacao> listaProc = new ArrayList<>();
         List<RelatorioCronologia> listaRel = new ArrayList<>();
 
+
         for (Obito obito : obitosHosp) {
             listaProc.add(aplProcessoNotificacao.retornaProcesso(obito.getId()));
         }
+
 
         for (ProcessoNotificacao processo : listaProc) {
             RelatorioCronologia tdi = aplRelatorio.relatorioCronologia(processo);
@@ -81,7 +74,8 @@ public class RelatoriosController {
 
         model.addAttribute("listaTotaldi", listaRel);
 
-        //TODO: Substituir pelo endereco do formulario!
         return "possibilidade-doacao-tecido";
     }
+
+
 }
