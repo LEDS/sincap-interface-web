@@ -33,6 +33,15 @@
 
                 <h:column>
                     <f:facet name="header">
+                        <h:outputText value="SITUAÇÃO" />
+                     </f:facet>
+                     <h:outputText rendered="#{analist.ativo ==  true}" value="Ativo"/>
+                     <h:outputText rendered="#{analist.ativo ==  false}" value="Inativo"/>
+                </h:column>
+
+
+                    <h:column>
+                    <f:facet name="header">
                         <h:outputText value="#{msg['text.acoes']}"/>
                     </f:facet>
 
