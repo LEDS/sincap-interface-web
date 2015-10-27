@@ -54,11 +54,8 @@ public class CadastroAnalista extends AbstractionTest {
 
         driver.findElement(By.cssSelector("li.settings.hidden-phone > a")).click();
         driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();
-        driver.findElement(By.xpath("//div[@id='analista-table_wrapper']/div/div/div[3]/a/i")).click();
 
-//        driver.findElement(By.cssSelector("i.icon-cog")).click();
-//        driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();
-//        driver.findElement(By.xpath("//div[@id='analista-table_wrapper']/div/div/div[3]/a")).click();
+        driver.findElement(By.xpath("//div[@id='btnAdicionarOrigin-analista-table']/a/i")).click();
 
         driver.findElement(By.id("nome")).clear();
         driver.findElement(By.id("nome")).sendKeys(analista.getNome());
@@ -74,9 +71,9 @@ public class CadastroAnalista extends AbstractionTest {
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys(analista.getEmail());
         new Select(driver.findElement(By.name("admin"))).selectByVisibleText("Não");
-        new Select(driver.findElement(By.id("endereco-estado-id"))).selectByVisibleText(analista.getEndereco().getEstado().getNome());
-        new Select(driver.findElement(By.id("endereco-cidade-id"))).selectByVisibleText(analista.getEndereco().getCidade().getNome());
-        new Select(driver.findElement(By.id("endereco-bairro-id"))).selectByVisibleText(analista.getEndereco().getBairro().getNome());
+        new Select(driver.findElement(By.id("endereco-estado-id"))).selectByVisibleText("Espírito Santo");
+        new Select(driver.findElement(By.id("endereco-cidade-id"))).selectByVisibleText("Serra");
+        new Select(driver.findElement(By.id("endereco-bairro-id"))).selectByVisibleText("Chácara Parreiral");
         driver.findElement(By.id("endereco-logradouro")).clear();
         driver.findElement(By.id("endereco-logradouro")).sendKeys(analista.getEndereco().getLogradouro());
         driver.findElement(By.id("endereco-numero")).clear();
