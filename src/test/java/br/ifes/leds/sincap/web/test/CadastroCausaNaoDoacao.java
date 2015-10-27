@@ -1,23 +1,37 @@
 package br.ifes.leds.sincap.web.test;
 
 import java.util.concurrent.TimeUnit;
+
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.cdp.CausaNaoDoacao;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.util.dataFactory.CausaNaoDoacaoData;
+import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class CadastroCausaNaoDoacao {
+public class CadastroCausaNaoDoacao extends AbstractionTest{
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+
+  private CausaNaoDoacao causaNaoDoacao;
+
+  @Autowired
+  private CausaNaoDoacaoData causaNaoDoacaoData;
 
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8080";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    DataFactory df = new DataFactory();
+    df.randomize((int) System.currentTimeMillis());
+
+    causaNaoDoacao = causaNaoDoacaoData.criaCausaNaoDoacao(df);
   }
 
   @Test
@@ -26,14 +40,14 @@ public class CadastroCausaNaoDoacao {
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("abc123");
     driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("555.555.555-55");
+    driver.findElement(By.id("username")).sendKeys("333.333.333-33");
     driver.findElement(By.id("botaoLogin")).click();
     driver.findElement(By.cssSelector("i.icon-cog")).click();
     driver.findElement(By.cssSelector("#dashboard-menu > li > a > span")).click();
     driver.findElement(By.xpath("//button[@type='button']")).click();
     driver.findElement(By.id("nome")).clear();
-    driver.findElement(By.id("nome")).sendKeys("causa de nao doacao");
-    new Select(driver.findElement(By.id("tipoNaoDoacao"))).selectByVisibleText("PROBLEMAS_LOGISTICOS");
+    driver.findElement(By.id("nome")).sendKeys(causaNaoDoacao.getNome());
+    new Select(driver.findElement(By.id("tipoNaoDoacao"))).selectByVisibleText(causaNaoDoacao.getTipoNaoDoacao().name());
     driver.findElement(By.cssSelector("button.btn-flat.default")).click();
   }
 
