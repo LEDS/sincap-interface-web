@@ -23,6 +23,7 @@ public class CadastroAnalista extends AbstractionTest {
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
 
+
     private AnalistaCNCDO analista;
 
     @Autowired
@@ -38,6 +39,7 @@ public class CadastroAnalista extends AbstractionTest {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
         DataFactory df = new DataFactory();
+        df.randomize((int) System.currentTimeMillis());
 
         analista = analistaData.criaAnalistaCNDO(df);
 
