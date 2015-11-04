@@ -1,63 +1,80 @@
 package br.ifes.leds.sincap.web.test;
 
 import java.util.concurrent.TimeUnit;
+
+
+import br.ifes.leds.sincap.controleInterno.cln.cdp.Captador;
+import br.ifes.leds.sincap.gerenciaNotificacao.cln.util.dataFactory.CaptadorData;
+import org.fluttercode.datafactory.impl.DataFactory;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class CadastroCaptador {
+public class CadastroCaptador extends AbstractionTest{
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
+
+  private Captador captador;
+
+
+  @Autowired
+  private CaptadorData captadorData;
 
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8080";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+    DataFactory df = new DataFactory();
+    df.randomize((int) System.currentTimeMillis());
+
+    captador = captadorData.criaCaptador(df);
+
   }
 
   @Test
   public void testCadastroCaptador() throws Exception {
     driver.get(baseUrl + "/sincap/");
     driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys("555.555.555-55");
+    driver.findElement(By.id("username")).sendKeys("333.333.333-33");
     driver.findElement(By.id("password")).clear();
     driver.findElement(By.id("password")).sendKeys("abc123");
     driver.findElement(By.id("botaoLogin")).click();
     driver.findElement(By.cssSelector("li.settings.hidden-phone > a")).click();
     driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();
-    driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();
     driver.findElement(By.xpath("//ul[@id='tabs']/li[3]/a/h4")).click();
-    driver.findElement(By.xpath("//div[@id='captador-table_wrapper']/div/div/div[3]/a/i")).click();
+    driver.findElement(By.xpath("//div[@id='btnAdicionarOrigin-captador-table']/a/i")).click();
     driver.findElement(By.id("nome")).clear();
-    driver.findElement(By.id("nome")).sendKeys("cadastro captador4");
+    driver.findElement(By.id("nome")).sendKeys(captador.getNome());
     driver.findElement(By.id("senha")).clear();
     driver.findElement(By.id("senha")).sendKeys("abc123");
     driver.findElement(By.id("confirmar-senha")).clear();
     driver.findElement(By.id("confirmar-senha")).sendKeys("abc123");
     driver.findElement(By.id("cpf")).clear();
-    driver.findElement(By.id("cpf")).sendKeys("182.180.980-12");
+    driver.findElement(By.id("cpf")).sendKeys(captador.getCpf());
     driver.findElement(By.id("documentoSocial-documento")).clear();
-    driver.findElement(By.id("documentoSocial-documento")).sendKeys("3248728342039");
-    new Select(driver.findElement(By.id("documentoSocial-tipoDocumentoComFoto"))).selectByVisibleText("RG");
+    driver.findElement(By.id("documentoSocial-documento")).sendKeys(captador.getDocumentoSocial().getDocumento());
+    new Select(driver.findElement(By.id("documentoSocial-tipoDocumentoComFoto"))).selectByVisibleText(captador.getDocumentoSocial().getTipoDocumentoComFoto().name());
     driver.findElement(By.id("email")).clear();
-    driver.findElement(By.id("email")).sendKeys("cadastro@captador.com");
+    driver.findElement(By.id("email")).sendKeys(captador.getEmail());
     new Select(driver.findElement(By.id("endereco-estado-id"))).selectByVisibleText("Espírito Santo");
     new Select(driver.findElement(By.id("endereco-cidade-id"))).selectByVisibleText("Serra");
     new Select(driver.findElement(By.id("endereco-bairro-id"))).selectByVisibleText("Chácara Parreiral");
     driver.findElement(By.id("endereco-logradouro")).clear();
-    driver.findElement(By.id("endereco-logradouro")).sendKeys("rua");
+    driver.findElement(By.id("endereco-logradouro")).sendKeys(captador.getEndereco().getLogradouro());
     driver.findElement(By.id("endereco-numero")).clear();
-    driver.findElement(By.id("endereco-numero")).sendKeys("84");
+    driver.findElement(By.id("endereco-numero")).sendKeys(captador.getEndereco().getNumero());
     driver.findElement(By.id("endereco-complemento")).clear();
-    driver.findElement(By.id("endereco-complemento")).sendKeys("casa");
+    driver.findElement(By.id("endereco-complemento")).sendKeys(captador.getEndereco().getComplemento());
     driver.findElement(By.id("endereco-cep")).clear();
-    driver.findElement(By.id("endereco-cep")).sendKeys("32498-20");
-    driver.findElement(By.id("telefone-numero")).sendKeys("(27)2717-8186");
+    driver.findElement(By.id("endereco-cep")).sendKeys(captador.getEndereco().getCep());
+    driver.findElement(By.id("telefone-numero")).sendKeys(captador.getTelefone().getNumero());
     new Select(driver.findElement(By.id("bancoOlhos-id"))).selectByVisibleText("BANCO DE OLHOS 1");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
