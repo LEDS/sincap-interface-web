@@ -54,7 +54,13 @@ public class CadastroAnalista extends AbstractionTest {
 
         driver.findElement(By.cssSelector("li.settings.hidden-phone > a")).click();
         driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();
-        driver.findElement(By.xpath("//div[@id='analista-table_wrapper']/div/div/div[3]/a/i")).click();
+        driver.findElement(By.cssSelector("h4.aba-centralizada")).click();
+        driver.findElement(By.xpath("//div[@id='analista-table_wrapper']/div/div/div[3]/a")).click();
+
+
+//        driver.findElement(By.cssSelector("li.settings.hidden-phone > a")).click();
+//        driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();
+//        driver.findElement(By.xpath("//div[@id='analista-table_wrapper']/div/div/div[3]/a/i")).click();
 
 //        driver.findElement(By.cssSelector("i.icon-cog")).click();
 //        driver.findElement(By.xpath("//ul[@id='dashboard-menu']/li[2]/a/span")).click();

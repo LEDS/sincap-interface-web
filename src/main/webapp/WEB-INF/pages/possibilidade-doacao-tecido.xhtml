@@ -30,12 +30,15 @@
                 <h:inputText type = "date" id="dataInicial" name="dataInicial" value="#{dataInicial.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
                 </h:inputText>
+
                 <h:outputLabel value=" "/>
                 <h:outputLabel value=" "/>
+
                 <h:outputLabel for= "dataFinal" value="#{msg['text.ate']}:"/>
                 <h:inputText type = "date" id="dataFinal" name="dataFinal" value="#{dataFinal.time}">
                     <f:convertDateTime pattern="dd/MM/yyyy HH:mm" timeZone="#{timeZone}"/>
                 </h:inputText>
+
                 <button type="submit" class="btn-glow success btn-finish">
                     <i class="icon-search"></i>
                     #{msg['text.buscar']}
@@ -53,7 +56,6 @@
     </div>
 
 
-                    <!--Mudar name depois -->
 
     </ui:define>
 
